@@ -8,11 +8,13 @@
 \ProvidesPackage{gutthesis}
 
 \usepackage[utf8]{inputenc}
+
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[hidelinks]{hyperref}
+\usepackage[polish]{babel}
 
 \usepackage[left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{pdfpages}
@@ -41,7 +43,7 @@
 \setlist[1]{labelindent=\parindent, leftmargin=*}
 
 \usepackage[largestsep]{titlesec}
-\renewcommand{\chaptername}{}
+\addto\captionspolish{\renewcommand{\chaptername}{}}
 \renewcommand{\appendixname}{Appendix }
 \titleformat{\chapter}{\large\bfseries\uppercase}{\MakeUppercase{\chaptertitlename}\thechapter. }{0pt}{}
 \titleformat{\section}{\normalsize\bfseries\itshape}{\thesection. }{0pt}{}
@@ -98,4 +100,3 @@
 \captionsetup[figure]{font+=singlespacing, justification=centerlast, name=Rys.}
 
 \usepackage{tabularx}
-\usepackage[polish]{babel}
