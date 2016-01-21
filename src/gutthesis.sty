@@ -15,6 +15,7 @@
 \usepackage{amssymb}
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
+\selectlanguage{polish}
 
 \usepackage[left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{pdfpages}
@@ -22,7 +23,6 @@
 \usepackage{helvet}
 \renewcommand*\familydefault{\sfdefault}
 \usepackage[helvet]{sfmath}
-
 \usepackage{setspace}
 \onehalfspacing
 
@@ -45,7 +45,9 @@
 \usepackage[largestsep]{titlesec}
 \addto\captionspolish{\renewcommand{\chaptername}{}}
 \renewcommand{\appendixname}{Appendix }
-\titleformat{\chapter}{\large\bfseries\uppercase}{\MakeUppercase{\chaptertitlename}\thechapter. }{0pt}{}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\titleformat{\chapter}{\large\bfseries\uppercase}{\MakeUppercase{\chaptertitlename}\thechapter }{0pt}{}
 \titleformat{\section}{\normalsize\bfseries\itshape}{\thesection. }{0pt}{}
 \titleformat{\subsection}{\normalsize\itshape}{\thesubsection. }{0pt}{} 	
 \titlespacing{\chapter}{0pt}{-18pt}{6pt}
