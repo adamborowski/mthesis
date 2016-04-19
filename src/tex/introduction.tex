@@ -1,4 +1,5 @@
-\chapter{Wstęp}
+
+\chapter{Wstęp.disabled}
 
 Produktem pracy będzie biblioteka w języku JavaScript do wykorzystania w zaawansowanych aplikacjach webowych w przeglądarce internetowej.
 
@@ -68,7 +69,31 @@ Część tych problemów rozwiązałem w tamtym systemie, dlatego za zgodą i je
 
 %Blabla jak ważne są dane pomiarowe i efektywne ich użycie, potem że skoro chcę rozwiązać problemy, które nie wydają się być jeszcze dobrze rozwiązane, warto się podzielić ze światem, ale to nie jest takie oczywiste.
 
+\section{Słowa kluczowe}
+scalable data
+big data
+time series data
+loading, prefetching, caching
+rendering, optimizing
+render time, load time, latency
+user experience UX
+on-demand data loading, preloading
+dependency cache
+render cache
+2d drawing cache performance
+javascript performance tricks
+webkit performance
+wielkoskalowe dane pomiarowe
 \section{Cel pracy}
+
+1. Warstwa danych będąca pomiędzy warstwą interfejsu użytkownika a warstwą dostępu do danych AJAX, zarządzająca zasobami zewnętrznymi w celu zminimalizowania czasu reakcji na akcje użytkownika na podstawie predykcji oraz mechanizmów cache
+
+
+Description of the solution.
+It is an abstract layer between client data connector and GUI component on client side javascript application.
+
+Features:
+* manages 1D (time-based series) or 2D (maps, etc)
 
 \subsection{Cel biznesowy i Open Source}
 
@@ -88,16 +113,78 @@ Część tych problemów rozwiązałem w tamtym systemie, dlatego za zgodą i je
 \section{Motywacja}
 
 %Przyczyny podjęcia się tematu
+Jest dużo bibliotek, które szczycą się wydajną obsługą wielkich zbiorów danych, niestety żadna nie bierze pod uwagę doładowywania fragmentów danych on-demand, żadnej predykcji. Takie rozwiązania wymagają rekonfiguracji komponentu co prowadzi do utracenia kontekstu operacji użytkownika.
+Wszystkie rozwiązania dotyczą momentu, w którym mamy już dane, 
+my zajmiemy się mechanizmami efektywnego dostarzczania tych danych.
+
+Nie ma rozwiązania takiego z edycją danych poprzez integrację modułów
+
+
+
 
 \subsection{Rola responsywności systemu}
+example citations
+miller: \cite{Miller1968}
+jakob nielsen: \cite{jakob1993usability}
+html5 perf: \cite{html5-perf}
+dont let me think: \cite{dont-let-me-think}
+es6 standard: \cite{es6-standard}
+tim slatcher: \cite{conference}
+illusion of time conf: \cite{illusion-of-time}
+illusion of time article \cite{why-performance-matters-part1}
+illusion of time article \cite{why-performance-matters-part2}
+google speed: \cite{google-speed}
+interakcja człowiek komputer: \cite{interakcja}
+js best practises: \cite{js-best-practises}
+hauser12: \cite{Hauser12VisTutorial}
+keim 2006 challenges: \cite{keim2006challenges}
+thomas 2009 challenges: \cite{thomas2009challenges}
+geospatial: \cite{sample2010tile}
+forecache: \cite{forecache}
+visual latency: \cite{effect-interactive-latency}
+prefetching exploration: \cite{prefetching-visual-data-exploration}
 
-\cite{html5-perf}
-\cite{jakob1993usability}
-\cite{dont-let-me-think}
-
+markov: \cite{lee2002adaptation}
 \subsection{Monitoring środowiska}
 %implementacja wkleszczona w system CAS14, bardzo pod klienta, a warto takim czymś podzielić się ze światem, bo tego nie ma. implementacja korzysta z bibliotek dostępnych w tamtym systemie, a których licencja nie pozwala na otwarcie kodu źródłowego
 
+Wymagania - nieskończoność danych - z założenia nie ładujemy wszystkiego na raz,
+agregacje dopasowane do aktualnego zoomu, store uczy sie jakie ruchy robi uzytkownik i tak robi invalidację cache / prefetching
+
+
+
+\subsection{Charakterystyka eksploracji w wizualnej analizie danych}
+Nawiązać do:
+http://istc-bigdata.org/index.php/forecache-raising-the-bar-in-big-data-visual-exploration/
+
+
+In many discussions with scientists across a variety of specialties, we have found that interactive visualizations are important tools for helping people make sense of massive amounts of data. In particular, interactive visualizations are critical in the early stages of data analysis, when a scientist is browsing a new, unfamiliar dataset. In a research project, we studied how scientists explore dense multidimensional arrays, such as satellite imagery, so we could learn about technical barriers in their way.
+
+We have observed that scientists explore dense array data in a particular way. First, they browse the data using a coarse-grained aggregated view (i.e., a low-resolution view), searching for interesting regions to analyze in more detail. Once they find a region of interest (or ROI), they “zoom in” by retrieving a fine-grained view (i.e., high-resolution view) of this smaller region from the dataset. Using detail-on-demand interfaces in their exploration tools, scientists can thus apply panning and zooming interactions to explore large arrays.
+
+However, most interactive exploration tools are unable to scale up to massive datasets. Therefore, one major goal of this project, and in my thesis work, is to make visual exploration of large arrays interactive, where the user (e.g., a scientist) receives visual feedback from the system within acceptable response time guarantees (e.g., within 500ms or less). However, a critical challenge in this project is that database management systems are not designed for retrieving results at interactive speeds, making them too slow to provide the fast preliminary results needed by a scalable interactive exploration interface.
+
+
+
+\subsection{Analiza istniejących rozwiązań}
+
+pokazać metodykę sprawdzenie, jakie query, jakie 20 best frameworks, jakie popularne toole i w tabelce pokazac
+
+* http://leafletjs.com/ - tiles loading
+
+* http://www.createjs.com/preloadjs
+bibllioteka w ogóle podejmująca się tematyi preloadingu
+
+* http://www.zingchart.com/features/big-data-charts/
+
+ Render Interactive Big Data Charts
+ We think ZingChart is the best big data JavaScript charting library out there. But if you want to compare us to other libraries before making your choice, here’s your chance!
+
+Customizable Sampling
+When rendering large datasets, data sampling can improve render speeds. In fact, sometimes it's the only way to accurately draw the data in a confined space. ZingChart provides multiple options for data sampling including exact, default sampling, smart sampling, and custom sampling.
+
+* https://nexts.github.io/Clusterize.js/
+alternatywa do grida, znowu, nie ma wsparcia dla loading-on-demand
 \subsection{Stan wyjściowy}
 %arkusz danych w ExtJS, ściśle zależny od innych modułów aplikacji CAS14 firmy DAC System, co dokładnie robi kod i co kopiuje do magisterski, a czego nie, co dodatkowo będzie trzeba zrobić
 %jak wygląda inicjalnie repozytorium GitHuba

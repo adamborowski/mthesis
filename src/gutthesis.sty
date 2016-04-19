@@ -16,11 +16,14 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[polish]{babel}
 \selectlanguage{polish}
+\usepackage{polski}
 
 \usepackage[left=3.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{pdfpages}
 
-\usepackage{helvet}
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
 \renewcommand*\familydefault{\sfdefault}
 \usepackage[helvet]{sfmath}
 \usepackage{setspace}
@@ -41,13 +44,21 @@
 \setlist{nosep}
 \setlist[itemize,2]{label=$\circ$}
 \setlist[1]{labelindent=\parindent, leftmargin=*}
+%\setlist[description]{font=\normalfont\itshape\space}
 
 \usepackage[largestsep]{titlesec}
 \addto\captionspolish{\renewcommand{\chaptername}{}}
-\renewcommand{\appendixname}{Appendix }
+\renewcommand{\appendixname}{Załącznik }
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\titleformat{\chapter}{\large\bfseries\uppercase}{\MakeUppercase{\chaptertitlename}\thechapter }{0pt}{}
+
+\titleformat
+{\chapter} % command
+{\large\bfseries\uppercase} % format
+{\thechapter.} % label
+{4pt} % sep
+{} % before-code
+
 \titleformat{\section}{\normalsize\bfseries\itshape}{\thesection. }{0pt}{}
 \titleformat{\subsection}{\normalsize\itshape}{\thesubsection. }{0pt}{} 	
 \titlespacing{\chapter}{0pt}{-18pt}{6pt}
@@ -102,3 +113,4 @@
 \captionsetup[figure]{font+=singlespacing, justification=centerlast, name=Rys.}
 
 \usepackage{tabularx}
+\usepackage{tabu}
