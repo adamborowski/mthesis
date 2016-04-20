@@ -1,62 +1,44 @@
-\chapter{Wstęp}
+\chapter{Wst\k{e}p}
 
 \paragraph{Webowe interfejsy użytkownika}
 
-W ostatnich czasach rosnącą popularność zyskują rozwiązania webowe \cite{dziennik-internautow}, w których graficzny interfejs użytkownika zawarty jest w przeglądarce internetowej \cite{what-is-web-app}. Warto wspomnieć, że obecnie nowe technologie, takie jak HTML5, CSS3 i modularny JavaScript wypierają wymierające już rozwiązania, takie jak Flash, Silverlight czy aplety Java, które do tej pory były wykorzystywane główne jako narzędzia  służące do tworzenia zaawansowanych interfejsów użytkownika \cite{jobs2010thoughts}.
+W ostatnich czasach rosnącą popularność zyskują rozwiązania webowe \cite{dziennik-internautow}, w których graficzny interfejs użytkownika zawarty jest w przeglądarce internetowej \cite{what-is-web-app}.
+Warto wspomnieć, że obecnie nowe technologie, takie jak HTML5, CSS3 i modularny JavaScript wypierają wymierające już rozwiązania, takie jak Flash, Silverlight czy aplety Java, które do tej pory były wykorzystywane główne jako narzędzia służące do tworzenia zaawansowanych interfejsów użytkownika \cite{jobs2010thoughts}.
 
 \paragraph{Wielkoskalowe dane pomiarowe}
 
-W dobie wszechobecnego Internetu każde urządzenie podłączone do sieci stale produkuje znaczną ilość informacji. 
+W dobie wszechobecnego Internetu każde urządzenie podłączone do sieci stale produkuje znaczną ilość informacji.
 Jak podaje Åse Dragland w swoim artykule z 2013 roku \cite{dragland2013big},
 \begin{quote}
 	90\% wszystkich danych na świecie zostało wygenerowane przez ostatnie dwa lata.
 \end{quote}
 Autor zastanawia się nad możliwością analizy tych danych w celu osiągnięcia wymiernych korzyści ekonomicznych, społecznych czy naukowych.
-Mowa tutaj o zbieraniu znacznych rozmiarów danych, które są generowane przez stale obserwowane obiekty. Zbierane są informacje o zachowaniu internautów, dane sensorów środowiskowych, obrazy z kamer miejskich, aparatury medycznej, czy parametry pracy urządzeń.
+Mowa tutaj o zbieraniu znacznych rozmiarów danych, które są generowane przez stale obserwowane obiekty.
+Zbierane są informacje o zachowaniu internautów, dane sensorów środowiskowych, obrazy z kamer miejskich, aparatury medycznej, czy parametry pracy urządzeń.
 
 
-
-Wielkoskalowe dane pomiarowe (ang. \textit{Scientific Data}) są specyfycznym typem danych, ponieważ opisane są kombinacją zmiennych niezależnych (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku -- inaczej przeciwdziedziny) \cite{Hauser12VisTutorial}. W tabeli \ref{table:measurementDataExamples} pokazano przykłady takich danych.
-
-
+Wielkoskalowe dane pomiarowe (ang. \textit{Scientific Data}) są specyfycznym typem danych, ponieważ opisane są kombinacją zmiennych niezależnych (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku, stan pracy urządzenia -- inaczej przeciwdziedziny) \cite{Hauser12VisTutorial}.
+W tabeli \ref{table:measurementDataExamples} pokazano przykłady takich danych.
+Wielkość próbki zależeć może od liczby atrybutów i formacie ich przechowywania.
 
 \begin{table}[H]
-	\begin{tabu} { |X[1,m] X X[2,r] X[2,r] X[3,r] |}
+	\begin{tabu}{|X[c]X[c]X[r]|}
 		\hline
-			Dziedzina          
-			& Przykładowe zapytanie                                             
-			& Przykładowa wielkość próbki 
-			& Średnia częstotliwość emisji
-			& Dane do obsłużenia           
-		\\
-		\hline
-		Lotnictwo          
-		& okres 8 godzin 90 parametrów lotu              
-		& 8B                          
-		& 1Hz                          
-		& $90 \times 8 \times 1Hz \times 8B = 24.74MB$
-		\\
-		\hline
-		Medycyna           
-		& okres TODO jednego tygodnia 8 parametrów medycznych 
-		& 8B                          
-		& 20Hz                         
-		& $8 \times 7d \times 20Hz \times 8B = 774.1MB$
-		\\
-		\hline
-		Badania operacyjne
-		& wizualizacja stanu systemu kolejkowego w ciągu doby          
-		& 8B                          
-		& 10Hz                         
-		& ~                            
-		\\
-		\hline
-		Ochrona środowiska & wizualizacja okresu 5 lat 8 parametrów jakości powietrza     
-		& 200B                        
-		& 0.1Hz                        
-		& $8 \times 5y \times 0.1Hz \times 200B = 25GB$
-		\\
-		\hline
+		\textbf{Dziedzina}                   &                                                                                      \multicolumn{2}{r|} {\textbf{Przykładowe użycie danych}}   \\
+		\textbf{Przykładowa wielkość próbki} & \multicolumn{1}{r} {\textbf{Średnia częstotliwość emisji}}  & \multicolumn{1}{c|}{\textbf{Dane do przetworzenia}}                               \\ \hline
+		%--------------------------------    & ----------------------------------------------------------- & -------------------------------------------------------------------------------   \\
+		lotnictwo                            &                                                      \multicolumn{2}{r|}{szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu}   \\
+		8B                                   & 1Hz                                                         & $90 \times 8\mbox{h} \times 1\mbox{Hz} \times 8\mbox{B} = \textbf{24.74MB}$       \\ \hline
+		%--------------------------------    & ----------------------------------------------------------- & -------------------------------------------------------------------------------   \\
+		medycyna                             &                                                                \multicolumn{2}{r|}{badanie jednego tygodnia 8 parametrów medycznych pacjenta}   \\
+		8B                                   & 20Hz                                                        & $8 \times 7\mbox{d} \times 20\mbox{Hz} \times 8\mbox{B} = \textbf{774.1MB}$       \\ \hline
+		%--------------------------------    & ----------------------------------------------------------- & -------------------------------------------------------------------------------   \\
+		badania operacyjne                   &                                                                    \multicolumn{2}{r|}{obserwacja stanu systemu kolejkowego w ciągu tygodnia}   \\
+		64B                                  & 50Hz                                                        & $7\mbox{d} \times 50\mbox{Hz} \times 64\mbox{B} = \textbf{2GB}$                   \\ \hline
+		%--------------------------------    & ----------------------------------------------------------- & -------------------------------------------------------------------------------   \\
+		ochrona środowiska                   &                                                                             \multicolumn{2}{r|}{badanie 5 lat 8 parametrów jakości powietrza}   \\
+		200B                                 & 0.1Hz                                                       & $8 \times 5\mbox{y} \times 0.1\mbox{Hz} \times 200\mbox{B} = \textbf{25GB}$       \\ \hline
+		%--------------------------------    & ----------------------------------------------------------- & -------------------------------------------------------------------------------   \\
 	\end{tabu}
 	\caption{Przykłady danych pomiarowych}
 	\label{table:measurementDataExamples}
@@ -85,21 +67,6 @@ Ze względu na ograniczone możliwości ludzkiego mózgu...
 \paragraph{Kontekst pracy}
 
 \subparagraph{Inspiracje}
-
-Blablabla
-as
-asd
-as
-das
-asdasd
-as
-d
-as
-da
-
-
-
-asdas
 
 \subparagraph{Motywacja}
 
