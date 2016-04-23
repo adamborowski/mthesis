@@ -1,3 +1,5 @@
 export default class TOCGenerator {
-    s
+    constructor() {
+        
+    }
 }

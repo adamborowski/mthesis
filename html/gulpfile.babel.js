@@ -1,27 +1,36 @@
 "use strict";
-import gulp from 'gulp';
-import babel from 'gulp-babel';
-import less from 'gulp-less';
-import shell from 'gulp-shell';
+import gulp from "gulp";
+import less from "gulp-less";
+import shell from "gulp-shell";
+import babelify from "babelify";
+import browserify from "browserify";
+import source from "vinyl-source-stream";
+import buffer from "vinyl-buffer";
 
 
 gulp.task('-compile-js', () => {
-    return gulp.src('src/scripts/main.js')
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(gulp.dest('target'));
+
+    var bundler = browserify('./src/scripts/main.js').transform(babelify, {
+        presets: ['es2015']
+    });
+
+    return bundler.bundle()
+        .pipe(source('main.js'))
+        .pipe(buffer())
+        .pipe(gulp.dest('target'))
 });
 
 gulp.task('-compile-less', () => {
     return gulp.src('src/stylesheets/main.less')
-        .pipe(less({}))
+        .pipe(less({
+            relativeUrls: true
+        }))
         .pipe(gulp.dest('target'));
 });
 
 
 gulp.task('-prince',
-    shell.task('prince src/content/main.html -o target/Thesis.pdf --javascript --script=target/main.js -s target/main.css', {})
+    shell.task('prince src/content/main.html -o target/Thesis.pdf --javascript --script=node_modules/jquery/jquery.js  --script=target/main.js  -s target/main.css --fileroot=src/content/resources', {})
 );
 
 gulp.task('default', ['-compile-js', '-compile-less', '-prince'], ()=> {
