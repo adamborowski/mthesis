@@ -1,24 +1,31 @@
 <?xml version="1.0"?>
-<!--suppress CheckEmptyScriptTag -->
+<!--suppress CheckEmptyScriptTag, HtmlUnknownAttribute -->
 <html>
-@@include('./head.xml')
+@@include('head.xml')
 <body>
-<h1>Spis treści</h1>
+@@include('abstract.html')
+<h1 class="toc-ignore">Spis treści</h1>
 <div class="table-of" id="table-of-contents">
     @@include('toc.html')
 </div>
-@@include('chapters/introduction.html')
-@@include('chapters/analysis.html')
+@@include('terms.html')
+<div class="body">
+    @@include('chapters/introduction.html')
+    @@include('chapters/analysis.html')
+</div>
+<h1 class="toc-not-numbered">
+    Bibliografia
+</h1>
 @@include('bibliography.xml')
-<h1>Spis rysunków</h1>
+<h1 class="toc-not-numbered">Spis rysunków</h1>
 <div class="table-of" id="table-of-images">
     @@include('toc.html')
 </div>
-<h1>Spis tabel</h1>
+<h1 class="toc-not-numbered">Spis tabel</h1>
 <div class="table-of" id="table-of-tables">
     @@include('toc.html')
 </div>
-<h1>Spis listingów</h1>
+<h1 class="toc-not-numbered">Spis listingów</h1>
 <div class="table-of" id="table-of-codes">
     @@include('toc.html')
 </div>

@@ -2,10 +2,17 @@
 <table>
     {{#children}}
     <tr class="section-name">
+        {{#notNumbered}}
+        <td colspan="2" class="name">
+            <a href="#{{id}}">{{text}}</a>
+        </td>
+        {{/notNumbered}}
+        {{^notNumbered}}
         <td class="number">{{address}}</td>
         <td class="name">
             <a href="#{{id}}">{{text}}</a>
         </td>
+        {{/notNumbered}}
         <td class="page">
             <div href="#{{id}}"></div>
         </td>

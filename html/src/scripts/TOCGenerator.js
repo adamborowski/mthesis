@@ -3,7 +3,7 @@ export default class TOCGenerator {
         var data = {
             children: []
         };
-        var chapterHeaders = $('body h1');
+        var chapterHeaders = $('body h1:not(.toc-ignore)');
         chapterHeaders.each((i, elem)=> {
             this.processChapter($(elem), data.children, i + 1);
         });
@@ -25,10 +25,10 @@ export default class TOCGenerator {
     }
 
     makeId(element) {
-        // if (element.attr('id') == null) {
-        element.attr('id', "toc:" + this.makeAddress(element.attr('data-chapter'), element.attr('data-section'), element.attr('data-subsection')));
-        // }
-        element.after(`<span>[test: ${element.attr('id')}]</span>`);
+        if (element.attr('id') == null) {
+            element.attr('id', "toc:" + this.makeAddress(element.attr('data-chapter'), element.attr('data-section'), element.attr('data-subsection')));
+        }
+        // element.after(`<span>[test: ${element.attr('id')}]</span>`);
     }
 
     processChapter(header, children, chapter) {
@@ -38,7 +38,8 @@ export default class TOCGenerator {
             chapter, text: header.text(),
             id: header.attr('id'),
             address: this.makeAddress(chapter),
-            element: header, children: []
+            element: header, children: [],
+            notNumbered: header.hasClass('toc-not-numbered')
         };
         children.push(d_chapter);
 
