@@ -1,6 +1,10 @@
 // chapter reset counter
 
-figure.picture {
+.ref-to-picture {
+  content: target-counter(attr(href), chapter) '.' target-counter(attr(href), picture);
+}
+
+figure[type=picture] {
   display: table;
   page-break-inside: avoid;
   counter-increment: picture;

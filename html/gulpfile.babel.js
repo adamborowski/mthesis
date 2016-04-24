@@ -34,6 +34,7 @@ gulp.task('-prince',
     -o target/Thesis.pdf 
     --javascript 
     --script=node_modules/jquery/jquery.js  
+    --script=node_modules/mustache/mustache.min.js  
     --script=target/main.js  
     -s target/main.css 
     --fileroot=src/resources/

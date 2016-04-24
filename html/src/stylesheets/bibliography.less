@@ -1,10 +1,53 @@
 citations {
-  ul {
-    li {
-      list-style: none;
+  display: block;
+  list-style: decimal;
+  citation {
+    display: list-item;
+    padding-left: 3pt;
+    font-size: 9pt;
+    line-height: 10pt;
+
+    &:not([data-bib-order]) {
+      &, * {
+        color: #aaaaaa !important;
+      }
+    }
+    > * {
+      display: none; // hide all details
+    }
+    .format-citation;
+  }
+  citation + citation {
+    margin-top: 6pt;
+  }
+}
+
+.format-citation() {
+  author {
+    display: inline;
+    &:after {
+      content: ': ';
+    }
+
+  }
+  title {
+    display: inline;
+    font-style: italic;
+  }
+
+  publisher, journal, url {
+    &:before {
+      content: ', ';
+    }
+    display: inline;
+
+  }
+  date {
+    &:before {
+      content: ' (data dostępu ';
+    }
+    &:after {
+      content: ')';
     }
   }
-  display: inline-block;
-  background: #dedede url(/images/bg.jpg);
-
 }

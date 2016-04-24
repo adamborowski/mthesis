@@ -1,18 +1,21 @@
 // chapter reset counter
 
-figure.table {
+.ref-to-table {
+  content: target-counter(attr(href), chapter) '.' target-counter(attr(href), table);
+}
+
+figure[type=table] {
   counter-increment: table;
   page-break-inside: avoid;
   font-size: 9pt;
   margin-bottom: 12pt;
+  @ref: counter(chapter) '.' counter(table) '. ';
   figcaption {
     margin-top: 6pt;
     margin-bottom: 4pt;
     &::before {
       font-weight: bold;
-      string-set: figure counter(chapter) '.' counter(table) '. ';
-      content: 'Tabela ' string(figure);
-
+      content: 'Tabela ' @ref;
     }
   }
   table {

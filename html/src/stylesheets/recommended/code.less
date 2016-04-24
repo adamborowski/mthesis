@@ -1,7 +1,11 @@
 //@import "/../../node_modules/highlight.js/styles/vs.css";
 @import "/../../node_modules/highlight.js/styles/atelier-savanna-light.css";
 
-figure.code {
+.ref-to-code {
+  content: target-counter(attr(href), chapter) '.' target-counter(attr(href), code);
+}
+
+figure[type=code] {
   counter-increment: code;
   page-break-inside: avoid;
   font-size: 9pt;
@@ -13,7 +17,6 @@ figure.code {
       font-weight: bold;
       string-set: figure counter(chapter) '.' counter(code) '. ';
       content: 'Listing ' string(figure);
-
     }
   }
   code {

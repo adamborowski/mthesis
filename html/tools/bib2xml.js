@@ -13,7 +13,7 @@ process.stdin.on('end', () => {
 function processBib(plain) {
 
     var result = plain
-        .replace(/@(.*){(.*),/gm, '<citation type="$1" id="$2">') //citation headers
+        .replace(/@(.*){(.*),/gm, '<citation type="$1" id="bib:$2">') //citation headers
         .replace(/^}/gm, '</citation>') //enclosing tag
         .replace(/howpublished\s*=\s*{"\\url{(.*)}"}/gm, "url = {$1}") // howpublished into url
         .replace(/(\w*)\s*=\s*\{(.*)},?[^,]?$/gm, '<$1>$2</$1>') // attributes into tags

@@ -1,3 +1,41 @@
-.toc {
-  font-size: 12pt;
+#table-of-contents {
+  font-size: 10pt;
+  line-height: 1em;
+  table {
+    //width: 100%;
+    td {
+      border-collapse: collapse;
+    }
+    //border-collapse: collapse;
+    //td {
+    //  border: 1px solid #cccccc;
+    //}
+    td:last-child {
+      width: 100%;
+    }
+    .name {
+      span:after {
+        content: leader('.');
+      }
+      a {
+        border: none;
+      }
+      a:after {
+        float: right;
+        width: 5mm;
+        text-align: right;
+        content: target-counter(attr(href), page);
+      }
+    }
+    .section-name {
+      margin-left: 1cm;
+    }
+    .number {
+      padding-right: 3pt;
+    }
+    .section-name td {
+      line-height: 16pt;
+    }
+
+  }
 }
