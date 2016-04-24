@@ -1,0 +1,27 @@
+//@import "/../../node_modules/highlight.js/styles/vs.css";
+@import "/../../node_modules/highlight.js/styles/atelier-savanna-light.css";
+
+figure.code {
+  counter-increment: code;
+  page-break-inside: avoid;
+  font-size: 9pt;
+  margin-bottom: 12pt;
+  figcaption {
+    margin-top: 6pt;
+    margin-bottom: 4pt;
+    &::before {
+      font-weight: bold;
+      string-set: figure counter(chapter) '.' counter(code) '. ';
+      content: 'Listing ' string(figure);
+
+    }
+  }
+  code {
+    border: 1px solid #dedede;
+    border-radius: 3pt;
+    background: white;
+    font-size: 8pt;
+    line-height: 10pt;
+    margin: 10pt;
+  }
+}

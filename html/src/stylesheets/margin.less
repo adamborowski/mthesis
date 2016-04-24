@@ -1,0 +1,74 @@
+@page body:left {
+  @top-left {
+    content: "Rozdział " counter(chapter) ". " string(chapter);
+    vertical-align: bottom;
+    margin-bottom: 1mm;
+    font-size: 9pt;
+  }
+}
+
+@page body:right {
+  @top-right {
+    content: prince-script(book-right-caption, counter(chapter), counter(section), counter(subsection), string(chapter), string(section), string(subsection));
+    //content: counter(chapter) "." counter(section) " " string(section);
+    vertical-align: bottom;
+    margin-bottom: 1mm;
+    font-size: 9pt;
+  }
+}
+
+@page body {
+  border-top: thin black solid;
+}
+
+@page body:first {
+  @top-left {
+    content: normal;
+  }
+  @top-right {
+    content: normal;
+  }
+  border: none;
+}
+
+@page body:blank {
+  @top-left {
+    content: normal;
+  }
+  @top-right {
+    content: normal;
+  }
+  border: none;
+}
+
+div.body {
+  page: body;
+}
+
+h1 {
+  page-break-before: right;
+  prince-page-group: start; // every h1 will impact on :first selector
+  string-set: chapter content();
+  counter-increment: chapter;
+  counter-reset: section subsection table code picture;
+  &::before {
+    content: counter(chapter) ". ";
+  }
+}
+
+h2 {
+  string-set: section content();
+  counter-increment: section;
+  counter-reset: subsection;
+  &::before {
+    content: counter(chapter) "." counter(section) ". ";
+  }
+}
+
+h3 {
+  string-set: subsection content();
+  counter-increment: subsection;
+  &::before {
+    content: counter(chapter) "." counter(section) "." counter(subsection) ". "
+  }
+}

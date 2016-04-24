@@ -1,0 +1,8 @@
+<head>
+    <title>Praca dyplomowa magisterska</title>
+    <meta name="author" content="Adam Borowski"/>
+    <meta name="subject" content="Praca dyplomowa magisterska z Informatyki"/>
+    <meta name="keywords" data-expression="keywords"/>
+    <meta name="date" content="new Date().format('yyyy-dd-mm')"/>
+    <meta name="generator" content="PrinceXML + Gulp"/>
+</head>

@@ -1,0 +1,31 @@
+// chapter reset counter
+
+figure.table {
+  counter-increment: table;
+  page-break-inside: avoid;
+  font-size: 9pt;
+  margin-bottom: 12pt;
+  figcaption {
+    margin-top: 6pt;
+    margin-bottom: 4pt;
+    &::before {
+      font-weight: bold;
+      string-set: figure counter(chapter) '.' counter(table) '. ';
+      content: 'Tabela ' string(figure);
+
+    }
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    th {
+      font-weight: bold;
+    }
+    th, td {
+      border: 1pt solid #cccccc;
+      padding: 4pt;
+      text-align: left;
+    }
+  }
+}

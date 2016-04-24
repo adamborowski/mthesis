@@ -30,7 +30,15 @@ gulp.task('-compile-less', () => {
 
 
 gulp.task('-prince',
-    shell.task('prince src/content/main.html -o target/Thesis.pdf --javascript --script=node_modules/jquery/jquery.js  --script=target/main.js  -s target/main.css --fileroot=src/content/resources/', {})
+    shell.task(`prince src/content/main.html 
+    -o target/Thesis.pdf 
+    --javascript 
+    --script=node_modules/jquery/jquery.js  
+    --script=target/main.js  
+    -s target/main.css 
+    --fileroot=src/resources/
+    `.split('\n').join('')
+        , {})
 );
 
 gulp.task('default', ['-compile-js', '-compile-less', '-prince'], ()=> {
