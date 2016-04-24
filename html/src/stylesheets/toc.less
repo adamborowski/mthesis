@@ -1,41 +1,47 @@
-#table-of-contents {
+.table-of {
   font-size: 10pt;
   line-height: 1em;
   table {
-    //width: 100%;
+    width: 100%;
     td {
       border-collapse: collapse;
+      //border: 1px solid red;
     }
-    //border-collapse: collapse;
-    //td {
-    //  border: 1px solid #cccccc;
-    //}
-    td:last-child {
-      width: 100%;
-    }
-    .name {
-      span:after {
-        content: leader('.');
-      }
-      a {
-        border: none;
-      }
-      a:after {
-        float: right;
-        width: 5mm;
-        text-align: right;
-        content: target-counter(attr(href), page);
-      }
+    a {
+      border: none;
     }
     .section-name {
-      margin-left: 1cm;
-    }
-    .number {
-      padding-right: 3pt;
-    }
-    .section-name td {
       line-height: 16pt;
+      & > td {
+        &:first-child { // 3.2.1
+          max-width: 1px;
+        }
+        &:last-child { // chapter page
+          width: 1px;
+          max-width: 1px;
+        }
+      }
+      .number {
+        padding-right: 3pt;
+        vertical-align: top;
+      }
+      .name {
+        vertical-align: top;
+        &:after {
+          content: leader('.');
+          font-size: 6pt;
+          line-height: 6pt;
+          padding-left: 3pt;
+        }
+      }
+      .page {
+        vertical-align: bottom;
+        div {
+          text-align: right;
+          width: 13pt;
+          content: target-counter(attr(href), page);
+        }
+      }
     }
-
   }
 }

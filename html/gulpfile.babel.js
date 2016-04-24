@@ -6,6 +6,7 @@ import babelify from "babelify";
 import browserify from "browserify";
 import source from "vinyl-source-stream";
 import buffer from "vinyl-buffer";
+import fileinclude from "gulp-file-include";
 
 
 gulp.task('-compile-js', () => {
@@ -28,9 +29,18 @@ gulp.task('-compile-less', () => {
         .pipe(gulp.dest('target'));
 });
 
+gulp.task('compile-html', ()=> {
+    gulp.src(['src/content/main.html'])
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
+        .pipe(gulp.dest('target'))
+});
 
-gulp.task('-prince',
-    shell.task(`prince src/content/main.html 
+
+gulp.task('-prince', ['compile-html'],
+    shell.task(`prince target/main.html 
     -o target/Thesis.pdf 
     --javascript 
     --script=node_modules/jquery/jquery.js  

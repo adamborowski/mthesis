@@ -1,14 +1,15 @@
 import TOCGenerator from './TOCGenerator';
-import hljs from 'highlight.js/lib/index'
-new TOCGenerator();
+//TODO import in production
+// import hljs from 'highlight.js/lib/index'
 $(window).on('load', ()=> {
-    console.log('what??s');
+    new TOCGenerator();
     // $('h1').html('hacked piąteczek czwarcupksasd');
 
-    $('figure[type="code"] code').each((i, block)=> {
-        block.innerHTML = block.innerHTML.trim();
-        hljs.highlightBlock(block);
-    });
+    //TODO enable in production
+    // $('figure[type="code"] code').each((i, block)=> {
+    //     block.innerHTML = block.innerHTML.trim();
+    //     hljs.highlightBlock(block);
+    // });
 
     var refs = [];
     var bibs = [];
@@ -53,25 +54,12 @@ $(window).on('load', ()=> {
             a.attr('href', url.text());
             if (url.attr('access') != null) {
                 url.append(`<date>${url.attr('access')}</date>`);
-                console.log(url.attr('access'));
             }
         }
 
     });
 
 
-    // $('a').each((i, block)=> {
-    //     var $block = $(block);
-    //     var selector = `figure${$block.attr('href').replace(":", "\\:")}`; // find element of id pointed by #href
-    //     var figure = $(selector);
-    //     if (figure.length) {
-    //         var caption = figure.find('figcaption');
-    //         console.log("Hello ", window.getComputedStyle(caption[0], '::before').cssText);
-    //         // var name = window.getComputedStyle(document.querySelector(selector), "before").content;
-    //         // $block.html(name);
-    //         $block.text(figure.html());
-    //     }
-    // });
     $('figure').each((i, block)=> {
         var $block = $(block);
         var id = $block.attr('id');

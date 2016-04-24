@@ -1,52 +1,54 @@
-<div id="table-of-contents">
-    <table>
-        {{#children}}
-        <tr class="section-name">
-            <td class="number">{{chapter}}.</td>
-            <td class="name">
-                <a href="#{{id}}">
-                    {{text}}<span></span>
-                </a>
-            </td>
-        </tr>
-        {{#children.length}}
-        <tr>
-            <td></td>
-            <td>
-                <table>
-                    {{#children}}
-                    <tr class="section-name">
-                        <td class="number">{{chapter}}.{{section}}.</td>
-                        <td class="name">
-                            <a href="#{{id}}">
-                                {{text}}<span></span>
-                            </a>
-                        </td>
-                    </tr>
-                    {{#children.length}}
-                    <tr>
-                        <td></td>
-                        <td>
-                            <table>
-                                {{#children}}
-                                <tr class="section-name">
-                                    <td class="number">{{chapter}}.{{section}}.{{subsection}}.</td>
-                                    <td class="name">
-                                        <a href="#{{id}}">
-                                            {{text}}<span></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {{/children}}
-                            </table>
-                        </td>
-                    </tr>
-                    {{/children.length}}
-                    {{/children}}
-                </table>
-            </td>
-        </tr>
-        {{/children.length}}
-        {{/children}}
-    </table>
-</div>
+<!--suppress CheckEmptyScriptTag -->
+<table>
+    {{#children}}
+    <tr class="section-name">
+        <td class="number">{{address}}</td>
+        <td class="name">
+            <a href="#{{id}}">{{text}}</a>
+        </td>
+        <td class="page">
+            <div href="#{{id}}"></div>
+        </td>
+    </tr>
+    {{#children.length}}
+    <tr>
+        <td></td>
+        <td colspan="2">
+            <table>
+                {{#children}}
+                <tr class="section-name">
+                    <td class="number">{{address}}</td>
+                    <td class="name">
+                        <a href="#{{id}}">{{text}}</a>
+                    </td>
+                    <td class="page">
+                        <div href="#{{id}}"></div>
+                    </td>
+                </tr>
+                {{#children.length}}
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <table>
+                            {{#children}}
+                            <tr class="section-name">
+                                <td class="number">{{address}}</td>
+                                <td class="name">
+                                    <a href="#{{id}}">{{text}}</a>
+                                </td>
+                                <td class="page">
+                                    <div href="#{{id}}"></div>
+                                </td>
+                            </tr>
+                            {{/children}}
+                        </table>
+                    </td>
+                </tr>
+                {{/children.length}}
+                {{/children}}
+            </table>
+        </td>
+    </tr>
+    {{/children.length}}
+    {{/children}}
+</table>

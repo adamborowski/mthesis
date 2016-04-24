@@ -5,61 +5,83 @@ export default class TOCGenerator {
         };
         var chapterHeaders = $('body h1');
         chapterHeaders.each((i, elem)=> {
-            var chapterHeader = $(elem);
-            var chapter = i + 1;
-            chapterHeader.attr('data-chapter', chapter);
-            chapterHeader.attr('id', `toc:${chapter}`);
-            chapterHeader.after(`<span>[test: ${chapter}]</span>`);
-
-            var d_chapter = {
-                chapter, text: chapterHeader.text(),
-                id: chapterHeader.attr('id'),
-                element: chapterHeader, children: []
-            };
-            data.children.push(d_chapter);
-
-            var sectionHeaders = chapterHeader.nextUntil('h1', 'h2');
-            sectionHeaders.each((i, elem)=> {
-                var sectionHeader = $(elem);
-                var section = i + 1;
-                sectionHeader.attr('data-chapter', chapter);
-                sectionHeader.attr('data-section', section);
-                sectionHeader.attr('id', `toc:${chapter}.${section}`);
-                sectionHeader.after(`<span>[test: chapter ${chapter} section ${section}]</span>`);
-
-                var d_section = {
-                    section,
-                    text: sectionHeader.text(),
-                    id: sectionHeader.attr('id'),
-                    element: sectionHeader,
-                    children: []
-                };
-                d_chapter.children.push(d_section);
-
-                var subsectionHeaders = sectionHeader.nextUntil('h2', 'h3');
-                subsectionHeaders.each((i, elem)=> {
-                    var subsectionHeader = $(elem);
-                    var subsection = i + 1;
-                    subsectionHeader.attr('data-chapter', chapter);
-                    subsectionHeader.attr('data-section', section);
-                    subsectionHeader.attr('data-subsection', subsection);
-                    subsectionHeader.attr('id', `toc:${chapter}.${section}.${subsection}`);
-                    subsectionHeader.after(`<span>[test: chapter ${chapter} section ${section} subsection ${subsection}]</span>`);
-
-                    var d_subsection = {
-                        subsection,
-                        text: subsectionHeader.text(),
-                        id: subsectionHeader.attr('id'),
-                        element: subsectionHeader
-                    };
-                    d_section.children.push(d_subsection);
-
-                });
-            });
+            this.processChapter($(elem), data.children, i + 1);
         });
 
         var tocElement = $('#table-of-contents');
         var output = Mustache.render(tocElement.html(), data);
         tocElement.html(output);
+    }
+
+    makeAddress(chapter, section = null, subsection = null) {
+        var a = chapter + ".";
+        if (section != null) {
+            a += section + ".";
+        }
+        if (subsection != null) {
+            a += subsection + ".";
+        }
+        return a;
+    }
+
+    makeId(element) {
+        // if (element.attr('id') == null) {
+        element.attr('id', "toc:" + this.makeAddress(element.attr('data-chapter'), element.attr('data-section'), element.attr('data-subsection')));
+        // }
+        element.after(`<span>[test: ${element.attr('id')}]</span>`);
+    }
+
+    processChapter(header, children, chapter) {
+        header.attr('data-chapter', chapter);
+        this.makeId(header);
+        var d_chapter = {
+            chapter, text: header.text(),
+            id: header.attr('id'),
+            address: this.makeAddress(chapter),
+            element: header, children: []
+        };
+        children.push(d_chapter);
+
+        var sectionHeaders = header.nextUntil('h1', 'h2');
+        sectionHeaders.each((i, elem)=> {
+            this.processSection($(elem), d_chapter.children, chapter, i + 1);
+        });
+    }
+
+    processSection(header, children, chapter, section) {
+        header.attr('data-chapter', chapter);
+        header.attr('data-section', section);
+        this.makeId(header);
+
+        var d_section = {
+            section,
+            text: header.text(),
+            id: header.attr('id'),
+            address: this.makeAddress(chapter, section),
+            element: header,
+            children: []
+        };
+        children.push(d_section);
+
+        var subsectionHeaders = header.nextUntil('h2', 'h3');
+        subsectionHeaders.each((i, elem)=> {
+            this.processSubsection($(elem), d_section.children, chapter, section, i + 1);
+        });
+    }
+
+    processSubsection(header, children, chapter, section, subsection) {
+        header.attr('data-chapter', chapter);
+        header.attr('data-section', section);
+        header.attr('data-subsection', subsection);
+        this.makeId(header);
+
+        var d_subsection = {
+            subsection,
+            text: header.text(),
+            id: header.attr('id'),
+            address: this.makeAddress(chapter, section, subsection),
+            element: header
+        };
+        children.push(d_subsection);
     }
 }
