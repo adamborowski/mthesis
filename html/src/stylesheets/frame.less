@@ -1,0 +1,42 @@
+@inner-margin: 6mm;
+@outer-margin: 6mm;
+@dev: false;
+.mix() when (@dev) {
+  border: 1px solid #494949;
+}
+
+
+.card:first-child {
+  right: 50%;
+}
+
+.card:last-child {
+  left: 50%;
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  & > page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    .mix();
+    &:first-child {
+      bottom: 50%;
+      padding-right: @inner-margin;
+      padding-left: @outer-margin;
+    }
+    &:last-child {
+      top: 50%;
+      padding-left: @inner-margin;
+      padding-right: @outer-margin;
+    }
+  }
+
+}

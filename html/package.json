@@ -17,14 +17,16 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
+    "gulp-file-include": "^0.13.7",
     "gulp-less": "^3.0.5",
     "gulp-shell": "^0.5.2",
     "gulp-watch": "^4.3.5",
     "highlight.js": "^9.3.0",
     "jquery": "1.9.1",
     "mustache": "^2.2.1",
+    "pdf-merge": "0.0.4",
+    "spindrift": "0.0.6",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "gulp-file-include": "^0.13.7"
+    "vinyl-source-stream": "^1.1.0"
   }
 }

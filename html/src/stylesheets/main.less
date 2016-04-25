@@ -1,15 +1,16 @@
-@import "toc";
-@import "bibliography";
-@import "margin";
-@import "recommended";
 
-a {
-  text-decoration: none;
-  color: black;
-  border-bottom: 1px dotted #cccccc;
-  padding-bottom: 1pt;
-  &.show-page:after {
-    content: '(str. ' target-counter(attr(href), page) ')';
-    margin-left: 2pt;
-  }
+@page {
+  size: A4 landscape;
+  margin: 5mm;
 }
+
+
+
+section {
+  page-break-after: always;
+}
+
+
+@import "frame";
+@import "markers";
+@import "content";

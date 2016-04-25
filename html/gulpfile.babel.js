@@ -7,7 +7,8 @@ import browserify from "browserify";
 import source from "vinyl-source-stream";
 import buffer from "vinyl-buffer";
 import fileinclude from "gulp-file-include";
-
+import spindrift from "spindrift";
+import fs from "fs";
 
 gulp.task('-compile-js', () => {
 
@@ -51,6 +52,14 @@ gulp.task('-prince', ['compile-html'],
     `.split('\n').join('')
         , {})
 );
+
+gulp.task('merge', ()=> {
+    var pdfA = spindrift('src/resources/TitlePage.pdf');
+    var pdfB = spindrift('src/resources/Statement.pdf');
+    var pdfC = spindrift('target/Thesis.pdf');
+    spindrift.join(pdfA, pdfB, pdfC).deflate().pdfStream().pipe(fs.createWriteStream('target/merged.pdf'));
+
+});
 
 gulp.task('default', ['-compile-js', '-compile-less', '-prince'], ()=> {
 

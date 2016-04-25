@@ -1,0 +1,55 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,latin-ext);
+
+body {
+  font-family: "Roboto Condensed";
+  font-size: 12pt;
+}
+
+.title-page {
+
+  background: url(/images/bg5.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -75pt center;
+  @height: 15mm;
+
+  .stripe {
+    position: absolute;
+    background: fade(#ffffff, 30%);
+    margin-top: -@height/2;
+    bottom: 9mm;
+    height: @height;
+    left: 0;
+    right: 0;
+  }
+
+  .stripe > * {
+    text-align: right;
+    margin: 0mm 0mm;
+    color: fade(#000000, 65%);
+    //font-weight: normal;
+    padding-left: 4mm;
+    padding-right: 4mm;
+    line-height: @height;
+    vertical-align: bottom!important;
+  }
+
+  .stripe {
+    h1 {
+      text-align: left;
+      float: left;
+      text-transform: uppercase;
+      font-size: 22pt;
+      top: 7pt;
+    }
+    h2 {
+      float: right;
+      text-transform: uppercase;
+      font-size: 13pt;
+      top: 7pt;
+      text-align: right;
+
+      //letter-spacing:1.14pt;
+    }
+  }
+}
