@@ -5,19 +5,21 @@ body {
   font-size: 12pt;
 }
 
+@padding: 12mm;
+
 .title-page {
 
-  background: url(/images/bg5.jpg);
+  background: url(/images/bg3.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: -75pt center;
-  @height: 15mm;
+  background-position: center center;
+  @height: 25mm;
 
   .stripe {
     position: absolute;
-    background: fade(#ffffff, 40%);
+    background: fade(#ffffff, 100%);
     margin-top: -@height/2;
-    bottom: 9mm;
+    top: 50%;
     height: @height;
     left: 0;
     right: 0;
@@ -26,33 +28,39 @@ body {
   .stripe > * {
     text-align: right;
     margin: 0mm 0mm;
-    color: fade(#000000, 100%);
-    //font-weight: normal;
-    padding-left: 6mm;
-    padding-right: 6mm;
+    color: fade(#244c5c, 100%);
+    padding-left: 6.5mm;
+    padding-right: 6.5mm;
     line-height: @height;
     vertical-align: bottom!important;
   }
 
   .stripe {
     h1 {
-      text-align: left;
-      float: left;
+      text-align: right;
       text-transform: uppercase;
-      font-size: 22pt;
+      font-size: 20pt;
       top: 7pt;
     }
     h2 {
-      float: right;
-      text-transform: uppercase;
-      font-size: 13pt;
-      top: 7pt;
       text-align: right;
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-transform: uppercase;
+      font-size: 11pt;
+      top: 54pt;
 
       //letter-spacing:1.14pt;
     }
   }
 }
+
+keep {
+  white-space: nowrap;
+}
+
+
 
 .main-page {
   padding-top: 33.5mm;
@@ -68,22 +76,29 @@ body {
   }
   .tresc {
     text-align: justify;
-    font-size: 13pt;
-    line-height: 1.5em;
+    font-size: 11.63pt;
+    line-height: 1.6em;
   }
   .katarzyna {
     text-align: left;
     color: #86552b;
     font-weight: bold;
     padding: 10mm 0;
-    font-size: 1.2em;
+    font-size: 1em;
   }
   time, date {
     font-weight: bold;
     color: #86552b;
   }
-  keep {
-    white-space: nowrap;
+
+}
+
+.additional-page {
+  .content {
+    position: absolute;
+    left: @padding;
+    right: @padding;
+    bottom: 28.3mm;
   }
   .udzial, .osoby, .przy-fortepianie {
     color: #444444;
@@ -91,7 +106,7 @@ body {
   .osoby {
     list-style: none;
     margin-left: 0mm;
-    font-size: 0.8em;
+    font-size: 0.88em;
     li {
       line-height: 1.5em;
     }
@@ -115,5 +130,4 @@ body {
 
     font-weight: bold;
   }
-
 }
