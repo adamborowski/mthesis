@@ -15,7 +15,7 @@ body {
 
   .stripe {
     position: absolute;
-    background: fade(#ffffff, 30%);
+    background: fade(#ffffff, 40%);
     margin-top: -@height/2;
     bottom: 9mm;
     height: @height;
@@ -26,10 +26,10 @@ body {
   .stripe > * {
     text-align: right;
     margin: 0mm 0mm;
-    color: fade(#000000, 65%);
+    color: fade(#000000, 100%);
     //font-weight: normal;
-    padding-left: 4mm;
-    padding-right: 4mm;
+    padding-left: 6mm;
+    padding-right: 6mm;
     line-height: @height;
     vertical-align: bottom!important;
   }
@@ -52,4 +52,68 @@ body {
       //letter-spacing:1.14pt;
     }
   }
+}
+
+.main-page {
+  padding-top: 33.5mm;
+  .zapraszam {
+    text-align: center;
+    font-size: 1.2em;
+  }
+  .recital {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.34em;
+    font-weight: bold;
+  }
+  .tresc {
+    text-align: justify;
+    font-size: 13pt;
+    line-height: 1.5em;
+  }
+  .katarzyna {
+    text-align: left;
+    color: #86552b;
+    font-weight: bold;
+    padding: 10mm 0;
+    font-size: 1.2em;
+  }
+  time, date {
+    font-weight: bold;
+    color: #86552b;
+  }
+  keep {
+    white-space: nowrap;
+  }
+  .udzial, .osoby, .przy-fortepianie {
+    color: #444444;
+  }
+  .osoby {
+    list-style: none;
+    margin-left: 0mm;
+    font-size: 0.8em;
+    li {
+      line-height: 1.5em;
+    }
+    glos {
+      //float: right;
+      //padding-right: 40mm;
+      &:before {
+        content: '- ';
+      }
+    }
+    osoba {
+      //padding-left: 7mm;
+    }
+  }
+  .przy-fortepianie {
+    font-size: 0.8em;
+  }
+  .udzial {
+  }
+  osoba {
+
+    font-weight: bold;
+  }
+
 }

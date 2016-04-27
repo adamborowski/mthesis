@@ -5,12 +5,11 @@
   border: 1px solid #494949;
 }
 
-
-.card:first-child {
+.card:first-of-type {
   right: 50%;
 }
 
-.card:last-child {
+.card:last-of-type {
   left: 50%;
 }
 
@@ -27,16 +26,22 @@
     bottom: 0;
     right: 0;
     .mix();
-    &:first-child {
+    &:first-of-type {
       bottom: 50%;
       padding-right: @inner-margin;
       padding-left: @outer-margin;
     }
-    &:last-child {
+    &:last-of-type {
       top: 50%;
       padding-left: @inner-margin;
       padding-right: @outer-margin;
     }
   }
-
 }
+
+//
+//section:first-of-type .card {
+//  & > page:first-of-type {
+//    transform: rotate(180deg);
+//  }
+//}

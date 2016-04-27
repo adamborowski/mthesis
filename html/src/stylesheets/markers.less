@@ -1,44 +1,49 @@
-
-.card > page marker {
-  @size: 3mm;
-  display: block;
-  position: absolute;
-  width: @size - 1px;
-  height: @size - 1px;
-  @b: 1px solid #898989;
-  z-index: 2200;
-
-  &:nth-of-type(1), &:nth-of-type(4) {
-    left: -@size;
-    border-right: @b;
-  }
-  &:nth-of-type(1), &:nth-of-type(2) {
-    top: -@size;
-    border-bottom: @b;
-  }
-  &:nth-of-type(2), &:nth-of-type(3) {
-    right: -@size;
-    border-left: @b;
-  }
-
-  &:nth-of-type(3), &:nth-of-type(4) {
-    bottom: -@size;
-    border-top: @b;
-  }
+@page {
+  margin:-1mm;
+  marks: crop cross;
+  prince-bleed: -1mm;
+  prince-trim: 6mm;
 }
 
-.card:first-child > page:first-child marker:nth-of-type(3) {
-  display: none;
-}
-
-.card:first-child > page:last-child marker:nth-of-type(2) {
-  display: none;
-}
-
-.card:last-child > page:last-child marker:nth-of-type(1) {
-  display: none;
-}
-
-.card:last-child > page:first-child marker:nth-of-type(4) {
-  display: none;
-}
+//marker {
+//  @size: 3mm;
+//  display: block;
+//  position: absolute;
+//  width: @size + 1px;
+//  height: @size + 1px;
+//  @b: 1px solid #898989;
+//  z-index: -1;
+//
+//
+//  &:nth-of-type(1), &:nth-of-type(4) {
+//    left: -@size;
+//    border-right: @b;
+//  }
+//  &:nth-of-type(1), &:nth-of-type(2) {
+//    top: -@size;
+//    border-bottom: @b;
+//  }
+//  &:nth-of-type(2), &:nth-of-type(3) {
+//    right: -@size;
+//    border-left: @b;
+//  }
+//
+//  &:nth-of-type(3), &:nth-of-type(4) {
+//    bottom: -@size;
+//    border-top: @b;
+//  }
+//  &:nth-of-type(5) {
+//    left: 50%;
+//    top: -@size - 1px;
+//    border-left: @b;
+//  }
+//  &:nth-of-type(6) {
+//    left: 50%;
+//    bottom: -@size - 1px;
+//    border-left: @b;
+//  }
+//}
+//
+//section:last-of-type marker {
+//  display: none;
+//}

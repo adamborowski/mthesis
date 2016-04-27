@@ -5,8 +5,4 @@ $(window).on('load', ()=> {
         e.clone().appendTo(e.parent());
     });
 
-    $('.card > page').append('<marker/>');
-    $('.card > page').append('<marker/>');
-    $('.card > page').append('<marker/>');
-    $('.card > page').append('<marker/>');
 });
