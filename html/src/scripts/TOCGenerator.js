@@ -10,7 +10,7 @@ export default class TOCGenerator {
         });
 
         var tocElement = $('#table-of-contents');
-        var output = Mustache.render(tocElement.html(), data);
+        var output = Mustache.render($('#template-toc-figure').text(), data);
         tocElement.html(output);
     }
 

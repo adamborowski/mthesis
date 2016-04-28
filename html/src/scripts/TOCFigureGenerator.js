@@ -13,7 +13,7 @@ export default class TOCFigureGenerator {
             });
 
         });
-        var output = Mustache.render($targetElement.html(), {
+        var output = Mustache.render($('#template-toc-figure').text(), {
             children: items,
             type: type
         });

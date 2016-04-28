@@ -5,4 +5,10 @@
     <meta name="keywords" data-expression="keywords"/>
     <meta name="date" content="new Date().format('yyyy-dd-mm')"/>
     <meta name="generator" content="PrinceXML + Gulp"/>
+    <script type="text/mustache" id="template-toc">
+        @@include('toc.html')
+    </script>
+    <script type="text/mustache" id="template-toc-figure">
+        @@include('toc-figure.html')
+    </script>
 </head>
