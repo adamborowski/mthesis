@@ -1,3 +1,4 @@
+
 export default class TOCGenerator {
     constructor() {
         var data = {

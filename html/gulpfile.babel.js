@@ -21,6 +21,18 @@ gulp.task('-compile-js', () => {
         .pipe(gulp.dest('target'))
 });
 
+gulp.task('compile-vendor-js', () => {
+
+    var bundler = browserify('./src/vendor.js').transform(babelify, {
+        presets: ['es2015']
+    });
+
+    return bundler.bundle()
+        .pipe(source('vendor.js'))
+        .pipe(buffer())
+        .pipe(gulp.dest('target'))
+});
+
 gulp.task('-compile-less', () => {
     return gulp.src('src/stylesheets/main.less')
         .pipe(less({
@@ -43,8 +55,7 @@ gulp.task('-prince', ['compile-html'],
     shell.task(`prince target/main.html 
     -o target/Thesis.pdf 
     --javascript 
-    --script=node_modules/jquery/jquery.js  
-    --script=node_modules/mustache/mustache.min.js  
+    --script=target/vendor.js  
     --script=target/main.js  
     -s target/main.css 
     --fileroot=src/resources/
@@ -59,6 +70,7 @@ gulp.task('default', ['-compile-js', '-compile-less', '-prince'], ()=> {
 
 gulp.task('watch', ['default'], ()=> {
     gulp.watch('src/scripts/**/*.js', ['-compile-js']);
+    gulp.watch('src/vendor.js', ['compile-vendor-js', 'default']);
     gulp.watch('src/stylesheets/**/*.less', ['-compile-less']);
     gulp.watch('src/content/**', ['-prince']);
     gulp.watch(['target/main.js', 'target/main.css'], ['-prince']);
