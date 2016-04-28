@@ -1,133 +1,233 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,latin-ext);
+//@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,latin-ext);
 
 body {
   font-family: "Roboto Condensed";
   font-size: 12pt;
 }
 
-@padding: 12mm;
-
-.title-page {
-
-  background: url(/images/bg3.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  @height: 25mm;
-
-  .stripe {
-    position: absolute;
-    background: fade(#ffffff, 100%);
-    margin-top: -@height/2;
-    top: 50%;
-    height: @height;
-    left: 0;
-    right: 0;
-  }
-
-  .stripe > * {
-    text-align: right;
-    margin: 0mm 0mm;
-    color: fade(#244c5c, 100%);
-    padding-left: 6.5mm;
-    padding-right: 6.5mm;
-    line-height: @height;
-    vertical-align: bottom!important;
-  }
-
-  .stripe {
-    h1 {
-      text-align: right;
-      text-transform: uppercase;
-      font-size: 20pt;
-      top: 7pt;
-    }
-    h2 {
-      text-align: right;
-      position: absolute;
-      left: 0;
-      right: 0;
-      text-transform: uppercase;
-      font-size: 11pt;
-      top: 54pt;
-
-      //letter-spacing:1.14pt;
-    }
-  }
-}
-
 keep {
   white-space: nowrap;
 }
 
-
-
-.main-page {
-  padding-top: 33.5mm;
-  .zapraszam {
-    text-align: center;
-    font-size: 1.2em;
-  }
-  .recital {
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 1.34em;
-    font-weight: bold;
-  }
-  .tresc {
-    text-align: justify;
-    font-size: 11.63pt;
-    line-height: 1.6em;
-  }
-  .katarzyna {
-    text-align: left;
-    color: #86552b;
-    font-weight: bold;
-    padding: 10mm 0;
-    font-size: 1em;
-  }
-  time, date {
-    font-weight: bold;
-    color: #86552b;
-  }
-
+section:last-of-type .card {
+  background: url(/images/bg5.jpg);
+  background-size: cover;
+  background-repeat: repeat-x;
+  //background-position: -6cm center;
+  background-position: -60mm center;
 }
 
-.additional-page {
-  .content {
+
+
+.title-page {
+
+  @height: 95mm;
+  @image-padding: 30mm;
+
+  .stripe {
+    background: url(/images/bg5.jpg);
+    background-size: 400%;
+    background-repeat: repeat-x;
+    //background-position: -6cm center;
+    background-position: 43% 1%;
     position: absolute;
-    left: @padding;
-    right: @padding;
-    bottom: 28.3mm;
+    //margin-top: -@height/2;
+    top: 0;
+    height: @height;
+    left: @image-padding;
+    right: @image-padding;
   }
-  .udzial, .osoby, .przy-fortepianie {
-    color: #444444;
-  }
-  .osoby {
-    list-style: none;
-    margin-left: 0mm;
-    font-size: 0.88em;
-    li {
-      line-height: 1.5em;
+
+  .text {
+    display: block;
+    margin-top: 100mm;
+    margin-left: @image-padding;
+    margin-right: @image-padding;
+    padding: 0;
+    > * {
+      text-align: center;
+      margin: 0 0;
+      color: #000000;
+      padding: 0;
+      font-weight: normal;
     }
-    glos {
-      //float: right;
-      //padding-right: 40mm;
-      &:before {
-        content: '- ';
+
+    h1 {
+      padding-top: 5mm;
+      text-align: justify;
+      text-align-last: justify;
+      font-size: 2.3em;
+      line-height: 1.2em;
+      font-weight: bold;
+    }
+    h2 {
+      margin-top: 20mm;
+      font-size: 1.62em;
+    }
+    h3 {
+      padding: 11mm 0;
+      font-size: 1.2em;
+    }
+    .date-place {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 10mm;
+      font-size: 1.23em;
+    }
+  }
+}
+
+.white-color() {
+  color: #ffffff;
+}
+
+.black-color() {
+  color: #000000;
+}
+
+.program-page {
+  p {
+    font-size: 13pt;
+    padding-left: 10mm;
+  }
+
+  .borowska-forkiewicz-staszewska {
+    .white-color;
+
+    .katarzyna-borowska {
+      font-size: 2.3em;
+    }
+    .bogny-forkiewicz {
+      display: block;
+      font-size: 1.42em;
+    }
+  }
+  .wystapia-rowniez {
+    width: 229pt;
+    display: inline-block;
+    margin-bottom: 37mm;
+    //background: fade(#ffffff, 30%);
+    background-image: url(/images/poly1.svg);
+    background-size: cover;
+
+    .black-color;
+    p {
+      padding-top: 4mm;
+      padding-bottom: 2mm;
+      margin: 0;
+      font-size: 1em;
+    }
+    ul {
+      margin-left: 10mm;
+      padding: 0 0 0;
+      display: block;
+      margin-top: 2mm;
+      list-style: none;
+      font-size: 13pt;
+      li {
+        line-height: 1.1em;
+        osoba {
+          font-weight: bold;
+        }
+        instr {
+          font-size: 0.8em;
+          &:before {
+            content: ' - ';
+          }
+        }
       }
     }
-    osoba {
-      //padding-left: 7mm;
-    }
   }
-  .przy-fortepianie {
-    font-size: 0.8em;
-  }
-  .udzial {
-  }
-  osoba {
 
-    font-weight: bold;
+  ul.program-list {
+    list-style: none;
+    display: table;
+    .white-color;
+    margin: 0;
+
+    li {
+      font-size: 12pt;
+      display: table-row;
+      counter-increment: program;
+      font-weight: normal;
+      text-align: justify;
+
+      & > * {
+        margin: 6pt 0;
+      }
+
+      author {
+        display: inline;
+      }
+
+      date {
+        display: inline;
+        font-weight: lighter;
+        &:before {
+          content: '(';
+        }
+        &:after {
+          content: ')';
+        }
+      }
+
+      title {
+        display: inline;
+        font-style: italic;
+        &.complex {
+          font-style: normal;
+          font-weight: lighter;
+          i {
+            font-style: italic;
+            font-weight: bolder;
+          }
+        }
+        &:before {
+          content: '— ';
+        }
+      }
+    }
+    li:before {
+      display: table-cell;
+      font-weight: lighter;
+      padding-right: 3mm;
+      text-align: right;
+      content: counter(program) '.';
+    }
+
+  }
+  h1 {
+    text-align: center;
+    .white-color;
+    font-size: 1.3em;
+  }
+  @margin: 10mm;
+  .part-1, .part-2, .part-3 {
+    position: absolute;
+    padding: @margin;
+  }
+
+  .part-1 {
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .part-2 {
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+
+  .part-3 {
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }
+
+body {
+  counter-reset: program;
+}
+

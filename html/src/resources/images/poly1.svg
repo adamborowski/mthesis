@@ -1,0 +1,16 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+    <g>
+        <path
+                d="
+        M0,0
+        L 100,0
+        T 93,13
+        T 87,34
+        T 92,57
+        L 0 100
+        z
+        " opacity="0.5"
+              fill="#fff"/>
+    </g>
+</svg>

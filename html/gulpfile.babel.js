@@ -68,7 +68,7 @@ gulp.task('default', ['-compile-js', '-compile-less', '-prince'], ()=> {
 
 gulp.task('watch', ['default'], ()=> {
     gulp.watch('src/scripts/**/*.js', ['-compile-js']);
-    gulp.watch('src/stylesheets/**/*.less', ['-compile-less']);
+    gulp.watch(['src/stylesheets/**/*.less', 'src/resources/**/*.svg'], ['-compile-less']);
     gulp.watch('src/content/**', ['-prince']);
     gulp.watch(['target/main.js', 'target/main.css'], ['-prince']);
 });
