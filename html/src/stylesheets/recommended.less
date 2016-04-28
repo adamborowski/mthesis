@@ -33,6 +33,18 @@ body {
   p {
     text-indent: 1.25cm;
   }
+
+  ul[data-header] {
+    &:before {
+      content: attr(data-header);
+      font-weight: normal;
+      margin-left: 0;
+    }
+    & + * {
+      page-break-before: avoid;
+    }
+  }
+
   h1 {
     font-size: 12pt;
     text-transform: uppercase;
@@ -50,6 +62,16 @@ body {
     font-style: italic;
     font-weight: normal;
     .header-margins;
+  }
+
+  h1 + * {
+    page-break-before: avoid;
+  }
+  h2 + * {
+    page-break-before: avoid;
+  }
+  h3 + * {
+    page-break-before: avoid;
   }
 
 }
