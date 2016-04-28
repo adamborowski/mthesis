@@ -4,13 +4,19 @@ export default class TOCGenerator {
         var data = {
             children: []
         };
+        var counter = 0;
         var chapterHeaders = $('body h1:not(.toc-ignore)');
         chapterHeaders.each((i, elem)=> {
-            this.processChapter($(elem), data.children, i + 1);
+            var e = $(elem);
+            var numbered = !e.hasClass('toc-not-numbered');
+            if (numbered) {
+                counter++;
+            }
+            this.processChapter(e, data.children, numbered ? counter : "not-numbered-" + i);
         });
 
         var tocElement = $('#table-of-contents');
-        var output = Mustache.render($('#template-toc-figure').text(), data);
+        var output = Mustache.render($('#template-toc').text(), data);
         tocElement.html(output);
     }
 
