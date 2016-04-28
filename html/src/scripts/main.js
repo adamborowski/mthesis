@@ -1,4 +1,5 @@
 import TOCGenerator from './TOCGenerator';
+import TOCFigureGenerator from './TOCFigureGenerator';
 import CodeHighlighter from './CodeHighlighter';
 import BibMaker from './BibMaker';
 import FigureReference from './FigureReference';
@@ -14,5 +15,11 @@ $(window).on('load', ()=> {
     new BibMaker();
     t.next("Figure refence");
     new FigureReference();
+    t.next("Table of images");
+    new TOCFigureGenerator($('#table-of-pictures'), 'picture');
+    t.next("Table of tables");
+    new TOCFigureGenerator($('#table-of-tables'), 'table');
+    t.next("Table of codes");
+    new TOCFigureGenerator($('#table-of-codes'), 'code');
     t.finish();
 });
