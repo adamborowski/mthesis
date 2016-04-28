@@ -72,6 +72,36 @@ gulp.task('watch', ['default'], ()=> {
     gulp.watch('src/scripts/**/*.js', ['-compile-js']);
     gulp.watch('src/vendor.js', ['compile-vendor-js', 'default']);
     gulp.watch('src/stylesheets/**/*.less', ['-compile-less']);
-    gulp.watch('src/content/**', ['-prince']);
-    gulp.watch(['target/main.js', 'target/main.css'], ['-prince']);
+    gulp.watch(['src/content/**', 'src/resources/**'], ['-prince']);
+    gulp.watch(['target/main.js', 'target/main.css', 'target/cache/**'], ['-prince']);
+});
+
+gulp.task('cache', ()=> {
+    var fs = require('fs'),
+        xml2js = require('xml2js');
+    var wget = require('wget');
+    var parser = new xml2js.Parser();
+    var rmdir = require('rmdir');
+    rmdir(__dirname + "/target/cache", ()=> {
+        fs.mkdirSync(__dirname + "/target/cache");
+        fs.readFile(__dirname + '/src/cache.xml', function (err, data) {
+            parser.parseString(data, function (err, result) {
+                var tasks = [];
+                for (let item of result.cache.item) {
+                    console.log(`wget -O target/cache/${item.$.id} ${item._.trim()}`);
+                    tasks.push(new Promise((resolve, reject)=> {
+                        var downloader = wget.download(item._.trim(), `target/cache/${item.$.id}`);
+                        downloader.on('end', resolve);
+                        downloader.on('error', reject);
+                    }));
+                }
+                Promise.all(tasks).then(()=> {
+                    console.info('Successfully cached images');
+                }, (error)=> {
+                    console.error("error with caching resources: " + error);
+                })
+            });
+        });
+    });
+
 });

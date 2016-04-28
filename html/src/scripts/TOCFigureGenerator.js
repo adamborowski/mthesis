@@ -1,7 +1,6 @@
 export default class TOCFigureGenerator {
     constructor($targetElement, type) {
         var myFigures = $(`figure[type="${type}"]`);
-        console.log(myFigures.length);
         var items = [];
         myFigures.each((i, block)=> {
             var e = $(block);

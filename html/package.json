@@ -26,5 +26,11 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "gulp-file-include": "^0.13.7"
+  },
+  "dependencies": {
+    "promised-exec": "^1.0.1",
+    "rmdir": "^1.2.0",
+    "wget": "0.0.1",
+    "xml2js": "^0.4.16"
   }
 }
