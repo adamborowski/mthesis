@@ -18,3 +18,18 @@ a {
     }
   }
 }
+
+[trans] {
+  font-style: italic;
+  word-break-inside: avoid;
+  &:before {
+    font-style: normal;
+    content: ' (' attr(trans) '.';
+    padding-right: 2pt;
+  }
+  &:after {
+    padding-left: 1pt;
+    font-style: normal;
+    content: ')';
+  }
+}

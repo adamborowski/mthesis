@@ -10,6 +10,12 @@
     <figcaption>Architektura</figcaption>
     <img src="cache/client-architecture.png">
 </figure>
+
+<h2>Serwer danych</h2>
+<p>
+    Serwer danych powinien być minimalnie zależny od proponowanego rozwiązania, gdyż jest to część "wymienna" systemu.
+    Zatem jego zadaniem będzie tylko zwracanie danych określonych prostym formatem zapytania.
+</p>
 <h2>Komponent użytkownika</h2>
 <p>
     Jest to dowolny moduł programowy, którego celem jest wyświetlanie danych pomiarowych.
@@ -60,31 +66,47 @@
 </ol>
 <figure type="code" id="code:example-data-source-adapter">
     <figcaption>Poglądowa implementacja adaptera DataSource</figcaption>
-    <pre><code class="javascript">
-class ExampleChartsAdapter extends DataSourceAdapter {
-    onTileAvailable (tile) {
-        this.chart.getSerie(this.serieId).removeDataForRange(tile.range.start, tile.range.end); // 1.
-        this.chart.getSerie(this.serieId).addData( // 2.
-            tile.points.map((p) => {
-                return { x: new Date(p.time), y: p.value, color: this.colors[p.attr.status] } // 3.
+    <code class="javascript">
+        class ExampleChartsAdapter extends DataSourceAdapter {
+            onTileAvailable (tile) {
+                this.chart.getSerie(this.serieId).removeDataForRange(tile.range.start, tile.range.end); // 1.
+                this.chart.getSerie(this.serieId).addData( // 2.
+                    tile.points.map((p) => {
+                        return { x: new Date(p.time), y: p.value, color: this.colors[p.attr.status] } // 3.
+                    }
+                );
             }
-        );
-    }
 
-    onRedraw () {
-        this.chart.redraw();
-    }
+            onRedraw () {
+                this.chart.redraw();
+            }
 
-    init () {
-        this.chart.on('move', () => this.updateUserState({ // 4.
-            'viewport.center.x': this.chart.center.x,
-            'viewport.center.y': this.chart.center.y
-        }));
-        this.chart.on('resize', () => this.updateUserState({
-            'viewport.width': this.chart.size.width,
-            'viewport.height': this.chart.size.height
-        }));
-    }
-}
-</code></pre>
+            init () {
+                this.chart.on('move', () => this.updateUserState({ // 4.
+                    'viewport.center.x': this.chart.center.x,
+                    'viewport.center.y': this.chart.center.y
+                }));
+                this.chart.on('resize', () => this.updateUserState({
+                    'viewport.width': this.chart.size.width,
+                    'viewport.height': this.chart.size.height
+                }));
+            }
+        }
+</code>
 </figure>
+
+TODO:
+<p>
+    projektować od najprostrzej strony, czyli formacie zapytania i odpowiedzi klient-serwer
+    zaimplementować protokół klient serwer
+    zaimplementować serwer, dane mogą być w pamięci, whatever (można tez zrobic import z wios???)
+    rozpisać SerieCache na CacheLayer, CacheProjection (kompiluje warstwy) - opisać "przejścia stanów", tj że jeżeli na
+    zoom=4 pojawia się kafel danych, to CacheProjection zobaczy to poprzez usunięcie fragmentu tile o zoom=3 i dodanie
+    danych dla zoom = 4. Może coś takiego jak event listeners for time range, wtedy jeden CacheProjection nasłuchuje na
+    "stożek" eventów.
+    Nasłuchuje eventy na kazdej warstwie, ale tylko na wybranym obszarze. Wtedy listenery są przechowywane w jakimś
+    sorted tree, aby łatwiej odnajdywać które listenery odpalić. może jakiś BST albo coś...
+
+    CacheProjection powinno dotyczyć jednego DataSource (dobór levelu w zależności od zooma - nie za szczegółowe mimo ze
+    beda dostepne)
+</p>
