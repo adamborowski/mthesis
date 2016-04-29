@@ -7,9 +7,10 @@ export default class BibMaker {
         $(`a[href^="#bib:"]`).each((i, block)=> {
             var $block = $(block);
             var href = $block.attr('href').replace(":", "\\:");
+            var chapter = $block.attr('chapter');
             var $bib = $(`citation${href}`);
             refs.push({
-                ref: $block, bib: $bib
+                ref: $block, bib: $bib, chapter: chapter
             });
             if ($bib.attr('data-bib-order') == null) {
                 bibCounter++;
@@ -19,7 +20,14 @@ export default class BibMaker {
         });
 
         refs.forEach((ref)=> {
-            ref.ref.text(`[${ref.bib.attr('data-bib-order')}]`);
+            var bibOrder = ref.bib.attr('data-bib-order');
+            var chapter = ref.chapter;
+            if (chapter == null) {
+                ref.ref.text(`[${bibOrder}]`);
+            }
+            else {
+                ref.ref.text(`[${bibOrder}; ${chapter}]`);
+            }
         });
 
         $('citations citation').sort(function (a, b) {
