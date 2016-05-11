@@ -38,9 +38,8 @@ section:last-of-type .card {
 
   .stripe {
     background: url(/images/bg5.jpg);
-    background-size: 200%;
-    background-repeat: repeat-x;
-    background-position: -6cm center;
+    background-size: 300%;
+    background-position: -125mm -5mm;
     position: absolute;
     //margin-top: -@height/2;
     top: 0;
@@ -48,14 +47,30 @@ section:last-of-type .card {
     left: @image-padding;
     right: @image-padding;
   }
+  .stripe-clip {
+    z-index: 300;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(/images/poly-cover.svg);
+    background-size: cover;
+    background-position: top left;
+
+  }
 
   .text {
     display: block;
-    margin-top: 100mm;
-    margin-left: @image-padding;
-    margin-right: @image-padding;
+    z-index: 30000;
+    position: absolute;
     padding: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     > * {
+      position: absolute;
       text-align: center;
       margin: 0 0;
       color: #000000;
@@ -64,27 +79,48 @@ section:last-of-type .card {
     }
 
     h1 {
-      padding-top: 5mm;
+
+      width: 160pt;
+      right: 50%;
+      left: 50%;
+      margin-left: -80pt;
+      top: 355pt;
+      
       text-align: justify;
-      text-align-last: justify;
-      font-size: 2.3em;
+      font-size: 1.52em;
       line-height: 1.2em;
-      font-weight: bold;
     }
     h2 {
-      margin-top: 20mm;
-      font-size: 1.62em;
+      font-size: 19pt;
+      top: 440pt;
+      right: 10mm;
+      left: 10mm;
+      text-align: center;
+
     }
     h3 {
-      padding: 11mm 0;
-      font-size: 1.2em;
+      top: 489pt;
+      right: 10mm;
+      left: 10mm;
+      text-align: center;
+      span {
+        //display: block;
+        &:first-of-type {
+
+        }
+        &:nth-of-type(2) {
+        }
+        &:last-of-type {
+        }
+      }
+      font-size: 20pt;
     }
     .date-place {
       position: absolute;
       left: 0;
       right: 0;
       bottom: 10mm;
-      font-size: 1.23em;
+      font-size: 15pt;
     }
   }
 }
