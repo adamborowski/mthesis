@@ -215,7 +215,7 @@ section:last-of-type .card {
 
     li {
       font-size: 12pt;
-      line-height: 1.3em;
+      line-height: 1.2em;
       display: table-row;
       counter-increment: program;
       font-weight: normal;
@@ -227,8 +227,10 @@ section:last-of-type .card {
       &.additional-space {
         &:after {
           display: block;
+          //border-top: 1px solid #999999;
+          width:1cm;
           content: ' ';
-          margin-bottom: 1em !important;
+          margin: 1em 0 !important;
         }
       }
 
@@ -259,6 +261,8 @@ section:last-of-type .card {
           }
         }
         &:before {
+          font-style: normal;;
+          font-weight: lighter;
           content: '— ';
         }
       }
@@ -276,6 +280,7 @@ section:last-of-type .card {
     text-align: left;
     .black-color;
     font-size: 1.5em;
+    padding-bottom:1mm;
     &.a-program {
       //font-size: 1.7em;
     }
