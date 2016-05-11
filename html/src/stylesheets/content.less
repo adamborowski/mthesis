@@ -20,8 +20,8 @@ section:last-of-type .card {
     background-image: url(/images/poly2.svg);
     background-size: 100%;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: -1pt;
+    right: -1pt;
     top: 0;
     bottom: 0;
     display: block;
@@ -37,9 +37,9 @@ section:last-of-type .card {
   @image-padding: 00mm;
 
   .stripe {
-    background: url(/images/bg5.jpg);
-    background-size: 300%;
-    background-position: -125mm -5mm;
+    background: url(/images/bg5-flip.jpg);
+    background-size: 330%;
+    background-position: -230mm 0mm;
     position: absolute;
     //margin-top: -@height/2;
     top: 0;
@@ -52,8 +52,8 @@ section:last-of-type .card {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: -1pt;
+    right: -1pt;
     background: url(/images/poly-cover.svg);
     background-size: cover;
     background-position: top left;
@@ -79,27 +79,26 @@ section:last-of-type .card {
     }
 
     h1 {
-
-      width: 160pt;
+      @w:200pt;
+      width: @w;
       right: 50%;
       left: 50%;
-      margin-left: -80pt;
-      top: 355pt;
+      margin-left: -@w/2pt;
+      top: 335pt;
       
       text-align: justify;
-      font-size: 1.52em;
+      font-size: 1.92em;
       line-height: 1.2em;
     }
     h2 {
-      font-size: 19pt;
-      top: 440pt;
+      font-size: 15.4pt;
+      top: 448pt;
       right: 10mm;
       left: 10mm;
       text-align: center;
-
     }
     h3 {
-      top: 489pt;
+      top: 495pt;
       right: 10mm;
       left: 10mm;
       text-align: center;
@@ -113,7 +112,7 @@ section:last-of-type .card {
         &:last-of-type {
         }
       }
-      font-size: 20pt;
+      font-size: 25.45pt;
     }
     .date-place {
       position: absolute;

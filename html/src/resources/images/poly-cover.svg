@@ -4,10 +4,10 @@
 
 
 
-        <path transform="translate(0,5)"
+        <path transform="translate(0,-3)"
                 d="
-        M 0 60
-        Q 36 40 72 60
+        M 0 59
+        Q 36 40 72 59
         L 100,100
         L 0 100
         z
