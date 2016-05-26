@@ -135,3 +135,80 @@
     </code>
 </figure>
 
+<h2>Pośrednik aplikacji klienta</h2>
+TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
+<ul>
+    <li>powiadomienie, że gdzieś coś się zmieniło, wtedy użytkownik albo sam robi diffa, albo resetuje komponent
+        wykresów. to może powodować bad UX, migotanie, itd
+    </li>
+    <li>powiadomienie o dokładnych zmianach. instrukcja co krok po kroku należy zmienić, aby przejść ze stanu obecnego
+        do wyjsciowego. minimalizacja liczby kroków.
+        Jaki fragment danych z wykresu usunąć ( z jakiej warstwy).
+        Jaki fragment danych z wykresu poszerzyć (z jakiej warstwy).
+        Jaki fragment do danych z wykresu dodać (z jakiej warstwy).
+        Common pattern byłby taki, że albo każda seria to inna warstwa, albo jedna seria ma punkty ze wszystkich warstw.
+    </li>
+</ul>
+<figure type="code">
+    <code class="javascript">
+        class ExampleZingAdapter extends ClientProxyAdapter{
+            processChange(diff) {
+                // diff.added, diff.removed, diff.resized --> {layer:[Number], start, end}
+                for(var removedRange of diff.removed){
+                    this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
+                }
+                for(var addedRange of diff.added){
+                    this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
+                }
+            }
+        }
+    </code>
+</figure>
+<h3>Mechanizm cache</h3>
+<p>TODO struktura danych, operacje na zbiorach przedziałów
+
+    ┌────────────────────────────────────────────────┐
+    ├ F ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
+    │ 1 2 3 4 5 6 │
+    ├ T │
+    │ │
+    ├ B │
+    │ │
+    ├ R ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ │
+    │ 0 7 │
+    └────────────────────────────────────────────────┘
+    ┌────────────────────────────────────────────────┐
+    ├ F ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
+    │ 1 2 3 4 5 6 │
+    ├ T ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
+    │ 0 1 2 3 4 5 6 7 │
+    ├ B │
+    │ │
+    ├ R ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
+    │ 0 1 2 3 4 5 6 7 │
+    └────────────────────────────────────────────────┘
+</p>
+<figure type="code" id="code:demo1">
+    <pre>
+        ┌────────────────────────────────────────────────┐
+        ├ F       ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓        │
+        │         1     2     3     4     5     6        │
+        ├ T                                              │
+        │                                                │
+        ├ B                                              │
+        │                                                │
+        ├ R ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
+        │   0                                         7  │
+        └────────────────────────────────────────────────┘
+        ┌────────────────────────────────────────────────┐
+        ├ F       ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓        │
+        │         1     2     3     4     5     6        │
+        ├ T ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓  │
+        │   0     1     2     3     4     5     6     7  │
+        ├ B                                              │
+        │                                                │
+        ├ R ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓  │
+        │   0     1     2     3     4     5     6     7  │
+        └────────────────────────────────────────────────┘
+    </pre>
+</figure>
