@@ -52,12 +52,11 @@ medycznej, czy parametry pracy urządzeń.
     (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku, stan pracy
     urządzenia -- inaczej przeciwdziedziny) <a href="#bib:dziennik-internautow"></a>.
     <!-- TODO span ref table should insert a reference -->
-    W tabeli <span ref="table">measurementDataExamples</span>
-    pokazano przykłady takich danych.
+    W tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady takich danych.
     Wielkość próbki zależeć może od liczby atrybutów i formatu ich przechowywania.
 </p>
 
-<figure type="table">
+<figure type="table" id="table:measurementDataExamples">
     <figcaption>Przykłady danych pomiarowych</figcaption>
     <table>
         <thead>
@@ -75,7 +74,28 @@ medycznej, czy parametry pracy urządzeń.
             <td>szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu</td>
             <td>8B</td>
             <td>1Hz</td>
-            <td>90 x 8h x 1Hz x 8B = 24.74MB</td>
+            <td>90 &times; 8h &times; 1Hz &times; 8B = 24.74MB</td>
+        </tr>
+        <tr>
+            <td>medycyna</td>
+            <td>wizualizacja okresu jednego tygodnia 8 parametrów medycznych</td>
+            <td>8B</td>
+            <td>20Hz</td>
+            <td>8 &times; 7d &times; 20Hz &times; 8B = 774.1MB</td>
+        </tr>
+        <tr>
+            <td>badania operacyjne</td>
+            <td>obserwacja stanu systemu kolejkowego w ciągu tygodnia</td>
+            <td>64B</td>
+            <td>50Hz</td>
+            <td>7d &times; 50Hz &times; 64B = 2GB</td>
+        </tr>
+        <tr>
+            <td>monitoring środowiska</td>
+            <td>wizualizacja okresu 5 lat 8 parametrów jakości powietrza</td>
+            <td>200B</td>
+            <td>0.1Hz</td>
+            <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
         </tr>
         </tbody>
     </table>
