@@ -239,6 +239,13 @@
         <volume>22</volume>
         <year>2013</year>
     </citation>
+    <citation type="inproceedings" id="bib:wisdom">
+        <title>Dimensional Situation Analytics: From Data to Wisdom</title>
+        <author>H. Ming and C. K. Chang and J. Yang</author>
+        <year>2015</year>
+        <volume>1</volume>
+        <pages>50-59</pages>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->

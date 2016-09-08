@@ -1,11 +1,94 @@
 <h1>Wstęp</h1>
 
+<p>
+    Dane od wieków służyły człowiekowi jako podstawowe źródło cennych informacji potrzebnych mu do zrozumienia
+    otaczającego go świata, praw nim rządzących, w końcu pozyskania wynikającej z analizy wiedzy, którą, jeśli mądrze
+    wykorzystał, wpływał na życie swoje i swojego otoczenia <a href="#bib:wisdom"></a>.
+
+    Człowiek zaczął mierzyć różne zjawiska na długo przedtem zanim pojawiły się komputery mogące znacznie mu to ułatwić.
+    Można tutaj w
+    <!--TODO przykłady jak to mierzyli pozycje słońca, planet, odkryli monsuny, dużo ważniejszych zjawisk jest znanych bo ktoś zbierał dane w czasie i je zanalizował-->
+
+</p>
+
+<h2>Wielkoskalowe dane pomiarowe</h2>
+<p>
+    Wielkoskalowe dane pomiarowe
+    <trans lang="ang">Scientific Data</trans>
+    opisane są kombinacją zmiennych niezależnych
+    (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku, stan pracy
+    urządzenia -- inaczej przeciwdziedziny) <a href="#bib:dziennik-internautow"></a>.
+
+</p>
+<p>
+    W dobie powszechności Internetu i jego szerokiego zastosowania każde urządzenie podłączone do sieci stale produkuje
+    znaczną ilość informacji.
+    Jak podaje Åse Dragland w swoim artykule z 2013 roku <a href="#bib:dragland2013big"></a>,
+</p>
+<blockquote>
+    90% wszystkich danych na świecie zostało wygenerowane przez ostatnie dwa lata.
+</blockquote>
+<p>
+    Autor zastanawia się nad możliwością analizy tych danych w celu osiągnięcia wymiernych korzyści ekonomicznych,
+    społecznych czy naukowych.
+    Mowa tutaj o zbieraniu znacznych rozmiarów danych, które są generowane przez stale obserwowane obiekty.
+    Zbierane są informacje o zachowaniu internautów, dane sensorów środowiskowych, obrazy z kamer miejskich, aparatury
+    medycznej, czy parametry pracy urządzeń.
+</p>
+
+<p> W tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady i użycia danych pomiarowych.
+    Wielkość próbki zależeć może od liczby atrybutów i formatu ich przesyłania.</p>
+<figure type="table" id="table:measurementDataExamples">
+    <figcaption>Przykłady danych pomiarowych</figcaption>
+    <table>
+        <thead>
+        <tr>
+            <th>Dziedzina</th>
+            <th>Przykładowe użycie danych</th>
+            <th>Przykładowa wielkość próbki</th>
+            <th>Średnia częstotliwość emisji</th>
+            <th>Dane do przetworzenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>lotnictwo</td>
+            <td>szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu</td>
+            <td>8B</td>
+            <td>1Hz</td>
+            <td>90 &times; 8h &times; 1Hz &times; 8B = 24.74MB</td>
+        </tr>
+        <tr>
+            <td>badania operacyjne</td>
+            <td>obserwacja stanu systemu kolejkowego w ciągu tygodnia</td>
+            <td>64B</td>
+            <td>50Hz</td>
+            <td>7d &times; 50Hz &times; 64B = 2GB</td>
+        </tr>
+        <tr>
+            <td>medycyna</td>
+            <td>wizualizacja okresu jednego tygodnia 8 parametrów medycznych</td>
+            <td>8B</td>
+            <td>200Hz</td>
+            <td>8 &times; 7d &times; 200Hz &times; 8B = 7.21 GB</td>
+        </tr>
+        <tr>
+            <td>monitoring środowiska</td>
+            <td>wizualizacja okresu 5 lat 8 parametrów jakości powietrza</td>
+            <td>200B</td>
+            <td>0.1Hz</td>
+            <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
+        </tr>
+        </tbody>
+    </table>
+</figure>
+
 <h2>Pytania pomocnicze</h2>
 <ul>
+    <li question="zwiazekZZyciem">jak ma się ta dziedzina do życia dziennego</li>
     <li question="dziedzina">Jakiej dziedziny dotyczy praca <span>big data</span>
         <span>interaktywna wizualizacja </span> <span>frontend</span>
     </li>
-    <li question="zwiazekZZyciem">jak ma się ta dziedzina do życia dziennego</li>
     <li question="przedmiotBadan">Co jest badane w pracy magisterskiej, nie wydajne komponenty do rysowania wykresów,
         nie wydajne serwery big data, ale zarządzanie komunikacją klient serwer
         wydajność pracy z danymi
@@ -51,12 +134,14 @@
         dziala - jakie problemy rozwiaze poszczegolny ficzer (silnik predykcji, cache, projection, dynamicProjection)
 
 
-        transparentność rozwiązania - minimalizacja wrażeń użytkownika związanych z odległością danych które użytkownik przegląda
+        transparentność rozwiązania - minimalizacja wrażeń użytkownika związanych z odległością danych które użytkownik
+        przegląda
         tutaj mentionować perception of time - mishunov
         slajd 25 prezentacja 1
         slajd 7 prezentacja 2
         uzasadnienie - podac benefity - polepsza wydajnosc pracy uzytkownikow i robi im dobrze
-        wycinek danych - eksploracja w IVA Ze wzgle ̨du na ograniczone moz ̇liwos ́ci ludzkiego mózgu. - nie potrzeba lepszych rozwiązań
+        wycinek danych - eksploracja w IVA Ze wzgle ̨du na ograniczone moz ̇liwos ́ci ludzkiego mózgu. - nie potrzeba
+        lepszych rozwiązań
     </li>
     <li question="tools">Narzędzia i środowiska użyte do realizacji pracy</li>
     <li question="ocena">Metoda ocena przyjętego rozwiązania - nacisk na wydajność i UX, antkiety, perf testy
@@ -77,9 +162,18 @@
 </p>
 <h2>Cel pracy</h2>
 <p>
-    Celem pracy jest identyfikacja problemów związanych z ogółem wrażeń użytkownika interfejsu aplikacji webowej. W szczególności praca ta dotyczy eksploracji wielkoskalowych danych pomiarowych za pomocą interaktywnego komponentu użytkownika prezentujacego serie czasowe w formie wykresu liniowego. W pracy zostaną przedstawione główne wyzwania związane z pozyskiwaniem wielkoskalowych danych pomiarowych i ich dynamicznej prezentacji. Zostanie dokonana analiza istniejących, popularnych webowych komponentów wykresowych pod kątem efektywnej, intuicyjnej i sprawnej nawigacji po seriach czasowych, co jest czynnikiem wpływającym na ogół wrażeń i satysfakcji użytkownika (ang. User Experience) korzystającego z interfejsów webowych.
-    W ramach pracy zostanie zaproponowane i wykonane rozwiązanie, które efektywnie zarządza komunikacją aplikacji z serwerem danych i dynamicznie aktualizuje komponenty wykresowe.
-    W proponowanym rozwiązaniu zostanie wykonana próba zaadoptowania rozwiązań architektonicznych stosowanych w systemach informacji przestrzennej oraz mechanizmów predykcji ładowania zasobów znanych z systemów pamięci podręcznej.
+    Celem pracy jest identyfikacja problemów związanych z ogółem wrażeń użytkownika interfejsu aplikacji webowej. W
+    szczególności praca ta dotyczy eksploracji wielkoskalowych danych pomiarowych za pomocą interaktywnego komponentu
+    użytkownika prezentujacego serie czasowe w formie wykresu liniowego. W pracy zostaną przedstawione główne wyzwania
+    związane z pozyskiwaniem wielkoskalowych danych pomiarowych i ich dynamicznej prezentacji. Zostanie dokonana analiza
+    istniejących, popularnych webowych komponentów wykresowych pod kątem efektywnej, intuicyjnej i sprawnej nawigacji po
+    seriach czasowych, co jest czynnikiem wpływającym na ogół wrażeń i satysfakcji użytkownika (ang. User Experience)
+    korzystającego z interfejsów webowych.
+    W ramach pracy zostanie zaproponowane i wykonane rozwiązanie, które efektywnie zarządza komunikacją aplikacji z
+    serwerem danych i dynamicznie aktualizuje komponenty wykresowe.
+    W proponowanym rozwiązaniu zostanie wykonana próba zaadoptowania rozwiązań architektonicznych stosowanych w
+    systemach informacji przestrzennej oraz mechanizmów predykcji ładowania zasobów znanych z systemów pamięci
+    podręcznej.
 </p>
 
 <h2 answer="rangaProblemu">
@@ -95,96 +189,29 @@ https://idl.cs.washington.edu/files/2014-Latency-InfoVis.pdf
 <h3>Zadania do wykonania</h3>
 <p>
     Przedstawienie dziedziny wizualnej eksploracji danych pomiarowych i jej roli w interaktywnej analizie wizualnej
-    Charakterystyka wielkoskalowych danych pomiarowych i przedstawienie głównych problemów z ich wizualizacją w przeglądarce internetowej
+    Charakterystyka wielkoskalowych danych pomiarowych i przedstawienie głównych problemów z ich wizualizacją w
+    przeglądarce internetowej
     Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania
-    Analiza istniejących rozwiązań, w szczególności tych pochodzących z kategorii systemów mapowych oraz mechanizmów pamięci podręcznej
+    Analiza istniejących rozwiązań, w szczególności tych pochodzących z kategorii systemów mapowych oraz mechanizmów
+    pamięci podręcznej
     Przedstawienie proponowanego rozwiązania
     Przedstawienie metodologii oceny rozwiązania
-    Zaprojektowanie wysokopoziomowej architektury komunikacji klient-serwer, w tym protokołu komunikacyjnego, interfejsu REST oraz interfejsu klienta w języku JavaScript
-    Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych wspierającej fragmentację czasową oraz fragmentację skali danych
+    Zaprojektowanie wysokopoziomowej architektury komunikacji klient-serwer, w tym protokołu komunikacyjnego, interfejsu
+    REST oraz interfejsu klienta w języku JavaScript
+    Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych wspierającej
+    fragmentację czasową oraz fragmentację skali danych
     Zaprojektowanie architektury modułu predykcji
     Prezentacja kluczowych algorytmów do zarządzania fragmentami serii danych w pamięci podręcznej
     Prezentacja kluczowych algorytmów do prezentacji pofragmentowanych danych na ekranie
     Prezentacja algorytmów predykcji akcji użytkownika
     Przedstawienie i uzasadnienie wyboru narzędzi i środowisk
-    Metodologiczna ocena rozwiązania, prezentacja wyników pomiarów oraz podsumowanie badań satysfakcji użytkowników wykonanego rozwiązania.
+    Metodologiczna ocena rozwiązania, prezentacja wyników pomiarów oraz podsumowanie badań satysfakcji użytkowników
+    wykonanego rozwiązania.
 
 </p>
 
 <h2>Interfejsy webowe</h2>
-<h2>Wielkoskalowe dane pomiarowe</h2>
 
-<p>
-    W dobie wszechobecnego Internetu każde urządzenie podłączone do sieci stale produkuje znaczną ilość informacji.
-    Jak podaje Åse Dragland w swoim artykule z 2013 roku <a href="#"></a>,
-</p>
-<blockquote>
-    90% wszystkich danych na świecie zostało wygenerowane przez ostatnie dwa lata.
-</blockquote>
-<p>
-Autor zastanawia się nad możliwością analizy tych danych w celu osiągnięcia wymiernych korzyści ekonomicznych,
-społecznych czy naukowych.
-Mowa tutaj o zbieraniu znacznych rozmiarów danych, które są generowane przez stale obserwowane obiekty.
-Zbierane są informacje o zachowaniu internautów, dane sensorów środowiskowych, obrazy z kamer miejskich, aparatury
-medycznej, czy parametry pracy urządzeń.
-</p>
-
-<p>
-    Wielkoskalowe dane pomiarowe
-    <!--TODO should turn into: (ang. <i>Scientific Data </i>)-->
-    <trans lang="ang">Scientific Data</trans>
-    opisane są kombinacją zmiennych niezależnych
-    (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku, stan pracy
-    urządzenia -- inaczej przeciwdziedziny) <a href="#bib:dziennik-internautow"></a>.
-    <!-- TODO span ref table should insert a reference -->
-    W tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady takich danych.
-    Wielkość próbki zależeć może od liczby atrybutów i formatu ich przechowywania.
-</p>
-
-<figure type="table" id="table:measurementDataExamples">
-    <figcaption>Przykłady danych pomiarowych</figcaption>
-    <table>
-        <thead>
-        <tr>
-            <th>Dziedzina</th>
-            <th>Przykładowe użycie danych</th>
-            <th>Przykładowa wielkość próbki</th>
-            <th>Średnia częstotliwość emisji</th>
-            <th>Dane do przetworzenia</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>lotnictwo</td>
-            <td>szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu</td>
-            <td>8B</td>
-            <td>1Hz</td>
-            <td>90 &times; 8h &times; 1Hz &times; 8B = 24.74MB</td>
-        </tr>
-        <tr>
-            <td>medycyna</td>
-            <td>wizualizacja okresu jednego tygodnia 8 parametrów medycznych</td>
-            <td>8B</td>
-            <td>20Hz</td>
-            <td>8 &times; 7d &times; 20Hz &times; 8B = 774.1MB</td>
-        </tr>
-        <tr>
-            <td>badania operacyjne</td>
-            <td>obserwacja stanu systemu kolejkowego w ciągu tygodnia</td>
-            <td>64B</td>
-            <td>50Hz</td>
-            <td>7d &times; 50Hz &times; 64B = 2GB</td>
-        </tr>
-        <tr>
-            <td>monitoring środowiska</td>
-            <td>wizualizacja okresu 5 lat 8 parametrów jakości powietrza</td>
-            <td>200B</td>
-            <td>0.1Hz</td>
-            <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
-        </tr>
-        </tbody>
-    </table>
-</figure>
 
 <figure type="picture">
     <figcaption>Poglądowy schemat rozwiązania</figcaption>
