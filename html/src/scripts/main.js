@@ -5,6 +5,7 @@ import BibMaker from './BibMaker';
 import FigureReference from './FigureReference';
 import './css/bookRightCaption';
 import Timer from './utils/Timer';
+import LanguageDecorator from './LanguageDecorator';
 $(window).on('load', ()=> {
     var t = new Timer();
     t.start("TOC Generator");
@@ -21,5 +22,7 @@ $(window).on('load', ()=> {
     new TOCFigureGenerator($('#table-of-tables'), 'table');
     t.next("Table of codes");
     new TOCFigureGenerator($('#table-of-codes'), 'code');
+    t.next("Language Decorator")
+    new LanguageDecorator();
     t.finish();
 });

@@ -1,12 +1,95 @@
 <!--suppress HtmlUnknownTag -->
 <h1>Wstęp</h1>
 
+<h2>Pytania pomocnicze</h2>
+<ul>
+    <li question="dziedzina">Jakiej dziedziny dotyczy praca <span>big data</span>
+        <span>interaktywna wizualizacja </span> <span>frontend</span>
+    </li>
+    <li question="zwiazekZZyciem">jak ma się ta dziedzina do życia dziennego</li>
+    <li question="przedmiotBadan">Co jest badane w pracy magisterskiej, nie wydajne komponenty do rysowania wykresów,
+        nie wydajne serwery big data, ale zarządzanie komunikacją klient serwer
+        wydajność pracy z danymi
+
+    </li>
+    <li question="tloHistoryczne">tło historyczne przedmiotu badań - ważność user experience w wizualizacji danych,
+        pierwsze wizualizacje, aplikacje internetowe, cienki gruby klient
+        parafrazować Tima Sletchera (technologie serwera)
+    </li>
+    <li question="tloTechniczne">tło techniczne przedmiotu badań - web performance, big data, trochę więcej o wizualnej
+        analizie danych,
+        charakterystyka serii czasowych, user experience, web apps, interfejsy webowe w przeglądarce (javascript html),
+        webapps: opisać, że wszyscy lubią aplikacje z interfejsem w przeglądarce. Podać przykłady popularnych rozwiązań
+        oraz, że migrowały z desktopu: Office live, google docs, photoshop etc...
+    </li>
+    <li question="tloBranzowe">Tło branżowe przedmioty badań - co to są serie czasowe, po co się je agreguje, jak się z
+        tych danych korzysta, jakie są cechy charakterystyczne agregacji - np mogą być wieloktorne lub nieregularne
+        przykład że min max średnia - peaks albo sinus
+
+    </li>
+    <li question="teza">Jaki realny problem istnieje - teza - obecne biblioteki nie wspierają skalowalności, ale
+        mozna im to umozliwic poprzez generyczny mechanizm który by zarządzał źródłem danych dla tych wykresów
+    </li>
+    <li question="rangaProblemu">istotność tego problemu - nie chodzi o umożliwienie przeglądania danych tylko ux i
+        efektywność, jakieś odniesienie od literatury
+        slajd 17 z prezentacji 1
+    </li>
+    <li question="inneDziedziny">dziedziny w których problem występuje, czy już został zaadresowany - google maps
+        chociażby
+        slajd 18,19,21 prezentacja 1
+    </li>
+    <li question="alternatywneRozwiazania">kto próbował go rozwiązać w tej dziedzinie - zoomcharts, dygraphs backround,
+        forecache -
+        slajd 22 perzentacja 1
+        co w nich jest niefajnego ze nie rozwiazuje tego problemu, Tim Slatcher
+    </li>
+    <li>jaki cel ma praca - weryfikacja wsparcia skalowalnosci bibliotek wykresowych. sprawdzenie mozliwosci wsparcia
+        skalowalnosci dzięki zaproponowanemu rozwiązaniu,
+        Rozwiązanie problemu skalowalności ux interaktywnego interfejsu webowego
+    </li>
+    <li>proponowane rozwiązanie - jak ono rozwiąże realny problem, nie chodzi o nowe wykresy tylko o wsparcie
+        skalowalności dla istniejących - benefity: reuse w istniejacych projektach, tylko jeden adapter i wszystko
+        dziala - jakie problemy rozwiaze poszczegolny ficzer (silnik predykcji, cache, projection, dynamicProjection)
+
+        tutaj mentionować perception of time - mishunov
+        slajd 25 prezentacja 1
+        slajd 7 prezentacja 2
+        uzasadnienie - podac benefity - polepsza wydajnosc pracy uzytkownikow i robi im dobrze
+        wycinek danych - eksploracja w IVA Ze wzgle ̨du na ograniczone moz ̇liwos ́ci ludzkiego mózgu. - nie potrzeba lepszych rozwiązań
+    </li>
+    <li question="tools">Narzędzia i środowiska użyte do realizacji pracy</li>
+    <li question="ocena">Metoda ocena przyjętego rozwiązania - nacisk na wydajność i UX, antkiety, perf testy
+        slajd 16 prezentacja 2
+    </li>
+
+    <li question="motywacja">Dlaczego ja się akurat tym problemem chcę zająć</li>
+    <li>O czym dalej będzie można przeczytać w tej pracy</li>
+</ul>
+
+<h2>Motywacja</h2>
+<p answer="teza">
+    Jestduz ̇obibliotek,któreszczyca ̨sie ̨wydajna ̨obsługa ̨wielkichzbiorówdanych,niestety z ̇adna nie bierze pod uwage
+    ̨ doładowywania fragmentów danych on-demand, z ̇adnej predykcji. Takie rozwia ̨zania wymagaja ̨ rekonfiguracji
+    komponentu co prowadzi do utracenia kontekstu ope- racji uz ̇ytkownika. Wszystkie rozwia ̨zania dotycza ̨ momentu, w
+    którym mamy juz ̇ dane, my zaj- miemy sie ̨ mechanizmami efektywnego dostarzczania tych danych.
+    Nie ma rozwia ̨zania takiego z edycja ̨ danych poprzez integracje ̨ modułów
+</p>
 <h2>Cel pracy</h2>
 <p>
     Celem pracy jest identyfikacja problemów związanych z ogółem wrażeń użytkownika interfejsu aplikacji webowej. W szczególności praca ta dotyczy eksploracji wielkoskalowych danych pomiarowych za pomocą interaktywnego komponentu użytkownika prezentujacego serie czasowe w formie wykresu liniowego. W pracy zostaną przedstawione główne wyzwania związane z pozyskiwaniem wielkoskalowych danych pomiarowych i ich dynamicznej prezentacji. Zostanie dokonana analiza istniejących, popularnych webowych komponentów wykresowych pod kątem efektywnej, intuicyjnej i sprawnej nawigacji po seriach czasowych, co jest czynnikiem wpływającym na ogół wrażeń i satysfakcji użytkownika (ang. User Experience) korzystającego z interfejsów webowych.
     W ramach pracy zostanie zaproponowane i wykonane rozwiązanie, które efektywnie zarządza komunikacją aplikacji z serwerem danych i dynamicznie aktualizuje komponenty wykresowe.
     W proponowanym rozwiązaniu zostanie wykonana próba zaadoptowania rozwiązań architektonicznych stosowanych w systemach informacji przestrzennej oraz mechanizmów predykcji ładowania zasobów znanych z systemów pamięci podręcznej.
 </p>
+
+<h2 answer="rangaProblemu">
+    Wpływ opóźnienia interakcji w eksploracyjnej analizie wizualnej</h2>
+<a href="#bib:effects-interactive-latency"></a>
+https://idl.cs.washington.edu/files/2014-Latency-InfoVis.pdf
+<blockquote>
+    In this research, we have found that interactive latency can play an important
+    role in shaping user behavior and impacts the outcomes of exploratory
+    visual analysis.z
+</blockquote>
 
 <h3>Zadania do wykonania</h3>
 <p>
@@ -27,6 +110,7 @@
 
 </p>
 
+<h2>Interfejsy webowe</h2>
 <h2>Wielkoskalowe dane pomiarowe</h2>
 
 <p>

@@ -212,3 +212,131 @@ TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
         └────────────────────────────────────────────────┘
     </pre>
 </figure>
+
+
+<p>
+    [11:47 AM] Adam Borowski [Atlassian]: algorytmy ktore mi zajely duzo czasu to operacje UNION oraz SUBTRACT na takiej
+    strukturze jak zbiór przedziałów (interval set).
+    Same operacje są banalne, i są biblioteki na to, ale to co stanowi wyzwanie to obliczenie kroków transformacji
+    pierwszego zbioru, aby stał się tym drugim  ( w czasie liniowym). To jest rodzaj algorytmu DIFF ale tworzony podczas
+    wykonywania samej operacji UNION i SUBTRACT.
+    Przykładowy test który może to ilustruje:
+    [11:47 AM] Adam Borowski [Atlassian]:
+    expect(DiffRangeSet.subtract(rng('0 1 1 10'), rng('2 6 9 10 13 20'))).to.deep.equal({
+    added: rng('6 9'),
+    removed: [],
+    resized: rng('[1 10->2]'),
+    result: rng('[0 1] [1 10->2] 6 9')
+    });
+    [11:47 AM] Adam Borowski [Atlassian]:
+    expect(DiffRangeSet.subtract(rng('2 6 7 17 18 28'), rng('0 7 7 12 12 13'))).to.deep.equal({
+    added: [],
+    removed: rng('2 6'),
+    resized: rng('[7->13 17]'),
+    result: rng('[7->13 17] [18 28]')
+    });
+    [11:50 AM] Adam Borowski [Atlassian]: rysuneczek dla operacij C=A-B
+    [11:50 AM] Adam Borowski [Atlassian]:
+    ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+    ├ A ┏━━━━━┓ ┏━━━━━━━━━━━━━━━━━┓ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ │
+    │ 1 2 4 7 10 20 │
+    ├ B ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┏━━━━━━━━━━━━━━━━━┓ │
+    │ 2 8 10 13 │
+    ├ C ┏━━━━━┓ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ │
+    │ 1 2 13 20 │
+    └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    [11:52 AM] Adam Borowski [Atlassian]: w tym przypadku algorytm zwraca oprocz samego wyniku C=A-B inofrmacje:
+    [1 2] pozostaje bez zmian
+    [4 7] rozszerza się do [2 8]
+    [10 20] zwęża się do [13 20]
+    [11:53 AM] Adam Borowski [Atlassian]: sorki ze Ci spamuje ale jak juz tlumacze to te notatki sobie wkleje roboczo do
+    magisterki zeby z tego podrozdzial zrobic
+    [11:56 AM] Adam Borowski [Atlassian]: oczywiscie to dziala dla wszystkich case, na przykład gdy przedział z B
+    rozdziela jeden przdział z A na dwa przedziały
+    [11:56 AM] Adam Borowski [Atlassian]:
+    ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+    ├ A ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┏━━━━━┓ │
+    │ 1 11 14 15 │
+    ├ B ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┏━━━━━━━━━━━┓ │
+    │ 2 7 9 11 │
+    ├ C ┏━━━━━┓ ┏━━━━━━━━━━━┓ ┏━━━━━┓ │
+    │ 1 2 7 9 14 15 │
+    └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    [12:00 PM] Adam Borowski [Atlassian]: a odpowiedź algorytmu taka:
+    [12:00 PM] Adam Borowski [Atlassian]:
+    {
+    "result": [
+    {
+    "start": 1,
+    "end": 2,
+    "existing": {
+    "start": 1,
+    "end": 11
+    }
+    },
+    {
+    "start": 7,
+    "end": 9
+    },
+    {
+    "start": 14,
+    "end": 15,
+    "existing": {
+    "start": 14,
+    "end": 15
+    }
+    }
+    ],
+    "added": [
+    {
+    "start": 7,
+    "end": 9
+    }
+    ],
+    "removed": [],
+    "resized": [
+    {
+    "start": 1,
+    "end": 2,
+    "existing": {
+    "start": 1,
+    "end": 11
+    }
+    }
+    ]
+    }
+</p>
+
+<h2>Problemy implementacyne
+    <small>(notatka)</small>
+</h2>
+<p>TODO</p>
+<ul>
+    <li>opisać gdzie występowała konieczność diffów różnorakich zbiorów (cache projection, dynamic projection recompile,
+        levelCache.requestRange()...
+    </li>
+    <li>nawiązać do frameworków react i angular w kwestii obliczania diffów do efektywnego zarządzaniem UI.
+        Nie możemy po prostu liczyć diffów z całego zbioru (tak jak to robi react) w celu przebudowania UI, musimy
+        liczyć diff w locie.
+        React źle znosi liczenie wielkich diffów (gdyby w ten sposób deklarować renderowanie big data).
+        Big data - cache może być wielki (długo działająca aplikacja), więc przeliczanie diffow nie wchodzi w rachubę.
+    </li>
+    <li>
+        Optymalizacja mergowanie pending level request, queued level request, prioritety
+    </li>
+    <li>
+        Konieczność wrapperdisplay cache i translacja data-projection-data
+    </li>
+
+</ul>
+<h3>Problemy z integracją z bibliotekami</h3>
+<ul>
+    <li>ZingChart
+        * obfuscowany kod, debugging, errory...
+        * beznadziejne API globalnych komend, nie da się niektórych rzeczy łatwo uzyskać ustawić
+        * chyba wypełniad dziury między date.getTime() a date.getTime() co trwa bardzo długo... alokacja kilkadziesiat sekund - nie można przyczyny normalnie zdebugować
+        * brak normalnego pan&zoom
+        * jakieś dziwne przeliczenia iteracja po dziedzinie co "1" - od jednej daty do drugiej może minąć dużo czasu -
+        to jednoznacznie dyskwalifikuje - dzieje się to w momencie gdy następuje zmiana zakresu wyświetlanego
+    </li>
+</ul>
