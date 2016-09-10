@@ -246,6 +246,11 @@
         <volume>1</volume>
         <pages>50-59</pages>
     </citation>
+    <citation type="inproceedings" id="bib:seismology">
+        <title>Introduction To Seismology</title>
+        <author>Peter Shearer</author>
+        <publisher>Cambridge University Press</publisher>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
