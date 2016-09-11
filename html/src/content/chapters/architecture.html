@@ -1,112 +1,112 @@
 <!--suppress HtmlUnknownTag -->
-<h1>Architektura rozwiązania</h1>
-<p>
-    Architektura składa się ze ściśle ze sobą współpracujących modułów.
-    Każdy z nich pełni ściśle określoną funkcję.
-    Na rysunku <a href="#picture:architecture"></a> pokazano ogólny schemat zależności modułów.
-    W kolejnych podrozdziałach zostały opisane funkcje poszczególnych modułów.
-</p>
-<figure type="picture" id="picture:architecture">
-    <figcaption>Architektura</figcaption>
-    <img src="cache/client-architecture.png">
-</figure>
+<h1 id="chapter:solution">Biblioteka ExploreJS</h1>
+<!--<p>-->
+    <!--Architektura składa się ze ściśle ze sobą współpracujących modułów.-->
+    <!--Każdy z nich pełni ściśle określoną funkcję.-->
+    <!--Na rysunku <a href="#picture:architecture"></a> pokazano ogólny schemat zależności modułów.-->
+    <!--W kolejnych podrozdziałach zostały opisane funkcje poszczególnych modułów.-->
+<!--</p>-->
+<!--<figure type="picture" id="picture:architecture">-->
+    <!--<figcaption>Architektura</figcaption>-->
+    <!--<img src="cache/client-architecture.png">-->
+<!--</figure>-->
 
-<h2>Serwer danych</h2>
-<p>
-    Serwer danych powinien być minimalnie zależny od proponowanego rozwiązania, gdyż jest to część "wymienna" systemu.
-    Zatem jego zadaniem będzie tylko zwracanie danych określonych prostym formatem zapytania.
-</p>
-<h2>Komponent użytkownika</h2>
-<p>
-    Jest to dowolny moduł programowy, którego celem jest wyświetlanie danych pomiarowych.
-    Jego wewnętrzna postać oraz zachowanie są zupełnie niezależne od przedstawianego rozwiązania.
-    Przez pojedynczy komponent rozumie się pojedynczą serię danych. Jeśli komponent wykresu wyświetla wiele serii na
-    wspólnym obszarze, z punktu widzenia proponowanego rozwiązania należy każdą serię rozpatrywać osobno.
-</p>
-<ul data-header="Przykładowe komponenty użytkownika, to m. in.:">
-    <li><a href="http://www.highcharts.com/">High Charts</a></li>
-    <li><a href="http://www.zingchart.com/">Zing Chart</a></li>
-    <li><a href="http://d3js.com/">d3.js</a></li>
-</ul>
-<h2>Data Source</h2>
-<p>
-    Moduł DataSource umożliwia integrację przedstawianego rozwiązania z dowolnym komponentem użytkownika poprzez
-    udostępnianie mu dynamicznych danych.
-    Definiuje on standard emisji zdarzeń dotyczących dostępności danych.
-    Przykładowo, emituje zdarzenie o pojawieniu się nowego fragmentu danych na określonym poziomie abstrakcji.
-    Moduł ten sam jednak nie jest przystosowany do współpracy z konkretnym komponentem. Jest to jednolity interfejs
-    systemu dostarczony programistom.
-</p>
-<h2>Adapter DataSource</h2>
-<p>
-    Adapter ten implementuje interfejs dostępu do danych <i>DataSource</i>.
-    Podłącza dedykowany komponent użytkownika do <i>DataSource</i>.
-    Jego zadaniem jest reagowanie na zdarzenia DataSource i określenie reakcji po stronie komponentu.
-    Przykładem może być reakcja na zdarzenie pojawienia się nowego fragmentu danych wyrażona poprzez zmodyfikowanie
-    specyficznej dla Komponentu struktury danych oraz żądania przerysowania całości (lub części) wykresu.
-</p>
-<p>
-    Na listingu <a href="#code:example-data-source-adapter"></a> pokazano przykładową implementację adaptera, który w
-    metodzie <i>onTileAvailable</i> aktualizuje stan pewnego komponentu:
-</p>
-<ol>
-    <li>
-        Usuwane są wszystkie punkty z okresu odpowiadającego danemu kafelkowi. Takie punkty mogły pochodzić fragmentu
-        kafelka o mnieszej rodzielczości,
-    </li>
-    <li>
-        Dodawane są wszystkie punkty z nowego kafelka,
-    </li>
-    <li>
-        Nowe punkty są przekształcane do formatu wyznaczonego przez komponent użytkownika.
-    </li>
-    <li>
-        Aktualizacja widoku użytkownika umożliwiająca interakcję systemu z komponentem.
-    </li>
-</ol>
-<figure type="code" id="code:example-data-source-adapter">
-    <figcaption>Poglądowa implementacja adaptera DataSource</figcaption>
-    <code class="javascript">
-        class ExampleChartsAdapter extends DataSourceAdapter {
-            onTileAvailable (tile) {
-                this.chart.getSerie(this.serieId).removeDataForRange(tile.range.start, tile.range.end); // 1.
-                this.chart.getSerie(this.serieId).addData( // 2.
-                    tile.points.map((p) => {
-                        return { x: new Date(p.time), y: p.value, color: this.colors[p.attr.status] } // 3.
-                    }
-                );
-            }
+<!--<h2>Serwer danych</h2>-->
+<!--<p>-->
+    <!--Serwer danych powinien być minimalnie zależny od proponowanego rozwiązania, gdyż jest to część "wymienna" systemu.-->
+    <!--Zatem jego zadaniem będzie tylko zwracanie danych określonych prostym formatem zapytania.-->
+<!--</p>-->
+<!--<h2>Komponent użytkownika</h2>-->
+<!--<p>-->
+    <!--Jest to dowolny moduł programowy, którego celem jest wyświetlanie danych pomiarowych.-->
+    <!--Jego wewnętrzna postać oraz zachowanie są zupełnie niezależne od przedstawianego rozwiązania.-->
+    <!--Przez pojedynczy komponent rozumie się pojedynczą serię danych. Jeśli komponent wykresu wyświetla wiele serii na-->
+    <!--wspólnym obszarze, z punktu widzenia proponowanego rozwiązania należy każdą serię rozpatrywać osobno.-->
+<!--</p>-->
+<!--<ul data-header="Przykładowe komponenty użytkownika, to m. in.:">-->
+    <!--<li><a href="http://www.highcharts.com/">High Charts</a></li>-->
+    <!--<li><a href="http://www.zingchart.com/">Zing Chart</a></li>-->
+    <!--<li><a href="http://d3js.com/">d3.js</a></li>-->
+<!--</ul>-->
+<!--<h2>Data Source</h2>-->
+<!--<p>-->
+    <!--Moduł DataSource umożliwia integrację przedstawianego rozwiązania z dowolnym komponentem użytkownika poprzez-->
+    <!--udostępnianie mu dynamicznych danych.-->
+    <!--Definiuje on standard emisji zdarzeń dotyczących dostępności danych.-->
+    <!--Przykładowo, emituje zdarzenie o pojawieniu się nowego fragmentu danych na określonym poziomie abstrakcji.-->
+    <!--Moduł ten sam jednak nie jest przystosowany do współpracy z konkretnym komponentem. Jest to jednolity interfejs-->
+    <!--systemu dostarczony programistom.-->
+<!--</p>-->
+<!--<h2>Adapter DataSource</h2>-->
+<!--<p>-->
+    <!--Adapter ten implementuje interfejs dostępu do danych <i>DataSource</i>.-->
+    <!--Podłącza dedykowany komponent użytkownika do <i>DataSource</i>.-->
+    <!--Jego zadaniem jest reagowanie na zdarzenia DataSource i określenie reakcji po stronie komponentu.-->
+    <!--Przykładem może być reakcja na zdarzenie pojawienia się nowego fragmentu danych wyrażona poprzez zmodyfikowanie-->
+    <!--specyficznej dla Komponentu struktury danych oraz żądania przerysowania całości (lub części) wykresu.-->
+<!--</p>-->
+<!--<p>-->
+    <!--Na listingu <a href="#code:example-data-source-adapter"></a> pokazano przykładową implementację adaptera, który w-->
+    <!--metodzie <i>onTileAvailable</i> aktualizuje stan pewnego komponentu:-->
+<!--</p>-->
+<!--<ol>-->
+    <!--<li>-->
+        <!--Usuwane są wszystkie punkty z okresu odpowiadającego danemu kafelkowi. Takie punkty mogły pochodzić fragmentu-->
+        <!--kafelka o mnieszej rodzielczości,-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--Dodawane są wszystkie punkty z nowego kafelka,-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--Nowe punkty są przekształcane do formatu wyznaczonego przez komponent użytkownika.-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--Aktualizacja widoku użytkownika umożliwiająca interakcję systemu z komponentem.-->
+    <!--</li>-->
+<!--</ol>-->
+<!--<figure type="code" id="code:example-data-source-adapter">-->
+    <!--<figcaption>Poglądowa implementacja adaptera DataSource</figcaption>-->
+    <!--<code class="javascript">-->
+        <!--class ExampleChartsAdapter extends DataSourceAdapter {-->
+            <!--onTileAvailable (tile) {-->
+                <!--this.chart.getSerie(this.serieId).removeDataForRange(tile.range.start, tile.range.end); // 1.-->
+                <!--this.chart.getSerie(this.serieId).addData( // 2.-->
+                    <!--tile.points.map((p) => {-->
+                        <!--return { x: new Date(p.time), y: p.value, color: this.colors[p.attr.status] } // 3.-->
+                    <!--}-->
+                <!--);-->
+            <!--}-->
 
-            onRedraw () {
-                this.chart.redraw();
-            }
+            <!--onRedraw () {-->
+                <!--this.chart.redraw();-->
+            <!--}-->
 
-            init () {
-                this.chart.on('move', () => this.updateUserState({ // 4.
-                    'viewport.center.x': this.chart.center.x,
-                    'viewport.center.y': this.chart.center.y
-                }));
-                this.chart.on('resize', () => this.updateUserState({
-                    'viewport.width': this.chart.size.width,
-                    'viewport.height': this.chart.size.height
-                }));
-            }
-        }
-</code>
-</figure>
+            <!--init () {-->
+                <!--this.chart.on('move', () => this.updateUserState({ // 4.-->
+                    <!--'viewport.center.x': this.chart.center.x,-->
+                    <!--'viewport.center.y': this.chart.center.y-->
+                <!--}));-->
+                <!--this.chart.on('resize', () => this.updateUserState({-->
+                    <!--'viewport.width': this.chart.size.width,-->
+                    <!--'viewport.height': this.chart.size.height-->
+                <!--}));-->
+            <!--}-->
+        <!--}-->
+<!--</code>-->
+<!--</figure>-->
 
-TODO:
-<p>
-    projektować od najprostrzej strony, czyli formacie zapytania i odpowiedzi klient-serwer
-    zaimplementować protokół klient serwer
-    zaimplementować serwer, dane mogą być w pamięci, whatever (można tez zrobic import z wios???)
-    rozpisać SerieCache na CacheLayer, CacheProjection (kompiluje warstwy) - opisać "przejścia stanów", tj że jeżeli na
-    zoom=4 pojawia się kafel danych, to CacheProjection zobaczy to poprzez usunięcie fragmentu tile o zoom=3 i dodanie
-    danych dla zoom = 4. Może coś takiego jak event listeners for time range, wtedy jeden CacheProjection nasłuchuje na
-    "stożek" eventów.
-    Nasłuchuje eventy na kazdej warstwie, ale tylko na wybranym obszarze. Wtedy listenery są przechowywane w jakimś
-    sorted tree, aby łatwiej odnajdywać które listenery odpalić. może jakiś BST albo coś...
+<!--TODO:-->
+<!--<p>-->
+    <!--projektować od najprostrzej strony, czyli formacie zapytania i odpowiedzi klient-serwer-->
+    <!--zaimplementować protokół klient serwer-->
+    <!--zaimplementować serwer, dane mogą być w pamięci, whatever (można tez zrobic import z wios???)-->
+    <!--rozpisać SerieCache na CacheLayer, CacheProjection (kompiluje warstwy) - opisać "przejścia stanów", tj że jeżeli na-->
+    <!--zoom=4 pojawia się kafel danych, to CacheProjection zobaczy to poprzez usunięcie fragmentu tile o zoom=3 i dodanie-->
+    <!--danych dla zoom = 4. Może coś takiego jak event listeners for time range, wtedy jeden CacheProjection nasłuchuje na-->
+    <!--"stożek" eventów.-->
+    <!--Nasłuchuje eventy na kazdej warstwie, ale tylko na wybranym obszarze. Wtedy listenery są przechowywane w jakimś-->
+    <!--sorted tree, aby łatwiej odnajdywać które listenery odpalić. może jakiś BST albo coś...-->
 
-    CacheProjection powinno dotyczyć jednego DataSource (dobór levelu w zależności od zooma - nie za szczegółowe mimo ze
-    beda dostepne)
-</p>
+    <!--CacheProjection powinno dotyczyć jednego DataSource (dobór levelu w zależności od zooma - nie za szczegółowe mimo ze-->
+    <!--beda dostepne)-->
+<!--</p>-->

@@ -22,13 +22,13 @@ export default class TOCGenerator {
     }
 
     processChapterReferences() {
-        $(`a[href^="#chapter:"]`).each((i, block)=> {
+        $(`.body a[href^="#chapter:"]`).each((i, block)=> {
             var $block = $(block);
             var headerSelector = $block.attr('href').replace(':', '\\:');
             var header = $(headerSelector);
             var address = header.attr('data-chapter-address');
             var value = address.substr(0, address.length - 1);
-            $block.text(value);
+            $block.text($block.text() + ' ' + value);
         });
     }
 

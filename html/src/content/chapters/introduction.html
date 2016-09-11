@@ -116,148 +116,156 @@
 <h2 class="on-new-page">Cel pracy</h2>
 <p>
     Celem pracy jest identyfikacja i rozwiązanie problemów związanych z <trans>User Experience</trans> komponentów
-    interfejsu
-    użytkownika w przeglądarce internetowej służących do wizualnej eksploracji wielkoskalowych danych pomiarowych.
+    interfejsu użytkownika w przeglądarce internetowej służących do wizualnej eksploracji wielkoskalowych danych
+    pomiarowych.
+
     W pracy zostaną przedstawione główne wyzwania związane z pozyskiwaniem wielkoskalowych danych pomiarowych celem ich
-    analizy i ich
-    dynamicznej prezentacji. Zostanie dokonana analiza istniejących, popularnych webowych komponentów wykresowych pod
-    kątem efektywnej, intuicyjnej i sprawnej nawigacji po seriach czasowych.
+    wizualnej analizy i ich dynamicznej prezentacji.
+
+    Zostanie dokonana analiza istniejących, popularnych webowych komponentów wykresowych pod kątem efektywnej,
+    intuicyjnej i sprawnej nawigacji po seriach czasowych.
+
     Zaproponowane zostanie rozwiązanie, które adresuje problemy skalowalności efektywnej i intuicyjnej eksploracji w
     istniejących komponentach.
 </p>
-
+<h2>Treść pracy</h2>
 <p>
     Rozdział <a href="#chapter:theoretical"></a> zawiera podstawowe informacje o zagadnieniach związanych danymi
-    pomiarowymi oraz ich wizualną eksploracją.
-
+    pomiarowymi oraz ich wizualną eksploracją w systemach rozproszonych.
+</p>
+<p>
     Rozdział <a href="#chapter:analysis"></a> szczegółowo definiuje wymagania <trans>User Experience</trans> względem
     nowoczesnych webowych interfejsów wizualnej eksploracji danych, weryfikuje istniejące rozwiązania pod względem
     spełnienia tych wymagań oraz pod względem dostępności tych rozwiązań dla szerokiego grona twórców aplikacji
     internetowych.
+
+    Pokazuje, że powszechne biblioteki służące do wizualizacji serii czasowych nie spełniają tych wymagań w momencie,
+    gdy zostaną wykorzystane do eksploracji danych o dużej skali.
+
+    Rozdział ten przedstawia również w jaki sposób problem skalowalności interfejsu webowego został rozwiązany w
+    nowoczesnych
+    systemach informacji przestrzennej oraz jakie analogie warunkują możliwość ich adaptacji.
 </p>
-
-
-<h2>Pytania pomocnicze</h2>
-<ul>
-    <li question="zwiazekZZyciem">jak ma się ta dziedzina do życia dziennego</li>
-    <li question="dziedzina">Jakiej dziedziny dotyczy praca <span>big data</span>
-        <span>interaktywna wizualizacja </span> <span>frontend</span>
-    </li>
-    <li question="przedmiotBadan">Co jest badane w pracy magisterskiej, nie wydajne komponenty do rysowania wykresów,
-        nie wydajne serwery big data, ale zarządzanie komunikacją klient serwer
-        wydajność pracy z danymi
-
-    </li>
-    <li question="tloHistoryczne">tło historyczne przedmiotu badań - ważność user experience w wizualizacji danych,
-        pierwsze wizualizacje, aplikacje internetowe, cienki gruby klient
-        parafrazować Tima Sletchera (technologie serwera)
-    </li>
-    <li question="tloTechniczne">tło techniczne przedmiotu badań - web performance, big data, trochę więcej o wizualnej
-        analizie danych,
-        charakterystyka serii czasowych, user experience, web apps, interfejsy webowe w przeglądarce (javascript html),
-        webapps: opisać, że wszyscy lubią aplikacje z interfejsem w przeglądarce. Podać przykłady popularnych rozwiązań
-        oraz, że migrowały z desktopu: Office live, google docs, photoshop etc...
-    </li>
-    <li question="tloBranzowe">Tło branżowe przedmioty badań - co to są serie czasowe, po co się je agreguje, jak się z
-        tych danych korzysta, jakie są cechy charakterystyczne agregacji - np mogą być wieloktorne lub nieregularne
-        przykład że min max średnia - peaks albo sinus
-
-    </li>
-    <li question="teza">Jaki realny problem istnieje - teza - obecne biblioteki nie wspierają skalowalności, ale
-        mozna im to umozliwic poprzez generyczny mechanizm który by zarządzał źródłem danych dla tych wykresów
-    </li>
-    <li question="rangaProblemu">istotność tego problemu - nie chodzi o umożliwienie przeglądania danych tylko ux i
-        efektywność, jakieś odniesienie od literatury
-        slajd 17 z prezentacji 1
-    </li>
-    <li question="inneDziedziny">dziedziny w których problem występuje, czy już został zaadresowany - google maps
-        chociażby
-        slajd 18,19,21 prezentacja 1
-    </li>
-    <li question="alternatywneRozwiazania">kto próbował go rozwiązać w tej dziedzinie - zoomcharts, dygraphs backround,
-        forecache -
-        slajd 22 perzentacja 1
-        co w nich jest niefajnego ze nie rozwiazuje tego problemu, Tim Slatcher
-    </li>
-    <li>jaki cel ma praca - weryfikacja wsparcia skalowalnosci bibliotek wykresowych. sprawdzenie mozliwosci wsparcia
-        skalowalnosci dzięki zaproponowanemu rozwiązaniu,
-        Rozwiązanie problemu skalowalności ux interaktywnego interfejsu webowego
-    </li>
-    <li>proponowane rozwiązanie - jak ono rozwiąże realny problem, nie chodzi o nowe wykresy tylko o wsparcie
-        skalowalności dla istniejących - benefity: reuse w istniejacych projektach, tylko jeden adapter i wszystko
-        dziala - jakie problemy rozwiaze poszczegolny ficzer (silnik predykcji, cache, projection, dynamicProjection)
-
-
-        transparentność rozwiązania - minimalizacja wrażeń użytkownika związanych z odległością danych które użytkownik
-        przegląda
-        tutaj mentionować perception of time - mishunov
-        slajd 25 prezentacja 1
-        slajd 7 prezentacja 2
-        uzasadnienie - podac benefity - polepsza wydajnosc pracy uzytkownikow i robi im dobrze
-        wycinek danych - eksploracja w IVA Ze wzgle ̨du na ograniczone moz ̇liwos ́ci ludzkiego mózgu. - nie potrzeba
-        lepszych rozwiązań
-    </li>
-    <li question="tools">Narzędzia i środowiska użyte do realizacji pracy</li>
-    <li question="ocena">Metoda ocena przyjętego rozwiązania - nacisk na wydajność i UX, antkiety, perf testy
-        slajd 16 prezentacja 2
-    </li>
-
-    <li question="motywacja">Dlaczego ja się akurat tym problemem chcę zająć</li>
-    <li>O czym dalej będzie można przeczytać w tej pracy</li>
-</ul>
-
-<h2>Motywacja</h2>
-<p answer="teza">
-    Jestduz ̇obibliotek,któreszczyca ̨sie ̨wydajna ̨obsługa ̨wielkichzbiorówdanych,niestety z ̇adna nie bierze pod uwage
-    ̨ doładowywania fragmentów danych on-demand, z ̇adnej predykcji. Takie rozwia ̨zania wymagaja ̨ rekonfiguracji
-    komponentu co prowadzi do utracenia kontekstu ope- racji uz ̇ytkownika. Wszystkie rozwia ̨zania dotycza ̨ momentu, w
-    którym mamy juz ̇ dane, my zaj- miemy sie ̨ mechanizmami efektywnego dostarzczania tych danych.
-    Nie ma rozwia ̨zania takiego z edycja ̨ danych poprzez integracje ̨ modułów
-</p>
-
-<h2 answer="rangaProblemu">
-    Wpływ opóźnienia interakcji w eksploracyjnej analizie wizualnej</h2>
-<a href="#bib:effects-interactive-latency"></a>
-https://idl.cs.washington.edu/files/2014-Latency-InfoVis.pdf
-<blockquote>
-    In this research, we have found that interactive latency can play an important
-    role in shaping user behavior and impacts the outcomes of exploratory
-    visual analysis.z
-</blockquote>
-
-<h3>Zadania do wykonania</h3>
 <p>
-    Przedstawienie dziedziny wizualnej eksploracji danych pomiarowych i jej roli w interaktywnej analizie wizualnej
-    Charakterystyka wielkoskalowych danych pomiarowych i przedstawienie głównych problemów z ich wizualizacją w
-    przeglądarce internetowej
-    Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania
-    Analiza istniejących rozwiązań, w szczególności tych pochodzących z kategorii systemów mapowych oraz mechanizmów
-    pamięci podręcznej
-    Przedstawienie proponowanego rozwiązania
-    Przedstawienie metodologii oceny rozwiązania
-    Zaprojektowanie wysokopoziomowej architektury komunikacji klient-serwer, w tym protokołu komunikacyjnego, interfejsu
-    REST oraz interfejsu klienta w języku JavaScript
-    Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych wspierającej
-    fragmentację czasową oraz fragmentację skali danych
-    Zaprojektowanie architektury modułu predykcji
-    Prezentacja kluczowych algorytmów do zarządzania fragmentami serii danych w pamięci podręcznej
-    Prezentacja kluczowych algorytmów do prezentacji pofragmentowanych danych na ekranie
-    Prezentacja algorytmów predykcji akcji użytkownika
-    Przedstawienie i uzasadnienie wyboru narzędzi i środowisk
-    Metodologiczna ocena rozwiązania, prezentacja wyników pomiarów oraz podsumowanie badań satysfakcji użytkowników
-    wykonanego rozwiązania.
+    <a href="#chapter:solution">Rozdział</a> wnikliwie prezentuje proponowane rozwiązanie problemu w postaci modułu
+    dołączanego do istniejących już bibliotek wizualizacyjnych, który umożliwi im płynną eksplorację wielkoslakowych danych
+    pomiarowych.
+    Przedstawiona zostaje również metodologia oceny rozwiązania problemu.
 
+    <a href="#chapter:implementation">Rozdział</a> opisuje najciekawesze fragmenty implementacji zaproponowanego
+    rozwiązania.
+
+    <a href="#chapter:results">Rozdział</a> przedstawia uzyskane wyniki oraz ich metodologiczną ocenę.
 </p>
 
-<h2>Interfejsy webowe</h2>
+
+<!--<h2>Pytania pomocnicze</h2>-->
+<!--<ul>-->
+<!--<li question="zwiazekZZyciem">jak ma się ta dziedzina do życia dziennego</li>-->
+<!--<li question="dziedzina">Jakiej dziedziny dotyczy praca <span>big data</span>-->
+<!--<span>interaktywna wizualizacja </span> <span>frontend</span>-->
+<!--</li>-->
+<!--<li question="przedmiotBadan">Co jest badane w pracy magisterskiej, nie wydajne komponenty do rysowania wykresów,-->
+<!--nie wydajne serwery big data, ale zarządzanie komunikacją klient serwer-->
+<!--wydajność pracy z danymi-->
+
+<!--</li>-->
+<!--<li question="tloHistoryczne">tło historyczne przedmiotu badań - ważność user experience w wizualizacji danych,-->
+<!--pierwsze wizualizacje, aplikacje internetowe, cienki gruby klient-->
+<!--parafrazować Tima Sletchera (technologie serwera)-->
+<!--</li>-->
+<!--<li question="tloTechniczne">tło techniczne przedmiotu badań - web performance, big data, trochę więcej o wizualnej-->
+<!--analizie danych,-->
+<!--charakterystyka serii czasowych, user experience, web apps, interfejsy webowe w przeglądarce (javascript html),-->
+<!--webapps: opisać, że wszyscy lubią aplikacje z interfejsem w przeglądarce. Podać przykłady popularnych rozwiązań-->
+<!--oraz, że migrowały z desktopu: Office live, google docs, photoshop etc...-->
+<!--</li>-->
+<!--<li question="tloBranzowe">Tło branżowe przedmioty badań - co to są serie czasowe, po co się je agreguje, jak się z-->
+<!--tych danych korzysta, jakie są cechy charakterystyczne agregacji - np mogą być wieloktorne lub nieregularne-->
+<!--przykład że min max średnia - peaks albo sinus-->
+
+<!--</li>-->
+<!--<li question="teza">Jaki realny problem istnieje - teza - obecne biblioteki nie wspierają skalowalności, ale-->
+<!--mozna im to umozliwic poprzez generyczny mechanizm który by zarządzał źródłem danych dla tych wykresów-->
+<!--</li>-->
+<!--<li question="rangaProblemu">istotność tego problemu - nie chodzi o umożliwienie przeglądania danych tylko ux i-->
+<!--efektywność, jakieś odniesienie od literatury-->
+<!--slajd 17 z prezentacji 1-->
+<!--</li>-->
+<!--<li question="inneDziedziny">dziedziny w których problem występuje, czy już został zaadresowany - google maps-->
+<!--chociażby-->
+<!--slajd 18,19,21 prezentacja 1-->
+<!--</li>-->
+<!--<li question="alternatywneRozwiazania">kto próbował go rozwiązać w tej dziedzinie - zoomcharts, dygraphs backround,-->
+<!--forecache - -->
+<!--slajd 22 perzentacja 1-->
+<!--co w nich jest niefajnego ze nie rozwiazuje tego problemu, Tim Slatcher-->
+<!--</li>-->
+<!--<li>jaki cel ma praca - weryfikacja wsparcia skalowalnosci bibliotek wykresowych. sprawdzenie mozliwosci wsparcia-->
+<!--skalowalnosci dzięki zaproponowanemu rozwiązaniu,-->
+<!--Rozwiązanie problemu skalowalności ux interaktywnego interfejsu webowego-->
+<!--</li>-->
+<!--<li>proponowane rozwiązanie - jak ono rozwiąże realny problem, nie chodzi o nowe wykresy tylko o wsparcie-->
+<!--skalowalności dla istniejących - benefity: reuse w istniejacych projektach, tylko jeden adapter i wszystko-->
+<!--dziala - jakie problemy rozwiaze poszczegolny ficzer (silnik predykcji, cache, projection, dynamicProjection)-->
 
 
-<figure type="picture">
-    <figcaption>Poglądowy schemat rozwiązania</figcaption>
-    <img src="cache/scheme-example.png">
-</figure>
+<!--transparentność rozwiązania - minimalizacja wrażeń użytkownika związanych z odległością danych które użytkownik-->
+<!--przegląda-->
+<!--tutaj mentionować perception of time - mishunov-->
+<!--slajd 25 prezentacja 1-->
+<!--slajd 7 prezentacja 2-->
+<!--uzasadnienie - podac benefity - polepsza wydajnosc pracy uzytkownikow i robi im dobrze-->
+<!--wycinek danych - eksploracja w IVA Ze wzgle ̨du na ograniczone moz ̇liwos ́ci ludzkiego mózgu. - nie potrzeba-->
+<!--lepszych rozwiązań-->
+<!--</li>-->
+<!--<li question="tools">Narzędzia i środowiska użyte do realizacji pracy</li>-->
+<!--<li question="ocena">Metoda ocena przyjętego rozwiązania - nacisk na wydajność i UX, antkiety, perf testy-->
+<!--slajd 16 prezentacja 2-->
+<!--</li>-->
 
-<figure type="picture">
-    <figcaption>Schemat rozwiązania serwerowego ForeCache</figcaption>
-    <img src="/images/forecache-scheme.png">
-</figure>
+<!--<li>O czym dalej będzie można przeczytać w tej pracy</li>-->
+<!--</ul>-->
+
+<!--<h2>Motywacja</h2>-->
+<!--<p answer="teza">-->
+<!--Jestduz ̇obibliotek,któreszczyca ̨sie ̨wydajna ̨obsługa ̨wielkichzbiorówdanych,niestety z ̇adna nie bierze pod uwage-->
+<!--̨ doładowywania fragmentów danych on-demand, z ̇adnej predykcji. Takie rozwia ̨zania wymagaja ̨ rekonfiguracji-->
+<!--komponentu co prowadzi do utracenia kontekstu ope- racji uz ̇ytkownika. Wszystkie rozwia ̨zania dotycza ̨ momentu, w-->
+<!--którym mamy juz ̇ dane, my zaj- miemy sie ̨ mechanizmami efektywnego dostarzczania tych danych.-->
+<!--Nie ma rozwia ̨zania takiego z edycja ̨ danych poprzez integracje ̨ modułów-->
+<!--</p>-->
+
+<!--<h2 answer="rangaProblemu">-->
+<!--Wpływ opóźnienia interakcji w eksploracyjnej analizie wizualnej</h2>-->
+<!--<a href="#bib:effects-interactive-latency"></a>-->
+<!--https://idl.cs.washington.edu/files/2014-Latency-InfoVis.pdf-->
+<!--<blockquote>-->
+<!--In this research, we have found that interactive latency can play an important-->
+<!--role in shaping user behavior and impacts the outcomes of exploratory-->
+<!--visual analysis.z-->
+<!--</blockquote>-->
+
+<!--<h3>Zadania do wykonania</h3>-->
+<!--<p>-->
+<!--Przedstawienie dziedziny wizualnej eksploracji danych pomiarowych i jej roli w interaktywnej analizie wizualnej-->
+<!--Charakterystyka wielkoskalowych danych pomiarowych i przedstawienie głównych problemów z ich wizualizacją w-->
+<!--przeglądarce internetowej-->
+<!--Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania-->
+<!--Analiza istniejących rozwiązań, w szczególności tych pochodzących z kategorii systemów mapowych oraz mechanizmów-->
+<!--pamięci podręcznej-->
+<!--Przedstawienie proponowanego rozwiązania-->
+<!--Przedstawienie metodologii oceny rozwiązania-->
+<!--Zaprojektowanie wysokopoziomowej architektury komunikacji klient-serwer, w tym protokołu komunikacyjnego, interfejsu-->
+<!--REST oraz interfejsu klienta w języku JavaScript-->
+<!--Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych wspierającej-->
+<!--fragmentację czasową oraz fragmentację skali danych-->
+<!--Zaprojektowanie architektury modułu predykcji-->
+<!--Prezentacja kluczowych algorytmów do zarządzania fragmentami serii danych w pamięci podręcznej-->
+<!--Prezentacja kluczowych algorytmów do prezentacji pofragmentowanych danych na ekranie-->
+<!--Prezentacja algorytmów predykcji akcji użytkownika-->
+<!--Przedstawienie i uzasadnienie wyboru narzędzi i środowisk-->
+<!--Metodologiczna ocena rozwiązania, prezentacja wyników pomiarów oraz podsumowanie badań satysfakcji użytkowników-->
+<!--wykonanego rozwiązania.-->
+
+<!--</p>-->
