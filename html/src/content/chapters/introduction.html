@@ -7,8 +7,7 @@
     W ten sposób człowiek jest w stanie efektywnie i równolegle przetwarzać duże ilości danych
     <a href="#bib:laboratorium"></a>, które od wieków służyły mu jako podstawowe źródło informacji potrzebnych do
     zrozumienia otaczającego świata, rządzących nim praw, oraz pozyskania wiedzy, dzięki której mógł wpływać na swoje
-    życie oraz kształtować cały świat <a
-        href="#bib:wisdom"></a>.
+    życie. <a href="#bib:wisdom"></a>
 </p>
 <p>
     Człowiek zaczął mierzyć różne zjawiska na długo przedtem zanim pojawiły się komputery mogące znacznie mu to ułatwić.
@@ -22,20 +21,49 @@
     pracy oraz zwiększenie jakości analizy danych.
 </p>
 <p>
-    Takie wykorzystanie umiejętności ludzi i komputerów nazywa się <i>interaktywną analizą wizualną</i>
-    <trans lang="ang">Interactive Visual Analysis</trans>
-    . Jest to
-    podejście łączące moc obliczeniową komputerów oraz możliwości percepcyjne i poznawcze ludzkiego mózgu w celu
+    Takie wykorzystanie umiejętności ludzi i komputerów nazywa się <i>interaktywną analizą wizualną</i> <trans
+        lang="ang">Interactive Visual Analysis</trans>.
+
+    Jest to podejście łączące moc obliczeniową komputerów oraz możliwości percepcyjne i poznawcze ludzkiego mózgu w celu
     wydobycia wiedzy z dużych i skomplikowanych zbiorów danych.
+
+    <!--TODO find bib for that - there is somewhere-->
+    Jako że interfejs użytkownika z systemem ograniczony jest ekranem komputera, wizualizacja serii
+    czasowych realizowana jest poprzez wykreślanie danych z żądanego przez użytkownika okna czasu.
+
+    Warto tutaj wspomnieć o ograniczonej rozdzielczości wyświetlaczy, ludzkiego oka oraz ludzkiej zdolności
+    generalizacji szczegółów obrazu.
+
+    Dzięki tym cechom, gdy użytkownik żąda wyświetlenia danych za okres w którym danych jest na tyle dużo, że
+    wyświetlenie tych danych w szybkim czasie jest kłopotliwe, wyświetla mu się dane wcześniej zagregowane, a
+    użytkownik nie odnotuje różnicy.
 </p>
 <p>
-    Upowszechnienie Internetu jako globalnej sieci wymiany informacji rzuciło nowe wyzwania tej dziedzinie.
+    Istotnym aspektem <abbr>IVA</abbr> jest wizualna eksploracja danych, czyli przeglądanie danych w
+    celu znalezienia interesujących fragmentów, postawienia pytania i szukania na nie odpowiedzi.
+
+
+    Wizualna eksploracja danych pomiarowych wymaga ciągłej nawigacji po osi czasu, prowadzącej do zmiany zakresu
+    wyświetlanych danych.
+
+    Jest to realizowane poprzez nawigację wszerz <trans lang="ang">panning</trans> w której użytkownik przesuwa stałe
+    okno czasu w przód lub w tył osi, oraz nawigację wgłąb <trans lang="ang">zooming</trans> polegającą na zmianie
+    rozmiaru okna czasowego intuicyjnie postrzeganego przez użytkownika jako przybliżenie lub oddalenie od danych.
+
+    Ważnym aspektem wizualnej eksploracji danych jest utrzymanie ciągłości kontekstu nawigacji użytkownika.
+
+    Nawigacja powinna zapewnić podobieństwo widoku danych na tyle duże, żeby człowiek rozpoznał ruch podświadomie.
+
+    Najlepiej, gdy nawigacja realizowana jest poprzez animację, wtedy ludzki mózg postrzega płynny ruch i szybko
+    odnotowuje zmianę kontekstu.
+    <!--TODO bib about hyman moiton perception-->
+</p>
+<p>
+    Upowszechnienie Internetu jako globalnej sieci wymiany informacji rzuciło nowe wyzwania wizualnej analizie danych.
     Trudno jest dzisiaj wyobrazić sobie dziedzinę życia, która nie opierałaby się na gromadzeniu i analizie danych.
-    Meteorologia, astronomia, geologia, finanse czy medycyna &mdash; żadne z nich nie mogłoby się obejść dzisiaj bez
-    zbierania i analizowania danych. Mniej oczywistych przykładów można doszukiwać się w sporcie, telewizji,
-    gospodarstwach domowych, czy marketingu zorientawanego na dane
-    <trans lang="ang">data-driven marketing</trans>
-    .
+    Meteorologia, astronomia, geologia, finanse czy medycyna &mdash; żadne z nich nie mogłoby się bez tego obejść.
+    Mniej oczywistych przykładów można doszukiwać się w sporcie, telewizji,
+    gospodarstwach domowych, czy marketingu zorientowanym na dane <trans lang="ang">data-driven marketing</trans>.
     Mowa tutaj o zbieraniu znacznych rozmiarów danych, które są generowane przez stale obserwowane obiekty.
     Zbierane są informacje o zachowaniu internautów, dane sensorów środowiskowych, obrazy z kamer miejskich, aparatury
     medycznej, czy parametry pracy urządzeń.
@@ -48,97 +76,66 @@
 </p>
 <p>
     Globalizacja Internetu wymagała zmiany podejścia do projektowania systemów informatycznych. Zdecydowano się
-    rozproszyć dane oraz użytkowników, tworząc aplikacje internetowe, w których użytkownik jest oddalony od danych.
-    O ile matematyczna analiza komputerowa danych na tym nie ucierpiała, gdyż serwery dokonywały obliczeń odsyłając
-    tylko wyniki użytkownikowi, to w przypadku interaktywnej analizy wizualnej, architektura rozproszonych systemów
-    otworzyła nowe wyzwania wynikające z odległości użytkownika od zasobów, opóźnień sieci czy skali rozmiaru danych
-    udostępnianych przez systemy rozproszone.
+    rozproszyć dane oraz użytkowników, tworząc aplikacje internetowe, w których użytkownik jest oddalony od
+    interesujących go danych.
+
+    O ile ta zmiana nie wpłynęła zasadniczo na wykorzystanie matematycznej analizy komputerowej danych, gdyż serwery
+    dokonywały obliczeń odsyłając tylko wyniki do przeglądarki internetowej użytkownika, to w przypadku interaktywnej
+    analizy wizualnej architektura rozproszonych systemów otworzyła nowe możliwości i wyzwania wynikające z odległości
+    użytkownika od zasobów, opóźnień sieci czy skali rozmiaru danych udostępnianych przez systemy rozproszone.
+</p>
+<p>
     Interaktywna analiza wizualna zakłada bowiem swobodę eksploracji danych w czasie. <!--TODO REF-->
-    Eksploracja ta polega na płynnej nawigacji po reprezentacji danych za pomocą zmiany parametru widoku danych bez
-    utraty kontekstu miejsca. Zmieniany może być zakres i tym samy poziom szegółowości prezentowanych danych.
+
+    W środowisku rozproszonym jest to o tyle trudne, że czas dostępu do danych potrzebnych do wizualizacji zaczął grać
+    znaczącą rolę.
+
+    Skala eksplorowanych danych uniemożliwiła przesyłanie ich w całości celem efektywnego i płynnego operowania.
+
+    Oczywistym stało się, że do użytkownika przesyłany jest tylko podzbiór danych, który jest mu potrzebny w obecnej
+    chwili.
+
 </p>
 <p>
-    TODO
     Od kilku lat, wraz z rozwojem technologii używanych w przeglądarkach internetowych, coraz większą uwagę przykłada
-    się do pojęcia użyteczności
-    <trans lang="ang">usability</trans>
-    oraz
-    <trans>User Experience</trans>
-    .
-    ....todo
-    Celem pracy jest identyfikacja problemów związanych z ogółem wrażeń użytkownika interfejsu aplikacji webowej. W
-    szczególności praca ta dotyczy eksploracji wielkoskalowych danych pomiarowych za pomocą interaktywnego komponentu
-    użytkownika prezentujacego serie czasowe w formie wykresu liniowego. W pracy zostaną przedstawione główne wyzwania
-    związane z pozyskiwaniem wielkoskalowych danych pomiarowych i ich dynamicznej prezentacji. Zostanie dokonana analiza
-    istniejących, popularnych webowych komponentów wykresowych pod kątem efektywnej, intuicyjnej i sprawnej nawigacji po
-    seriach czasowych, co jest czynnikiem wpływającym na ogół wrażeń i satysfakcji użytkownika (ang. User Experience)
-    korzystającego z interfejsów webowych.
-    W ramach pracy zostanie zaproponowane i wykonane rozwiązanie, które efektywnie zarządza komunikacją aplikacji z
-    serwerem danych i dynamicznie aktualizuje komponenty wykresowe.
-    W proponowanym rozwiązaniu zostanie wykonana próba zaadoptowania rozwiązań architektonicznych stosowanych w
-    systemach informacji przestrzennej oraz mechanizmów predykcji ładowania zasobów znanych z systemów pamięci
-    podręcznej.
+    się do aspektu użyteczności <trans lang="ang">usability</trans> oraz stosunkowo nowego terminu <trans>User
+    Experience</trans>, co można tłumaczyć na ogół doświadczeń użytkownika korzystającego z interaktywnego interfejsu
+    aplikacji.
+
+    Znaczenie zaczęło mieć to, w jaki sposób ludzie korzystają z interfejsów użytkownika.
+
+    Zastanawiano się jak zapewnić dobre wrażenia z użytkowania, na przykład poprzez intuicyjność, łatwość, szybkość
+    udzielania odpowiedzi na żądanie, a jak minimalizować te złe, takie jak czas biernego oczekiwania, niejasność
+    komunikatów, przełączanie kontekstu.
 </p>
-
-
-
-<h2>Dane pomiarowe</h2>
 <p>
-    Dane pomiarowe
-    <trans lang="ang">Scientific Data</trans>
-    opisane są kombinacją zmiennych niezależnych
-    (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku, stan pracy
-    urządzenia -- inaczej przeciwdziedziny) <a href="#bib:dziennik-internautow"></a>.
-
+    Popularność <trans>User Experience</trans> pozwala na nowo przyjrzeć się webowym interfejsom użytkownika służącym do
+    eksploracji w
+    wizualnej analizie danych i zbadać je pod tym właśnie kątem.
+</p>
+<h2 class="on-new-page">Cel pracy</h2>
+<p>
+    Celem pracy jest identyfikacja i rozwiązanie problemów związanych z <trans>User Experience</trans> komponentów
+    interfejsu
+    użytkownika w przeglądarce internetowej służących do wizualnej eksploracji wielkoskalowych danych pomiarowych.
+    W pracy zostaną przedstawione główne wyzwania związane z pozyskiwaniem wielkoskalowych danych pomiarowych celem ich
+    analizy i ich
+    dynamicznej prezentacji. Zostanie dokonana analiza istniejących, popularnych webowych komponentów wykresowych pod
+    kątem efektywnej, intuicyjnej i sprawnej nawigacji po seriach czasowych.
+    Zaproponowane zostanie rozwiązanie, które adresuje problemy skalowalności efektywnej i intuicyjnej eksploracji w
+    istniejących komponentach.
 </p>
 
+<p>
+    Rozdział <a href="#chapter:theoretical"></a> zawiera podstawowe informacje o zagadnieniach związanych danymi
+    pomiarowymi oraz ich wizualną eksploracją.
 
-<p> W tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady i użycia danych pomiarowych.
-    Wielkość próbki zależeć może od liczby atrybutów i formatu ich przesyłania.</p>
-<figure type="table" id="table:measurementDataExamples">
-    <figcaption>Przykłady danych pomiarowych</figcaption>
-    <table>
-        <thead>
-        <tr>
-            <th>Dziedzina</th>
-            <th>Przykładowe użycie danych</th>
-            <th>Przykładowa wielkość próbki</th>
-            <th>Średnia częstotliwość emisji</th>
-            <th>Dane do przetworzenia</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>lotnictwo</td>
-            <td>szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu</td>
-            <td>8B</td>
-            <td>1Hz</td>
-            <td>90 &times; 8h &times; 1Hz &times; 8B = 24.74MB</td>
-        </tr>
-        <tr>
-            <td>badania operacyjne</td>
-            <td>obserwacja stanu systemu kolejkowego w ciągu tygodnia</td>
-            <td>64B</td>
-            <td>50Hz</td>
-            <td>7d &times; 50Hz &times; 64B = 2GB</td>
-        </tr>
-        <tr>
-            <td>medycyna</td>
-            <td>wizualizacja okresu jednego tygodnia 8 parametrów medycznych</td>
-            <td>8B</td>
-            <td>200Hz</td>
-            <td>8 &times; 7d &times; 200Hz &times; 8B = 7.21 GB</td>
-        </tr>
-        <tr>
-            <td>monitoring środowiska</td>
-            <td>wizualizacja okresu 5 lat 8 parametrów jakości powietrza</td>
-            <td>200B</td>
-            <td>0.1Hz</td>
-            <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
-        </tr>
-        </tbody>
-    </table>
-</figure>
+    Rozdział <a href="#chapter:analysis"></a> szczegółowo definiuje wymagania <trans>User Experience</trans> względem
+    nowoczesnych webowych interfejsów wizualnej eksploracji danych, weryfikuje istniejące rozwiązania pod względem
+    spełnienia tych wymagań oraz pod względem dostępności tych rozwiązań dla szerokiego grona twórców aplikacji
+    internetowych.
+</p>
+
 
 <h2>Pytania pomocnicze</h2>
 <ul>

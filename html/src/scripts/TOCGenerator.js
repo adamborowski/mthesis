@@ -18,6 +18,18 @@ export default class TOCGenerator {
         var tocElement = $('#table-of-contents');
         var output = Mustache.render($('#template-toc').text(), data);
         tocElement.html(output);
+        this.processChapterReferences();
+    }
+
+    processChapterReferences() {
+        $(`a[href^="#chapter:"]`).each((i, block)=> {
+            var $block = $(block);
+            var headerSelector = $block.attr('href').replace(':', '\\:');
+            var header = $(headerSelector);
+            var address = header.attr('data-chapter-address');
+            var value = address.substr(0, address.length - 1);
+            $block.text(value);
+        });
     }
 
     makeAddress(chapter, section = null, subsection = null) {
@@ -32,9 +44,11 @@ export default class TOCGenerator {
     }
 
     makeId(element) {
+        var address = this.makeAddress(element.attr('data-chapter'), element.attr('data-section'), element.attr('data-subsection'));
         if (element.attr('id') == null) {
-            element.attr('id', "toc:" + this.makeAddress(element.attr('data-chapter'), element.attr('data-section'), element.attr('data-subsection')));
+            element.attr('id', "toc:" + address);
         }
+        element.attr('data-chapter-address', address);
         // element.after(`<span>[test: ${element.attr('id')}]</span>`);
     }
 

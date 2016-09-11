@@ -1,4 +1,4 @@
-<h1>Rozdział teoretyczny</h1>
+<h1 id="chapter:theoretical">Rozdział teoretyczny</h1>
 <h2>Dane Pomiarowe</h2>
 <ul>
     <li>Co to są dane pomiarowe i jak się je opisuje</li>
@@ -8,6 +8,63 @@
     </li>
     <li>Przykłady zastosowania danych pomiarowych (wioś, medyczne, cała moja tabelka)</li>
 </ul>
+<h2>Dane pomiarowe</h2>
+<p>
+    Dane pomiarowe
+    <trans lang="ang">Scientific Data</trans>
+    opisane są kombinacją zmiennych niezależnych
+    (przestrzeń, czas -- inaczej dziedziny) oraz zmiennych zależnych (temperatura, wychylenie tłoku, stan pracy
+    urządzenia -- inaczej przeciwdziedziny) <a href="#bib:dziennik-internautow"></a>.
+
+</p>
+
+
+<p> W tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady i użycia danych pomiarowych.
+    Wielkość próbki zależeć może od liczby atrybutów i formatu ich przesyłania.</p>
+<figure type="table" id="table:measurementDataExamples">
+    <figcaption>Przykłady danych pomiarowych</figcaption>
+    <table>
+        <thead>
+        <tr>
+            <th>Dziedzina</th>
+            <th>Przykładowe użycie danych</th>
+            <th>Przykładowa wielkość próbki</th>
+            <th>Średnia częstotliwość emisji</th>
+            <th>Dan`e do przetworzenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>lotnictwo</td>
+            <td>szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu</td>
+            <td>8B</td>
+            <td>1Hz</td>
+            <td>90 &times; 8h &times; 1Hz &times; 8B = 24.74MB</td>
+        </tr>
+        <tr>
+            <td>badania operacyjne</td>
+            <td>obserwacja stanu systemu kolejkowego w ciągu tygodnia</td>
+            <td>64B</td>
+            <td>50Hz</td>
+            <td>7d &times; 50Hz &times; 64B = 2GB</td>
+        </tr>
+        <tr>
+            <td>medycyna</td>
+            <td>wizualizacja okresu jednego tygodnia 8 parametrów medycznych</td>
+            <td>8B</td>
+            <td>200Hz</td>
+            <td>8 &times; 7d &times; 200Hz &times; 8B = 7.21 GB</td>
+        </tr>
+        <tr>
+            <td>monitoring środowiska</td>
+            <td>wizualizacja okresu 5 lat 8 parametrów jakości powietrza</td>
+            <td>200B</td>
+            <td>0.1Hz</td>
+            <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
+        </tr>
+        </tbody>
+    </table>
+</figure>
 <h2>IVA</h2>
 <ul>
     <li>Co to jest interaktywna analiza wizualna</li>
