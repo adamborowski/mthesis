@@ -1,4 +1,10 @@
 <h1 id="chapter:theoretical">Podstawowe informacje</h1>
+<h2>Wizualizacja danych</h2>
+<ul class="helper">
+    <li>Definicja</li>
+    <li>Jest to całościowo ujęty proces przekazu danych kończący się na kształtowanie obrazu w umyśle odbiorcy</li>
+</ul>
+
 <h2>Interaktywna analiza wizualna</h2>
 <ul class="helper">
     <li>Co to jest interaktywna analiza wizualna</li>
@@ -183,63 +189,54 @@
 
 <h3>Agregowanie danych</h3>
 <p>
-    In state-of-the-art visual analytics tools,
-    e.g., Tableau, QlikView, SAP Lumira, etc., such queries are
-    issued to the database without considering the cardinality
-    of the query result. However, when reading data from highvolume
-    data sources, result sets often contain millions of
-    rows. This leads to very high bandwidth consumption between
-    the visualization system and the database.
-    Let us consider the following example. SAP customers in
-    high tech manufacturing report that it is not uncommon for
-    100 engineers to simultaneously access a global database,
-    containing equipment monitoring data. Such monitoring
-    data originates from sensors embedded within the high tech
-    manufacturing machines. The common reporting frequency
-    for such embedded sensors is 100Hz [15]. An engineer usually
-    accesses data which spans the last 12 hours for any given
-    sensor. If the visualization system uses a non-aggregating
-    query, such as
-    SELECT time,value FROM sensor WHERE time > NOW()-12*3600
-    to retrieve the necessary data from the database, the total
-    amount of data to transfer is 100users · (12 · 3600)seconds ·
-    100Hz = 432 million rows, i.e., over 4 million rows per visualization
-    client. Assuming a wire size of 60 bytes per row,
-    the total amount of data that needs to be transferred from
-    the database to all visualization clients is almost 26GB. Each
-    user will have to wait for nearly 260MB to be loaded to the
-    visualization client before he or she can examine a chart,
-    showing the sensor signal.
-    With the proliferation of high frequency data sources and
-    real-time visualization systems, the above concurrent-usage
-    pattern and its implications are observed by SAP not only in
-    high tech manufacturing, but across a constantly increasing
-    number of industries, including sports analytics [22], finance,
-    and utilities.
-    The final visualization, which is presented to an engineer,
-    is inherently restricted to displaying the retrieved data using
-    width × height pixels - the area of the resulting chart. This
-    implies that a visualization system must perform a data reduction,
-    transforming and projecting the received result set
-    onto a width × height raster. This reduction is performed
-    implicitly by the visualization client and is applied to all result
-    sets, regardless of the number of rows they contain. The
-    goal of this paper is to leverage this fundamental observation
-    and apply an appropriate data reduction already at the
-    query level within the database. As illustrated in Figure 1,
-    the goal is to rewrite a visualization-related query Q using a
-    data reduction operator MR, such that the resulting query
-    QR produces a much smaller result set, without impairing
-    the resulting visualization. Significantly reduced data volumes
-    mitigate high network bandwidth requirements and
-    lead to shorter waiting times for the users of the visualization
-    system. Note that the goal of our approach is not
-    to compute images inside the database, since this prevents
-    client-side interaction with the data. Instead, our system
-    should select subsets of the original result set that c
+    W najnowocześniejszych narzędziach wizualnej analizy takich jak Tableau, QlikView czy SAP Lumira, zapytania o dane
+    pomiarowe do bazy danych zakładają stosunkowo mały rozmiar zwróconej odpowiedzi.
+
+    Jednak, gdy mowa o odczycie danych wielkoskalowych, odpowiedź bazy danych może zawierać miliony punktów.
+
+    To powoduje wysokie obciążenie łącza pomiędzy aplikacją użytkownika a bazą danych.
+
+    W przypadku zastosowań zaprezentowanych w tabeli <a href="#table:measurementDataExamples"></a>, każdy użytkownik
+    musiałby oczekiwać na załadowanie odpowiednio 24MB, 2GB, 7GB oraz 25GB danych, zanim system będzie mógł
+    zwizualizować te dane w postaci wykresu.
+
+    Ze względu na rosnącą popularność oraz szybki wzrost liczby źródeł danych o wysokiej częstotliwości próbkowania,
+    powyższe obserwacje można uznać za problem dotyczący nie tylko pojedynczego użytkownika, ale wszystkich
+    użytkowników podłączonych do wspólnej sieci Internet <a href="#bib:data-aggregation"></a>.
+
 </p>
 <p>
+    Wizualizacja takich danych jest w naturalny sposób ograniczona pikselami wyświetlającymi obszar wykresu o danej
+    wysokości i szerokości. Ograniczeniem jest też rozdzielczość ludzkiego oka, którą szacuje się na blisko 576
+    megapikseli <a href="#bib:eye-resolution"></a>, zatem nie istnieje możliwość wizualizacji danych bez ograniczeń.
 
+    Te cechy implikują fakt, iż zanim dane zwrócone w odpowiedzi bazy danych ukształtują się w umyśle odbiorcy,
+    dokonywana jest ich redukcja polegająca na pewnym ich przekształceniu oraz późniejszej projekcji na raster o
+    ustalonej wysokości i serokości.
+
+    Ta redukcja jest dokonywana naturalnie, niezależnie od implementacji aplikacji wizualizacyjnej czy wielkości zbioru
+    wynikowego.
+</p>
+<p>
+    Biorąc pod uwagę wyżej opisaną naturalną redukcję danych w procesie wizualizacji, dzisiejsze systemy dokonują tej
+    redukcji wcześniej, już na
+    etapie akwizycji danych.
+
+    Redukcja ta polega na zastosowaniu odpowiednich funkcji agregujących na podzbiorach danych o stałym interwale.
+
+    Tak przgotowane wcześniej dane wykorzystuje się jako dane wejściowe do opisanej wyżej naturalnej redukcji, co
+    skutkuje identycznym rezultatem, jak pokazano na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie a i b.
+
+
+
+
+    <!--Ze względu na dowolność, agregacje są wielopoziomowe-->
+</p>
+<figure type="picture" id="picture:aggregation-reduction">
+    <figcaption>TODO</figcaption>
+    <img src="cache/aggregation-and-natural-reduction.png">
+</figure>
+<p>
     Ważnym elementem akwizycji danych jest agregowanie danych.
     Jest to swego rodzaju abstrakcja polegają na zastąpieniu wielu próbek z danego zakresu czasu jedną próbką zbiorczą,
     zawierającą zmienne statystyczne lub inne wartości funkcji najlepiej opisujących to, co się działo z mierzonym

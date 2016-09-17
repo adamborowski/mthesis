@@ -281,6 +281,11 @@
         <publisher>YourDictionary</publisher>
         <url access="2016-09-17">http://www.yourdictionary.com/scientific-data</url>
     </citation>
+    <citation type="article" id="bib:eye-resolution">
+        <author>Roger Clark</author>
+        <title>Notes on the Resolution and Other Details of the Human Eye</title>
+        <url access="2016-09-17">http://www.clarkvision.com/articles/eye-resolution.html</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
