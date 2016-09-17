@@ -256,6 +256,31 @@
         <url access="2016-09-10">http://www.icm.edu.pl/web/guest/analiza_wizualna</url>
     </citation>
     <!--http://www.cs.toronto.edu/~fchevali/fannydotnet/resources_pub/pdf/kronominer_chi2011.pdf-->
+    <citation type="article" id="bib:data-aggregation">
+        <title>M4: A Visualization-Oriented Time Series Data Aggregation</title>
+        <author>Jugel, Uwe and Jerzak, Zbigniew and Hackenbroich, Gregor and Markl, Volker</author>
+        <journal>Proceedings of the VLDB Endowment</journal>
+        <year>2014</year>
+        <pages>797-808</pages>
+        <number>10</number>
+        <volume>7</volume>
+        <publisher>VLDB Endowment</publisher>
+    </citation>
+    <citation type="article" id="bib:fu2011review">
+        <title>A review on time series data mining}</title>
+        <author>Fu, Tak-chung</author>
+        <journal>Engineering Applications of Artificial Intelligence</journal>
+        <volume>24</volume>
+        <number>1</number>
+        <pages>164-181</pages>
+        <year>2011</year>
+        <publisher>Elsevier</publisher>
+    </citation>
+    <citation type="page" id="bib:scientific-data-dictionary">
+        <title>Scientific data</title>
+        <publisher>YourDictionary</publisher>
+        <url access="2016-09-17">http://www.yourdictionary.com/scientific-data</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->

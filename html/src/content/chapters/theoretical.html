@@ -1,4 +1,13 @@
 <h1 id="chapter:theoretical">Podstawowe informacje</h1>
+<h2>Interaktywna analiza wizualna</h2>
+<ul class="helper">
+    <li>Co to jest interaktywna analiza wizualna</li>
+    <li>Co to jest wizualna eksporacja (nawigacja)</li>
+    <li>Nawigacja w celu uzyskania odpowiedzi na pytania (gdzieś fajne bib na to było)</li>
+    <li>doczytać jak systemy pomagają podczas takiej analizy - np podkreślają ważne fragmenty - można tutaj pochwalić
+        się MedCharts
+    </li>
+</ul>
 <h2>Dane pomiarowe</h2>
 <ul class="helper">
     <li>Co to są dane pomiarowe i jak się je opisuje</li>
@@ -9,22 +18,37 @@
     <li>Przykłady zastosowania danych pomiarowych (WIOŚ, medyczne, cała  tabelka)</li>
 </ul>
 <p>
-    Dane pomiarowe <trans lang="ang">Scientific Data</trans> są to dane liczbowe reprezentujące stan obserwowanego
-    obiektu w przestrzeni czasu. Ich wykorzystanie zakłada systematyczny pomiar wartości, niekiedy wykonywany z dużą
-    częstotliwością.
+    Wiele firm i organizacji na całym świecie pozyskuje petabajty danych i umieszcza je w prywatnych lub publicznych
+    chmurach.
+    Jednym z rodzajów tych danych są serie czasowe pochodzące z różnych źródeł, takich jak sieci sensorowe, inteligentne
+    sieci elektroenergetyczne czy rynki finansowe.
+    Ciągle zwiększające swoją objętość serie czasowe przechowywane są w mniej lub bardziej wyspecjalizowanych
+    relacyjnych bazach danych.
+    Bazy te z kolei wykorzystywane są jako źródło danych w aplikacjach umożliwiajych ich wizualną analizę.
+    W związku z interakcją analitykow z aplikacją wykonywane są zapytania do relacyjnej bazy danych przechowującej
+    oryginalne serie czasowe <a href="#bib:data-aggregation"></a>.
+
+</p>
+<p>
+    Dane pomiarowe <trans lang="ang">Scientific Data</trans> <a href="#bib:scientific-data-dictionary"></a> są to dane
+    reprezentujące stan obserwowanego obiektu w przestrzeni czasu.
+    Zbierane są określoną metodą, w określonym celu.
+    Ich wykorzystanie zakłada systematyczny pomiar wartości, niekiedy wykonywany z dużą częstotliwością.
 
     Dane reprezentowane są w postaci serii czasowej, gdzie każda próbka oznaczona jest stemplem czasowym oraz zbiorem
     atrybutów zmiennych zależnych, zazwyczaj liczbowych <a href="#bib:Hauser12VisTutorial"></a>.
 
-    W tabeli <a href="#table:exampleTimeSerie"></a> przykładowy fragment serii czasowej danych pomiarowych silnika
-    tłokowego.
+    W tabeli <a href="#table:exampleTimeSerie"></a> pokazano przykładowy fragment serii czasowej danych pomiarowych
+    pewnego silnika tłokowego próbkowane co 1 sekundę. Można z nich wyczytać między innymi kiedy zaszło interesujące
+    zdarzenie, oraz że przy starcie silnika temperatura osiągnęła wysoki poziom co prawdopodobnie było przyczyną
+    jego awaryjnego wyłączenia.
 
     <figure type="table" id="table:exampleTimeSerie">
         <figcaption>Przykładowy szereg czasowy</figcaption>
         <table class="small align-content-right align-table-center">
             <thead>
             <tr>
-                <th>czas [s]</th>
+                <th>stempel czasowy</th>
                 <th>temperatura [&deg;C]</th>
                 <th>prędkość [obr/min]</th>
                 <th>stan pracy</th>
@@ -32,50 +56,49 @@
             </thead>
             <tbody>
             <tr>
-                <td>00</td>
+                <td>2015-08-08 10:36:00.000</td>
                 <td>28</td>
                 <td>0</td>
                 <td>wyłączony</td>
             </tr>
             <tr>
-                <td>10</td>
+                <td>2015-08-08 10:36:01.000</td>
                 <td>28</td>
                 <td>0</td>
                 <td>wyłączony</td>
             </tr>
             <tr>
-                <td>20</td>
+                <td>2015-08-08 10:36:02.000</td>
                 <td>50</td>
                 <td>500</td>
                 <td>pracuje</td>
             </tr>
             <tr>
-                <td>30</td>
+                <td>2015-08-08 10:36:03.000</td>
                 <td>80</td>
                 <td>1000</td>
                 <td>pracuje</td>
             </tr>
             <tr>
-                <td>40</td>
+                <td>2015-08-08 10:36:04.000</td>
                 <td>100</td>
                 <td>2000</td>
                 <td>pracuje</td>
             </tr>
             <tr>
-                <td>50</td>
+                <td>2015-08-08 10:36:05.000</td>
                 <td>200</td>
                 <td>300</td>
                 <td>awaria</td>
             </tr>
-
             <tr>
-                <td>60</td>
+                <td>2015-08-08 10:36:07.000</td>
                 <td>90</td>
                 <td>0</td>
                 <td>awaria</td>
             </tr>
             <tr>
-                <td>70</td>
+                <td>2015-08-08 10:36:08.000</td>
                 <td>40</td>
                 <td>0</td>
                 <td>wyłączony</td>
@@ -84,11 +107,16 @@
         </table>
     </figure>
 </p>
+<figure type="picture" class="on-right" id="picture:analizator">
+    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
+    </figcaption>
+    <img src="/images/stacja–monitoringu.png" style="height:8cm;">
+</figure>
 <p>
-    Dane pomiarowe zgromadzone w dużej ilości umożliwiają pozyskanie wiedzy ogólnej o zachowaniu obiektu, czy
-    zidentyfikowanie pojedynczych incydentów.
+    Regularnie zbierane dane pomiarowe dotarczają ogólne informacje o obserwowanym obiekcie, umożliwiają jego kontrolę,
+    ale również pozwalają dokładnie zbadać pojedyncze incydenty.
 
-    Dane zazwyczaj są pochodzenia naturalnego, wymagają więc zatem specjalnych urządzeń potrafiących mierzyć te obiekty.
+    Dane są zazwyczaj pochodzenia naturalnego, wymagają więc specjalnych urządzeń potrafiących mierzyć te obiekty.
     Przykładowym urządzeniem pomiarowym mogą być pokazane na rysunku <a href="#picture:analizator"></a> analizatory
     parametrów jakości powietrza, takich jak tlenków azotu, tlenków siarki, pyłów, benzenu czy ozonu.
 
@@ -103,15 +131,13 @@
     Aby ukazać skalę tych danych, w tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady i użycia
     danych pomiarowych.
 
-    Wielkość próbki zależeć może od liczby atrybutów i formatu ich przesyłania.
+
 </p>
-<figure type="picture" id="picture:analizator">
-    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
-    </figcaption>
-    <img src="/images/stacja–monitoringu.png" style="height:8cm">
-</figure>
+
 <figure type="table" id="table:measurementDataExamples">
-    <figcaption>Przykłady danych pomiarowych</figcaption>
+    <figcaption>Przykłady danych pomiarowych. Wielkość próbki zależeć może od liczby atrybutów pomiaru i formatu ich
+        przechowywania i transmisji.
+    </figcaption>
     <table>
         <thead>
         <tr>
@@ -157,15 +183,76 @@
 
 <h3>Agregowanie danych</h3>
 <p>
+    In state-of-the-art visual analytics tools,
+    e.g., Tableau, QlikView, SAP Lumira, etc., such queries are
+    issued to the database without considering the cardinality
+    of the query result. However, when reading data from highvolume
+    data sources, result sets often contain millions of
+    rows. This leads to very high bandwidth consumption between
+    the visualization system and the database.
+    Let us consider the following example. SAP customers in
+    high tech manufacturing report that it is not uncommon for
+    100 engineers to simultaneously access a global database,
+    containing equipment monitoring data. Such monitoring
+    data originates from sensors embedded within the high tech
+    manufacturing machines. The common reporting frequency
+    for such embedded sensors is 100Hz [15]. An engineer usually
+    accesses data which spans the last 12 hours for any given
+    sensor. If the visualization system uses a non-aggregating
+    query, such as
+    SELECT time,value FROM sensor WHERE time > NOW()-12*3600
+    to retrieve the necessary data from the database, the total
+    amount of data to transfer is 100users · (12 · 3600)seconds ·
+    100Hz = 432 million rows, i.e., over 4 million rows per visualization
+    client. Assuming a wire size of 60 bytes per row,
+    the total amount of data that needs to be transferred from
+    the database to all visualization clients is almost 26GB. Each
+    user will have to wait for nearly 260MB to be loaded to the
+    visualization client before he or she can examine a chart,
+    showing the sensor signal.
+    With the proliferation of high frequency data sources and
+    real-time visualization systems, the above concurrent-usage
+    pattern and its implications are observed by SAP not only in
+    high tech manufacturing, but across a constantly increasing
+    number of industries, including sports analytics [22], finance,
+    and utilities.
+    The final visualization, which is presented to an engineer,
+    is inherently restricted to displaying the retrieved data using
+    width × height pixels - the area of the resulting chart. This
+    implies that a visualization system must perform a data reduction,
+    transforming and projecting the received result set
+    onto a width × height raster. This reduction is performed
+    implicitly by the visualization client and is applied to all result
+    sets, regardless of the number of rows they contain. The
+    goal of this paper is to leverage this fundamental observation
+    and apply an appropriate data reduction already at the
+    query level within the database. As illustrated in Figure 1,
+    the goal is to rewrite a visualization-related query Q using a
+    data reduction operator MR, such that the resulting query
+    QR produces a much smaller result set, without impairing
+    the resulting visualization. Significantly reduced data volumes
+    mitigate high network bandwidth requirements and
+    lead to shorter waiting times for the users of the visualization
+    system. Note that the goal of our approach is not
+    to compute images inside the database, since this prevents
+    client-side interaction with the data. Instead, our system
+    should select subsets of the original result set that c
+</p>
+<p>
 
     Ważnym elementem akwizycji danych jest agregowanie danych.
     Jest to swego rodzaju abstrakcja polegają na zastąpieniu wielu próbek z danego zakresu czasu jedną próbką zbiorczą,
     zawierającą zmienne statystyczne lub inne wartości funkcji najlepiej opisujących to, co się działo z mierzonym
     obiektem w agregowanym okresie.
 
-    Poniżej zostały po krótce omówione różne sposoby agregowania danych i sposoby ich wykorzystania.
+    Poniżej zostały po krótce omówione różne metody agregowania danych i sposoby ich wykorzystania.
 </p>
+<h4>Próbkowanie</h4>
 <h4>Ekstrema oraz średnia wartości skalarnych</h4>
+<figure type="picture" id="picture:min-max-aggr">
+    <figcaption>Wykorzystanie ekstremum oraz średniej w prezentacji agregowanych danych</figcaption>
+    <img style="width:5cm;" src="/images/min-max.png"/>
+</figure>
 <!--Minimum, maksimum oraz wartość średnia to najbardziej podstawowy sposób agregowania danych.-->
 <h4>Percentyle</h4>
 <!--max i kierunek wiatru, liczba alarmów, wystąpienie
@@ -175,16 +262,6 @@
 <h4>Częstotliwość</h4>
 
 
-
-<h2>Interaktywna analiza wizualna</h2>
-<ul class="helper">
-    <li>Co to jest interaktywna analiza wizualna</li>
-    <li>Co to jest wizualna eksporacja (nawigacja)</li>
-    <li>Nawigacja w celu uzyskania odpowiedzi na pytania (gdzieś fajne bib na to było)</li>
-    <li>doczytać jak systemy pomagają podczas takiej analizy - np podkreślają ważne fragmenty - można tutaj pochwalić
-        się MedCharts
-    </li>
-</ul>
 <h2>Aplikacje rozproszone</h2>
 <ul class="helper">
     <li>Czym jest aplikacja rozproszona</li>
