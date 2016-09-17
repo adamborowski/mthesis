@@ -113,11 +113,7 @@
         </table>
     </figure>
 </p>
-<figure type="picture" class="on-right" id="picture:analizator">
-    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
-    </figcaption>
-    <img src="/images/stacja–monitoringu.png" style="height:8cm;">
-</figure>
+
 <p>
     Regularnie zbierane dane pomiarowe dotarczają ogólne informacje o obserwowanym obiekcie, umożliwiają jego kontrolę,
     ale również pozwalają dokładnie zbadać pojedyncze incydenty.
@@ -129,7 +125,7 @@
     W zależności od celu pomiaru próbkowanie odbywa się ze zróżnicowaną częstotliwością &mdash; od kilku milisekund do
     kilku godzin.
 
-    W przypadku monitoringu jakości powietrza w Polsce próbkowanie odbywa się z częstotliwością 10 sekund.
+    Na przykłd w przypadku monitoringu jakości powietrza w Polsce, próbkowanie odbywa się z częstotliwością 10 sekund.
 
     Cały proces fizycznego uzyskiwania danych pomiarowych, transmisji, i wstępnego przetwarzania nazywa się akwizycją
     danych.
@@ -139,6 +135,11 @@
 
 
 </p>
+<figure type="picture" class="on-right" id="picture:analizator">
+    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
+    </figcaption>
+    <img src="/images/stacja–monitoringu.png" style="height:8cm;">
+</figure>
 
 <figure type="table" id="table:measurementDataExamples">
     <figcaption>Przykłady danych pomiarowych. Wielkość próbki zależeć może od liczby atrybutów pomiaru i formatu ich
@@ -219,28 +220,46 @@
 </p>
 <p>
     Biorąc pod uwagę wyżej opisaną naturalną redukcję danych w procesie wizualizacji, dzisiejsze systemy dokonują tej
-    redukcji wcześniej, już na
-    etapie akwizycji danych.
+    redukcji wcześniej, już na etapie akwizycji danych.
 
     Redukcja ta polega na zastosowaniu odpowiednich funkcji agregujących na podzbiorach danych o stałym interwale.
 
     Tak przgotowane wcześniej dane wykorzystuje się jako dane wejściowe do opisanej wyżej naturalnej redukcji, co
-    skutkuje identycznym rezultatem, jak pokazano na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie a i b.
+    skutkuje identycznym rezultatem, jak pokazano na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie a&nbsp;i&nbsp;b.
+
+    Korzyścią z zastosowanie wcześniejszej redukcji jest niewątpliwie minimalizacja transmisji danych z bazy danych do
+    aplikacji użytkownika.
+
+    Rozwiązuje to tym samym problem obciążenia sieci.
 
 
+</p>
+<p>
+    Z agregowaniem wizualizowanych danych wiążą się inne wyzwania.
 
+    Pierwszym z nich jest odpowiednie dobranie wielkości interwału agregacji.
 
-    <!--Ze względu na dowolność, agregacje są wielopoziomowe-->
+    Jeżeli interwał agregacji po zrzutowaniu na ekran będzie zajmował więcej niż jeden piksel, redukcja będzie
+    zauważalna przez użytkownika i zinterpretowana jako rozmycie obrazu. Na rysunku <a
+        href="#picture:aggregation-reduction"></a> w punkcie <i>c</i> pokazano, jak użytkownik widzi obraz, gdy dochodzi
+    do
+    wyświetlenia zbyt dużej agregacji danych.
+
+    Drugim problemem jest zapewnienie odpowiedniej agregacji danych dla dowolnego zapytania do bazy danych.
+
+    W tym celu systemy akwizycji danych agregują dane na różnych poziomach, aby baza danych mogła przesyłać jak
+    najmniejszą liczbę punktow przy jednoczesnym zachowaniu redukcji identycznej z redukcją naturalną.
 </p>
 <figure type="picture" id="picture:aggregation-reduction">
-    <figcaption>TODO</figcaption>
+    <figcaption>Wpływ agregacji na wizualizację danych. Dobrze dobrana agregacja nie zmienia rezultatu jednocześnie
+        minimalizując rozmiar odpowiedzi bazy danych. Źle dobrana - powoduje zauważalną redukcję.
+    </figcaption>
     <img src="cache/aggregation-and-natural-reduction.png">
 </figure>
 <p>
-    Ważnym elementem akwizycji danych jest agregowanie danych.
-    Jest to swego rodzaju abstrakcja polegają na zastąpieniu wielu próbek z danego zakresu czasu jedną próbką zbiorczą,
-    zawierającą zmienne statystyczne lub inne wartości funkcji najlepiej opisujących to, co się działo z mierzonym
-    obiektem w agregowanym okresie.
+    W zależności od sposobu wizualizacji, systemy niekiedy dokonują dodatkowej agregacji w celu zwiększenia
+    czytelności. W takim wypadku funkcja agregująca ma na celu wydobycie charakterystycznych dla danego celu
+    wizualizacji cech, najlepiej opisujących to, co się działo z monitorowanym obiektem w agregowanym okresie.
 
     Poniżej zostały po krótce omówione różne metody agregowania danych i sposoby ich wykorzystania.
 </p>
