@@ -115,7 +115,8 @@
 </p>
 
 <p>
-    Regularnie zbierane dane pomiarowe dotarczają ogólne informacje o obserwowanym obiekcie, umożliwiają jego kontrolę,
+    Regularnie zbierane dane pomiarowe dostarczają ogólnych informacji o obserwowanym obiekcie, umożliwiają jego
+    kontrolę,
     ale również pozwalają dokładnie zbadać pojedyncze incydenty.
 
     Dane są zazwyczaj pochodzenia naturalnego, wymagają więc specjalnych urządzeń potrafiących mierzyć te obiekty.
@@ -193,7 +194,7 @@
     W najnowocześniejszych narzędziach wizualnej analizy takich jak Tableau, QlikView czy SAP Lumira, zapytania o dane
     pomiarowe do bazy danych zakładają stosunkowo mały rozmiar zwróconej odpowiedzi.
 
-    Jednak, gdy mowa o odczycie danych wielkoskalowych, odpowiedź bazy danych może zawierać miliony punktów.
+    Jednak, gdy mowa o odczycie danych wielkoskalowych, odpowiedź bazy danych może zawierać miliony rekordów.
 
     To powoduje wysokie obciążenie łącza pomiędzy aplikacją użytkownika a bazą danych.
 
@@ -212,7 +213,7 @@
     megapikseli <a href="#bib:eye-resolution"></a>, zatem nie istnieje możliwość wizualizacji danych bez ograniczeń.
 
     Te cechy implikują fakt, iż zanim dane zwrócone w odpowiedzi bazy danych ukształtują się w umyśle odbiorcy,
-    dokonywana jest ich redukcja polegająca na pewnym ich przekształceniu oraz późniejszej projekcji na raster o
+    dokonywana jest ich redukcja polegająca na pewnym ich przekształceniu oraz późniejszej projekcji na obraz rastrowy o
     ustalonej wysokości i serokości.
 
     Ta redukcja jest dokonywana naturalnie, niezależnie od implementacji aplikacji wizualizacyjnej czy wielkości zbioru
@@ -240,21 +241,31 @@
     Pierwszym z nich jest odpowiednie dobranie wielkości interwału agregacji.
 
     Jeżeli interwał agregacji po zrzutowaniu na ekran będzie zajmował więcej niż jeden piksel, redukcja będzie
-    zauważalna przez użytkownika i zinterpretowana jako rozmycie obrazu. Na rysunku <a
-        href="#picture:aggregation-reduction"></a> w punkcie <i>c</i> pokazano, jak użytkownik widzi obraz, gdy dochodzi
-    do
-    wyświetlenia zbyt dużej agregacji danych.
+    zauważalna przez użytkownika i zinterpretowana jako rozmycie obrazu.
+
+    Na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie <i>c</i> pokazano, jak użytkownik widzi obraz,
+    gdy dochodzi do wyświetlenia zbyt dużej agregacji danych.
 
     Drugim problemem jest zapewnienie odpowiedniej agregacji danych dla dowolnego zapytania do bazy danych.
 
     W tym celu systemy akwizycji danych agregują dane na różnych poziomach, aby baza danych mogła przesyłać jak
-    najmniejszą liczbę punktow przy jednoczesnym zachowaniu redukcji identycznej z redukcją naturalną.
+    najmniejszą liczbę punktow przy jednoczesnym zachowaniu redukcji identycznej z redukcją naturalną. Zobrazowano to na
+    rysunku <a href="#picture:aggregation-acquisition"></a>.
 </p>
 <figure type="picture" id="picture:aggregation-reduction">
-    <figcaption>Wpływ agregacji na wizualizację danych. Dobrze dobrana agregacja nie zmienia rezultatu jednocześnie
-        zmniejszając rozmiar odpowiedzi bazy danych. Źle dobrana - powoduje zauważalną redukcję.
+    <figcaption>
+        Wpływ agregacji na wizualizację danych.
+        W punkcie <i>a</i> transmisja surowych danych znacznie obciąża łącze.
+        W punkcie <i>b</i> dobrze dobrana agregacja nie zmienia rezultatu po rasteryzacji jednocześnie minimalizując
+        obciążenie łącza.
+        W punkcie <i>c</i> źle dobrana agregacja powoduje zauważalną redukcję.
     </figcaption>
     <img src="cache/aggregation-and-natural-reduction.png">
+</figure>
+
+<figure type="picture" id="picture:aggregation-acquisition">
+    <figcaption>Agregowanie wielopoziomowe w akwizycji danych. Grubość strzałki oznacza rozmiar strumienia danych.</figcaption>
+    <img src="cache/aggregation-acquisition.png">
 </figure>
 <p>
     W zależności od sposobu wizualizacji, systemy niekiedy dokonują dodatkowej agregacji w celu zwiększenia
