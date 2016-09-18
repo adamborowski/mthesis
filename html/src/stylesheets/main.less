@@ -3,6 +3,7 @@
 @import "margin";
 @import "recommended";
 @import "language-decorator";
+@import "helper";
 
 a {
   text-decoration: none;
@@ -66,19 +67,4 @@ dl {
 
 a[href^="#chapter:"] {
   white-space: nowrap;
-}
-
-ul.helper {
-  page-break-before: avoid;
-  page-break-inside: avoid;
-  color: #444444;
-  font-size: 8pt;
-  line-height: 1.2em;
-  border-left: 1px solid #cccccc;
-  padding-left: 7mm;
-  &:before {
-    content: 'pytania pomocnicze:';
-    display: block;
-    line-height: 2em;
-  }
 }
