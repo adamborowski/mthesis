@@ -8,6 +8,7 @@
     <li>Przykłady zastosowania danych pomiarowych (WIOŚ, medyczne, cała tabelka)</li>
 </ul>
 <p>
+
     Wiele firm i organizacji na całym świecie pozyskuje petabajty danych i umieszcza je w prywatnych lub publicznych
     chmurach.
     Jednym z rodzajów tych danych są serie czasowe pochodzące z różnych źródeł, takich jak sieci sensorowe, inteligentne
@@ -173,7 +174,7 @@
     </table>
 </figure>
 
-<h3>Agregowanie danych</h3>
+<h3>Redukcja danych</h3>
 <p helper="Nie można załadować wszystkich danych do wizualizacji">
     W najnowocześniejszych narzędziach wizualnej analizy takich jak Tableau, QlikView czy SAP Lumira, zapytania o dane
     pomiarowe do bazy danych zakładają stosunkowo mały rozmiar zwróconej odpowiedzi.
@@ -431,8 +432,66 @@
 </figure>
 <h4>Maksimum oraz kierunek wartości wektorowych</h4>
 <p>
-    Ten rodzaj agregacji służyć może za dodatkową informację prezentowaną na ekranie.
-    Polega
-    Możliwości kombinacji parametrów agragacji jest wiele
+    Ten rodzaj agregacji służyć może za dodatkową adnotację prezentowaną na ekranie.
+    Wykorzystywany jest między innymi w meteorologii.
+    Możliwości kombinacji parametrów agragacji jest wiele.
+    W przypadku, gdy wizualizacja dotyczy kluczowych cech wiatru, w agregacji znajduje się średnia prędkość wiatru,
+    maksymalna prędkość wiatru oraz kierunek wiatru w momencie osiągnięcia przez niego prędkości maksymalnej.
 </p>
-<h4>Wystąpienie faktu</h4>
+<figure type="picture" id="picture:windspeed">
+    <figcaption>
+        Wizualizacja prędkości wektorowej wiatru stacji meteorologicznej Uniwersystetu Gdańskiego <a
+            href="#bib:klimat-ug"></a>
+    </figcaption>
+    <img src="/images/ug-windspeed.png">
+</figure>
+<h4>Zliczanie zdarzeń</h4>
+<p>
+    Ostatnim wartym uwagi agregowanym parametrem jest odnotowanie jakiegoś faktu, na przykład alarmu systemu.
+    W ogólności mowa jest o zliczaniu wystąpień zdarzeń.
+    Na rysunku <a href="#picture:event-counting"></a> pokazano przykładową wizualizację systemu monitoringu
+    przeciwpożarowego.
+
+    Zdarzenia trwające w czasie zaznaczono kolorem tła wykresu.
+    Kolorem żółtym i czerwonym wyróżniono dwie różne kategorie zdarzeń.
+    Zdarzenie punktowe, takie jak rozpoczęcie ewakuacji, zaznaczono wyraźną kreską i nadano mu etykietę tekstową.
+    W zestawieniu z innymi agregowanymi parametrami można zbadać korelację różnych czynników w celu zidentyfikowania
+    przyczyny awarii.
+
+</p>
+<figure type="picture" id="picture:event-counting">
+    <figcaption>Przykładowe adnotacje o wystąpieniu trzech ostrzeżeń oraz o rozpoczęciu ewakuacji.</figcaption>
+    <img src="/images/event-counting.png">
+</figure>
+
+
+<h3>Aspekt prawny w agregowaniu danych</h3>
+
+<p>
+    Agregowanie danych w wielu branżach ograniczone jest licznymi dyrektywami i ustawami.
+
+    Z tych regulacji wynikają rozmaite konsekwencje natury technicznej.
+
+    W sektorze publicznym najlepszym przykładem jest monitoring powietrza w Polsce.
+
+    Dane pomiarowe zbierane są w kilku celach.
+
+    Jednym z nich jest walidacja danych pomiarowych, drugim zaś jest podanie stanu jakości powietrza do publicznej
+    wiadomości.
+
+    Każdy cel dokładnie jest opisany w prawie ochrony środowiska.
+
+</p>
+<p>
+    W ramach monitorowania jakości powietrza w Polsce definiuje się poziomy dopuszczalne.
+
+    Dla każdej substancji znajdującej się w powietrzu poziom dopuszczalny określa się indywidualnie.
+
+    Dla dwutlenku siarki określa się godzinny, dobowy, roczny oraz zimowy okres uśredniania wyników oraz częstość
+    przekroczenia poziomu dopuszczalnego w ciągu roku wynoszącego 24 razy w agregacji jednogodzinnej oraz 3 razy w
+    agregacji dobowej <a href="#bib:standardy-jakosci-powietrza"></a>.
+
+    Pełny wykaz poziomów dopuszczalnych znajduje się w dodatku <a href="#appendix:poziomy-dopuszczalne"></a>.
+
+<!--TODO to rzutuje na sposób agregowania danych-->
+</p>

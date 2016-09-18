@@ -291,6 +291,14 @@
         <title>Fanchart - Visualize percentiles of time series data</title>
         <url access="2016-09-18">https://www.mathworks.com/matlabcentral/fileexchange/48006-fanchart-visualize-percentiles-of-time-series-data</url>
     </citation>
+    <citation type="page" id="bib:klimat-ug">
+        <title>Strona aktualnych warunków pogodowych Uniwersytetu Gdańskiego</title>
+        <url access="2016-09-18">http://www.klimat.ug.edu.pl/?page_id=3261</url>
+    </citation>
+    <citation type="page" id="bib:standardy-jakosci-powietrza">
+        <title>Standardy jakości powietrza</title>
+        <url access="2016-09-18">http://monitoring.krakow.pios.gov.pl/standardy-jakosci-powietrza</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
