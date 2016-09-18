@@ -331,31 +331,108 @@
 
 <h4>Minimum i maksimum</h4>
 <p>
-    Ekstrema zbioru są pierwszym złożonym sposobem agregowania wieloparametrowego.
+    Ekstrema zbioru, tzw <i>min-max</i> są pierwszym złożonym sposobem agregowania wieloparametrowego.
 
     Dla każdego okresu wybierana jest minimalna oraz maksymalna wartość zbioru.
 
-    W wizualizacji wykorzystuje się te parametry do zacieniowania lub obrysowywania obszaru pomiędzy tymi wartościami.
+    W wizualizacji wykorzystuje się te parametry do zacieniowania lub obrysowywania obszaru ograniczonego tymi
+    wartościami.
 
     Jest to metoda znana z programów do obróbki audio, gdzie częstotliwość sygnału jest na tyle duża, że jedynym
     sensownym agregatem jest zakres amplitudy, co z pozwala odczytać natężenie dźwięku.
 
     Przykład pokazano na rysunku <a href="#picture:min-max"></a>.
+
+    Wadą tej metody jest to, że wystarczy tylko jedna próbka odstająca od pozostałych, aby poszerzyć ekstremum.
+
+    Może to doprowadzić do sytuacji, w której rzadko, aczkolwiek regularnie, występujące nagłe i krótkie skoki wartości,
+    powodują tworzenie się agregacji <i>min-max</i> o szerokim zakresie mimo tego, iż większość wartości oscylowała w
+    dużo węższym zakresie, jak pokazano na rysunku <a href="#picture:min-max-problem"></a>.
 </p>
+
 <figure type="picture" id="picture:min-max">
     <figcaption>Wykorzystanie ekstremów do wizualizacji ścieżki dźwiękowej w programie Sonar</figcaption>
     <img src="/images/sonar-audiotracks.jpg" style="height:5cm;">
 </figure>
+
+<figure type="picture" id="picture:min-max-problem">
+    <figcaption>
+        Wykorzystanie <i>min-max</i> do agregacji danych czasami może powodować nieoczekiwane rezultaty
+    </figcaption>
+    <img src="/images/min-max-details.png" style="height:4cm;">
+</figure>
 <h4>Ekstrema oraz średnia</h4>
+<p>
+    Ciekawą, bo efektywną i zarówno łatwą w implementacji metodą agregacji jest kombinacja dwóch wcześniejszych metod.
+
+    Jest to hybryda, która pokazuje zarówno rozrzut oraz środek ciężkości agregowanych wartości.
+
+    Na rysunku <a href="#picture:min-max-aggr"></a> pokazano sposób wizualizacji tak agregowanych danych.
+
+    Z zakreślonej ciemnym kolorem krzywej można odczytać, że wartości skupione są głównie wokół zera, a z jasnych
+    obrysów można wnioskować, że występują tam liczne skoki wartości, na tyle sporadyczne, że nie wpłynęły zbytnio na
+    wartość średniej.
+</p>
 <figure type="picture" id="picture:min-max-aggr">
     <figcaption>Wykorzystanie ekstremum oraz średniej w prezentacji agregowanych danych</figcaption>
-    <img style="width:5cm;" src="/images/min-max.png"/>
+    <img style="height:4cm;" src="/images/min-max.png"/>
 </figure>
 <!--Minimum, maksimum oraz wartość średnia to najbardziej podstawowy sposób agregowania danych.-->
 <h4>Percentyle</h4>
+<p>
+    Główną wadą poprzedniej metody jest jej wysoka podatność na poszerzenie wartości ekstremum pojedynczym skokiem.
+    Aby zwiększyć odpornosć na pojedyncze i sporadyczne zmiany, można tę metodę uogólnić do postaci percentyli.
+    W ten sposób ekstrema oraz wartość średnią można określić 0., 50. oraz 100. percentylem.
+</p>
+<p>
+    Wykorzystanie 5., 50. oraz 95. percentyla pozwala na odrzucenie skrajnych wartości skoków zwiększając odporność
+    wizualizacji na pojedyncze wartości. W ogólności można wyznaczać więcej percentyli, tak jak pokazano na rysunku <a
+        href="#picture:percentiles"></a>.
+</p>
+<figure type="picture" id="picture:percentiles">
+    <figcaption>Wizualizacja percentyli serii czasowych <a href="#bib:percentiles-time-series-data"></a></figcaption>
+    <img src="/images/percentiles.jpg" style="height:7cm;">
+</figure>
 <h4>M4</h4>
+<p>
+    <i>M4</i> jest rozwiązaniem zaproponowanym przez <i>Jugela, Jerzaka, Hackenbroicha i Markla</i>
+    w pracy pt. <i>M4: A Visualization-Oriented Time Series Data Aggregation</i> <a href="#bib:data-aggregation"></a>.
+
+    Zauważono tam, że redukcja <i>min-max</i> w wizualizacji pojedynczego piksela nie jest w stanie zapewnić tego samego
+    rezultatu, jak w przypadku naturalnej redukcji.
+
+
+    Powodem był algorytm rastrowania danych wektorowych na ekran, rysujący linie pomiędzy kolumnami pikseli.
+
+    Celem pracy było znalezienie metody agregacji, która symuluje naturalny proces rasteryzacji.
+
+    <i>Min-max</i> nie gwarantuje bezbłędnej wizualizacji linii serii czasowej, ponieważ ignoruje pierwszą i ostatnią
+    próbkę z przedziału agregacji.
+</p>
+<p>
+    M4 jest więc metodą polegającą na wyznaczeniu minimalnego, maksymalnego oraz pierwszego i ostatniego punktu w
+    grupie.
+</p>
+<figure type="picture" id="picture:m4">
+    <figcaption>Porównanie metody <i>min-max</i> do <i>M4</i> <a href="#bib:data-aggregation"></a></figcaption>
+    <img src="/images/m4.png" style="height:7cm;">
+</figure>
 <!--max i kierunek wiatru, liczba alarmów, wystąpienie
         faktu, malowanie częstotliwości (jakis portal do muzyki był), min-max-avg, 5-50-95 percentyl, ogólnie percentyle-->
+<h4>Spektrum</h4>
+<p>
+    Częstotliwość może być parametrem dodatkowym agregacji. Dla danych o dużej częstotliwości i regularności, takich jak
+    dźwięku, zakolorwanie wykresu odpowiednim kolorem może informować o dominującej częstotliwości w danym obszarze.
+    Ten parametr jest używany często programach do obróbki audio, jak pokazano na rysunku <a href="#picture:traktor-pro"></a>.
+</p>
+<figure type="picture" id="picture:traktor-pro">
+    <figcaption>Interfejs programu Traktor Pro. Kolor został użyty do wizualizacji częstotliwości ścieżki dźwiękowej.</figcaption>
+    <img src="/images/traktor-pro.png" style="height:4.7cm;">
+</figure>
 <h4>Maksimum oraz kierunek wartości wektorowych</h4>
+<p>
+    Ten rodzaj agregacji służyć może za dodatkową informację prezentowaną na ekranie.
+    Polega
+    Możliwości kombinacji parametrów agragacji jest wiele
+</p>
 <h4>Wystąpienie faktu</h4>
-<h4>Częstotliwość</h4>

@@ -286,6 +286,11 @@
         <title>Notes on the Resolution and Other Details of the Human Eye</title>
         <url access="2016-09-17">http://www.clarkvision.com/articles/eye-resolution.html</url>
     </citation>
+    <citation type="page" id="bib:percentiles-time-series-data">
+        <author>Ameya Deoras</author>
+        <title>Fanchart - Visualize percentiles of time series data</title>
+        <url access="2016-09-18">https://www.mathworks.com/matlabcentral/fileexchange/48006-fanchart-visualize-percentiles-of-time-series-data</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
