@@ -1,0 +1,361 @@
+<h2>Dane pomiarowe</h2>
+<ul class="helper">
+    <li>Co to są dane pomiarowe i jak się je opisuje</li>
+    <li>Co to jest akwizycja danych - wspomnieć o np rejestratorach nox</li>
+    <li>Co to są agregacje danych i jak różne branże je tworzą (max i kierunek wiatru, liczba alarmów, wystąpienie
+        faktu, malowanie częstotliwości (jakis portal do muzyki był), min-max-avg, 5-50-95 percentyl, ogólnie percentyle
+    </li>
+    <li>Przykłady zastosowania danych pomiarowych (WIOŚ, medyczne, cała tabelka)</li>
+</ul>
+<p>
+    Wiele firm i organizacji na całym świecie pozyskuje petabajty danych i umieszcza je w prywatnych lub publicznych
+    chmurach.
+    Jednym z rodzajów tych danych są serie czasowe pochodzące z różnych źródeł, takich jak sieci sensorowe, inteligentne
+    sieci elektroenergetyczne czy rynki finansowe.
+    Ciągle zwiększające swoją objętość serie czasowe przechowywane są w mniej lub bardziej wyspecjalizowanych
+    relacyjnych bazach danych.
+    Bazy te z kolei wykorzystywane są jako źródło danych w aplikacjach umożliwiajych ich wizualną analizę.
+    W związku z interakcją analitykow z aplikacją wykonywane są zapytania do relacyjnej bazy danych przechowującej
+    oryginalne serie czasowe <a href="#bib:data-aggregation"></a>.
+
+</p>
+<p>
+    Dane pomiarowe <trans lang="ang">Scientific Data</trans> <a href="#bib:scientific-data-dictionary"></a> są to dane
+    reprezentujące stan obserwowanego obiektu w przestrzeni czasu.
+    Zbierane są określoną metodą, w określonym celu.
+    Ich wykorzystanie zakłada systematyczny pomiar wartości, niekiedy wykonywany z dużą częstotliwością.
+
+    Dane reprezentowane są w postaci serii czasowej, gdzie każda próbka oznaczona jest stemplem czasowym oraz zbiorem
+    atrybutów zmiennych zależnych, zazwyczaj liczbowych <a href="#bib:Hauser12VisTutorial"></a>.
+
+    W tabeli <a href="#table:exampleTimeSerie"></a> pokazano przykładowy fragment serii czasowej danych pomiarowych
+    pewnego silnika tłokowego próbkowane co 1 sekundę. Można z nich wyczytać między innymi kiedy zaszło interesujące
+    zdarzenie, oraz że przy starcie silnika temperatura osiągnęła wysoki poziom co prawdopodobnie było przyczyną
+    jego awaryjnego wyłączenia.
+
+    <figure type="table" id="table:exampleTimeSerie">
+        <figcaption>Przykładowy szereg czasowy</figcaption>
+        <table class="small align-content-right align-table-center">
+            <thead>
+            <tr>
+                <th>stempel czasowy</th>
+                <th>temperatura [&deg;C]</th>
+                <th>prędkość [obr/min]</th>
+                <th>stan pracy</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2015-08-08 10:36:00.000</td>
+                <td>28</td>
+                <td>0</td>
+                <td>wyłączony</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:01.000</td>
+                <td>28</td>
+                <td>0</td>
+                <td>wyłączony</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:02.000</td>
+                <td>50</td>
+                <td>500</td>
+                <td>pracuje</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:03.000</td>
+                <td>80</td>
+                <td>1000</td>
+                <td>pracuje</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:04.000</td>
+                <td>100</td>
+                <td>2000</td>
+                <td>pracuje</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:05.000</td>
+                <td>200</td>
+                <td>300</td>
+                <td>awaria</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:07.000</td>
+                <td>90</td>
+                <td>0</td>
+                <td>awaria</td>
+            </tr>
+            <tr>
+                <td>2015-08-08 10:36:08.000</td>
+                <td>40</td>
+                <td>0</td>
+                <td>wyłączony</td>
+            </tr>
+            </tbody>
+        </table>
+    </figure>
+</p>
+
+<p>
+    Regularnie zbierane dane pomiarowe dostarczają ogólnych informacji o obserwowanym obiekcie, umożliwiają jego
+    kontrolę,
+    ale również pozwalają dokładnie zbadać pojedyncze incydenty.
+
+    Dane są zazwyczaj pochodzenia naturalnego, wymagają więc specjalnych urządzeń potrafiących mierzyć te obiekty.
+    Przykładowym urządzeniem pomiarowym mogą być pokazane na rysunku <a href="#picture:analizator"></a> analizatory
+    parametrów jakości powietrza, takich jak tlenków azotu, tlenków siarki, pyłów, benzenu czy ozonu.
+
+    W zależności od celu pomiaru próbkowanie odbywa się ze zróżnicowaną częstotliwością &mdash; od kilku milisekund do
+    kilku godzin.
+
+    Na przykład w przypadku monitoringu jakości powietrza w Polsce, próbkowanie odbywa się z częstotliwością 10 sekund.
+
+    Cały proces fizycznego uzyskiwania danych pomiarowych, transmisji, i wstępnego przetwarzania nazywa się akwizycją
+    danych.
+
+    Aby ukazać skalę tych danych, w tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady i użycia
+    danych pomiarowych.
+
+
+</p>
+<figure type="picture" class="on-right" id="picture:analizator">
+    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
+    </figcaption>
+    <img src="/images/stacja–monitoringu.png" style="height:8cm;">
+</figure>
+
+<figure type="table" id="table:measurementDataExamples">
+    <figcaption>Przykłady danych pomiarowych. Wielkość próbki zależeć może od liczby atrybutów pomiaru i formatu ich
+        przechowywania i transmisji.
+    </figcaption>
+    <table>
+        <thead>
+        <tr>
+            <th>Dziedzina</th>
+            <th>Przykładowe użycie danych</th>
+            <th>Przykładowa wielkość próbki</th>
+            <th>Średnia częstotliwość emisji</th>
+            <th>Dane do przetworzenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>lotnictwo</td>
+            <td>szukanie przyczyny katastrofy wśród 90 parametrów 8-godzinnego lotu</td>
+            <td>8B</td>
+            <td>1Hz</td>
+            <td>90 &times; 8h &times; 1Hz &times; 8B = 24.74MB</td>
+        </tr>
+        <tr>
+            <td>badania operacyjne</td>
+            <td>obserwacja stanu systemu kolejkowego w ciągu tygodnia</td>
+            <td>64B</td>
+            <td>50Hz</td>
+            <td>7d &times; 50Hz &times; 64B = 2GB</td>
+        </tr>
+        <tr>
+            <td>medycyna</td>
+            <td>przegląd okresu jednego tygodnia 8 parametrów medycznych</td>
+            <td>8B</td>
+            <td>200Hz</td>
+            <td>8 &times; 7d &times; 200Hz &times; 8B = 7.21 GB</td>
+        </tr>
+        <tr>
+            <td>monitoring środowiska</td>
+            <td>analiza klimatyczna 5 lat 8 parametrów jakości powietrza</td>
+            <td>200B</td>
+            <td>0.1Hz</td>
+            <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
+        </tr>
+        </tbody>
+    </table>
+</figure>
+
+<h3>Agregowanie danych</h3>
+<p helper="Nie można załadować wszystkich danych do wizualizacji">
+    W najnowocześniejszych narzędziach wizualnej analizy takich jak Tableau, QlikView czy SAP Lumira, zapytania o dane
+    pomiarowe do bazy danych zakładają stosunkowo mały rozmiar zwróconej odpowiedzi.
+
+    Jednak, gdy mowa o odczycie danych wielkoskalowych, odpowiedź bazy danych może zawierać miliony rekordów.
+
+    To powoduje wysokie obciążenie łącza pomiędzy aplikacją użytkownika a bazą danych.
+
+    W przypadku zastosowań zaprezentowanych w tabeli <a href="#table:measurementDataExamples"></a>, każdy użytkownik
+    musiałby oczekiwać na załadowanie odpowiednio 24MB, 2GB, 7GB oraz 25GB danych, zanim system będzie mógł
+    zwizualizować te dane w postaci wykresu.
+
+    Ze względu na rosnącą popularność oraz szybki wzrost liczby źródeł danych o wysokiej częstotliwości próbkowania,
+    powyższe obserwacje można uznać za problem dotyczący nie tylko pojedynczego użytkownika, ale wszystkich
+    użytkowników podłączonych do wspólnej sieci Internet <a href="#bib:data-aggregation"></a>.
+
+</p>
+<p helper="System i tak redukuje te miliony punktów podczas wyświetlenia">
+    Wizualizacja takich danych jest w naturalny sposób ograniczona pikselami wyświetlającymi obszar wykresu o danej
+    wysokości i szerokości. Ograniczeniem jest też rozdzielczość ludzkiego oka, którą szacuje się na blisko 576
+    megapikseli <a href="#bib:eye-resolution"></a>, zatem nie istnieje możliwość wizualizacji danych bez ograniczeń.
+
+    Te cechy implikują fakt, iż zanim dane zwrócone w odpowiedzi bazy danych ukształtują się w umyśle odbiorcy,
+    dokonywana jest ich redukcja polegająca na pewnym ich przekształceniu oraz późniejszej projekcji na obraz rastrowy o
+    ustalonej wysokości i serokości.
+
+    Ta redukcja jest dokonywana naturalnie, niezależnie od implementacji aplikacji wizualizacyjnej czy wielkości zbioru
+    wynikowego.
+</p>
+<p helper="Agregowanie nie zmienia rezultatu">
+    Biorąc pod uwagę wyżej opisaną naturalną redukcję danych w procesie wizualizacji oraz problem związany ze skalą
+    danych, dzisiejsze systemy wykonują tę redukcję wcześniej, już na etapie akwizycji danych.
+
+    Redukcja ta polega na zastosowaniu odpowiednich funkcji agregujących na podzbiorach danych o stałym interwale.
+
+    Tak przgotowane wcześniej dane wykorzystuje się jako dane wejściowe do opisanej wyżej naturalnej redukcji, co
+    skutkuje identycznym rezultatem, jak pokazano na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie a&nbsp;i&nbsp;b.
+
+    Korzyścią z zastosowania wcześniejszej redukcji jest niewątpliwie minimalizacja transmisji danych z bazy danych do
+    aplikacji użytkownika.
+
+    Rozwiązuje to tym samym problem obciążenia sieci.
+
+
+</p>
+<p helper="Agregacja musi być dobrze dobrana. Rózne poziomy agregacji">
+    Z agregowaniem wizualizowanych danych wiążą się inne wyzwania.
+
+    Pierwszym z nich jest odpowiednie dobranie wielkości interwału agregacji.
+
+    Jeżeli interwał agregacji po zrzutowaniu na ekran będzie zajmował więcej niż jeden piksel, redukcja będzie
+    zauważalna przez użytkownika i interpretowana jako rozmycie obrazu.
+
+    Na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie <i>c</i> pokazano, jak użytkownik postrzega
+    wizualizację, gdy dochodzi do wyświetlenia zbyt dużej agregacji danych.
+
+    Drugim problemem jest zapewnienie odpowiedniej agregacji danych dla dowolnego zapytania do bazy danych.
+
+    W tym celu systemy akwizycji danych agregują dane na różnych poziomach, aby baza danych mogła przesyłać jak
+    najmniejszą liczbę punktow przy jednoczesnym zachowaniu niezmienionego rezultatu resteryzacji. Zobrazowano to na
+    rysunku <a href="#picture:aggregation-acquisition"></a>.
+</p>
+<figure type="picture" id="picture:aggregation-reduction">
+    <figcaption>
+        Wpływ agregacji na wizualizację danych.
+        W punkcie <i>a</i> transmisja surowych danych znacznie obciąża łącze.
+        W punkcie <i>b</i> dobrze dobrana agregacja nie zmienia rezultatu po rasteryzacji jednocześnie minimalizując
+        obciążenie łącza.
+        W punkcie <i>c</i> źle dobrana agregacja powoduje zauważalną redukcję.
+    </figcaption>
+    <img src="cache/aggregation-and-natural-reduction.png">
+</figure>
+
+<figure type="picture" id="picture:aggregation-acquisition">
+    <figcaption>
+        Agregowanie w akwizycji danych.
+        Grubość strzałki odzwierciedla rozmiar strumienia danych.
+        Aplikacja użytkownika na potrzeby wizualizacji wybiera odpowiednią agregację w zapytaniu do bazy danych.
+    </figcaption>
+    <img src="cache/aggregation-acquisition.png">
+</figure>
+<p>
+    W zależności od sposobu wizualizacji, systemy niekiedy dokonują dodatkowej agregacji w celu zwiększenia
+    czytelności i wypuklenia dodatkowych informacji. W takim wypadku funkcja agregująca ma na celu wydobycie
+    charakterystycznych dla danego celu
+    wizualizacji cech, najlepiej opisujących to, co się działo z monitorowanym obiektem w agregowanym okresie.
+</p>
+<p>
+    Poniżej zostały po krótce zaprezentowane różne metody redukcji danych i sposoby ich wykorzystania.
+
+    Niektore z nich mają na celu tylko optymalizację zapytania do bazy danych bez zniekształcenia końcowej wizualizacji,
+    inne natomiast wykorzystywane są do pokazania dodatkowych informacji ponad te, które użytkownik mógłby zobaczyć
+    gołym okiem.
+</p>
+
+
+<h4>Próbkowanie</h4>
+<p>
+    Próbkowanie <trans lang="ang">sampling</trans> jest najprostszą i jednocześnie najmniej użyteczną w wizualizacji
+    metodą redukcji danych.
+
+    Polega ono na wybraniu jednej arbitralnej próbki z danego okresu.
+
+    Próbkowania dokonują urządzenia wejściowe systemów akwizycji danych, jako że niemożliwy jest ciągły pomiar wartości.
+
+    Częstotliwość próbkowania im jest większa, tym większa jest dokładność pomiaru i mniejsze przekłamania podczas
+    interpolacji próbkowanych danych <a href="#bib:fu2011review"></a>.
+
+    Na&nbsp;rysunku <a href="#picture:sampling-example"></a> pokazano możliwe sytuacje podczas próbkowania danych oraz
+    konsekwencje w interpolacji danych.
+
+    W punkcie <i>a</i> zmienność danych jest porównywalna od częstotliwości próbkowania, co skutkuje małym stopniem
+    przekłamania danych.
+
+    W punkcie <i>b</i> zmienność danych jest dużo większa od częstotliwości próbkowania, co powoduje, że interpolacja
+    pokazuje zupełnie nieprawdziwe informacje.
+
+    Co prawda zaletą tej metody jest szybkość generowania odpowiedzi złożonej z próbkowanych wartości, to metody tej nie
+    używa się przy generowaniu agregacji, gdyż zazwyczaj zakłada się dużą zmienność wartości w agregowanym okresie.
+</p>
+<figure type="picture" id="picture:sampling-example">
+    <figcaption>Wpływ zależności częstotliwości próbkowania od zmienności danych pomiarowych na wierność odwzorowania
+        danych rzeczywistych
+    </figcaption>
+    <img src="cache/sampling.png"/>
+</figure>
+
+
+<h4>Wartość średnia</h4>
+<p>
+    Agregowanie poprzez uśrednienie wszystkich wartości z danego okresu daje pewne informacje o wszystkich punktach ze
+    zbioru.
+    W większości przypadków, poza nagłymi i znacznymi zmianami wartości pokazanymi na rysunku <a
+        href="#picture:average-example"></a> w punkcie <i>b</i>, wartość średnia dobrze oddaje kształt danych
+    oryginalnych, jak pokazano w punkcie <i>a</i>.
+</p>
+<figure type="picture" id="picture:average-example">
+    <figcaption>Wpływ zależności częstotliwości uśredniania od zmienności danych pomiarowych na wierność odwzorowania
+        danych rzeczywistych
+    </figcaption>
+    <img src="cache/average.png" style="height:5cm;"/>
+</figure>
+<p>
+    W praktyce uśrednienie pozwala odczytać jedynie środek ciężkości wartości i w specyficznych przypadkach może to
+    prowadzić do dużych przekłamań, jak na przykład w przypadku danych sinusoidalnych pokazanych na rysunku <a
+        href="#picture:sinus"></a>.
+
+    Z tego powodu średnia nie jest wykorzystywana jako samodzielna metoda agregacji.
+</p>
+<figure type="picture" id="picture:sinus">
+    <figcaption>Uśrednienie funkcji sinusoidalnej powoduje powstanie prostej.</figcaption>
+    <img src="cache/average-sinus.png">
+</figure>
+
+
+<h4>Minimum i maksimum</h4>
+<p>
+    Ekstrema zbioru są pierwszym złożonym sposobem agregowania wieloparametrowego.
+
+    Dla każdego okresu wybierana jest minimalna oraz maksymalna wartość zbioru.
+
+    W wizualizacji wykorzystuje się te parametry do zacieniowania lub obrysowywania obszaru pomiędzy tymi wartościami.
+
+    Jest to metoda znana z programów do obróbki audio, gdzie częstotliwość sygnału jest na tyle duża, że jedynym
+    sensownym agregatem jest zakres amplitudy, co z pozwala odczytać natężenie dźwięku.
+
+    Przykład pokazano na rysunku <a href="#picture:min-max"></a>.
+</p>
+<figure type="picture" id="picture:min-max">
+    <figcaption>Wykorzystanie ekstremów do wizualizacji ścieżki dźwiękowej w programie Sonar</figcaption>
+    <img src="/images/sonar-audiotracks.jpg" style="height:5cm;">
+</figure>
+<h4>Ekstrema oraz średnia</h4>
+<figure type="picture" id="picture:min-max-aggr">
+    <figcaption>Wykorzystanie ekstremum oraz średniej w prezentacji agregowanych danych</figcaption>
+    <img style="width:5cm;" src="/images/min-max.png"/>
+</figure>
+<!--Minimum, maksimum oraz wartość średnia to najbardziej podstawowy sposób agregowania danych.-->
+<h4>Percentyle</h4>
+<h4>M4</h4>
+<!--max i kierunek wiatru, liczba alarmów, wystąpienie
+        faktu, malowanie częstotliwości (jakis portal do muzyki był), min-max-avg, 5-50-95 percentyl, ogólnie percentyle-->
+<h4>Maksimum oraz kierunek wartości wektorowych</h4>
+<h4>Wystąpienie faktu</h4>
+<h4>Częstotliwość</h4>
