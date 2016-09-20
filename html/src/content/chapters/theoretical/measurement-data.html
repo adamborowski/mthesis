@@ -220,6 +220,16 @@
 
 
 </p>
+<figure type="picture" id="picture:aggregation-reduction">
+    <figcaption>
+        Wpływ agregacji na wizualizację danych.
+        W punkcie <i>a</i> transmisja surowych danych znacznie obciąża łącze.
+        W punkcie <i>b</i> dobrze dobrana agregacja nie zmienia rezultatu po rasteryzacji jednocześnie minimalizując
+        obciążenie łącza.
+        W punkcie <i>c</i> źle dobrana agregacja powoduje zauważalną redukcję.
+    </figcaption>
+    <img src="cache/aggregation-and-natural-reduction.png">
+</figure>
 <p helper="Agregacja musi być dobrze dobrana. Rózne poziomy agregacji">
     Z agregowaniem wizualizowanych danych wiążą się inne wyzwania.
 
@@ -237,16 +247,6 @@
     najmniejszą liczbę punktow przy jednoczesnym zachowaniu niezmienionego rezultatu resteryzacji. Zobrazowano to na
     rysunku <a href="#picture:aggregation-acquisition"></a>.
 </p>
-<figure type="picture" id="picture:aggregation-reduction">
-    <figcaption>
-        Wpływ agregacji na wizualizację danych.
-        W punkcie <i>a</i> transmisja surowych danych znacznie obciąża łącze.
-        W punkcie <i>b</i> dobrze dobrana agregacja nie zmienia rezultatu po rasteryzacji jednocześnie minimalizując
-        obciążenie łącza.
-        W punkcie <i>c</i> źle dobrana agregacja powoduje zauważalną redukcję.
-    </figcaption>
-    <img src="cache/aggregation-and-natural-reduction.png">
-</figure>
 
 <figure type="picture" id="picture:aggregation-acquisition">
     <figcaption>
@@ -399,11 +399,12 @@
     <i>M4</i> jest rozwiązaniem zaproponowanym przez <i>Jugela, Jerzaka, Hackenbroicha i Markla</i>
     w pracy pt. <i>M4: A Visualization-Oriented Time Series Data Aggregation</i> <a href="#bib:data-aggregation"></a>.
 
-    Zauważono tam, że redukcja <i>min-max</i> w wizualizacji pojedynczego piksela nie jest w stanie zapewnić tego samego
+    Zauważono tam, że redukcja <i>min-max</i> w wizualizacji pojedynczego pionu pikseli nie jest w stanie zapewnić tego
+    samego
     rezultatu, jak w przypadku naturalnej redukcji.
 
 
-    Powodem był algorytm rastrowania danych wektorowych na ekran, rysujący linie pomiędzy kolumnami pikseli.
+    Powodem jest algorytm rastrowania danych wektorowych na ekran, rysujący linie pomiędzy kolumnami pikseli.
 
     Celem pracy było znalezienie metody agregacji, która symuluje naturalny proces rasteryzacji.
 
@@ -468,11 +469,13 @@
 <h3>Aspekt prawny w agregowaniu danych</h3>
 
 <p>
-    Agregowanie danych w wielu branżach ograniczone jest licznymi dyrektywami i ustawami.
+    Agregowanie danych jest nie tylko metodą redukcji danych w celu optymalizacji wizualizacji.
+
+    Agregowanie danych w wielu branżach jest ręcz wymagane i w konsekwencji ograniczone licznymi dyrektywami i ustawami.
 
     Z tych regulacji wynikają rozmaite konsekwencje natury technicznej.
 
-    W sektorze publicznym najlepszym przykładem jest monitoring powietrza w Polsce.
+    W sektorze publicznym najlepszym przykładem jest monitoring jakości powietrza w Polsce.
 
     Dane pomiarowe zbierane są w kilku celach.
 
@@ -483,15 +486,53 @@
 
 </p>
 <p>
-    W ramach monitorowania jakości powietrza w Polsce definiuje się poziomy dopuszczalne.
+    W ramach monitorowania jakości powietrza w Polsce definiuje się tak zwane poziomy dopuszczalne.
 
     Dla każdej substancji znajdującej się w powietrzu poziom dopuszczalny określa się indywidualnie.
 
-    Dla dwutlenku siarki określa się godzinny, dobowy, roczny oraz zimowy okres uśredniania wyników oraz częstość
-    przekroczenia poziomu dopuszczalnego w ciągu roku wynoszącego 24 razy w agregacji jednogodzinnej oraz 3 razy w
-    agregacji dobowej <a href="#bib:standardy-jakosci-powietrza"></a>.
+    Na przykład dla dwutlenku siarki określa się godzinny, dobowy, roczny oraz zimowy okres uśredniania wyników oraz
+    dopuszczalną częstość przekroczenia dopuszczalnego poziomu w ciągu roku wynoszącego 24 razy w agregacji
+    jednogodzinnej oraz 3 razy w agregacji dobowej <a href="#bib:standardy-jakosci-powietrza"></a>.
+
+    Wymagane jest zastosowanie funkcji agregujących takich, jak minimum, maksimum, średnia arytmetyczna oraz zliczanie
+    zdarzeń.
 
     Pełny wykaz poziomów dopuszczalnych znajduje się w dodatku <a href="#appendix:poziomy-dopuszczalne"></a>.
 
-<!--TODO to rzutuje na sposób agregowania danych-->
+    Tego typu wymagania prawne pokazują więc inne zastosowanie danych, niż do celów wizualizacji.
+
 </p>
+
+<p>
+    Warto wspomnieć, że w systemach, w których określone są ściśle zdefiniowane agregacje danych, nie zawsze agregacje
+    wymagane prawnie są wystarczające do optymalnej redukcji danych w celu wizualizacji.
+
+    Dla celu wizualizacji warto wyznaczać bowiem okresy agregacji będące kolejnymi elementami ciągu geometrycznego, aby
+    wartości można było równomiernie rozłożyć na osi logarytmicznej, jak pokazano na rysunku <a
+        href="#picture:aggregation-levels"></a> w punkcie <i>a</i>.
+
+    Takie równomierne rozłożenie poziomów powoduje równomierną redukcję danych w różnych okresach wizualizowanych
+    danych.
+
+    Z kolei poziomy agregacji wymaganych prawnie często reprezentują jednostki zwyczajowe, takie jak godzinne, dobowe,
+    miesięczne.
+
+    Można tutaj mówić o nierówno rozłożonych poziomach, gdyż okres kolejnych poziomów agregacji nie są wielokrotnością
+    poprzednich.
+
+    Z kolei dobrą praktyką przy projektowaniu wizualizacji wielkoskalowych danych pomiarowych jest wykorzystanie
+    agregacji
+    wymaganych prawnie, czego przykład pokazano na rysunku <a href="#picture:aggregation-levels"></a> w punkcie <i>b</i>.
+
+    Aby zachować jak najwięszą równomierność, praktykuje się dołożenie dodatkowych poziomów agregacji, tak by wszystkie
+    razem w przybliżeniu tworzyły ciąg geometryczny, co pokazano na rysunku <a href="#picture:aggregation-levels"></a> w&nbsp;punkcie&nbsp;<i>c</i>.
+</p>
+<figure type="picture" id="picture:aggregation-levels">
+    <figcaption>
+        Przykłady rozłożenia poziomów agregacji na osi logarytmicznej.
+        Punkt <i>a)</i> - równomierne rozłożenie
+        <i>b)</i> - poziomy wymagane prawnie
+        <i>c)</i> - poziomy uzupełnione w celu zwiększenia równomierności.
+    </figcaption>
+    <img src="cache/aggregation-levels.png">
+</figure>
