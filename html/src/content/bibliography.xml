@@ -299,6 +299,15 @@
         <title>Standardy jakości powietrza</title>
         <url access="2016-09-18">http://monitoring.krakow.pios.gov.pl/standardy-jakosci-powietrza</url>
     </citation>
+    <citation type="page" id="bib:gartner-bigdata">
+        <title>Big Data</title>
+        <url access="2016-09-20">http://www.gartner.com/it-glossary/big-data/</url>
+    </citation>
+        <citation type="inproceedings" id="bib:cotojest-bigdata">
+        <author>iPresso</author>
+        <title>Co to jest Big Data</title>
+        <url access="2016-09-20">http://www.slideshare.net/ipresso/big-data-tylko-na-przykadach</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
