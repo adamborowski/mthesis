@@ -303,10 +303,24 @@
         <title>Big Data</title>
         <url access="2016-09-20">http://www.gartner.com/it-glossary/big-data/</url>
     </citation>
-        <citation type="inproceedings" id="bib:cotojest-bigdata">
+    <citation type="inproceedings" id="bib:cotojest-bigdata">
         <author>iPresso</author>
         <title>Co to jest Big Data</title>
         <url access="2016-09-20">http://www.slideshare.net/ipresso/big-data-tylko-na-przykadach</url>
+    </citation>
+    <citation type="article" id="bib:nielsen-ux">
+        <title>The definition of user experience</title>
+        <author>Nielsen, Jakob and Norman, Don</author>
+        <journal>Nielsen Norman Group website</journal>
+        <url access="2016-09-21">http://www. nngroup. com/articles/definition-user-experience</url>
+        <year>2014</year>
+    </citation>
+    <citation type="article" id="bib:nielsen-usability">
+        <title>Usability 101: Introduction to Usability</title>
+        <author>Nielsen, Jakob and Norman, Don</author>
+        <journal>Nielsen Norman Group website</journal>
+        <url access="2016-09-21">https://www.nngroup.com/articles/usability-101-introduction-to-usability/</url>
+        <year>2012</year>
     </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->

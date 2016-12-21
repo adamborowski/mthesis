@@ -179,7 +179,7 @@
     W najnowocześniejszych narzędziach wizualnej analizy takich jak Tableau, QlikView czy SAP Lumira, zapytania o dane
     pomiarowe do bazy danych zakładają stosunkowo mały rozmiar zwróconej odpowiedzi.
 
-    Jednak, gdy mowa o odczycie danych wielkoskalowych, odpowiedź bazy danych może zawierać miliony rekordów.
+    Jednak, gdy mowa o odczycie wielkoskalowych danych pomiarowych, odpowiedź bazy danych może zawierać miliony rekordów.
 
     To powoduje wysokie obciążenie łącza pomiędzy aplikacją użytkownika a bazą danych.
 
@@ -318,7 +318,7 @@
     <img src="cache/average.png" style="height:5cm;"/>
 </figure>
 <p>
-    W praktyce uśrednienie pozwala odczytać jedynie środek ciężkości wartości i w specyficznych przypadkach może to
+    W praktyce uśrednienie pozwala odczytać jedynie środek ciężkości rozkładu wartości w przedziale i w specyficznych przypadkach może to
     prowadzić do dużych przekłamań, jak na przykład w przypadku danych sinusoidalnych pokazanych na rysunku <a
         href="#picture:sinus"></a>.
 
@@ -399,7 +399,7 @@
     <i>M4</i> jest rozwiązaniem zaproponowanym przez <i>Jugela, Jerzaka, Hackenbroicha i Markla</i>
     w pracy pt. <i>M4: A Visualization-Oriented Time Series Data Aggregation</i> <a href="#bib:data-aggregation"></a>.
 
-    Zauważono tam, że redukcja <i>min-max</i> w wizualizacji pojedynczego pionu pikseli nie jest w stanie zapewnić tego
+    Zauważono tam, że redukcja <i>min-max</i> w wizualizacji pojedynczej kolumny pikseli nie jest w stanie zapewnić tego
     samego
     rezultatu, jak w przypadku naturalnej redukcji.
 
@@ -511,7 +511,7 @@
     wartości można było równomiernie rozłożyć na osi logarytmicznej, jak pokazano na rysunku <a
         href="#picture:aggregation-levels"></a> w punkcie <i>a</i>.
 
-    Takie równomierne rozłożenie poziomów powoduje równomierną redukcję danych w różnych okresach wizualizowanych
+    Takie równomierne rozłożenie poziomów powoduje równomierną redukcję danych w różnych wielkościach okresu wizualizowanych
     danych.
 
     Z kolei poziomy agregacji wymaganych prawnie często reprezentują jednostki zwyczajowe, takie jak godzinne, dobowe,

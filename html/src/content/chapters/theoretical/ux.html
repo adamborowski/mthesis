@@ -1,0 +1,111 @@
+<h2>User Experience</h2>
+
+<p>
+    Termin <i>User Experience</i> jest dość nowy, nie ma zatem jeszcze ustalonego polskiego tłumaczenia.
+
+    W konsekwencji przyjęło się używać angielską nazwę, często można spotkać jej skróconą formę: <i>UX</i>.
+    UX skupia się na doświadczeniach użytkownika korzystającego z interfejsu aplikacji. Niekiedy stosuje się zamienne
+    pojęcie użyteczność <trans lang="ang">usability</trans>.
+
+    Celem <i>UX</i> nie jest dostarczenie konkretnej funkcji w aplikacji, lecz zrobienie jej przyjaznej użytkowikowi
+    <trans lang="ang">user friendly</trans>.
+
+</p>
+<p>
+    Pojęcie <i>User Experience</i> może być definiowane szerzej, jak zostało to przedstawione prez Dona Normana i Jakoba
+    Nielsena:
+</p>
+<blockquote>
+    <i>User Experience</i> obejmuje wszystkie aspekty komunikacji końcowego użytkownika z przedsiębriorstwem, jego
+    usługami i produktami <a href="#bib:nielsen-ux"></a>.
+</blockquote>
+<p>
+    Ta definicja UX wymaga, aby spełnić dokładne te potrzeby, które użytkownik rzeczywiście posiada.
+
+    Co prawda nie zawsze użytkownik jest świadomy tego, czego potrzebuje, ale <i>UX</i> też bierze to pod uwagę i
+    zaspokaja również ukryte jego potrzeby.
+
+    Kolejnym aspektem wzorowego <i>UX</i> jest prostota i elegancja, która pozwala stworzyć produkt, którego użytkownicy
+    pożądają i czerpią radość z posiadania i używania.
+
+    Tutaj nie wystarczy po prostu dostarczyć produkt według umówionych z klientem specyfikacji.
+
+</p>
+<p>
+    Drugim sposobem określenia czym jest <i>User Experience</i>, jest powołanie się na pokrewny termin użyteczności
+    <trans lang="ang">usability</trans>.
+
+    Jest to atrybut jakościowy pozwalający ocenić łatwość użytkowania interfejsu użytkownika.
+
+    Wyróżnia się następujące jego komponenty <a href="#bib:nielsen-usability"></a>:
+</p>
+<ul>
+    <li>
+        łatwość uczenia - jak łatwy w użyciu jest interfejs dla nowych użytkowników,
+    </li>
+    <li>
+        wydajność - gdy użytkownicy nauczą się interfejsu, jak szybko mogą wykonywać swoje zadania,
+    </li>
+    <li>
+        zapamiętywalność - jak prędko użytkownicy wznawiają swoją wydajną pracę po przerwie w użytkowaniu,
+    </li>
+    <li>
+        odporność na błędy - jak dużo i jak poważne błędy użytkownicy popełniają, jak łatwo mogą zaradzić zaistniałym
+        błędom,
+    </li>
+    <li>
+        satysfakcja - jak przyjemne jest użytkowanie interfejsu.
+    </li>
+</ul>
+
+<p>
+    Pomimo wielu różnych definicji, wszystkie mają interesującą część wspólną: satysfakcja użytkowania.
+
+    W tej pracy, z racji na wielkoskalowy aspekt danych pomiarowych, uznaje się wydajność jako element niezbędny do
+    spełnienia każdej definicji dobrych doświadczeń użytkownika.
+</p>
+<p>
+    Kluczowym elementem wydajności jest czas.
+
+    Pożądaną przez użytkownika cechą interfejsu aplikacji jest natychmiastowa odpowiedź na żądanie
+    użytkowika.
+
+    Mowa tutaj o płynnie działającym interfejsie, który nie jest blokowany operacjami wykonywanymi w tle, ale również
+    mowa o braku oczekiwania na załadowanie zasobów zewnętrznych.
+
+    Z oczywistych względów nie jest możliwe zapewnienie natychmiastowej odpowiedzi na żądanie użytkownika.
+
+    Przyczyna leży w ograniczeniach dostępu do zdalnych zasobów oraz natury sieci Internet.
+</p>
+<p>
+    Pomimo tych ograniczeń warto minimalizować czas odpowiedzi systemu. Jak zdefiniował Miller już w 1968 roku,
+    wyróżnia się trzy limity, których przekroczenie powoduje kolejne negatywne konsekwencje w postrzeganiu
+    responsywności systemu <a href="#bib:Miller1968"></a>:
+</p>
+<ul>
+    <li>
+        <strong>0.1s</strong>
+    </li>
+    <li>
+        <strong>1s</strong>
+    </li>
+    <li>
+        <strong>10s</strong>
+    </li>
+</ul>
+<p>
+
+
+    Ponadro okazuje się, że w przypadku <i>User Experience</i> nie jest ważny sam fakt, że jakaś operacja trwa
+    nieakceptowalnie
+    długo, ale ważne jest to, jak czas postrzega sam użytkownik <a href="#bib:why-performance-matters-part1"></a>.
+</p>
+<p class="helper">
+    W tym miejscu będzie wytłumaczona percepcja czasu, fazy czekania (aktywna pasywna) z artykułu Mishunova:
+    https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/.
+</p>
+<p>
+    Biorąc pod uwagę powyższe aspekty czasu w systemie wizualizacji, można zdefiniować cel do którego należy dążyć przy tworzeniu systemu IVA/eksploracji.
+    1) nieprzekraczanie limitu 1s
+    2) wykorzystanie percepcji czasu (progresja jako przesuniecie fazy aktywnego czekania)
+</p>
