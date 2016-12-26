@@ -42,7 +42,7 @@ gulp.task('compile-html', ()=> {
 
 gulp.task('-prince', ['compile-html'],
     shell.task(`prince target/main.html 
-    -o target/Thesis.pdf 
+    -o target/CV.pdf 
     --javascript 
     --script=node_modules/jquery/jquery.js  
     --script=node_modules/mustache/mustache.min.js  
