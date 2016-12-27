@@ -1,16 +1,22 @@
-
 @page {
-  size: A4 landscape ;
+  size: A4 portrait;
   margin: 0;
 }
 
-
+@page primary {
+}
 
 section {
+  font-family: "Roboto", serif;
   page-break-after: always;
+  &.primary-page {
+    page: primary;
+  }
 }
 
 @import "fonts.less";
-@import "frame";
-@import "markers";
 @import "content";
+@import "basics";
+
+section.primary-page {
+}

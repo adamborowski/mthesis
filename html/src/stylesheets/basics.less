@@ -1,0 +1,96 @@
+@import "variables";
+
+@padding: 45mm;
+@imageBorder: 1mm;
+@iconSize: 4mm;
+.header {
+  background: @mainColor;
+  color: white;
+  font-size: 23pt;
+  font-weight: 100;
+  font-style: normal;
+  padding-left: @padding;
+}
+
+.header--name {
+  padding-top: 20pt;
+  padding-bottom: 5pt;
+}
+
+.header--title {
+  display: none;
+}
+
+.header--position {
+  font-size: 0.58em;
+  padding-bottom: 15pt;
+}
+
+.header--avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34mm;
+  height: 50mm;
+  margin: @imageBorder;
+  transform: translate(3mm, 3mm);
+}
+
+.header--avatar__border {
+  background: @mainColor;
+  padding: @imageBorder;
+  left: -@imageBorder;
+  top: -@imageBorder;
+}
+
+.header--avatar__image {
+  background: url(/images/avatar-linkedin.jpg) no-repeat 57% 56%;
+  background-size: cover;
+}
+
+.links {
+  float: right;
+  display: inline-block;
+  font-size: 9pt;
+  margin-top: 8mm;
+  margin-right: 5mm;
+}
+
+.links--icon {
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+  &:before {
+    content: ' ';
+    display: inline-block;
+    vertical-align: top;
+    width: @iconSize;
+    height: @iconSize;
+    margin:1pt;
+    margin-right: 3mm;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.links--icon__linkedin {
+  &:before {
+    background-image: url(/images/linkedin-5-xxl.png);
+  }
+}
+.links--icon__github {
+  &:before {
+    background-image: url(/images/github-10-xxl.png);
+  }
+}
+.links--icon__bitbucket{
+  &:before {
+    background-image: url(/images/BitBucket_SVG_Logo 2.svg);
+  }
+}
+
+.info {
+  display: inline-block;
+  background-color: #ddc832;
+}

@@ -1,18 +1,24 @@
 <?xml version="1.0"?>
 <!--suppress CheckEmptyScriptTag, HtmlUnknownAttribute -->
 <html>
+<head>
+    <link rel="stylesheet" href="main.css">
+</head>
 <body>
-<section>
+<section class="primary-page">
 
     @@include('cv/basics.html')
     @@include('cv/education.html')
     @@include('cv/passions.html')
     @@include('cv/experience.html')
     @@include('cv/volunteering.html')
-    @@include('cv/jobs.html');
-    @@include('cv/own-projects.html')
+
 
     <!--TODO skills bubbles - only important -->
+</section>
+<section>
+    @@include('cv/jobs.html');
+    @@include('cv/own-projects.html')
 </section>
 </body>
 </html>
