@@ -1,6 +1,6 @@
 @import "variables";
 
-@padding: 45mm;
+@padding: 50mm;
 @imageBorder: 1mm;
 @iconSize: 4mm;
 .header {
@@ -33,7 +33,7 @@
   width: 34mm;
   height: 50mm;
   margin: @imageBorder;
-  transform: translate(3mm, 3mm);
+  transform: translate(6mm, 3mm);
 }
 
 .header--avatar__border {
@@ -52,14 +52,15 @@
   float: right;
   display: inline-block;
   font-size: 9pt;
-  margin-top: 8mm;
-  margin-right: 5mm;
+  margin-top: 6mm;
+  margin-right: 8mm;
 }
 
 .links--icon {
   text-decoration: none;
   color: #ffffff;
   display: block;
+  margin: 1mm 0;
   &:before {
     content: ' ';
     display: inline-block;
@@ -92,5 +93,52 @@
 
 .info {
   display: inline-block;
-  background-color: #ddc832;
+  position: absolute;
+  top: 62mm;
+  left: 7.4mm;
+  font-size: 0.7em;
+  font-weight: 300;
+  [data-info] {
+    vertical-align: middle;
+    text-align: right;
+    margin-top: 9.21pt;
+    &:after {
+
+      display: block;
+      font-weight: normal;
+      font-size: 0.7em;
+      vertical-align: middle;
+      color: lighten(@mainColor, 20%);
+    }
+  }
+  [data-info='birth'] {
+    &:after {
+      content: 'birth';
+    }
+  }
+  [data-info='location'] {
+    &:after{
+      content: 'location';
+    }
+  }
+  [data-info='email'] {
+    &:after {
+      content: 'email';
+    }
+  }
+  [data-info='phone'] {
+    &:after {
+      content: 'phone';
+    }
+  }
+  [data-info='os'] {
+    &:after {
+      content: 'system';
+    }
+  }
+  [data-info='ide'] {
+    &:after {
+      content: 'IDE';
+    }
+  }
 }

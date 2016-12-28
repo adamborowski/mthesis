@@ -1,3 +1,4 @@
+@import "variables";
 @page {
   size: A4 portrait;
   margin: 0;
@@ -8,6 +9,7 @@
 
 section {
   font-family: "Roboto", serif;
+  color: @mainColor;
   page-break-after: always;
   &.primary-page {
     page: primary;
@@ -19,4 +21,171 @@ section {
 @import "basics";
 
 section.primary-page {
+}
+
+h1 {
+  font-weight: 100;
+  font-size: 1.3em;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 1.3em;
+}
+
+h3 {
+  font-weight: 100;
+  margin-top: 2mm;
+  margin-bottom: 2mm;
+  font-size: 1em;
+}
+
+h4 {
+  font-weight: 100;
+  font-size: .8em;
+  margin-top: 2mm;
+  margin-bottom: 2mm;
+}
+
+.experience,
+.education,
+.volunteering,
+.passions {
+  display: inline-block;
+  width: 64mm;
+  vertical-align: top;
+  font-size: 1.1em;
+  margin: 10mm;
+  font-weight: 300;
+  ul {
+    list-style: none;
+    margin-left: 0;
+  }
+}
+
+.job {
+  display: block;
+  font-size: 1.1em;
+  margin: 10mm;
+  font-weight: 300;
+}
+
+.experience,
+.passions,
+.job,
+.own-projects {
+  margin-left: 50mm;
+}
+
+.education, .volunteering {
+  margin-left: 0;
+}
+
+.experience, .education {
+  margin-bottom: 0;
+}
+
+.passions, .volunteering {
+  margin-top: 0;
+}
+
+.logo(@url) {
+  display: inline-block;
+  width: 5.5mm;
+  height: 5.5mm;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: @url;
+  vertical-align: middle;
+}
+
+.experience {
+  .spartez {
+    .logo(url(images/spartez-squarelogo-1472223487222.png));
+  }
+  .atlassian {
+    .logo(url(images/logo-02.png));
+  }
+}
+
+.experience--item,
+.education--item,
+.passions--item {
+  &:not(:first-child) {
+    margin-top: 3mm;
+  }
+}
+
+.experience--position,
+.education--school,
+.passions--extras,
+.volunteering--position {
+  display: block;
+  color: lighten(@mainColor, 20%);
+  font-size: 0.7em;
+  line-height: 1em;
+  padding-top: 2pt;
+}
+
+.experience--time,
+.education--time,
+.education--extras,
+.passions--time,
+.volunteering--time {
+  font-size: 0.7em;
+  line-height: 1em;
+
+}
+
+.job, .own-projects {
+
+  p, ul {
+    font-size: 0.8em;
+    font-weight: 200;
+    li {
+
+    }
+
+  }
+  ul {
+    margin-top: 2mm;
+  }
+  p {
+    margin: 0;
+    margin-right: 0mm;
+    text-align: justify;
+  }
+}
+
+.job a {
+  color: @mainColor;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.own-projects .project-list {
+  margin-left: 8.2mm;
+  list-style: none;
+  li {
+    margin-top: 2mm;
+    margin-bottom: 2mm;
+  }
+}
+
+.own-projects a {
+  color: @mainColor;
+  text-decoration: none;
+  &:before {
+    content: ' ';
+    background-image: url(/images/link-2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 3mm;
+    height: 3mm;
+    margin-right: 3mm;
+    opacity: 0.2;
+    display: inline-block;
+  }
 }
