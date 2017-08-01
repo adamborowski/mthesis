@@ -16,3 +16,26 @@
 
     <!--</li>-->
 <!--</ul>-->
+
+<h2>Sposób pomiaru wydajności rozwiązania</h2>
+<p>Mierzyć będzie się następujące parametry</p>
+
+Suma czasu oczekiwania na jakiekolwiek dane (dla jednego scenariusza porównać wszystkie konfiguracje)
+
+Jak się liczy taką sumę:
+
+Trzeba policzyć czas oczekiwania dla każdej zmiany widoku.
+
+<pre class="code">
+    for(viewStateChange of allViewStateChanges){
+        wait_for_next_frame
+        timer start
+        wait until requestManager has no overlapping ranges being loaded of that levelId
+    }
+</pre>
+
+czyli po prostu jeśli po zmianie statechange nie ma zakresu w ładowaniu
+
+do tego potrzeba
+ * request manager statistics - tablica requestów z param ranges, levelId i czasem/rozmiarem odpowiedzi
+ * view state statistics - tablica zmian viewportu (width, start, end, levelId) w czasie
