@@ -13,3 +13,16 @@ ul.helper, [helper] {
     line-height: 2em;
   }
 }
+
+[short] {
+
+  &:before {
+    content: 'W skrócie: ' attr(short) '.';
+    margin: 2mm 0;
+    background: #fff7d1;
+    display: block;
+    text-align: left;
+    padding-left: 2mm;
+    text-indent: 0;
+  }
+}
