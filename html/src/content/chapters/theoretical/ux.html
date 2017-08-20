@@ -71,34 +71,83 @@
     użytkowika.
 
     Mowa tutaj o płynnie działającym interfejsie, który nie jest blokowany operacjami wykonywanymi w tle, ale również
-    mowa o braku oczekiwania na załadowanie zasobów zewnętrznych.
+    mowa o braku oczekiwania na załadowanie potrzebnych zasobów zewnętrznych.
 
     Z oczywistych względów nie jest możliwe zapewnienie natychmiastowej odpowiedzi na żądanie użytkownika.
 
     Przyczyna leży w ograniczeniach dostępu do zdalnych zasobów oraz natury sieci Internet.
 </p>
 <p>
-    Pomimo tych ograniczeń warto minimalizować czas odpowiedzi systemu. Jak zdefiniował Miller już w 1968 roku,
-    wyróżnia się trzy limity, których przekroczenie powoduje kolejne negatywne konsekwencje w postrzeganiu
-    responsywności systemu <a href="#bib:Miller1968"></a>:
+    Pomimo tych ograniczeń, w każdym projekcie informatycznym warto próbować minimalizować czas odpowiedzi systemu.
+    Jak zdefiniował Miller już w 1968 roku, wyróżnia się trzy limity, których przekroczenie powoduje kolejne negatywne
+    konsekwencje w postrzeganiu responsywności systemu <a href="#bib:Miller1968"></a>:
 </p>
-<ul>
-    <li>
-        <strong>0.1s</strong>
-    </li>
-    <li>
-        <strong>1s</strong>
-    </li>
-    <li>
-        <strong>10s</strong>
-    </li>
-</ul>
+<dl class="terms">
+    <div>
+        <dt><0.1s</dt>
+        <dd>
+            użytkownik nie traci odczucia natychmiastowej reakcji
+        </dd>
+    </div>
+    <div>
+        <dt><1s</dt>
+        <dd>
+            nieprzerwany tok myślenia, utracone odczucie bezpośredniego operowania na danych
+        </dd>
+    </div>
+    <div>
+        <dt><10s</dt>
+        <dd>
+            utrzymanie uwagi użytkownika skupionego na dialogu z systemem
+        </dd>
+    </div>
+    <div>
+        <dt>&gt;=10s</dt>
+        <dd>
+            użytkownik nie jest w stanie utrzymać swojej uwagi, najprawdopodobniej zajmie
+            się czymś innym, utrata kontekstu
+        </dd>
+    </div>
+</dl>
+<p>
+    Systemy z interfejsami pozwalającymi operować na danych (w tymp przypadku je przeglądać) powinny być tak
+    zoptymalizowane, żeby czas reakcji na akcje użytkownika był jak najmniejszy.
+</p>
+
+<p>
+    Istnieją różne techniki optymalizacji, ale warto tu wspomnieć, że optymalizacja szybkości działania istniejących
+    rozwiązań, na przykład poprzez ulepszenie infrastruktury systemu, nie jest jedynym sposobem optymalizacji.
+    Celem nie jest samo poprawienie mierzalnych parametrów pracy systemu, ale sprawienie, by człowiek, będący końcowym
+    użytkownikiem systemu, odczuł tę optymalizację.
+</p>
+<p>
+    Tutaj należy przywołać zagadnienie z dziedziny psychologii, tj. percepcji czasu. Czas jest pojęciem względnym i jako
+    taki postrzegany jest indywidualnie. To znaczy, że odczucie czasu reakcji systemu zależeć będzie w pewnym stopniu od
+    chwilowego stanu osoby, która ten czas postrzega. Manipulując użytkownikiem można bowiem wpływać na to, jak bardzo
+    czas oczekiwania na reakcję systemu będzie przez niego odczuwalny <a href="#bib:why-performance-matters-part1"></a>.
+</p>
+
+<p>
+    Denis Mishunov w swoim artykule <a href="#bib:why-performance-matters-part2"></a> przedstawia pojęcie zarządzania
+    percepcją <trans lang="ang">perception management</trans> , gdzie oczekiwanie użytkownika na reakcję systemu posiada
+    dwie fazy : aktywną oraz pasywną.
+</p>
+
+<p helper>
+    uzupełnić z https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/
+    odnieć się do obrazka #picture:mishunov-passive-active
+</p>
+
+<figure type="picture" id="picture:mishunov-passive-active">
+    <figcaption>
+        Człowiek w pasywnym i aktywnym trybie oczekiwania postrzega ten sam przedział czasowy inaczej
+        <a href="bib:why-performance-matters-part2"></a>
+    </figcaption>
+    <img src="/images/mishunow-active-passive.png" height="130">
+</figure>
 <p>
 
 
-    Ponadro okazuje się, że w przypadku <i>User Experience</i> nie jest ważny sam fakt, że jakaś operacja trwa
-    nieakceptowalnie
-    długo, ale ważne jest to, jak czas postrzega sam użytkownik <a href="#bib:why-performance-matters-part1"></a>.
 </p>
 <p class="helper">
     W tym miejscu będzie wytłumaczona percepcja czasu, fazy czekania (aktywna pasywna) z artykułu Mishunova:

@@ -59,12 +59,58 @@
 <article>
     <h2>dotyczące wstępu/analizy</h2>
     <ul>
+        <li>motywacja (no końcu wstępu)
+
+            problemy napotkane przy realizacji prawdziwego systemu
+            * brak generycznych i otwartych rozwiązań
+            ** problem wspólny dla wielu aplikacji
+            ** niezależność od używanej biblioteki wykresów
+            * rosnąca popularność aplikacji w przeglądarkach (ang. Single Page Application)
+            * dosyć nowa dziedzina “big data”, “scientific data”
+
+        </li>
+        <li>prace powiązane z tematem
+
+            https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g10f185f3fc_0_132
+            próba optymalizacji (ForeCache): https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_0
+            analogia do GIS: https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_11
+            dobór poziomu agregacji danych: https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_17
+        </li>
+        <li>zakres pracy: nie komponent do rysowania wykresów, nie wydajne serwery big data, efektywne zarządzanie
+            komunikacją klient-serwer
+        </li>
         <li>Spa ajax to nowe rzeczy</li>
         <li>skale zwyczajowe (dni, miesiące) są nierówne, nie są wzajemnie wielokrotne - opisać jaki to stwarza
             problem
         </li>
         <li>perceived performance, passive phase of event (jest na to literatura w moim spisie)</li>
         <li>https://mapr.com/blog/time-series-data-new-big-data/</li>
+        <li>
+            płynny rendering to oczywistość
+            ---- * jak dostarczać realne dane?
+            -------- * 8 × 5y × 0.1Hz × 200B = 25GB
+            ---- * porcjowanie zasobów
+            -------- * zakres danych (horyzontalne)
+            -------- * agregacje (wertykalne)
+            ---- * wczytanie zakresu to też oczywistość
+            -------- * co z rozpraszaniem użytkownika?
+            -------- * utrzymanie uwagi na właściwym zadaniu
+
+            https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g10f185f3fc_0_0
+        </li>
+        <li>
+            opisać jakie by było idealne rozwiązanie
+            Użytkownicy eksplorują dane pomiarowe
+            * swobodnie
+            ** dostęp do wszystkich danych prezentowanych w zrozumiały sposób
+            * intuicyjnie
+            ** doświadczenia psycho-ruchowe w interakcji
+            *** gesty myszy - przeciąganie, rolka, zaznaczanie
+            * efektywnie
+            ** skupieni na analizie
+            ** bez czekania na dane
+
+        </li>
     </ul>
 </article>
 
@@ -79,12 +125,17 @@
         <li>Influx db jako baza agregująca dane</li>
         <li>https://en.wikipedia.org/wiki/Time_series_database</li>
         <li>http://hackage.haskell.org/package/zoom-cache</li>
+        <li>Kibana 3: swoboda nawigacji, brak prefetchingu, brak płynnej zmiany kontekstu</li>
+        <li>tim slatcher opisuje progresywne ładowanie, prywatny projekt (ale nie mowi nic o prefetchingu czy cache)</li>
     </ul>
 </article>
 
 <article>
     <h2>dotyczące mojego rozwiązania (architektura/implementacja)</h2>
     <ul>
+        <li>wymaganie: różne biblioteki do wykresów mają różne api - redraw lub patch (diff) api - każdy typ powinien
+            być wspierany
+        </li>
         <li>Debounce do gromadzenia zapytań do serwera</li>
         <li>Spłaszczenie warstw w celu prezentacji</li>
         <li>prediction models i dynamicProjection - paddingi, <strong>tiles</strong> muszą być sensownie dopasowane,
