@@ -1,1 +1,4 @@
 .DS_Store
+.idea
+html/target
+html/node_modules
