@@ -322,6 +322,21 @@
         <url access="2016-09-21">https://www.nngroup.com/articles/usability-101-introduction-to-usability/</url>
         <year>2012</year>
     </citation>
+    <citation type="article">
+        <title>A Multi-Level Cache Model for Run-Time Optimization of Remote Visualization," in IEEE Transactions on Visualization and Computer Graphics</title>
+        <volume>vol. 13 pp. 991-1003</volume>
+        <author>R. Sisneros, C. Jones, J. Huang, J. Gao, B. H. Park and N. Samatova</author>
+        <year>2007</year>
+        <month>Sept.-Oct.</month>
+    </citation>
+    <citation type="proceedings">
+        <author>Tak-Chung Fu, Fu-Lai Chung, R. Luk and Chak-Man Ng</author>
+        <title>Progressive time series visualization in a mobile environment,</title>
+        <publisher>ISCC</publisher>
+        <journal>Computers and Communications, Ninth International Symposium </journal>
+        <volume>pp. 662-667 Vol.2.</volume>
+        <year>2004</year>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->

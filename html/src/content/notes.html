@@ -1,0 +1,126 @@
+<h1>Notatki</h1>
+
+<article>
+    <h2>Dotyczące formy pracy i jej struktury (zalecenia?)</h2>
+    <ul>
+        <li>zamiast "analiza istniejących rozwiązań" dać coś co faktycznie opisuje content</li>
+        <li>Linki z czasem dostępu</li>
+        <li>sztywne nazwy: "Wstęp" i "podsumowanie"</li>
+        <li>nie dawać tabel i wykresów jednoczesnie. jesli damy wykres, to tabele dać na CD</li>
+        <li>między rozdziałami pisać pod koniec rozdziałów - dlaczego następny rodział będzie jako będzie</li>
+        <li>baza IEEE - dostęp...</li>
+        <li>Wstep co w kolejnych rozfzialach</li>
+        <li>Jesli dziedzina nowa, to ostrzec ze beda po angielsku bi nikt nie tlumaczyl</li>
+        <li>Forma bezosobowa - zrobiono</li>
+        <li>zadania do wykonania:
+            <ol>
+                <li>Przedstawienie dziedziny wizualnej eksploracji danych pomiarowych i jej roli w interaktywnej
+                    analizie wizualnej
+                </li>
+                <li>Charakterystyka wielkoskalowych danych pomiarowych i przedstawienie głównych problemów z ich
+                    wizualizacją w przeglądarce internetowej
+                </li>
+                <li>Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania</li>
+                <li>Analiza istniejących rozwiązań, w szczególności tych pochodzących z kategorii systemów mapowych oraz
+                    mechanizmów pamięci podręcznej
+                </li>
+                <li>Przedstawienie proponowanego rozwiązania</li>
+                <li>Przedstawienie metodologii oceny rozwiązania</li>
+                <li>Zaprojektowanie wysokopoziomowej architektury komunikacji klient-serwer, w tym protokołu
+                    komunikacyjnego, interfejsu REST oraz interfejsu klienta w języku JavaScript
+                </li>
+                <li>Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych
+                    wspierającej fragmentację czasową oraz fragmentację skali danych
+                </li>
+                <li>Zaprojektowanie architektury modułu predykcji</li>
+                <li>Prezentacja kluczowych algorytmów do zarządzania fragmentami serii danych w pamięci podręcznej</li>
+                <li>Prezentacja kluczowych algorytmów do prezentacji pofragmentowanych danych na ekranie</li>
+                <li> Prezentacja algorytmów predykcji akcji użytkownika</li>
+                <li>Przedstawienie i uzasadnienie wyboru narzędzi i środowisk</li>
+                <li>Metodologiczna ocena rozwiązania, prezentacja wyników pomiarów oraz podsumowanie badań satysfakcji
+                    użytkowników wykonanego rozwiązania.
+                </li>
+
+            </ol>
+
+        </li>
+    </ul>
+</article>
+
+<article>
+    <h2>niesklasyfikowane</h2>
+    <ul>
+        <li>Jakie firmy inwestują w dziedzinę która się zajmuje (wprowadzenie/analiza?)</li>
+        <li>jakie wykresy do implementacji: https://en.wikipedia.org/wiki/Comparison_of_JavaScript_charting_frameworks
+        </li>
+    </ul>
+</article>
+
+<article>
+    <h2>dotyczące wstępu/analizy</h2>
+    <ul>
+        <li>Spa ajax to nowe rzeczy</li>
+        <li>skale zwyczajowe (dni, miesiące) są nierówne, nie są wzajemnie wielokrotne - opisać jaki to stwarza
+            problem
+        </li>
+        <li>perceived performance, passive phase of event (jest na to literatura w moim spisie)</li>
+        <li>https://mapr.com/blog/time-series-data-new-big-data/</li>
+    </ul>
+</article>
+
+<article>
+    <h2>dotyczące istniejących rozwiązań</h2>
+    <ul>
+        <li>Openlayers czy ma te mechanizmy, tilecache</li>
+        <li>Google maps zamknoete, Nie ma generycznych bibliotek, mozna jedynie obserwować jak to działa</li>
+        <li>Artykuły które mówią o mojej dziedzinie np zoomchart</li>
+        <li>opisać predykcję i strukturę w ForeCache</li>
+        <li>https://apps.axibase.com/chartlab/b74bdbd7</li>
+        <li>Influx db jako baza agregująca dane</li>
+        <li>https://en.wikipedia.org/wiki/Time_series_database</li>
+        <li>http://hackage.haskell.org/package/zoom-cache</li>
+    </ul>
+</article>
+
+<article>
+    <h2>dotyczące mojego rozwiązania (architektura/implementacja)</h2>
+    <ul>
+        <li>Debounce do gromadzenia zapytań do serwera</li>
+        <li>Spłaszczenie warstw w celu prezentacji</li>
+        <li>prediction models i dynamicProjection - paddingi, <strong>tiles</strong> muszą być sensownie dopasowane,
+            żeby np wykres nie byl co chwile przerysowany, bo jakis drobnostkowy model predykcji co chwile aktualizuje
+            mały kawałeczek
+        </li>
+        <li>Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, etc) nie robią problemu u mnie, bo każda
+            agregacja ma parametr czas otwarcia i czas zamknięcia okresu który reprezentują. Żadną agregacja nie musi
+            być wielokrotnościa poprzedniej, bo punkty agregacji są niezależne pomiędzy warstwami.
+            Dopiero CacheProjection dobiera sobie agregację do zakresów czasu, ale znowu, każda agregacja ma wpisany
+            czas za który odpowiada.
+        </li>
+        <li>Nakładanie się warstw o dynamicznej zawartosci, jak w nakładaniu obrazów. Niemożliwe prxerysowywanie od
+            początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
+            Pokazać przykładowy wykres z wieloma warstwami.
+        </li>
+        <li>Przedstawić użyte technologie</li>
+    </ul>
+</article>
+
+<article>
+    <h2>Dotyczące oceny rozwiązania</h2>
+    <ul>
+        <li>oceniac takze diff api / full redraw api - które biblioteki sa lepsze w czym</li>
+        <li>oceniać automatyczne testy performancowe na podstawie wybranych scenariuszy dostarczonych w explore-survey
+        </li>
+        <li>Jakieś metodologię pomiaru responsywnosci systemów fat client</li>
+    </ul>
+
+</article>
+
+<article>
+    <h2>Dotczące możliwych ulepszeń, rozwoju</h2>
+    <ul>
+        <li>architektura mechanizmów predykcji + kilka przykładowych + pokazać w pracy, jak można własne mechanizmy
+            predykcji implementować
+        </li>
+    </ul>
+</article>
