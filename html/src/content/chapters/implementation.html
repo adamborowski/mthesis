@@ -168,17 +168,18 @@ TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
     </code>
 </figure>
 <h3>Mechanizm cache</h3>
-<p>TODO struktura danych, operacje na zbiorach przedziałów
+TODO struktura danych, operacje na zbiorach przedziałów
 
+<pre>
     ┌────────────────────────────────────────────────┐
-    ├ F ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
-    │ 1 2 3 4 5 6 │
-    ├ T │
-    │ │
-    ├ B │
-    │ │
-    ├ R ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ │
-    │ 0 7 │
+    ├ F ┏━━━━━┓        ┏━━━━━┓        ┏━━━━━┓        │
+    │   1     2        3     4        5     6        │
+    ├ T                                              │
+    │                                                │
+    ├ B                                              │
+    │                                                │
+    ├ R ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
+    │   0                                         7  │
     └────────────────────────────────────────────────┘
     ┌────────────────────────────────────────────────┐
     ├ F ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
@@ -190,6 +191,7 @@ TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
     ├ R ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
     │ 0 1 2 3 4 5 6 7 │
     └────────────────────────────────────────────────┘
+</pre>
 </p>
 <figure type="code" id="code:demo1">
     <pre>
@@ -217,7 +219,7 @@ TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
 </figure>
 
 
-<p>
+<p helper="z konwersacji">
     [11:47 AM] Adam Borowski [Atlassian]: algorytmy ktore mi zajely duzo czasu to operacje UNION oraz SUBTRACT na takiej
     strukturze jak zbiór przedziałów (interval set).
     Same operacje są banalne, i są biblioteki na to, ale to co stanowi wyzwanie to obliczenie kroków transformacji
