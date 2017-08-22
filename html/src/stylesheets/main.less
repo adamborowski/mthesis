@@ -14,9 +14,11 @@ a {
     content: '(str. ' target-counter(attr(href), page) ')';
     margin-left: 2pt;
   }
-  &[href^="http://"], &[href^="https://"] {
-    &:after {
-      content: ' (' attr(href) ')';
+  &:not(.no-decoration) {
+    &[href^="http://"], &[href^="https://"] {
+      &:after {
+        content: ' (' attr(href) ')';
+      }
     }
   }
 }
