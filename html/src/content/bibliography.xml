@@ -347,6 +347,19 @@
         <year>2017</year>
         <publisher>User Experience Professionals Association</publisher>
     </citation>
+    <citation type="book" id="bib:frankfort2001metody">
+        <title>Metody badawcze w naukach społecznych</title>
+        <author>Frankfort-Nachmias, Chava and Nachmias, David</author>
+        <year>2001</year>
+        <publisher>Zysk i S-ka</publisher>
+
+    </citation>
+    <citation type="article" id="bib:rajamony2001measuring">
+        <title>Measuring Client-Perceived Response Time on the WWW</title>
+        <author>Rajamony, Ramakrishnan and Elmootazbellah (Mootaz) Elnozahy</author>
+        <booktitle>USITS</booktitle>
+        <year>2001</year>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
