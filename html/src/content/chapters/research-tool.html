@@ -34,9 +34,38 @@ Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwi�
     Transkrypcja części teoretycznej ankiety została umieszczona w dodatku <a
         href="#appendix:tester-intro-transcription">A</a>.
 </p>
-<!-- streścić co tam było, a potem odnieć się do dodatku X, w którym jest transkrypcja  -->
 
 <h3>Część praktyczna</h3>
+
+<p>
+    Po zapoznaniu się z tematem badań użytkownik może przejść do cześci praktycznej, w której ma do
+    przetestowania pięć kolejnych wersji rozwiązania, dla każdej z nich może opcjonalnie wyświetlić szczegółowy opis
+    danej wersji rozwiązania, jak na ilustracji <a href="#picture:tester-scenarios"></a>.
+</p>
+<figure type="picture" id="picture:tester-scenarios">
+    <figcaption>Interaktywna część ankiety.</figcaption>
+    <img src="/images/research-tool/scenarios.png" height="200"/>
+</figure>
+
+<p>
+    Pierwszą wersją rozwiązania jest tak naprawdę referencyjna implementacja istniejącego rozwiązania przedstawionego w
+    rozdziale <a href="#chapter:existing-solutions"></a>. Oznacza to, że w tej wersji nie została zastosowana żadna
+    optymalizacja będąca przemiotem pracy. Została umieszczona w badaniu jako punkt odniesienia do dalszych porównań.
+    Kolejne wersje poddawane ocenie są stopniowo ulepszaną wersją, ostatnia zaś jest tą, w której zastosowano wszystkie
+    zaplanowane optymalizacje: z niezależną pamięcią cache dla każdego poziomu agregacji, z projekcją pamięci cache z
+    większych agregacji do mniejszych, z mechanizmem predykcji oraz z optymalizacją zapytań.
+</p>
+
+<p>
+    Dla każdej wersji użytkownik może uruchomić sesję testowania, za pomocą przycisku przechodzi o ekranu z właściwym
+    wykresem, który prezentuje inicjalnie jedynie fragment danych.
+</p>
+
+<p>
+    Zbiór danych został wygenerowany na podstawie realnych danych pomiarowych które zostały zreplikowane i sklejone tak,
+    aby reprezentowały 50 lat danych generowanych z częstotliwością. Dane zostały umieszczone na serwerze w bazie danych
+    <em>PostgreSQL</em> i udostępnione protokołem HTTP w formacie JSON.
+</p>
 
 <h3>Część podsumowująca</h3>
 
