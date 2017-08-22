@@ -1,1 +1,59 @@
 <h2>Apekt wydajności komponentów systemu</h2>
+
+<p>
+    Kolejną rzeczą, oprócz samej użyteczności proponowanego rozwiązania, jest sam jego wpływ na pracę systemu.
+</p>
+<p>
+    W szczególności nie można pozwolić na to, by rozwiązanie, które zwiększa satysfakcję pojedynczego użytkownika,
+    zmniejszało wydajność infrastruktury, na której działa. Poniżej przestawiono kilka ważnych elementów, które powinny
+    conajmniej zachować swoje pierwotne parametry wydajności.
+</p>
+
+<h3>Komunikacja klient-serwer</h3>
+
+<p>
+    Rozwiązanie nie powinno zwiększyć ruchu w sieci pomiędzy serwerem danych pomiarowych, a klientem wizualizacji.
+    Wiadomo, że względem istniejącego rozwiązania komunikacja będzie zwiększona, gdyż użytkownik dzięki szybkości
+    działania będzie mógł wydajniej pracować. Należy mieć na uwadze, który czynnik generuje wzrost komunikacji sieci -
+    wydajniej pracujący użytkownik, czy źle zaprojektowane lub zaimplementowane algorytmy.
+</p>
+
+
+<h3>Zasoby systemu klienta</h3>
+<p note="w tym celu badamy chart update time ">
+    Aplikacja przeglądarkowa korzystająca z zaproponowanego rozwiązania nie powinna wykazywać znacznego wzrostu użycia
+    procesora, karty graficznej czy pamięci operacyjnej.
+    Nie powinna też zmniejszyć płynności działania, a w szczególności nie może się blokować z powodu złożoności danych i
+    algorytmów zastosowanych w rozwiązaniu.
+</p>
+
+<h3>Koszty optymalizacyjne</h3>
+<p>
+    Prawdą jest, że optymalizując jedne parametry systemu trzeba ponieść koszt mający odzwierciedlenie w innych
+    parametrach.
+
+    Sens oceny wydajności komponentów systemu jest głównie taki, żeby pamiętać o możliwych skutkach ubocznych
+    optymalizacji i je zmierzyć, by po wprowadzeniu rozwiązania do istniejącego systemu nie okazało się, że nie nadaje
+    się ono do większych zastosowań.
+    Dla przykładu można podać sytuację, gdzie wielu użytkowników jednocześnie
+    intensywnie przegląda te same dane, czy też sytuację, gdzie aplikacje umożliwiają zsynchronizowane
+    przeglądanie wielu wykresów danych jednocześnie, a na każdym wykresie znajduje się po kilka serii danych.
+</p>
+
+<h3>Obiektywna miara wydajności</h3>
+
+<p>
+    W celu ocenienia wyżej omówionej wydajności, za obiektywną miarę przyjmie się:
+</p>
+<ul>
+    <li>histogram czasu przerysowania poszczególnych komponentów wykresowych, wybranych i przedstawionych w rozdziale <a
+            href="#chapter:chart-libraries"></a>,
+    </li>
+    <li>histogram użycia jednostki CPU/GPU w czasie trwania powyższego testu,</li>
+    <li>końcowe zużycie pamięci,</li>
+    <li>suma rozmiarów pobranych danych z serwera w danym teście.</li>
+</ul>
+<p>
+    Tą miarą powinny zostać zmierzone wszystkie konfiguracje przedłożone użytkownikom do subiektywnej oceny.
+    Zostanie to zmierzone dla jednego, reprezentatywnego scenariusza interakcji użytkownika z systemem.
+</p>
