@@ -28,16 +28,16 @@
 </p>
 
 <p>
-    Baza danych może być fizycznie zlokalizowana na tej samej maszynie co serwer lub innej.
+    Baza danych pomiarowych może być fizycznie zlokalizowana na tej samej maszynie co serwer lub innej.
     W drugim przypadku dane często są replikowane na serwerze danych w celu optymalizacji czasu odpytywania bazy danych
     i zrównoważenia obciążenia całego systemu.
-    Baza danych jest przygotowana do serwowania danych pomiarowych tych surowych jak i tych odpowiednio zagregowanych.
+    Baza danych jest przygotowana do serwowania danych pomiarowych surowych jak i tych odpowiednio zagregowanych.
 </p>
 
 <p>
     Może się zdarzyć, że system działa w oparciu o różne standardy komunikacyjne.
-    W takim przypadku najczęściej tworzy się dodatkowy serwis, który będzie udostępniał dane w protokole
-    <em>HTTP</em> w formacie <em>JSON</em>, gdyż to jest główny protokół i format obsługiwany przez przeglądarki.
+    W takim przypadku najczęściej tworzy się dodatkowy serwis, który będzie udostępniał dane protokołem <em>HTTP</em> w
+    formacie <em>JSON</em>, gdyż to jest główny protokół i format obsługiwany przez przeglądarki.
     Dodatkowy serwis może być stworzony również po to, by nie umieszczać we właściwym serwerze logiki niezbędnej do
     pracy <em>ExploreJS</em>, jak na przykład <em>manifest danych</em>, opisany w rozdziale <a
         href="#chapter:implementation"></a>.
@@ -66,7 +66,7 @@
 
 <p>
     Biblioteka <em>ExploreJS</em> jest zatem swego rodzaju pamięcią podręczną <trans lang="ang">cache</trans> dla danych pomiarowych, która
-    pośredniczy między komponentem wykresowym w aplikacji a danymi na serwerze.
+    pośredniczy między komponentem wykresowym w przeglądarce a danymi na serwerze.
 </p>
 
 <h2>Asynchroniczny przepływ informacji</h2>
@@ -80,7 +80,7 @@
 </p>
 <ul>
     <li><em>powiadomienie</em>, kiedy zdarzyła się zmiana zakresu wyświetlanych danych,</li>
-    <li><em>przerysowanie</em> wykresu na każde żądanie <em>ExploreJS</em>.</li>
+    <li><em>aktualizacja</em> komponentu wykresowego na każde żądanie <em>ExploreJS</em>.</li>
 </ul>
 
 <p class="keep-before">
@@ -110,9 +110,57 @@
     chwili widać na ekranie.
 </p>
 
-<p note="wskazać asynchroniczność view change - chart update, bo to kiedy aktualizaować, lepiej wie biblioteka, nie zawsze gdy jest zmiana requesta">
-    chapter:web-interfaces - napisac ze rozwiazanie aktualizuje kawalek na wykresie, ale z reguly wiekszy niz ten co
-    widac, i jest to mozliwe
+<h2>Schemat rozwiązania</h2>
+
+<p CLASS="keep-after">
+    W tej części zostanie przedstawione, jak zaprojektowana została biblioteka <em>ExploreJS</em>, z jakich modułów
+    się składa. Poglądowy schemat rozwiązania został przedstawiony na diagramie <a href="#picture:architecture-simple"></a>
+</p>
+<figure type="picture" id="picture:architecture-simple">
+    <figcaption>Koncepcyjny schemat <em>ExploreJS</em>. Liczebność komponentów pokazana została na etykietach w górnej części
+        diagramu.
+    </figcaption>
+    <img src="cache/architecture-overview.png">
+</figure>
+
+<p>
+    Rozwiązanie <em>ExploreJS</em> można podzielić koncepcyjnie na moduły, które dodatkowo klasyfikują się na trzy kategorie
+    ze względu na ich liczebność.
+
+    Zwielokrotnienie modułów wynika z faktu, że zaproponowane rozwiązanie wspiera maksymalne współdzielenie zasobów przy
+    wyświetlaniu wielu wykresów jednocześnie, na których może być wyświetlane wiele serii danych pomiarowych, a ta sama
+    seria danych może być pokazywana na różnych wykresach.
+
+    Można tutaj przywołać przykład aplikacji, w której użytkownik porównuje dane meteorologiczne w ten
+    sposób, że wyświetla trzy wykresy, każdy z nich jest przesunięty względem siebie o jeden rok, a na każdym
+    wyświetlane jest 6 tych samych serii pomiarowych.
+
+    W tym przypadku rozwiązanie będzie współdzieliło zoptymalizowany kanał komunikacyjny, ale również pamięć cache dla
+    każdej z 6 serii.
+</p>
+
+<p>
+    Moduł <em>ReuestManager</em> ...
+</p>
+
+<p>
+    Moduł <em>DataCache</em> ...
+</p>
+
+<p>
+    Moduł <em>ProjectionCache</em> ...
+</p>
+
+<p>
+    Moduł <em>PredictionEngine</em> ...
+</p>
+
+<p>
+    Moduł <em>DataSource</em> ...
+</p>
+
+<p note="tu napisać, że jest to customizowalny fragment data source">
+    Moduł <em>ChartAdapter</em> ...
 </p>
 
 
