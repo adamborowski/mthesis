@@ -3,7 +3,8 @@
 <p>W tym rozdziale zostanie zaprezentowane narzędzie, które posłuży do pozyskania i przetworzenia danych potrzebnych do
     oceny, której forma szczegółowo została opisana w rozdziale <a href="#chapter:methodology" class="show-page"></a>.
     Rozdział ten ma charakter poglądowy, niejako dokumentuje spełnienie wymagań względem narzędzia badawczego i
-    obrazuje, w jaki sposób pozyskano wyniki i przeprowadzono późniejszą analizę rezultatów.
+    obrazuje, w jaki sposób pozyskano wyniki i przeprowadzono późniejszą analizę rezultatów. Pokazano również przykład
+    analizy pojedynczego badania i sposób, w jaki narzędzie badawcze pomaga wysnuć odpowiednie wnioski.
 </p>
 
 <h2>Moduł interaktywnej ankiety</h2>
@@ -200,8 +201,144 @@ Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwi�
     zrozumiane i wykonane rzetelnie lub nie.
 </p>
 
-<h3>widok pojedynczego badania</h3>
+<h3 class="keep-after">Widok pojedynczego badania</h3>
+
+<p class="keep-after">
+    Aplikacja umożliwia wybranie poszczególnego badania z listy i wyświetlenie jednej z kilku zakładek logicznie
+    grupujących zebrane dane, jak to pokazano na ilustracji <a href="#picture:tester-score"></a>.
+    Poszczególne kropki ilustrują ocenę względem poprzedniej, zatem widać tutaj, że rozwiązanie bazowe zostało ocenione
+    na <q>nie podoba mi się</q>. Wersja bazowa nie spodobała się użytkownikowi. Rozwiązanie z pamięcią podręczną zostało
+    ocenione na <q>bez różnicy / ciężko
+    stwierdzić</q>.
+    Rozwiązanie z projekcją pamięci podręcznej było <q>nieco lepsze</q>, z mechanizmem predykcji <q>nieporównywalnie
+    lepsze</q> od poprzedniego, zaś finalna wersja, z dodatkową optymalizacją komunikacji tylko <q>nieco lepsza</q> od
+    poprzedniej.
+</p>
+
+<figure type="picture" id="picture:tester-responses" class="keep-before">
+    <figcaption>Główny widok modułu analizy wyników. Widoczna jest zakładka z ocenami rozwiązań.</figcaption>
+    <img src="/images/research-tool/responses-score.png" class="bordered"/>
+</figure>
+
+<p>
+    Zakładka <q>summary</q> pozwala na wyświetlenie wypełnionej przez użytkownika końcowej ankiety (ilustracja <a
+        href="#picture:tester-responses-summary"></a>).
+</p>
+
+
+<figure type="picture" id="picture:tester-responses-summary">
+    <figcaption>Zakładka wyświetlająca wypełnioną ankietę</figcaption>
+    <img src="/images/research-tool/responses-summary.png" class="bordered"/>
+</figure>
+
+<p>
+    Z udzielonych odpowiedzi wynika, że respondent zrozumiał zagadnienie, <q>mechanizm przyspieszający poruszanie się po
+    ogromnych zbiorach danych przez przeglądarkę</q>, zrozumiał, że rozwiązanie adresuje <q>powolne wczytywanie
+    ogromnych ilości danych</q>.
+    Nie zna innych tego typu rozwiązań, uważa, że problem należy rozwiązać, potwierdza duże podobieństwo do zagadnień z
+    sysmteów mapowych, najprawdopodobniej w swoim zawodzie (w tym przypadku analityk biznesowy) miał do czynienia z
+    przeglądaniem dużych zbiorów danych, najprawdopodobniej spotka się z tym problemem znowu, i gdy będzie taka
+    możliwość, chciałby skorzystać z zaprezentowanego tutaj rozwiązania, ale musiałoby to być na otwartej licencji.
+</p>
+
+<p>
+    Zakładka <q>analytics</q> wyświetla zarejestrowaną aktywność użytkownika związaną z samą aplikacją (ilustracja <a
+        href="#picture:tester-intro"></a>.
+</p>
+
+<figure type="picture" id="picture:tester-responses-analytics">
+    <figcaption>Zakładka pokazująca aktywność użytkownika</figcaption>
+    <img src="/images/research-tool/analytics.png" class="bordered"/>
+</figure>
+
+<p>
+    Z zaprezentowanych tutaj danych można zobaczyć, że respondent na wprowadzenie poświęcił 6 minut, w których odwiedził
+    wszystkie dziesięć slajdów. Otworzył opisy wszystkich rozwiązań, a na testowanie rozwiązania w praktyce poświęcił 12
+    minut.
+</p>
+
+<p class="keep-after">
+    Żeby mieć jeszcze pełniejszy obraz, w jaki sposób użytkownik testował rozwiązania, należy otworzyć zakładkę
+    <q>stats</q>. Pozwala ona na dokładne przeanalizowanie wszystkich sesji testowania rozwiązania (ilustracja <a
+        href="#picture:tester-responses-stats-session"></a>).
+    Wyświetlona jest tabela z najważniejszymi statystykami pojedynczej sesji testowania: liczba zapytań o dane do
+    serwera, liczba iterakcji z wykresem (liczba zmian wyświetlanego zakresu), łączny czas, w którym czekano na
+    brakujące dane, średni czas oczekiwania na odpowiedź systemu, oraz histogram przedziałów czasu odpowiedzi systemu, w
+    którym umieszczono przedział zerowy (brak komunikacji z serwerem) oraz przedziały nawiązujące do limitów
+    <em>Mullera</em> <a
+        href="#bib:Miller1968"></a>, zaprezentowanych w
+    rozdziale <a href="#chapter:ux"></a>.
+</p>
+
+<figure type="picture" id="picture:tester-responses-stats-session">
+    <figcaption>Zakładka pokazująca statystyki sesji</figcaption>
+    <img src="/images/research-tool/stats-session.png" class="bordered" height="250"/>
+</figure>
+
+<p>
+
+    Z pokazanych danych można wysnuć jeden interesujący wniosek.
+    Biorąc pod uwagę, że użytkownikowi nie spodobała się wersja podstawowa (ilustracja <a
+        href="#picture:tester-score"></a>) oraz to, że histogram responsywności wskazuje dosyć niskie czasy odpowiedzi
+    (13 natychmiastowych, 70 poniżej 0.1s, 88 poniżej 1s), można stwierdzić, że te dane wydają się być sprzeczne z tym,
+    jakie odczucia wyraził respondent. Tym bardziej, że w rozwiązaniu podstawowym nie powinno dojść do sytuacji, w
+    której użytkownik
+    w ogóle nie czeka na dane, ponieważ implementacja nie zawiera żadnego mechanizmu recyklingu danych.
+</p>
+<p>
+    Aby rozpatrzeć ten przypadek indywidualnie i zrozumieć możliwe przyczyny tej sprzeczności, należy odtworzyć nagraną
+    sesję klikając przycisk <kbd>&blacktriangleright;</kbd>.
+    W tym momencie można obejrzeć, w jaki sposób użytkownik korzystał z wykresu (ilustracja <a
+        href="#picture:tester-recordings"></a>).
+</p>
+
+<p>
+    W przypadku tej konkretnej sesji okazało się, że użytkownik <q>zgubił się</q> podczas eksploracji danych, daleko
+    wychodząc poza okres pięćdziesięciu lat, w których dane były dostępne, na przykład lata 3000 - 6000.
+    Na nagraniu widać, że próbuje wrócić do początkowego miejsca, natomiast zajmuje mu to dość czasu.
+</p>
+
+<figure type="picture" id="picture:tester-recordings">
+    <figcaption>Odtwarzanie nagranej sesji. Widoczny jest cały zbiór danych. </figcaption>
+    <img src="/images/research-tool/recording.png" class="bordered"/>
+</figure>
+
+<p>
+    Po obejrzeniu nagrania i przejrzeniu surowych zapisów nawigacji (listing <a href="#code:tester-recordings"></a>),
+    wiadomo, że dane nie są sprzeczne, ponieważ 13
+    natychmiastowych odpowiedzi wynikało z faktu, że aplikacja w ogóle nie wysyłała zapytań do serwera, jeżeli dotyczyły
+    one zakresów spoza dostępnego przedziału czasu.
+</p>
+
+<figure type="code" id="code:tester-recordings">
+    <figcaption>Zapis pojedynczej interakcji. Widać, że znacznie wykroczono poza zakres danych</figcaption>
+    <pre><code class="json">
+{
+  "viewState": {
+    "time": "Sun Aug 20 2017 12:45:22 GMT+0200 (CEST)", // czas interakcji
+    "state": {
+      "range": {
+        "end": "Thu May 15 3281 17:34:20 GMT+0200 (CEST)", // początek wyświetlanego zakresu
+        "start": "Sat Mar 18 3279 20:59:30 GMT+0100 (CET)" // koniec wyświetlanego zakresu
+      },
+      "scale": 71590010.32773109, // skala odpowiadająca liczbie milisekund na piksel
+      "viewportWidth": 952, // szerokosć wykresu
+      "currentLevelId": "8h" // dobrany poziom agregacji
+    }
+  },
+  "requests": [],  "sumSize": 0,  "waitTime": 0 // brak żądań do serwera
+}
+    </code>
+    </pre>
+</figure>
+
+
+
 <h3>widok zbiorczy</h3>
+
+<p helper>
+    Uzupełnić, gdy zrobiona zostanie część zbiorcza (korelacje etc)
+</p>
 
 
 <p helper>
