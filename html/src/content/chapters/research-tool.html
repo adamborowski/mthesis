@@ -28,7 +28,7 @@ Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwi�
 </p>
 <figure type="picture" id="picture:tester-intro">
     <figcaption>Początkowy ekran interaktywnej ankiety.</figcaption>
-    <img src="/images/research-tool/intro.png" height="200"/>
+    <img src="/images/research-tool/intro.png" height="200" class="bordered"/>
 </figure>
 <p>
     Transkrypcja części teoretycznej ankiety została umieszczona w dodatku <a
@@ -44,7 +44,7 @@ Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwi�
 </p>
 <figure type="picture" id="picture:tester-scenarios">
     <figcaption>Interaktywna część ankiety.</figcaption>
-    <img src="/images/research-tool/scenarios.png" height="200"/>
+    <img src="/images/research-tool/scenarios.png" height="200" class="bordered"/>
 </figure>
 
 <p>
@@ -52,25 +52,117 @@ Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwi�
     rozdziale <a href="#chapter:existing-solutions"></a>. Oznacza to, że w tej wersji nie została zastosowana żadna
     optymalizacja będąca przemiotem pracy. Została umieszczona w badaniu jako punkt odniesienia do dalszych porównań.
     Kolejne wersje poddawane ocenie są stopniowo ulepszaną wersją, ostatnia zaś jest tą, w której zastosowano wszystkie
-    zaplanowane optymalizacje: z niezależną pamięcią cache dla każdego poziomu agregacji, z projekcją pamięci cache z
-    większych agregacji do mniejszych, z mechanizmem predykcji oraz z optymalizacją zapytań.
+    zaplanowane optymalizacje: z niezależną pamięcią cache dla każdego poziomu agregacji, z projekcją pamięci cache
+    agregacji wyższego poziomu, z mechanizmem predykcji oraz z optymalizacją zapytań do serwera.
 </p>
 
 <p>
-    Dla każdej wersji użytkownik może uruchomić sesję testowania, za pomocą przycisku przechodzi o ekranu z właściwym
+    Dla każdej wersji użytkownik może uruchomić sesję testowania, za pomocą przycisku przechodzi do ekranu z właściwym
     wykresem, który prezentuje inicjalnie jedynie fragment danych.
+    Interfejs sesji został pokazany na ilustracji <a href="#picture:tester-session"></a>.
+    Każda sesja testowania zawiera komponent wykresów podłączony do konkretnej wersji rozwiązania, instrukcję nawigacji,
+    oraz wskazówki, na co zwracać uwagę przy przeglądaniu danych, by nakłonić użytkownika do spontanicznej interakcji z
+    komponentem.
+    Dodatkowo zostały umieszczone kontrolki do ustawiania tzw. przepustnicy łącza pozwalającej na sztuczne opóźnienie
+    ładowania danych, żeby ułatwić zauważenie różnic pomiędzy poszczególnymi wersjami oraz zasymulować określone
+    obciążenie systemu. Przepustnica łącza domyślnie jest włączona i ustawiona na środkową z dostępnych do wyboru
+    wielkości.
 </p>
 
 <p>
     Zbiór danych został wygenerowany na podstawie realnych danych pomiarowych które zostały zreplikowane i sklejone tak,
-    aby reprezentowały 50 lat danych generowanych z częstotliwością. Dane zostały umieszczone na serwerze w bazie danych
-    <em>PostgreSQL</em> i udostępnione protokołem HTTP w formacie JSON.
+    aby reprezentowały 50 lat danych mierzonych z częstotliwością <em>0.1Hz</em>. Dane zostały umieszczone na serwerze
+    w bazie danych <em>PostgreSQL</em> i udostępnione protokołem HTTP w formacie JSON.
 </p>
+
+<p class="keep-after">
+    Do interakcji z wykresem użytkownik może użyć zamiennie myszki i klawiatury:
+</p>
+
+<dl class="terms keep-inside">
+    <div>
+        <dt>przybliżenie <trans lang="ang">zooming</trans></dt>
+        <dd>
+            rolka myszy lub strzałki pionowe <kbd>&uarr;</kbd> <kbd>&darr;</kbd> na klawiaturze
+        </dd>
+    </div>
+    <div>
+        <dt>przesunięcie <trans lang="ang">panning</trans></dt>
+        <dd>rolka myszy z klawiszem <kbd>SHIFT</kbd> lub strzałki poziome <kbd>&larr;</kbd> <kbd>&rarr;</kbd> na
+            klawiaturze
+        </dd>
+    </div>
+    <div>
+        <dt>kadrowanie <trans lang="ang">cropping</trans></dt>
+        <dd>
+            zaznaczenie obszaru lewym przyciskiem myszy
+        </dd>
+    </div>
+
+</dl>
+
+<p>
+    W dolnej części strony są wyświetlone pytania pomocnicze, które skłaniają do określonego rodzaju interakcji,
+    natomiast nie narzucają konkretnego scenariusza testowania:
+</p>
+
+<ul>
+    <li><em>Czy poruszając się poziomo czekasz na załadowanie danych?</em></li>
+    <li><em>Czy wracając do miejsc już odwiedzonych musisz ponownie czekać na załadowanie danych?</em></li>
+    <li><em>Czy oddalając się nie znika wykres podczas ładowania?</em></li>
+    <li><em>Czy oddalając się nie tracisz kontekstu miejsca, od którego się oddaliłeś?</em></li>
+    <li><em>Czy przybliżając się do nieodwiedzonego miejsca nie tracisz kontekstu, w którym się poruszałeś?</em></li>
+    <li><em>Czy czekając na załadowanie danych (przybliżając się lub przemieszczając w poziomie) dostrzegasz rozmyte
+        obszary o przybliżonym kształcie — czy jest to pomocne?
+    </em></li>
+    <li><em>Czy, po przybliżeniu w nieodwiedzone miejsce, w czasie ruchu poziomego dostrzegasz łączenie obszarów o
+        różnych
+        rozdzielczościach?</em>
+    </li>
+</ul>
+
+<figure type="picture" id="picture:tester-session">
+    <figcaption>Fragment ekranu sesji testowania</figcaption>
+    <img height="380" src="/images/research-tool/sesja.png" class="bordered"/>
+</figure>
+
+<p class="keep-after">
+    Po zakończeniu testowania użytkownik przechodzi do oceny rozwiązania (ilustracja <a
+        href="#picture:tester-score"></a>).
+    Do wyrażenia swojej satysfakcji związanej z użytkowaniem danej wersji rozwiąnia została użyta pięciopunktowa skala,
+    zawierająca pięć odpowiedzi na pytanie <q>Jak porównasz tę konfigurację z poprzednią?</q>:
+</p>
+
+<ul>
+    <li>dużo gorsza,</li>
+    <li>nieco gorsza,</li>
+    <li>bez różnicy / ciężko stwierdzić,</li>
+    <li>nieco lepsza,</li>
+    <li>nieporównywalnie lepsza.</li>
+</ul>
+
+<p>
+    Dzięki udzielaniu odpowiedzi na to pytanie można zbadać, jak użytkownik postrzega daną wersję rozwiązania na
+    podstawie swoich
+    własnych doświadczeń, które zdobył eksplorując dane na swój własny sposób. Użytkownik nie jest zmuszony do
+    tłumaczenia swojej oceny, natomiast zbiorcza analiza tych pozornie mało informatywnych wyników ma wykazać, czy
+    istnieje ogólna tendencja, że każda kolejna optymalizacja w rzeczywistości poprawia <em>User Experience</em> w
+    wizualnej eksploracji wielkich zbiorów danych pomiarowych.
+</p>
+
+<figure type="picture" id="picture:tester-score" class="keep-before">
+    <figcaption>Fragment ekranu oceny sesji testowania</figcaption>
+    <img height="200" src="/images/research-tool/version-score.png" class="bordered"/>
+</figure>
+
 
 <h3>Część podsumowująca</h3>
 
 
 <h2>Moduł analizy wyników</h2>
+
+<h3>widok pojedynczego badania</h3>
+<h3>widok zbiorczy</h3>
 
 
 <p helper>
