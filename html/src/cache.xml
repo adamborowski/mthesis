@@ -1,15 +1,6 @@
 <cache>
-    <item id="scheme-example.png">
-        https://www.lucidchart.com/publicSegments/view/1e1cab9c-a86c-4ac8-af08-1b681a2687fa/image.png
-    </item>
     <item id="client-architecture.png">
         https://www.lucidchart.com/publicSegments/view/655ad316-3d5e-4e2e-9e5f-07f44cb0e8d0/image.png
-    </item>
-    <item id="scheme-example3.png">
-        https://www.lucidchart.com/publicSegments/view/1e1cab9c-a86c-4ac8-af08-1b681a2687fa/image.png
-    </item>
-    <item id="scheme-example4.png">
-        https://www.lucidchart.com/publicSegments/view/1e1cab9c-a86c-4ac8-af08-1b681a2687fa/image.png
     </item>
     <item id="aggregation-and-natural-reduction.png">
         https://www.lucidchart.com/publicSegments/view/eb46323a-2150-41e7-9311-04240b78b620/image.png
@@ -28,5 +19,11 @@
     </item>
     <item id="aggregation-levels.png">
         https://www.lucidchart.com/publicSegments/view/69e2d16d-f75e-431e-8dc3-de80c1bafd15/image.png
+    </item>
+    <item id="architecture-existing-system.png">
+        https://www.lucidchart.com/publicSegments/view/850d615b-cd41-486a-ae1d-8ae3bf764d5e/image.png
+    </item>
+    <item id="architecture-async-calls.png">
+        https://www.lucidchart.com/publicSegments/view/5bffa0d4-c162-44d1-8569-be35cf269806/image.png
     </item>
 </cache>

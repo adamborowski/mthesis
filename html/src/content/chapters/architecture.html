@@ -1,18 +1,125 @@
 <!--suppress HtmlUnknownTag -->
 <h1 id="chapter:solution">Architektura biblioteki ExploreJS</h1>
 
-<figure type="picture" helper="zrobić z tego tekst">
-    <img src="/images/replace-me-with-text-1.png"/>
+<p>
+    Proponowanym w tej pracy rozwiązaniem, mającym na celu zminimalizowanie czasu oczekiwania na dane w wizualnej
+    eksploracji
+    danych pomiarowych, jest niżej przedstawiona i omówiona biblioteka napisana w języku <em>JavaScript</em>, której
+    zadaniem jest sprawnie dostarczać
+    dane końcowemu użytkownikowi, oglądającemu je na wykresie.
+    W celu identyfikacyjnym zostało ono nazwane <em>ExploreJS</em>.
+</p>
+<p>
+    Na wstępie warto przedstawić, czym jest <q>istniejący system</q> oraz w którym jego miejscu zostanie zastosowane
+    proponowane rozwiązanie. Na diagramie <a href="#picture:architecture-overview"></a> pokazano miejsce w systemie, w
+    którym działa <em>ExploreJS</em>.
+</p>
+
+
+<figure type="picture" id="picture:architecture-overview">
+    <figcaption>Ogólny zarys systemu używającego <em>ExploreJS</em></figcaption>
+    <img src="cache/architecture-existing-system.png"/>
 </figure>
+
+<p>
+    System posiada architekturę <em>klient-serwer</em>, gdzie klientem jest aplikacja działająca w przeglądarce
+    internetowej, a serwerem aplikacja serwująca dane pomiarowe. Klient i serwer jest połączony siecią lokalną lub
+    siecią Internet.
+</p>
+
+<p>
+    Baza danych może być fizycznie zlokalizowana na tej samej maszynie co serwer lub innej.
+    W drugim przypadku dane często są replikowane na serwerze danych w celu optymalizacji czasu odpytywania bazy danych
+    i zrównoważenia obciążenia całego systemu.
+    Baza danych jest przygotowana do serwowania danych pomiarowych tych surowych jak i tych odpowiednio zagregowanych.
+</p>
+
+<p>
+    Może się zdarzyć, że system działa w oparciu o różne standardy komunikacyjne.
+    W takim przypadku najczęściej tworzy się dodatkowy serwis, który będzie udostępniał dane w protokole
+    <em>HTTP</em> w formacie <em>JSON</em>, gdyż to jest główny protokół i format obsługiwany przez przeglądarki.
+    Dodatkowy serwis może być stworzony również po to, by nie umieszczać we właściwym serwerze logiki niezbędnej do
+    pracy <em>ExploreJS</em>, jak na przykład <em>manifest danych</em>, opisany w rozdziale <a
+        href="#chapter:implementation"></a>.
+    Może się tak zdarzyć zwłaszcza wtedy, gdy z różnych względów nie ma możliwości modyfikacji implementacji właściwego
+    serwera danych.
+</p>
+
+<p>
+    W takim systemie końcowy użytkownik korzysta z systemu za pomocą aplikacji uruchamianej w przeglądarce.
+    Aplikacja ta posiada funkcję eksploracji danych, która wykorzystuje dowolną bibliotekę JavaScript rysującą wykresy
+    i wyświetla wykresowy komponent interfejsu użytkownika na ekranie.
+</p>
+
+<p>
+    Moduł aplikacji odpowiedzialny za eksplorację danych obsługuje interakcję z wykresem.
+    Najczęściej nasłuchuje zdarzenia dostarczane przez dany komponent wykresowy dotyczące zmiany zakresu wyświetlanych
+    danych (na skutek interakcji z
+    użytkownikiem). W reakcji na to zdarzenie
+    informacja o zmianie wyświetlanego zakresu przekazywana jest do modułu biblioteki <em>ExploreJS</em>.
+</p>
+
+<p>
+    Sam moduł biblioteki <em>ExploreJS</em> komunikuje się bezpośrednio z serwisem <em>REST</em> oraz przekazuje dane do
+    modułu aplikacji, która aktualizuje punkty na wykresie.
+</p>
+
+<p>
+    Biblioteka <em>ExploreJS</em> jest zatem swego rodzaju pamięcią podręczną <trans lang="ang">cache</trans> dla danych pomiarowych, która
+    pośredniczy między komponentem wykresowym w aplikacji a danymi na serwerze.
+</p>
+
+<h2>Asynchroniczny przepływ informacji</h2>
+
+<p>
+    Pierwszą kwestią dotyczącą konstrukcji rozwiązania jest asynchroniczny model komunikacji.
+    Typowe podejście zakłada raczej komunikację synchroniczną typu żądanie-odpowiedź: <q>zmienił się zakres
+    wyświetlanych danych &mdash; następuje pobranie nowych danych do wyświetlenia</q>.
+    Tutaj jednak zaproponowano bardziej elastyczne rozwiązanie, w którym jedynym zobowiązaniem aplikacji względem
+    <em>ExploreJS</em> jest:
+</p>
+<ul>
+    <li><em>powiadomienie</em>, kiedy zdarzyła się zmiana zakresu wyświetlanych danych,</li>
+    <li><em>przerysowanie</em> wykresu na każde żądanie <em>ExploreJS</em>.</li>
+</ul>
+
+<p class="keep-before">
+    Ważne jest to, że między dwoma powyższymi nie ma bezpośredniej zależności czasowej.
+    Dzięki tej elastyczności biblioteka <em>ExploreJS</em> może sama decydować, kiedy i jakimi danymi aktualizować
+    wykres. Na diagramie <a href="#picture:architecture-async-calls"></a> pokazano przykładową sekwencję odwołań
+    pomiędzy poszczególnymi elementami systemu.
+</p>
+
+
+<figure type="picture" id="picture:architecture-async-calls">
+    <figcaption>Przykładowa sekwencja komunikacji w <em>ExploreJS</em></figcaption>
+    <img src="cache/architecture-async-calls.png"/>
+</figure>
+
+<p>
+    Analizując powyższy diagram z punktu widzenia modułu <em>ExploreJS</em>, może się zdarzyć tak jak przy pierwszej
+    zmianie
+    zakresu, gdzie powstała konieczność doładowania kawałka danych, ale w międzyczasie <em>ExploreJS</em> przekazuje te
+    dane, które ma już w pamięci podręcznej.
+    Z kolei przy drugiej zmianie zakresu wszystkie dane były dostępne w pamięci cache, zatem przekazuje od razu porzebne
+    dane.
+    Przy trzeciej, czwartej i piątej zmienie zakresu nie tylko nie istnieje potrzeba doładować dane, ale nawet nie
+    trzeba aktualizować wykresu, ponieważ w danym momencie posiada dane dla wszystkich trzech zakresów.
+    Jest to związane z własnością większości bibliotek wykresowych opisanych w rozdziale <a
+        href="#chapter:web-interfaces"></a>, gdzie dany wykres może w swojej pamięci posiadać więcej danych, niż w danej
+    chwili widać na ekranie.
+</p>
+
+<p note="wskazać asynchroniczność view change - chart update, bo to kiedy aktualizaować, lepiej wie biblioteka, nie zawsze gdy jest zmiana requesta">
+    chapter:web-interfaces - napisac ze rozwiazanie aktualizuje kawalek na wykresie, ale z reguly wiekszy niz ten co
+    widac, i jest to mozliwe
+</p>
+
 
 <p helper="">
     cała Prezentacja 2
     założenia co do stanu "zastałego" - serwer API
     https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_131
-
-
-    Zaprojektowanie wysokopoziomowej architektury komunikacji klient-serwer, w tym protokołu
-    komunikacyjnego, interfejsu REST oraz interfejsu klienta w języku JavaScript
 
     Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych
     wspierającej fragmentację czasową oraz fragmentację skali danych
