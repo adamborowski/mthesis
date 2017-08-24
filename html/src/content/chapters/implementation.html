@@ -10,6 +10,24 @@
 
 
 </p>
+
+<p helper="przeniesiono z architektury">
+    Rozwiązanie <em>ExploreJS</em> można podzielić koncepcyjnie na moduły, które dodatkowo klasyfikują się na trzy
+    kategorie
+    ze względu na ich liczebność.
+
+    Zwielokrotnienie modułów wynika z faktu, że zaproponowane rozwiązanie wspiera maksymalne współdzielenie zasobów przy
+    wyświetlaniu wielu wykresów jednocześnie, na których może być wyświetlane wiele serii danych pomiarowych, a ta sama
+    seria danych może być pokazywana na różnych wykresach.
+
+    Można tutaj przywołać przykład aplikacji, w której użytkownik porównuje dane meteorologiczne w ten
+    sposób, że wyświetla trzy wykresy, każdy z nich jest przesunięty względem siebie o jeden rok, a na każdym
+    wyświetlane jest 6 tych samych serii pomiarowych.
+
+    W tym przypadku rozwiązanie będzie współdzieliło zoptymalizowany kanał komunikacyjny, ale również pamięć cache dla
+    każdej z 6 serii.
+</p>
+
 <h2>Serwer danych</h2>
 <p>
     Proponowane rozwiązanie, ExploreJS jest niezależne od wykorzystywanego oprogramowania po stronie serwera.

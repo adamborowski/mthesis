@@ -110,6 +110,12 @@
     chwili widać na ekranie.
 </p>
 
+<h2> Wielowarstwowa pamięć podręczna</h2>
+
+<p note="3d obrazek z rzutowaniem"></p>
+
+<h2> Silnik predykcji</h2>
+
 <h2>Schemat rozwiązania</h2>
 
 <p CLASS="keep-after">
@@ -117,34 +123,30 @@
     się składa. Poglądowy schemat rozwiązania został przedstawiony na diagramie <a href="#picture:architecture-simple"></a>
 </p>
 <figure type="picture" id="picture:architecture-simple">
-    <figcaption>Koncepcyjny schemat <em>ExploreJS</em>. Liczebność komponentów pokazana została na etykietach w górnej części
-        diagramu.
-    </figcaption>
+    <figcaption>Koncepcyjny schemat <em>ExploreJS</em></figcaption>
     <img src="cache/architecture-overview.png">
 </figure>
 
 <p>
-    Rozwiązanie <em>ExploreJS</em> można podzielić koncepcyjnie na moduły, które dodatkowo klasyfikują się na trzy kategorie
-    ze względu na ich liczebność.
-
-    Zwielokrotnienie modułów wynika z faktu, że zaproponowane rozwiązanie wspiera maksymalne współdzielenie zasobów przy
-    wyświetlaniu wielu wykresów jednocześnie, na których może być wyświetlane wiele serii danych pomiarowych, a ta sama
-    seria danych może być pokazywana na różnych wykresach.
-
-    Można tutaj przywołać przykład aplikacji, w której użytkownik porównuje dane meteorologiczne w ten
-    sposób, że wyświetla trzy wykresy, każdy z nich jest przesunięty względem siebie o jeden rok, a na każdym
-    wyświetlane jest 6 tych samych serii pomiarowych.
-
-    W tym przypadku rozwiązanie będzie współdzieliło zoptymalizowany kanał komunikacyjny, ale również pamięć cache dla
-    każdej z 6 serii.
+    Dokładniejszy schemat i opis działania został omówiony w rozdziale <a href="#chapter:implementation"></a>.
+    W ogólności <em>ExploreJS</em> składa się z sześciu cześci, z której każda odpowiada za inną funkcję rozwiązania.
 </p>
 
 <p>
-    Moduł <em>ReuestManager</em> ...
+    Moduł <em>RequestManager</em> odpowiada za zarządzanie komunikacją z serwerem <em>REST</em>. Przyjmuje zgłoszenia
+    zapotrzebowania na dane w określonym zakresie czasu i poziomie agregacji. Jego zadaniem jest optymalizacja
+    procesu wysyłania żądań do serwera, w szczególności grupowanie ich w paczki w celu minimalizacji liczby
+    jednoczesnych
+    zapytań do serwera.
+    Po otrzymaniu odpowiedzi przekazuje dane do kolejnych modułów.
 </p>
 
 <p>
-    Moduł <em>DataCache</em> ...
+    Moduł <em>DataCache</em> odpowiada za przechowywanie agregacji danych pomiarowych w usystematyzowany sposób.
+    Zarządza wielowarstwową strukturą danych, w której to na każdej warstwie przechowuje dane z innego poziomu
+    agregacji.
+    Ponieważ jest to pamięć typu <em>Cache</em>, jej zadaniem jest również wygenerowanie odpowiedniego żądania do modułu
+    <em>RequestManager</em> w przypadku stwierdzenia braku fragmentu danych w momencie odpytywania tej pamięci.
 </p>
 
 <p>
