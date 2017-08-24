@@ -2,8 +2,73 @@
 
 <p>
     Niniejszy rozdział stanowi uzupełnienie do rozdziału <a href="#chapter:solution"></a>, wyjaśniające zasadę działania
-    ważniejszych jego elementów.
+    ważniejszych elementów proponowanego w tej pracy rozwiązania problemu płynnej i nieograniczonej wizualnej
+    eksploracji danych pomiarowych.
 </p>
+<p>
+    Właściwa implementacja wspiera:
+</p>
+<ul>
+    <li>wyświetlanie wielu komponentów wykresów jednocześnie,</li>
+    <li>wyświetlanie tej samej serii danych w różnych wykresach, w dowolnych zakresach,</li>
+    <li>wyświetlanie wielu serii na jednym wykresie.</li>
+</ul>
+
+<p>
+    By wydajnie wspierać powyższe funkcje, <em>ExporeJS</em> maksymalizuje współdzielenie zasobów:
+</p>
+<ul>
+    <li>wszystkie zapytania o dane do serwera są zarządzane przez jeden moduł <em>ReqestManager</em>,</li>
+    <li>moduł <em>CacheManager</em> powiela moduł <em>SerieCache</em> dla każdej serii danych,</li>
+    <li>moduł <em>DataSource</em> tworzony jest dla każdego komponentu wykresu osobno.</li>
+</ul>
+
+<p>
+    Diagram <a href="#picture:architecture"></a> pokazuje przykładowe ustawienie modułów dla aplikacji z trzema
+    wykresami, gdzie pierwszy oraz trzeci wyświetlają dane z tej samej serii danych pomiarowych.
+</p>
+
+<p>
+    Każdy komponent wykresowy podłączony jest do swojego <em>DataSource</em> poprzez adapter specyficzny dla danego typu
+    komponentu (oznaczony symbolem interfejsu).
+    Informuje o interakcji użytkownika oraz przyjmuje nowe dane do aktualizacji.
+</p>
+
+<p>
+    Każda instancja <em>DataSource</em> posiada inny zestaw modeli predykcji, w związku z czym silnik predykcji, zawarty
+    w każdej instancji <em>DataSource</em> może reagować na interakcję użytkownika inaczej.
+    Każda z siedmiu instancji modelu predykcji niezależnie odwołuje się do pamięci podręcznej tej serii danych, którą
+    obsługuje powiązany <em>DataSource</em>.
+</p>
+
+<p>
+    Wewnątrz instancji <em>DataSource</em> umieszczone są instancje <em>DynamicProjection</em>, które szczegółowo
+    opisane są w dalszej części tego rozdziału.
+</p>
+
+<p>
+    Moduł <em>CacheManager</em> zarządza instancjami <em>SerieCache</em>, których zadaniem jest obsługa wielowarstwowej
+    pamięci podręcznej oraz jej projekcji, opisanej w rozdziale <a href="#chapter:multilayer-cache"></a>.
+</p>
+
+<p>
+    Moduł <em>RequestManager</em> obsługuje żądania z pamięci <em>cache</em> wszystkich serii danych, grupuje je w
+    większe paczki, wysyła je do serwera danych, a odpowiedź rozpakowuje i rozsyła do adektwatnych instancji <em>SerieCache</em>.
+</p>
+
+<p>
+    Serwer REST implementuje uzgodniony format zapytania, odpytuje serwer danych lub bezpośrednio bazę danych.
+</p>
+
+
+<figure type="picture" id="picture:architecture">
+    <figcaption>Diagram pokazujący zwielokrotnienie modułów i ich wzajemne oddziaływania.
+        Kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym zaś pozostałe elementy systemu.
+    </figcaption>
+    <img src="cache/client-architecture.png">
+</figure>
+
+
 
 <h2>Komunikacja z serwerem REST</h2>
 
@@ -149,9 +214,6 @@ W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
 
 
 -->
-
-
-<h2>Zwielokrotnienie modułów</h2>
 
 
 <h2>algebra przedziałów i operacje przekształcające</h2>
@@ -433,10 +495,7 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     Na rysunku <a href="#picture:architecture"></a> pokazano ogólny schemat zależności modułów.
     W kolejnych podrozdziałach zostały opisane funkcje poszczególnych modułów.
 </p>
-<figure type="picture" id="picture:architecture">
-    <figcaption>Architektura</figcaption>
-    <img src="cache/client-architecture.png">
-</figure>
+
 
 <h2>Klasa Range</h2>
 
