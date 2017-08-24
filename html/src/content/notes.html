@@ -110,33 +110,6 @@
 </article>
 
 <article>
-    <h2>dotyczące mojego rozwiązania (architektura/implementacja)</h2>
-    <ul>
-        <li>wymaganie implementacja: różne biblioteki do wykresów mają różne api - redraw lub patch (diff) api - każdy typ powinien
-            być wspierany
-        </li>
-        <li>implementacja: Debounce do gromadzenia zapytań do serwera</li>
-        <li>implementacja: prediction models i dynamicProjection - paddingi, <strong>tiles</strong> muszą być sensownie dopasowane,
-            żeby np wykres nie byl co chwile przerysowany, bo jakis drobnostkowy model predykcji co chwile aktualizuje
-            mały kawałeczek
-        </li>
-        <li>implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, etc) nie robią problemu u mnie, bo każda
-            agregacja ma parametr czas otwarcia i czas zamknięcia okresu który reprezentują. Żadną agregacja nie musi
-            być wielokrotnościa poprzedniej, bo punkty agregacji są niezależne pomiędzy warstwami.
-            Dopiero CacheProjection dobiera sobie agregację do zakresów czasu, ale znowu, każda agregacja ma wpisany
-            czas za który odpowiada.
-        </li>
-        <li>implementacja: Nakładanie się warstw o dynamicznej zawartosci, jak w nakładaniu obrazów. Niemożliwe prxerysowywanie od
-            początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
-            Pokazać przykładowy wykres z wieloma warstwami.
-        </li>
-        <li>implementacja: Przedstawić użyte technologie</li>
-        <li>implementacja: opisać kafelkowanie zakresu danych (żeby predyktor nie doładowywał małych słupków podczas smooth paningu
-        </li>
-    </ul>
-</article>
-
-<article>
     <h2>Dotczące możliwych ulepszeń, rozwoju</h2>
     <ul>
         <li>architektura mechanizmów predykcji + kilka przykładowych + pokazać w pracy, jak można własne mechanizmy

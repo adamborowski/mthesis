@@ -5,15 +5,35 @@
     ważniejszych jego elementów.
 </p>
 
-<h2>Komunikacja z serwerem REST</h2>
+<p helper="">
+    problemy implementacyjne https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_27
+
+    Prezentacja kluczowych algorytmów do zarządzania fragmentami serii danych w pamięci podręcznej
+    Prezentacja kluczowych algorytmów do prezentacji pofragmentowanych danych na ekranie
+    Prezentacja algorytmów predykcji akcji użytkownika
 
 
-<!--
 
-
-<p>
-implementacja: Debounce do gromadzenia zapytań do serwera, opisać merging batch
 </p>
+
+<p helper="przeniesiono z architektury">
+    Rozwiązanie <em>ExploreJS</em> można podzielić koncepcyjnie na moduły, które dodatkowo klasyfikują się na trzy
+    kategorie
+    ze względu na ich liczebność.
+
+    Zwielokrotnienie modułów wynika z faktu, że zaproponowane rozwiązanie wspiera maksymalne współdzielenie zasobów przy
+    wyświetlaniu wielu wykresów jednocześnie, na których może być wyświetlane wiele serii danych pomiarowych, a ta sama
+    seria danych może być pokazywana na różnych wykresach.
+
+    Można tutaj przywołać przykład aplikacji, w której użytkownik porównuje dane meteorologiczne w ten
+    sposób, że wyświetla trzy wykresy, każdy z nich jest przesunięty względem siebie o jeden rok, a na każdym
+    wyświetlane jest 6 tych samych serii pomiarowych.
+
+    W tym przypadku rozwiązanie będzie współdzieliło zoptymalizowany kanał komunikacyjny, ale również pamięć cache dla
+    każdej z 6 serii.
+</p>
+
+<h2>Serwer danych</h2>
 <p>
     Proponowane rozwiązanie, ExploreJS jest niezależne od wykorzystywanego oprogramowania po stronie serwera.
     W związku z tym, dla każdego wskazanego serwera konieczne jest jego zintegrowanie poprzez implementację określonego
@@ -23,11 +43,13 @@ implementacja: Debounce do gromadzenia zapytań do serwera, opisać merging batc
     Interfejs HTTP JSON
 </h3>
 <p>
-Do komunikacji HTTP z serwerem został wybrany format JSON.
-Przy definiowaniu standardu należy zwrócić, uwagę, że w aplikacji użytkownika możliwe jest jednoczesne występowanie
-wielu instancji komponentów wizualizacji danych. Mowa tutaj o przeglądaniu wielu serii na jednym wykresie, czy o
-widokach typu panel kontrolny <span trans="ang">Dashboard</span>.
-W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
+    <!--TODO dlaczego wybrałem JSON-->
+    Do komunikacji HTTP z serwerem został wybrany format JSON.
+    <!-- TODO dlaczego jednoczesne zapytania są złe-->
+    Przy definiowaniu standardu należy zwrócić, uwagę, że w aplikacji użytkownika możliwe jest jednoczesne występowanie
+    wielu instancji komponentów wizualizacji danych. Mowa tutaj o przeglądaniu wielu serii na jednym wykresie, czy o
+    widokach typu panel kontrolny <span trans="ang">Dashboard</span>.
+    W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
 </p>
 <p>
     Aby minimalizować liczbę jednoczesnych zapytań, wszystkie żądania do serwera pochodzące z tej samej aplikacji pakuje
@@ -51,7 +73,7 @@ W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
     <a href="#bib:sample2010tile" chapter="2.2 Global Logical Tile Scheme"></a>.
 </p>
 <p>
-    TODO która skala jest mała ktora duża
+    <!--TODO która skala jest mała ktora duża-->
     Aby nie uzależniać kodu klienta od struktury danych serwera, serwer udostępnia dodatkową informację, tzw.
     <i>manifest</i>. Aplikacja kliencka podczas inicjalizacji pobiera manifest aby wiedzieć, z jakich skal może
     skorzystać. Na listingu <a href="#code:manifest-format"></a> przedstawiono przykładowy manifest serwera. W tym
@@ -146,63 +168,37 @@ W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
     </code>
 </figure>
 
-
-
--->
-
-
-<h2>Zwielokrotnienie modułów</h2>
-
-
-<h2>algebra przedziałów i operacje przekształcające</h2>
-<p note="opisać operacje sum sub, and, etc, że jego wyjściem jest instrukcja diff">
-    dodatkowo wspomnieć o bisekcji, żeby operować tylko na małym fragmencie
-    opisać gdzie występowała konieczność diffów różnorakich zbiorów (cache projection, dynamic projection recompile,
-    levelCache.requestRange()...
-</p>
-
-<!--
-
-
-wizualizacja operacji https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_15
-
-<p helper="przeniesiono z architektury">
-    Rozwiązanie <em>ExploreJS</em> można podzielić koncepcyjnie na moduły, które dodatkowo klasyfikują się na trzy
-    kategorie
-    ze względu na ich liczebność.
-
-    Zwielokrotnienie modułów wynika z faktu, że zaproponowane rozwiązanie wspiera maksymalne współdzielenie zasobów przy
-    wyświetlaniu wielu wykresów jednocześnie, na których może być wyświetlane wiele serii danych pomiarowych, a ta sama
-    seria danych może być pokazywana na różnych wykresach.
-
-    Można tutaj przywołać przykład aplikacji, w której użytkownik porównuje dane meteorologiczne w ten
-    sposób, że wyświetla trzy wykresy, każdy z nich jest przesunięty względem siebie o jeden rok, a na każdym
-    wyświetlane jest 6 tych samych serii pomiarowych.
-
-    W tym przypadku rozwiązanie będzie współdzieliło zoptymalizowany kanał komunikacyjny, ale również pamięć cache dla
-    każdej z 6 serii.
-</p>-->
-
-
-
-
-<h2>Przeliczanie projekcji</h2>
-
-<p note="ten algorytm Front, Back, THIS, i tak dalej"></p>
-
-
-<!--
-
-
-fajny rysunek: https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_89
-
-zainspirować się błędnym, ale zrobionym diagramem: https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_8
-
-nawiązać do frameworków react i angular w kwestii obliczania diffów do efektywnego zarządzaniem UI.
-        Nie możemy po prostu liczyć diffów z całego zbioru (tak jak to robi react) w celu przebudowania UI, musimy
-        liczyć diff w locie.
-        React źle znosi liczenie wielkich diffów (gdyby w ten sposób deklarować renderowanie big data).
-        Big data - cache może być wielki (długo działająca aplikacja), więc przeliczanie diffow nie wchodzi w rachubę.
+<h2>Pośrednik aplikacji klienta</h2>
+TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
+<ul>
+    <li>powiadomienie, że gdzieś coś się zmieniło, wtedy użytkownik albo sam robi diffa, albo resetuje komponent
+        wykresów. to może powodować bad UX, migotanie, itd
+    </li>
+    <li>powiadomienie o dokładnych zmianach. instrukcja co krok po kroku należy zmienić, aby przejść ze stanu obecnego
+        do wyjsciowego. minimalizacja liczby kroków.
+        Jaki fragment danych z wykresu usunąć ( z jakiej warstwy).
+        Jaki fragment danych z wykresu poszerzyć (z jakiej warstwy).
+        Jaki fragment do danych z wykresu dodać (z jakiej warstwy).
+        Common pattern byłby taki, że albo każda seria to inna warstwa, albo jedna seria ma punkty ze wszystkich warstw.
+    </li>
+</ul>
+<figure type="code">
+    <code class="javascript">
+        class ExampleZingAdapter extends ClientProxyAdapter{
+        processChange(diff) {
+        // diff.added, diff.removed, diff.resized --> {layer:[Number], start, end}
+        for(var removedRange of diff.removed){
+        this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
+        }
+        for(var addedRange of diff.added){
+        this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
+        }
+        }
+        }
+    </code>
+</figure>
+<h3>Mechanizm cache</h3>
+TODO struktura danych, operacje na zbiorach przedziałów
 
 <pre>
     ┌────────────────────────────────────────────────┐
@@ -226,6 +222,7 @@ nawiązać do frameworków react i angular w kwestii obliczania diffów do efekt
     │ 0 1 2 3 4 5 6 7 │
     └────────────────────────────────────────────────┘
 </pre>
+</p>
 <figure type="code" id="code:demo1">
     <pre>
         ┌────────────────────────────────────────────────┐
@@ -250,7 +247,6 @@ nawiązać do frameworków react i angular w kwestii obliczania diffów do efekt
         └────────────────────────────────────────────────┘
     </pre>
 </figure>
-
 
 
 <p helper="z konwersacji">
@@ -346,65 +342,29 @@ nawiązać do frameworków react i angular w kwestii obliczania diffów do efekt
     }
 </p>
 
-
--->
-
-<h2>Adapter komponentu wykresu</h2>
-<p note="chodzi o wykresy i ich aktualizacje oraz interfejsy <q>patch</q> (visjs) i <q>replace</q> (flot)">
-    (pseudokod adaptera?)
-</p>
-
-<!--
-
-TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
+<h2>Problemy implementacyne
+    <small>(notatka)</small>
+</h2>
+<p>TODO</p>
 <ul>
-    <li>powiadomienie, że gdzieś coś się zmieniło, wtedy użytkownik albo sam robi diffa, albo resetuje komponent
-        wykresów. to może powodować bad UX, migotanie, itd
+    <li>opisać gdzie występowała konieczność diffów różnorakich zbiorów (cache projection, dynamic projection recompile,
+        levelCache.requestRange()...
     </li>
-    <li>powiadomienie o dokładnych zmianach. instrukcja co krok po kroku należy zmienić, aby przejść ze stanu obecnego
-        do wyjsciowego. minimalizacja liczby kroków.
-        Jaki fragment danych z wykresu usunąć ( z jakiej warstwy).
-        Jaki fragment danych z wykresu poszerzyć (z jakiej warstwy).
-        Jaki fragment do danych z wykresu dodać (z jakiej warstwy).
-        Common pattern byłby taki, że albo każda seria to inna warstwa, albo jedna seria ma punkty ze wszystkich warstw.
+    <li>nawiązać do frameworków react i angular w kwestii obliczania diffów do efektywnego zarządzaniem UI.
+        Nie możemy po prostu liczyć diffów z całego zbioru (tak jak to robi react) w celu przebudowania UI, musimy
+        liczyć diff w locie.
+        React źle znosi liczenie wielkich diffów (gdyby w ten sposób deklarować renderowanie big data).
+        Big data - cache może być wielki (długo działająca aplikacja), więc przeliczanie diffow nie wchodzi w rachubę.
     </li>
+    <li>
+        Optymalizacja mergowanie pending level request, queued level request, prioritety
+    </li>
+    <li>
+        Konieczność wrapperdisplay cache i translacja data-projection-data
+    </li>
+
 </ul>
-<figure type="code">
-    <code class="javascript">
-        class ExampleZingAdapter extends ClientProxyAdapter{
-        processChange(diff) {
-        // diff.added, diff.removed, diff.resized -- > {layer:[Number], start, end}
-for(var removedRange of diff.removed){
-this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
-}
-for(var addedRange of diff.added){
-this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
-}
-}
-}
-</code>
-</figure>
--->
-
-
-<p helper="">
-    problemy implementacyjne https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_27
-</p>
-
-
-<h2>Wraper dla agregacji</h2>
-
-<!--
-Konieczność wrapperdisplay cache i translacja data-projection-data
-
-implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, etc) nie robią problemu u mnie, bo każda
-            agregacja ma parametr czas otwarcia i czas zamknięcia okresu który reprezentują. Żadną agregacja nie musi
-            być wielokrotnościa poprzedniej, bo punkty agregacji są niezależne pomiędzy warstwami.
-            Dopiero CacheProjection dobiera sobie agregację do zakresów czasu, ale znowu, każda agregacja ma wpisany
-            czas za który odpowiada.
--->
-
-<h2>Problemy z integracją z bibliotekami</h2>
+<h3>Problemy z integracją z bibliotekami</h3>
 <ul>
     <li>ZingChart
         * obfuscowany kod, debugging, errory...
@@ -415,8 +375,7 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
         to jednoznacznie dyskwalifikuje - dzieje się to w momencie gdy następuje zmiana zakresu wyświetlanego
     </li>
 </ul>
-<h2>Wykorzystane narzędzia i środowiska</h2>
-
+<h3>Wykorzystane narzędzia i środowiska</h3>
 <p helper="prezentacja 2">
     https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_39
 </p>
@@ -438,25 +397,101 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     <img src="cache/client-architecture.png">
 </figure>
 
-<h2>Klasa Range</h2>
+<h2>Serwer danych</h2>
+<p>
+    Serwer danych powinien być minimalnie zależny od proponowanego rozwiązania, gdyż jest to część "wymienna" systemu.
+    Zatem jego zadaniem będzie tylko zwracanie danych określonych prostym formatem zapytania.
+</p>
+<h2>Komponent użytkownika</h2>
+<p>
+    Jest to dowolny moduł programowy, którego celem jest wyświetlanie danych pomiarowych.
+    Jego wewnętrzna postać oraz zachowanie są zupełnie niezależne od przedstawianego rozwiązania.
+    Przez pojedynczy komponent rozumie się pojedynczą serię danych. Jeśli komponent wykresu wyświetla wiele serii na
+    wspólnym obszarze, z punktu widzenia proponowanego rozwiązania należy każdą serię rozpatrywać osobno.
+</p>
+<ul data-header="Przykładowe komponenty użytkownika, to m. in.:">
+    <li><a href="http://www.highcharts.com/">High Charts</a></li>
+    <li><a href="http://www.zingchart.com/">Zing Chart</a></li>
+    <li><a href="http://d3js.com/">d3.js</a></li>
+</ul>
+<h2>Data Source</h2>
+<p>
+    Moduł DataSource umożliwia integrację przedstawianego rozwiązania z dowolnym komponentem użytkownika poprzez
+    udostępnianie mu dynamicznych danych.
+    Definiuje on standard emisji zdarzeń dotyczących dostępności danych.
+    Przykładowo, emituje zdarzenie o pojawieniu się nowego fragmentu danych na określonym poziomie abstrakcji.
+    Moduł ten sam jednak nie jest przystosowany do współpracy z konkretnym komponentem. Jest to jednolity interfejs
+    systemu dostarczony programistom.
+</p>
+<h2>Adapter DataSource</h2>
+<p>
+    Adapter ten implementuje interfejs dostępu do danych <i>DataSource</i>.
+    Podłącza dedykowany komponent użytkownika do <i>DataSource</i>.
+    Jego zadaniem jest reagowanie na zdarzenia DataSource i określenie reakcji po stronie komponentu.
+    Przykładem może być reakcja na zdarzenie pojawienia się nowego fragmentu danych wyrażona poprzez zmodyfikowanie
+    specyficznej dla Komponentu struktury danych oraz żądania przerysowania całości (lub części) wykresu.
+</p>
+<p>
+    Na listingu <a href="#code:example-data-source-adapter"></a> pokazano przykładową implementację adaptera, który w
+    metodzie <i>onTileAvailable</i> aktualizuje stan pewnego komponentu:
+</p>
+<ol>
+    <li>
+        Usuwane są wszystkie punkty z okresu odpowiadającego danemu kafelkowi. Takie punkty mogły pochodzić fragmentu
+        kafelka o mnieszej rodzielczości,
+    </li>
+    <li>
+        Dodawane są wszystkie punkty z nowego kafelka,
+    </li>
+    <li>
+        Nowe punkty są przekształcane do formatu wyznaczonego przez komponent użytkownika.
+    </li>
+    <li>
+        Aktualizacja widoku użytkownika umożliwiająca interakcję systemu z komponentem.
+    </li>
+</ol>
+<figure type="code" id="code:example-data-source-adapter">
+    <figcaption>Poglądowa implementacja adaptera DataSource</figcaption>
+    <code class="javascript">
+        class ExampleChartsAdapter extends DataSourceAdapter {
+        onTileAvailable (tile) {
+        this.chart.getSerie(this.serieId).removeDataForRange(tile.range.start, tile.range.end); // 1.
+        this.chart.getSerie(this.serieId).addData( // 2.
+        tile.points.map((p) => {
+        return { x: new Date(p.time), y: p.value, color: this.colors[p.attr.status] } // 3.
+        }
+        );
+        }
 
-<p note="opisać wszystkie metody klasy Range  i po co mogą być potrzoebne"></p>
+        onRedraw () {
+        this.chart.redraw();
+        }
 
-<h2>DynamicProjection</h2>
+        init () {
+        this.chart.on('move', () => this.updateUserState({ // 4.
+        'viewport.center.x': this.chart.center.x,
+        'viewport.center.y': this.chart.center.y
+        }));
+        this.chart.on('resize', () => this.updateUserState({
+        'viewport.width': this.chart.size.width,
+        'viewport.height': this.chart.size.height
+        }));
+        }
+        }
+    </code>
+</figure>
 
 <p helper>
+    projektować od najprostrzej strony, czyli formacie zapytania i odpowiedzi klient-serwer
+    zaimplementować protokół klient serwer
+    zaimplementować serwer, dane mogą być w pamięci, whatever (można tez zrobic import z wios???)
+    rozpisać SerieCache na CacheLayer, CacheProjection (kompiluje warstwy) - opisać "przejścia stanów", tj że jeżeli na
+    zoom=4 pojawia się kafel danych, to CacheProjection zobaczy to poprzez usunięcie fragmentu tile o zoom=3 i dodanie
+    danych dla zoom = 4. Może coś takiego jak event listeners for time range, wtedy jeden CacheProjection nasłuchuje na
+    "stożek" eventów.
+    Nasłuchuje eventy na kazdej warstwie, ale tylko na wybranym obszarze. Wtedy listenery są przechowywane w jakimś
+    sorted tree, aby łatwiej odnajdywać które listenery odpalić. może jakiś BST albo coś...
 
-    przełączanie się,
-    range scoped event
-    opisać kafelkowanie zakresu danych (żeby predyktor nie doładowywał małych słupków podczas smooth paningu
-    Nakładanie się warstw o dynamicznej zawartosci, jak w nakładaniu obrazów. Niemożliwe prxerysowywanie od
-    początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
-</p>
-
-<h2>Modele predykcji</h2>
-
-<p note="zaimplementowane modele predykcji" helper>
-    implementacja: prediction models i dynamicProjection - paddingi, <strong>tiles</strong> muszą być sensownie dopasowane,
-    żeby np wykres nie byl co chwile przerysowany, bo jakis drobnostkowy model predykcji co chwile aktualizuje
-    mały kawałeczek
+    CacheProjection powinno dotyczyć jednego DataSource (dobór levelu w zależności od zooma - nie za szczegółowe mimo ze
+    beda dostepne)
 </p>
