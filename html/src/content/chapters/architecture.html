@@ -269,7 +269,8 @@
 
 <p CLASS="keep-after">
     W tej części zostanie przedstawione, jak zaprojektowana została biblioteka <em>ExploreJS</em>, z jakich modułów
-    się składa. Poglądowy schemat rozwiązania został przedstawiony na diagramie <a href="#picture:architecture-simple"></a>
+    się składa. Poglądowy schemat rozwiązania został przedstawiony na diagramie <a
+        href="#picture:architecture-simple"></a>.
 </p>
 <figure type="picture" id="picture:architecture-simple">
     <figcaption>Koncepcyjny schemat <em>ExploreJS</em></figcaption>
@@ -299,7 +300,24 @@
 </p>
 
 <p>
-    Moduł <em>ProjectionCache</em> ...
+    Moduł <em>ProjectionCache</em> jest to indeks projekcji pamięci podręcznej, który przechowuje informacje związane z
+    projekcją danych, towarzyszące każdej warstwie pamięci.
+    Dla każdej warstwy pamięci bowiem jest zapisane, jak wygląda projekcja niższych warstw na tę warstwę.
+    Zostało to pokazane na przykładzie na ilustracji <a href="#picture:projection-and-cache"></a>.
+    Dla przykładu, na warstwie <q>4h</q> pamięci <em>cache</em>, przechowującej agregacje o długości czterech godzin,
+    dostępne są dane w dwóch
+    zakresach pokazanych żółtym kolorem.
+    Natomiast odpowiedni dla tej warstwy indeks projekcji zawiera nie tylko dwa <em>żółte zakresy</em>, ale fragmenty
+    pomarańczowe, czerwone i różowe, powstałe w wyniku przysłaniania warstw podczas projekcji niższych warstw.
+    Indeks projekcji jest aktualizowany dla każdej warstwy w momencie pobrania nowych danych do pamięci podręcznej, w
+    związku z tym jest bardzo szybki w odczycie.
+    Indeks odpowiada na pytanie, z jakiej warstwy pamięci podręcznej należy pobrać dane w danym zakresie.
+    Ilustrują to różnokolorowe segmenty, gdzie każdy kolor odzwierciedla inną warstwę w <em>cache</em> (ilustracja <a
+        href="#picture:projection-and-cache"></a>).
+
+    Aby przygotować do wyświetlenia dane złączone z różnych warstw <em>cache</em>,
+    wystarczy odczytać indeks projekcji w danym zakresie, i dla każdego jego elementu odpytać pamięć podręczną dla
+    poziomu agregacji i zakresu wskazanego przez dany element indeksu.
 </p>
 
 <p>
@@ -313,6 +331,14 @@
 <p note="tu napisać, że jest to customizowalny fragment data source">
     Moduł <em>ChartAdapter</em> ...
 </p>
+
+<figure type="picture" id="picture:projection-and-cache">
+    <figcaption>Zależność między pamięcią podręczną, indeksem projekcji, adapterem i wyświetlanymi danymi.
+        Można zauważyć, że kolejne warstwy indeksu projekcji powstają w wyniku nałożenia zakresów danych z pamięci <em>cache</em>
+        danej warstwy na niższą warstwę indeksu.
+    </figcaption>
+    <img src="cache/projection-and-cache.png">
+</figure>
 
 
 <p helper="">
