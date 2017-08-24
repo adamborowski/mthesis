@@ -112,7 +112,139 @@
 
 <h2> Wielowarstwowa pamięć podręczna</h2>
 
-<p note="3d obrazek z rzutowaniem"></p>
+<p>
+    Kluczowym elementem rozwiązania jest <em>wielopoziomowa pamięć cache</em>, której celem jest zapamiętanie
+    odwiedzonych przez użytkownika danych, by w momencie powtórnego ich odwiedzenia nie było konieczności wysyłać
+    zapytania do serwera.
+    Przechowuje ona agregacje danych pomiarowych w ten sposób, że dane o tym samym poziomie agregowania są przechowywane
+    na tej samej warstwie.
+</p>
+<p>
+    Taką organizację pamięci można porównać do regału na książki, gdzie na każdej półce leżą książki o tej samej
+    grubości.
+
+    Lekkie książki leżą na górze regału, natomiast najgrubsze będą usytuowane na samym dole. Zostało to zilustrowane na
+    obrazku <a href="#picture:cache3d-full"></a>.
+</p>
+
+
+<figure type="picture" id="picture:cache3d-full">
+    <figcaption>
+        Wizualizacja wielopoziomowej pamięci danych pomiarowych.
+        Na najwyższej warstwie leżą najmniejsze agregacje (15 jedn. czasu), na samym dole największe (360 jedn. czasu).
+    </figcaption>
+    <img src="/images/theoretical/multilevecache-full.png"/>
+</figure>
+
+<p>
+    Istotnym faktem jest to, że pamięć podręczna niejako z natury nie zawiera wszystkich dostępnych danych, lecz tylko
+    te, do których dostęp był wcześniej żądany. Można zatem mówić o fragmentacji pamięci <em>cache</em>, na każdej
+    warstwie pamięci.
+    Zostało to zilustrowane na obrazku <a href="#picture:cache3d-missing"></a>.
+</p>
+
+<figure type="picture" id="picture:cache3d-missing">
+    <figcaption>
+        Wizualizacja fragmentacji danych w wielowarstwowej pamięci cache.
+
+    </figcaption>
+    <img src="/images/theoretical/multilevelcache-missing.png"/>
+</figure>
+
+<p>
+    Kiedy następuje wyświetlenie określonego zakresu czasu na wykresie, do pamięci cache trafia żądanie o konkretne
+    agregacje danych w tym zakresie. Mogą być to przykładowo <q>agregacje miesięczne od maja 2010 roku do lipca 2017
+    roku</q>. W takim przypadku z <q>półki</q> z agregacjami miesięcznymi zostają odczytane wszystkie dostępne agregacje
+    miesięczne od maja 2017 do lipca 2017 włącznie. Jeżeli brakuje jakiś danych, to pamięć zwraca pofragmentowane dane,
+    a brakujące dane będą doładowane później.
+</p>
+
+<h2>Projekcja warstw cache</h2>
+
+<p>
+    Mimo wspomnianej niezależności warstw pamięci cache, pomiędzy danymi z różnych warstw zachodzą bardzo mocne związki.
+    Otóż agregacje z <q>niższych pięter</q> reprezentują te same dane co ich wyższe odpowiedniki.
+    Różnica polega na stopniu dokładności.
+    Niższa warstwa jest pewnym uproszczeniem wyższej.
+</p>
+<p>
+    Warto sobie uświadomić, że bardzo często się zdarza, iż pamięć cache w danej chwili nie posiada żądanych agregacji,
+    ale dysponuje ich mniej dokładnymi odpowiednikami.
+</p>
+<p>
+    <em>ExploreJS</em> wykorzystuje tę zależność w celu zmaksymalizowania użycia danych z pamięci cache. To znaczy, że
+    zamiast wyświetlać <q>dziury</q> na wykresie w miejscu, gdzie chwilowo brakuje danych, wykorzysta mniej dokładne
+    agregacje z cache i wyświetli je w miejsce wspomnianej <q>dziury</q>.
+    Takie progresywne wyświetlanie danych wykorzystuje ludzką percepcję czasu (opisaną w rozdziale <a
+        href="#chapter:ux"></a>) do skrócenia czasu odpowiedzi systemu.
+</p>
+
+<p>
+    Aby wyświetlić użytkownikowi dane w sposób progresywny, gdzie będą sąsiadowały fragmenty o mniejszej i większej
+    dokładności, należy dane z różnych poziomów cache w jakiś sposób ze sobą złączyć.
+    Należy zwrócić uwagę, że przy złączeniu poziomów, dane z różnych warstw mogą ze sobą kolidować, na przykład
+    agregacja dobowa z dnia 24 sierpnia 2017 roku będzie kolidowała z dostępnymi agregacjami godzinowymi z tego samego
+    dnia, ale też na przykład z agregacją miesięczną z sierpnia 2017 oraz agregacją roczną z roku 2017.
+</p>
+
+<p>
+    Jeżeli w powyższej sytuacji optymalnym do wyświetlania na wykresie poziomem agregacji jest doba, to podczas
+    łączenia warstw nie powinno się brać pod uwagę warstw mniejszych agregacji, ponieważ nie będą widoczne na ekranie
+    (nałożą się na jeden piksel).
+    W związku z tym wspomniane wyżej agregacje godzinne będą ignorowane podczas łączenia warstw.
+</p>
+
+<p>
+    Sposób łączenia danych, który optymalnie rozwiązuje te konflikty jest projekcja warstw w celu
+    zredukowania ich do jednej, widocznej na ekranie, warstwy.
+</p>
+<p>
+    Taką projekcję można porównać do obserwowania wspomnianego regału z książkami nie z perspektywy pokazanej na
+    ilustracji <a href="#picture:cache3d-missing"></a>, lecz z góry, patrząc w dół.
+
+    Jeśli założyć, że regał jest dwuwymiarowy (posiada wysokość i szerokość), to projekcja zrzutowałaby wszystkie półki
+    na jedną.
+
+    Pokazane zostało to na ilustracji <a href="#picture:cache3d-projection"></a>.
+    Punkt A pokazuje rzut z boku <q>regału</q>, gdzie widać stan pamięci cache, punkt C natomiast pokazuje rzut z góry
+    <q>regału</q>, czyli to co widzi użytkownik na ekranie. Punkt B pokazuje rzut pośredni, w którym można zobaczyć, jak
+    poszczególne warstwy się przysłaniają podczas projekcji.
+</p>
+
+<figure type="picture" id="picture:cache3d-projection">
+    <figcaption>
+        Rzutowanie danych z różnych warstw pamięci cache. A - widok z boku, B - widok ukośny, C - widok z góry
+        (projekcji).
+    </figcaption>
+    <img src="cache/cache3d-projection.png"/>
+</figure>
+
+<p>
+    Widać tutaj, że agregacje z żądanej warstwy <em>czerwonej</em> pojawiły się w całości na ekranie.
+    Miejsca, w których nie było dostępnych agregacji <em>czerwonych</em>, uzupełniono fragmentami z <q>cięższej</q>
+    warstwy <em>niebieskiej</em>.
+    Następnie, miejsca, w których nie było dostępnych ani <em>czerwonych</em> ani <em>niebieskich</em> agregacji,
+    uzupełniono fragmentami z jeszcze <q>cięższej</q> warstwy <em>żółtej</em>.
+    Następnie, miejsca, w których nie było dostępnych ani <em>czerwonych</em>, ani <em>niebieskich</em>, ani
+    <em>żółtych</em> agregacji, uzupełniono fragmentami z <q>najcięższej</q> warstwy, <em>zielonej</em>.
+    W tym momencie, zostały jeszcze miejsca, w których nie znaleziono danych w żadnej warstwie, w związku z czym w
+    takich miejscach powstała <q>dziura</q>.
+</p>
+
+<p>
+    Oczywiście taka sytuacja, kiedy wyświetlane są dane z niższych warstw, jest chwilowa, do czasu załadowania
+    właściwych agregacji. W praktyce łączenie warstw użytkownik widzi w ten sposób, jak na ilustracji <a
+        href="#picture:projection-chart"></a>.
+</p>
+
+<figure type="picture" id="picture:projection-chart">
+    <figcaption>
+        Wykres zawierający agregacje z dwóch różnych warstw.
+        Gdyby nie zastosować projekcji, mniej wyraźna cześć wykresu była by po prostu pusta.
+    </figcaption>
+    <img src="/images/theoretical/projection.png"/>
+</figure>
+
 
 <h2> Silnik predykcji</h2>
 
