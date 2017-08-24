@@ -114,19 +114,18 @@
 
 <p>
     Kluczowym elementem rozwiązania jest <em>wielopoziomowa pamięć cache</em>, której celem jest zapamiętanie
-    odwiedzonych przez użytkownika danych, by w momencie powtórnego ich odwiedzenia nie było konieczności wysyłać
-    zapytania do serwera.
-    Przechowuje ona agregacje danych pomiarowych w ten sposób, że dane o tym samym poziomie agregowania są przechowywane
+    odwiedzonych przez użytkownika danych, by w momencie powtórnego ich odwiedzenia nie było konieczności ponownego
+    wysyłania zapytania do serwera.
+    Przechowuje ona agregacje danych pomiarowych na różnych warstwach pamięci w ten sposób, że dane o tym samym poziomie
+    agregowania są przechowywane
     na tej samej warstwie.
 </p>
 <p>
     Taką organizację pamięci można porównać do regału na książki, gdzie na każdej półce leżą książki o tej samej
     grubości.
-
     Lekkie książki leżą na górze regału, natomiast najgrubsze będą usytuowane na samym dole. Zostało to zilustrowane na
     obrazku <a href="#picture:cache3d-full"></a>.
 </p>
-
 
 <figure type="picture" id="picture:cache3d-full">
     <figcaption>
@@ -176,7 +175,7 @@
     zamiast wyświetlać <q>dziury</q> na wykresie w miejscu, gdzie chwilowo brakuje danych, wykorzysta mniej dokładne
     agregacje z cache i wyświetli je w miejsce wspomnianej <q>dziury</q>.
     Takie progresywne wyświetlanie danych wykorzystuje ludzką percepcję czasu (opisaną w rozdziale <a
-        href="#chapter:ux"></a>) do skrócenia czasu odpowiedzi systemu.
+        href="#chapter:ux"></a>) do skrócenia postrzeganego czasu odpowiedzi systemu.
 </p>
 
 <p>
@@ -195,15 +194,15 @@
 </p>
 
 <p>
-    Sposób łączenia danych, który optymalnie rozwiązuje te konflikty jest projekcja warstw w celu
+    Sposobem łączenia danych, który optymalnie rozwiązuje te konflikty, jest projekcja warstw w celu
     zredukowania ich do jednej, widocznej na ekranie, warstwy.
 </p>
 <p>
     Taką projekcję można porównać do obserwowania wspomnianego regału z książkami nie z perspektywy pokazanej na
     ilustracji <a href="#picture:cache3d-missing"></a>, lecz z góry, patrząc w dół.
 
-    Jeśli założyć, że regał jest dwuwymiarowy (posiada wysokość i szerokość), to projekcja zrzutowałaby wszystkie półki
-    na jedną.
+    Jeśli założyć, że regał jest dwuwymiarowy (posiada wysokość i szerokość), to projekcja zrzutowałaby wszystkie
+    książki z każdej półki na jedną wspólną półkę.
 
     Pokazane zostało to na ilustracji <a href="#picture:cache3d-projection"></a>.
     Punkt A pokazuje rzut z boku <q>regału</q>, gdzie widać stan pamięci cache, punkt C natomiast pokazuje rzut z góry
@@ -214,13 +213,13 @@
 <figure type="picture" id="picture:cache3d-projection">
     <figcaption>
         Rzutowanie danych z różnych warstw pamięci cache. A - widok z boku, B - widok ukośny, C - widok z góry
-        (projekcji).
+        (projekcji). Strzałką zaznaczono przykładowe agregacje przed, w trakcie oraz po projekcji.
     </figcaption>
     <img src="cache/cache3d-projection.png"/>
 </figure>
 
 <p>
-    Widać tutaj, że agregacje z żądanej warstwy <em>czerwonej</em> pojawiły się w całości na ekranie.
+    Widać tutaj, że agregacje z żądanej warstwy <em>czerwonej</em> pojawiły się w całości na ekranie <em>(punkt C)</em>.
     Miejsca, w których nie było dostępnych agregacji <em>czerwonych</em>, uzupełniono fragmentami z <q>cięższej</q>
     warstwy <em>niebieskiej</em>.
     Następnie, miejsca, w których nie było dostępnych ani <em>czerwonych</em> ani <em>niebieskich</em> agregacji,
@@ -228,7 +227,7 @@
     Następnie, miejsca, w których nie było dostępnych ani <em>czerwonych</em>, ani <em>niebieskich</em>, ani
     <em>żółtych</em> agregacji, uzupełniono fragmentami z <q>najcięższej</q> warstwy, <em>zielonej</em>.
     W tym momencie, zostały jeszcze miejsca, w których nie znaleziono danych w żadnej warstwie, w związku z czym w
-    takich miejscach powstała <q>dziura</q>.
+    takich miejscach powstała <q>dziura</q> niepokryta żadnymi agregacjami.
 </p>
 
 <p>
