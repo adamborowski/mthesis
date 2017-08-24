@@ -243,7 +243,7 @@
         Wykres zawierający agregacje z dwóch różnych warstw.
         Gdyby nie zastosować projekcji, mniej wyraźna cześć wykresu była by po prostu pusta.
     </figcaption>
-    <img src="/images/theoretical/projection.png"/>
+    <img src="/images/theoretical/projection.png" height="180"/>
 </figure>
 
 
@@ -321,19 +321,53 @@
 </p>
 
 <p>
-    Moduł <em>PredictionEngine</em> ...
+    Moduł <em>PredictionEngine</em> odpowiada za opisaną wcześniej predykcję zapytań wykresu o dane.
+    W momencie, gdy zachodzi interakcja użytkownika z komponentem wykresowym, silnik predykcji aktualizuje modelom
+    predykcji informacje o
+    stanie widoku: zakresie wyświetlanych danych oraz wielkości komponentu na ekranie. Modele predykcji obliczają zakres
+    i poziom agregacji danych, oraz czas, w którym pamięć podręczna zostanie o nie poproszona.
+    Modele predykcji mogą z opóźnieniem odpytywać pamięć podręczną, zwłaszcza wtedy, gdy model ma niski priorytet.
+
+    Silnik predykcji nie odczytuje danych z pamięci podręcznej &mdash; odpytuje ją tylko w celu przygotowanie odpowiedzi
+    na
+    żądanie, które dany model predykcji przewidział.
 </p>
 
 <p>
-    Moduł <em>DataSource</em> ...
+    Moduł <em>DataSource</em> łączy komponent wykresowy z pozostałymi modułami <em>ExploreJS</em>.
+
+    Komponent wykresowy zasilany jest danymi z pamięci cache, ale tylko fragmentem związanym z wyświetlanym zakresem,
+    ponieważ wiele implementacji komponentów wykresowych od razu próbuje wyrysować wszystkie dostarczone dane, nawet
+    jeśli są spoza wyświetlanego zakresu (może znacznie to pogorszyć wydajność rozwiązania - zob. <a
+        href="#chapter:web-interfaces"></a>).
+
+    <em>DataSource</em> reaguje więc na interakcję użytkownika z komponentem wykresowym &mdash; po to, by przekazać
+    mu nowe dane z pamięci podręcznej, których jeszcze nie posiada oraz usunąć dane, których nie będzie potrzebował.
+
+    Jego zadaniem jest również reagowanie na aktualizacje fragmentu projekcji, który to fragment powiązany jest z
+    wyświetlanym zakresem na komponencie wykresowym. W momencie, gdy w pamięci podręcznej pojawią się dane, które
+    zmienią ten fragment projekcji, <em>DataSource</em> przygotowuje dane według aktualizowanej projekcji i przekazuje
+    je do <em>adaptera</em> komponentu.
+
+    Dzieje się tak, kiedy zostaną doładowane z serwera żądane dane, w związku z czym należy usunąć mniej dokładne dane z
+    wykresu i zastąpić je właściwymi.
+
+    Zależność zakresu danych między <em>DataSource</em>, innymi modułami i wyświetlanym zakresem została pokazana na
+    ilustracji <a href="#picture:projection-and-cache"></a>.
+
 </p>
 
-<p note="tu napisać, że jest to customizowalny fragment data source">
-    Moduł <em>ChartAdapter</em> ...
+<p>
+    Moduł <em>ChartAdapter</em> ma za zadanie ujednolicenie interfejsu wielu bibliotek wykresowych.
+    Jest to element rozszerzalny, co oznacza, że chcąc użyć niewspieranej do tej pory
+    biblioteki wykresowej, należy napisać do niej adapter.
+    Adapter implementuje samą logikę <q>włożenia</q> danych do samego komponentu wykresowego.
+    Adapter jest też odpowiedzialny za implementację powiadamiania o interakcji z danym komponentem.
 </p>
 
 <figure type="picture" id="picture:projection-and-cache">
-    <figcaption>Zależność między pamięcią podręczną, indeksem projekcji, adapterem i wyświetlanymi danymi.
+    <figcaption class="text-justify">Zależność zakresów danych między pamięcią <em>cache</em>, indeksem
+        projekcji, adapterem i wyświetlanymi danymi.
         Można zauważyć, że kolejne warstwy indeksu projekcji powstają w wyniku nałożenia zakresów danych z pamięci <em>cache</em>
         danej warstwy na niższą warstwę indeksu.
     </figcaption>
@@ -341,17 +375,6 @@
 </figure>
 
 
-<p helper="">
-    cała Prezentacja 2
-    założenia co do stanu "zastałego" - serwer API
-    https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_131
-
-    Zaprojektowanie architektury modułu pamięci podręcznej, w tym przedstawienie struktury danych
-    wspierającej fragmentację czasową oraz fragmentację skali danych
-
-    Zaprojektowanie architektury modułu predykcji
-
-</p>
 <p>
     Architektura składa się ze ściśle ze sobą współpracujących modułów.
     Każdy z nich pełni ściśle określoną funkcję.
