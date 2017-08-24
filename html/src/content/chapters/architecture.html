@@ -198,7 +198,7 @@
     zredukowania ich do jednej, widocznej na ekranie, warstwy.
 </p>
 <p>
-    Taką projekcję można porównać do obserwowania wspomnianego regału z książkami nie z perspektywy pokazanej na
+    Taką projekcję można porównać do obserwowania wspomnianego regałum z książkami, ale nie z perspektywy pokazanej na
     ilustracji <a href="#picture:cache3d-missing"></a>, lecz z góry, patrząc w dół.
 
     Jeśli założyć, że regał jest dwuwymiarowy (posiada wysokość i szerokość), to projekcja zrzutowałaby wszystkie
@@ -246,6 +246,22 @@
 
 
 <h2> Silnik predykcji</h2>
+
+<p>
+    Elementem ściśle współpracującym z pamięcią <em>cache</em> jest silnik predykcji, który bezpośrednio ją odpytuje i
+    wpływa na jej uzupełnianie.
+
+    Jego zadaniem jest takie przygotowanie pamięci, by w momencie, gdy zostanie ona zapytana przez wykres w celu
+    wyświetlenia danych, zapewnić mu maksymalną dostępność tych danych.
+</p>
+
+<p>
+    Silnik predykcji opiera swoje działanie na modelach predykcji, które są jego integralną częścią.
+    Każdy model predykcji działa niezależnie, ma swój określony cel i odrębnie zaimplementowaną logikę odpytywania pamięci
+    podręcznej. W uproszczeniu model predykcji obserwuje interakcję użytkownika z wykresem, próbuje
+    wywnioskować, jakie dane powinny znaleźć się w pamięci <em>cache</em> i jak szybko powinny być dostepne, następnie w
+    odpowiednim momencie odpytuje pamięć <em>cache</em> by zapewnić ich dostępność.
+</p>
 
 <h2>Schemat rozwiązania</h2>
 
