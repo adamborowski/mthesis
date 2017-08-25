@@ -426,7 +426,7 @@
 </figure>
 
 <h2>Przeliczanie projekcji</h2>
-<p note="ten algorytm Front, Back, THIS, i tak dalej">
+<p>
     Projekcja pamięci podręcznej opisana w rozdziale <a href="#chapter:theoretical-cache-projection"></a> wykorzystuje
     operacje na przedziałach do aktualizacji indeksów warstw. Dla przypomnienia &mdash; projekcja <em>cache</em>
     dla określonego poziomu agregacji to informacja, z jakich warstw pamięci, jakie zakresy danych użyć do wyświetlenia
@@ -461,7 +461,7 @@
     Temu pierwszemu trzeba będzie wyświetlić dane korzystając z projekcji dla warstwy 7d, drugiemu z projekcji dla
     warstwy 30d.
     Dzięki temu drugi wykres nie będzie rysował zbyt <q>gęstych</q> danych na ekranie, podczas gdy ten pierwszy będzie
-    nadal mógł je wyświetlać.
+    nadal mógł je wyświetlać będąc do nich bardziej <q>przybliżony</q>.
 
     <em>ExploreJS</em> tworzy projekcję dla każdej warstwy <em>cache</em>, by umożliwić działanie wielu wykresów
     jednocześnie.
@@ -563,8 +563,8 @@
 <p>
     Jeżeli po przeliczeniu projekcji nastąpi faktycznie zmiana (a tak być nie musi, jeżeli przedział <em>R</em> jest w
     całości przykryty przedziałem z grupy <em>F</em>), to zostaje wywołane zdarzenie informujące o tym, że dana
-    projekcja została uaktualniona, w jakim zakresie oraz w jaki sposób się zmieniła (jaki przedział usunięto, jaki
-    zmieniono, jaki dodano).
+    projekcja została uaktualniona, w jakim zakresie oraz w jaki sposób się zmieniła (który przedział usunięto, który
+    zmieniono, który dodano).
     Dzięki temu w bardzo łatwy sposób można nasłuchiwać jakichkolwiek zmian w projekcji pamięci podręcznej na konkretnej
     warstwie, co jest wykorzystywane przez moduł <em>DynamicProjection</em>, który przedstawiony jest jako kolejny w tym
     rozdziale.
