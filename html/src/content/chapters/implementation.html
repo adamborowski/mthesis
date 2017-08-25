@@ -332,8 +332,11 @@
 
 <p>
     W celu usystematyzowania implementacji wprowadzono strukturę danych <em>Range</em>.
-    Struktura ta opisuje początek i koniec przedziału oraz to czy przedział jest otwarty czy zamknięty z którejś ze
-    stron. Range udostępnia metody do wyrażania zależności między innymi <em>Range</em>, co zostało przedstawione w
+
+    Jest przedział o dowolnym domknięciu przechowujący wartość &mdash;
+    np. <code><2016-05-04 11:00, 2016-05-04 14:00)</code> o wartości <code>{min:2, max:4,avg:2.23}</code>
+
+    <em>Range</em> udostępnia metody do wyrażania zależności między innymi <em>Range</em>, co zostało przedstawione w
     tabeli <a href="#table:range"></a>. Ważną częścią implementacyjną jest to, że brane są pod uwagę typy brzegów, na
     przykład <q>część wspólna dwóch lewostronnie domkniętych przedziałów</q>.
 </p>
@@ -399,19 +402,24 @@
 </figure>
 
 <p>
+    Najważniejsze operacje wykonuje się jednak nie na poszczególnym przedziale, ale na zbiorze tych przedziałów.
+    Wyróżnia się działania na zbiorach przedziałów, jak sumowanie dwóch zbiorów, iloczyn, różnica czy instrukcje
+    przekształcające, zilustrowane na obrazku <a href="#picture:algebra"></a>.
+    Instrukcja przekształcająca jest to informacja o krokach potrzebnych do przekształcenia jednego zbioru w drugi:
+    które przedziały należy usunąć, którym zmienić swoje granice, a które przedziały trzeba dodać do zbioru.
 
 </p>
-
-<p note="opisać operacje sum sub, and, etc, że jego wyjściem jest instrukcja diff">
-    dodatkowo wspomnieć o bisekcji, żeby operować tylko na małym fragmencie
-    opisać gdzie występowała konieczność diffów różnorakich zbiorów (cache projection, dynamic projection recompile,
-    levelCache.requestRange()..., mergingBatch!
+<p>
+    Ciekawszą częścią implementacji jest reguła porównywania danych podczas operacji, która na przykład nie pozwoli na
+    scalenie przedziałów dotyczących różnych poziomach agregacji podczas operacji sumowania.
 </p>
 
-
-
-
-
+<figure type="picture" id="picture:algebra">
+    <figcaption>Ilustracja operacji algebraicznych. A+B &mdash; suma, A-B &mdash; różnica, A*B &mdash; iloczyn, AΔB &mdash;
+        przekształcenie.
+    </figcaption>
+    <img src="cache/algebra-operations.png" height="300"/>
+</figure>
 
 <h2>Przeliczanie projekcji</h2>
 
