@@ -297,16 +297,20 @@
 </p>
 <p>
     Całą zasadę działania <em>MergingBatch</em> na żądaniach dotyczących tej samej serii i poziomu agregacji można
-    wyrazić odpowiednimi operacjami na przedziałach:
+    wyrazić odpowiednimi operacjami na przedziałach, przedstawionych wzorem <a href="#code:merging-batch"></a>.
 </p>
 
-<pre class="text-center">Q<sub>2</sub> = Q<sub>1</sub> + ({A} - P)</pre>
 
-<p style="text-indent: 0">
-    gdzie <em>A</em> oznacza nowe zgłoszenie, <em>P</em> - bufor trwających zgłoszeń, <em>Q<sub>1</sub></em> - bufor
-    oczekujących zgłoszeń,
-    <em>Q<sub>2</sub></em> - bufor oczekujących zgłoszeń po dodaniu noweg zgłoszenia.
-</p>
+<figure type="code" id="code:merging-batch">
+    <figcaption>Łączenie zbiorów w <em>MergingBatch</em>. <em>A</em> oznacza nowe zgłoszenie, <em>P</em> - bufor
+        trwających zgłoszeń, <em>Q<sub>1</sub></em> - bufor oczekujących zgłoszeń,
+        <em>Q<sub>2</sub></em> - bufor oczekujących zgłoszeń po dodaniu noweg zgłoszenia.
+    </figcaption>
+    <pre class="math">
+        Q<sub>2</sub> = Q<sub>1</sub> + ({A} - P)
+    </pre>
+</figure>
+
 
 <p>
     Dzięki zastosowaniu <em>MergingBatch</em> nie istnieje możliwość, że serwer będzie pytany o nakładające się zakresy
@@ -415,15 +419,186 @@
 </p>
 
 <figure type="picture" id="picture:algebra">
-    <figcaption>Ilustracja operacji algebraicznych. A+B &mdash; suma, A-B &mdash; różnica, A*B &mdash; iloczyn, AΔB &mdash;
+    <figcaption>Operacje algebraiczne. A+B &mdash; suma, A-B &mdash; różnica, A*B &mdash; iloczyn, AΔB &mdash;
         przekształcenie.
     </figcaption>
-    <img src="cache/algebra-operations.png" height="300"/>
+    <img src="cache/algebra-operations.png" height="260"/>
 </figure>
 
 <h2>Przeliczanie projekcji</h2>
+<p note="ten algorytm Front, Back, THIS, i tak dalej">
+    Projekcja pamięci podręcznej opisana w rozdziale <a href="#chapter:theoretical-cache-projection"></a> wykorzystuje
+    operacje na przedziałach do aktualizacji indeksów warstw. Dla przypomnienia &mdash; projekcja <em>cache</em>
+    dla określonego poziomu agregacji to informacja, z jakich warstw pamięci, jakie zakresy danych użyć do wyświetlenia
+    użytkownikowi możliwie najwierniejszy kształt danych, podczas gdy czeka na dane o żądanej rozdzielczości.
+</p>
 
-<p note="ten algorytm Front, Back, THIS, i tak dalej"></p>
+<p>
+    Indeks ten reprezentowany jest w formie zbioru przedziałów oznaczonych etykietą odpowiadającą poziomowi agregacji.
+
+    Ponieważ dane pomiarowe zazwyczaj ładowane są zakresach zawierających wiele (setki czy tysiące) punktów, indeks
+    opisuje tylko przedziały ciągłości danych w pamięci.
+    Dla przykładu, jeżeli w pamięci <em>cache</em> na poziomie <em>1d</em> pojawi się ciąg agregacji dobowych za cały
+    rok 2016, to w indeksie pojawi się nie 365, lecz tylko jeden element o zakresie początku i końca roku 2016.
+    Można stwierdzić, że liczba elementów w indeksie nie zależy od zapełnienia pamięci podręcznej, ale od stopnia jej
+    pofragmentowania.
+
+    Na rysunku <a href="#picture:projection-index"></a> pokazano pamięć cache oraz indeksy projekcji na różnych
+    poziomach, w tym samym zakresie czasu.
+</p>
+
+<figure type="picture" id="picture:projection-index">
+    <figcaption>Zarys pamięci podręcznej (po lewej) oraz struktura reprezentująca projekcję danych z niższych
+        warstw do danej warstwy
+    </figcaption>
+    <img src="cache/projection-index-structure.png"/>
+</figure>
+
+<p>
+    Warto pamiętać, że w aplikacji używającej <em>ExploreJS</em> może działać wiele wykresów jednoczesnie, każdy może
+    mieć inny poziom przybliżenia. Jeden może wyświetlać bardziej szczegółowe agregacje (na przykład 7d), drugi mniej
+    szczegółowe (na przykład 30d).
+    Temu pierwszemu trzeba będzie wyświetlić dane korzystając z projekcji dla warstwy 7d, drugiemu z projekcji dla
+    warstwy 30d.
+    Dzięki temu drugi wykres nie będzie rysował zbyt <q>gęstych</q> danych na ekranie, podczas gdy ten pierwszy będzie
+    nadal mógł je wyświetlać.
+
+    <em>ExploreJS</em> tworzy projekcję dla każdej warstwy <em>cache</em>, by umożliwić działanie wielu wykresów
+    jednocześnie.
+</p>
+
+<p>
+    Aktualizacja dowolnej warstwy pamięci podręcznej wymaga przebudowy projekcji na tej samej oraz wszystkich wyższych
+    warstwach. Dla przykładu, gdy zostanie aktualizowana pamięć na warstwie <em>1h</em>, to należy przeliczyć projekcje
+    na poziomie <em>1h</em>, <em>10m</em>, <em>1m</em> oraz <em>raw</em>, gdyż zmiana ta może być zauważalna. Nie ma
+    sensu aktualizować projekcji <em>1d</em>, <em>7d</em>, <em>90d</em> oraz <em>1y</em>, gdyż na tych projekcjach tak
+    szczegółowa warstwa, jak <em>1h</em>, nie jest uwzględniana.
+</p>
+
+<p class="keep-after">
+
+    Samo przeliczenie projekcji można wyrazić wzorem rekurencyjnym pokazanym na listingu <a
+        href="#code:recursion-projection"></a>.
+
+</p>
+
+<figure type="code" id="code:recursion-projection">
+    <figcaption>Rekurencyjny wzór na projekcję pamięci, gdzie
+        <em>P<sub>n</sub></em> oznacza projekcję na warstwie n,
+        <em>L<sub>n</sub></em> oznacza indeks danych na warstwie n pamięci cache
+    </figcaption>
+    <pre class="math">
+        P<sub>n</sub> = L<sub>n</sub> + (P<sub>n-1</sub> - L<sub>n</sub>)
+        P<sub>0</sub> = L<sub>0</sub>
+    </pre>
+</figure>
+
+<p>
+    <em>ExploreJS</em> w praktyce nie przelicza całej projekcji za każdym razem, gdy do <em>cache</em>
+    zostaną dodane nowe dane, unikając tym samym potencjalnie czasochłonnych operacji na bardzo pofragmentowanej pamięci
+    podręcznej.
+    Zaprojektowany algorytm używa istniejącej projekcji i w momencie dodania nowego przedziału do pamięci podręcznej
+    oblicza tylko minimalny zestaw kroków potrzebnych do przekształcenia istniejącej projekcji w nową &mdash; aktualną:
+</p>
+
+<ol>
+    <li>wyznaczany jest wspólny zakres dotychczaswej projekcji oraz dodawanego przedziału (zakres ten nie może dzielić
+        przedziałów projekcji)
+    </li>
+    <li>istniejąca projekcja dzielona jest na trzy części (rysunek <a href="#picture:projection-diff-cut"></a>)</li>
+    <li>na środkowej części projekcji stosuje się <em>algorytm dodania nowego przedziału</em></li>
+    <li>aktualizowaną środkową cześć łączy się z powrotem z zewnętrznymi częściami projekcji</li>
+</ol>
+
+<figure type="picture" id="picture:projection-diff-cut">
+    <figcaption>Wydzielenie wspólnego przedziału do aktualizacji projekcji. <em>P<sub>n</sub></em> - <q>istniejąca</q>
+        projekcja, <em>R</em> - nowy przedział
+    </figcaption>
+    <img src="cache/projection-diff-cut.png"/>
+</figure>
+
+<p>
+    <em>Algorytm dodawania nowego przedziału R</em> (Rys. <a href="#picture:projection-merge"></a>), wyodrębniony z
+    poprzedniego algorytmu, w pierwszej kolejności grupuje przedziały projekcji względem ich relacji do dodawanego
+    przedziału <em>R</em>:
+</p>
+
+<ul class="keep-inside keep-before">
+    <li>F <trans lang="ang">front</trans> &mdash; jeżeli przedział odpowiada warstwie wyższej, niż warstwa <em>R</em>
+        (<em>F</em> przykryje <em>R</em>)
+    </li>
+    <li>T <trans lang="ang">twin</trans> &mdash; jeżeli przedział odpowiada tej samej warstwie, co <em>R</em>
+        (<em>T</em> scali się z <em>R</em>)
+    </li>
+    <li>B <trans lang="ang">back</trans> &mdash; jeżeli przedział odpowiada warstwie niższej, niż warstwa <em>R</em>
+        (<em>B</em> schowa się pod <em>R</em>)
+    </li>
+</ul>
+
+<p>
+    Następnie dokonywane są operacje na tych grupach:
+</p>
+
+<ul>
+    <li>grupa <em>F</em> zostaje niezmieniona &mdash; skoro przykrywa <em>R</em>, to <em>R</em> nie może jej zmienić
+    </li>
+    <li>do grupy <em>T</em> dodaje się przedział <em>R</em>, ale tylko te fragmenty, które nie zostały przykryte przez
+        przedziały na warstwie wyższej (grupa <em>F</em>)
+    </li>
+    <li>od grupy <em>B</em> odejmuje się przedział <em>R</em>, jako że przedział <em>R</em> przykrywa grupę <em>B</em>
+    </li>
+</ul>
+
+
+<figure type="picture" id="picture:projection-merge">
+    <figcaption>Przykład zastosowania algorytmu dodawania nowego przedziału do projekcji</figcaption>
+    <img src="cache/projection-merge.png"/>
+</figure>
+
+<p>
+    Po wykonaniu powyższych operacji, grupy <em>F</em>, <em>T</em> oraz <em>B</em> zawierają rozłączne przedziały, zatem
+    wystarczy przenieść je z grup do wspólnego zbioru.
+</p>
+
+<p>
+    Jeżeli po przeliczeniu projekcji nastąpi faktycznie zmiana (a tak być nie musi, jeżeli przedział <em>R</em> jest w
+    całości przykryty przedziałem z grupy <em>F</em>), to zostaje wywołane zdarzenie informujące o tym, że dana
+    projekcja została uaktualniona, w jakim zakresie oraz w jaki sposób się zmieniła (jaki przedział usunięto, jaki
+    zmieniono, jaki dodano).
+    Dzięki temu w bardzo łatwy sposób można nasłuchiwać jakichkolwiek zmian w projekcji pamięci podręcznej na konkretnej
+    warstwie, co jest wykorzystywane przez moduł <em>DynamicProjection</em>, który przedstawiony jest jako kolejny w tym
+    rozdziale.
+</p>
+
+
+<h2>DynamicProjection</h2>
+
+<p>
+
+    Moduł <em>DynamicProjection</em>, działający wewnątrz <em>DataSource</em> jest swego rodzaju pomostem pomiędzy
+    teoretycznie nieograniczoną, wielopoziomową pamięcią podręczną a komponentem wykresu, któremu trzeba dostarczyć
+    tylko fragment danych, niewiele większy od tego, który jest wyświetlony na ekranie.
+
+    Jego zadaniem jest powiadomienie <em>DataSource</em> o każdej zmianie w pamięci, która dotyczy fragmentu przesłanego
+    do komponentu wykresu.
+</p>
+
+<p helper>
+
+    przełączanie się,
+    range scoped event
+    opisać kafelkowanie zakresu danych (żeby predyktor nie doładowywał małych słupków podczas smooth paningu
+    Nakładanie się warstw o dynamicznej zawartosci, jak w nakładaniu obrazów. Niemożliwe prxerysowywanie od
+    początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
+</p>
+
+
+<figure type="picture" id="picture:dynamic-projection">
+    <figcaption>Diagram pokazujący zwielokrotnienie modułów i ich wzajemne oddziaływania.
+        Kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym zaś pozostałe elementy systemu.
+    </figcaption>
+    <img src="cache/serie-cache-diagram.png">
+</figure>
 
 
 <!--
@@ -668,27 +843,6 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     Na rysunku <a href="#picture:architecture"></a> pokazano ogólny schemat zależności modułów.
     W kolejnych podrozdziałach zostały opisane funkcje poszczególnych modułów.
 </p>
-
-
-<h2>DynamicProjection</h2>
-
-<p helper>
-
-    przełączanie się,
-    range scoped event
-    opisać kafelkowanie zakresu danych (żeby predyktor nie doładowywał małych słupków podczas smooth paningu
-    Nakładanie się warstw o dynamicznej zawartosci, jak w nakładaniu obrazów. Niemożliwe prxerysowywanie od
-    początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
-</p>
-
-
-<figure type="picture" id="picture:dynamic-projection">
-    <figcaption>Diagram pokazujący zwielokrotnienie modułów i ich wzajemne oddziaływania.
-        Kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym zaś pozostałe elementy systemu.
-    </figcaption>
-    <img src="cache/serie-cache-diagram.png">
-</figure>
-
 
 
 
