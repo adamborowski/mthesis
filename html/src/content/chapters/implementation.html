@@ -267,6 +267,13 @@
     Zostało to zademonstrowane na rysunku <a href="#picture:logical-merging"></a>.
 </p>
 
+<figure type="picture" id="picture:logical-merging">
+    <figcaption>Wizualizacja scalania żądań. Żądania dotyczące tej samej serii i poziomu agregacji oznaczono jednym
+        kolorem.
+    </figcaption>
+    <img src="cache/logical-merging.png" height="300"/>
+</figure>
+
 <p>
     W tym przypadku w buforze istniały zapytania, z czego jedno dotyczyło serii danych <em>Y</em>, pozostałe <em>X</em>.
     Podczas dodawania nowego żądania o dane serii <em>X</em>, dla agregacji godzinnej, okazało się, że w buforze
@@ -274,12 +281,37 @@
     że wszystkie trzy żądania mają część wspólną, zatem zostały zastąpione jednym żądaniem.
 </p>
 
-<figure type="picture" id="picture:logical-merging">
-    <figcaption>Wizualizacja scalania żądań. Żądania dotyczące tej samej serii i poziomu agregacji oznaczono jednym
-        kolorem.
-    </figcaption>
-    <img src="cache/logical-merging.png" height="300"/>
-</figure>
+<p>
+    Moduł <em>MergingBatch</em> rozwiązuje jeszcze jeden problem.
+
+    O ile powyższe łączenie scala żądania z tymi znajdującymi się w buforze, to nie są brane pod uwagę trwające żądania,
+    które zostały wysłane do serwera.
+
+    Może to spowodować podwójne ładowanie danych z tego powodu, że pierwsze żądanie opuściło już bufor, ale dane jeszcze
+    nie zostały umieszczone w pamięci cache.
+
+    W związku z tym <em>MergingBatch</em> tworzy dodatkowy bufor na trwające żądania.
+
+    Podczas dodawania nowego żądania, zanim dojdzie do scalania z buforem oczekujących żądań, dochodzi do operacji
+    odejmowania zakresów z bufora trwających żądań od nowego żądania.
+</p>
+<p>
+    Całą zasadę działania <em>MergingBatch</em> na żądaniach dotyczących tej samej serii i poziomu agregacji można
+    wyrazić odpowiednimi operacjami na przedziałach:
+</p>
+
+<pre class="text-center">Q<sub>2</sub> = Q<sub>1</sub> + ({A} - P)</pre>
+
+<p style="text-indent: 0">
+    gdzie <em>A</em> oznacza nowe zgłoszenie, <em>P</em> - bufor trwających zgłoszeń, <em>Q<sub>1</sub></em> - bufor
+    oczekujących zgłoszeń,
+    <em>Q<sub>2</sub></em> - bufor oczekujących zgłoszeń po dodaniu noweg zgłoszenia.
+</p>
+
+<p>
+    Dzięki zastosowaniu <em>MergingBatch</em> nie istnieje możliwość, że serwer będzie pytany o nakładające się zakresy
+    w krótkim czasie, co maksymalnie optymalizuje komunikację <em>ExploreJS</em> z serwrem.
+</p>
 
 <p note="pengingQueue i zwykła queue - opisać merging batch"></p>
 
