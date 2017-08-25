@@ -314,17 +314,100 @@
 </p>
 
 
-<h2>Klasa Range</h2>
+<h2>Algebra przedziałów i operacje przekształcające</h2>
 
-<p note="opisać wszystkie metody klasy Range  i po co mogą być potrzoebne"></p>
+<p>
+    Algorytmy i struktury danych używane w implementacji rozwiązania w głównej mierze opierają się na algebrze
+    przedziałów. Wykorzystuje się ją w takich miejscach, jak:
+</p>
+
+<ul>
+    <li>scalanie żądań przez <em>MergingBatch</em></li>
+    <li>operacje na pamięci podręcznej</li>
+    <li>obliczanie projekcji <em>cache</em></li>
+    <li>implementacja czasowego modelu zdarzeniowego (opisane później)</li>
+    <li>modele predykcji</li>
+    <li>dobór zakresu danych w <em>DataSource</em></li><!--(DynamicProjection)-->
+</ul>
+
+<p>
+    W celu usystematyzowania implementacji wprowadzono strukturę danych <em>Range</em>.
+    Struktura ta opisuje początek i koniec przedziału oraz to czy przedział jest otwarty czy zamknięty z którejś ze
+    stron. Range udostępnia metody do wyrażania zależności między innymi <em>Range</em>, co zostało przedstawione w
+    tabeli <a href="#table:range"></a>. Ważną częścią implementacyjną jest to, że brane są pod uwagę typy brzegów, na
+    przykład <q>część wspólna dwóch lewostronnie domkniętych przedziałów</q>.
+</p>
+
+<figure type="table" id="table:range">
+    <figcaption>Interfejs klasy Range</figcaption>
+    <table>
+        <thead>
+        <tr>
+            <th>metoda</th>
+            <th>opis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>hasCommon (other)</td>
+            <td>zwraca <em>true</em> jeżeli przedziały mają część wspólną</td>
+        </tr>
+        <tr>
+            <td>isBefore (other, touch=false)</td>
+            <td>zwraca <em>true</em> jeżeli koniec piewszego przedziału jest mniejszy niż początek drugiego przedziału.
+                Jeżeli flaga <em>touch</em> jest równa <em>true</em>, to dodatkowo zwraca <em>true</em>, jeżeli koniec
+                pierwszego przedziału jest równy początkowi drugiego przdziału oraz oba przedziały mają zamkniętą
+                styczną krawędź.
+            </td>
+        </tr>
+        <tr>
+            <td>isAfter (other, touch=false)</td>
+            <td>zwraca <em>true</em> jeżeli początek piewszego przedziału jest większy niż koniec drugiego przedziału.
+                Jeżeli flaga <em>touch</em> jest równa <em>true</em>, to dodatkowo zwraca <em>true</em>, jeżeli początek
+                pierwszego przedziału jest równy końcowi drugiego przdziału oraz oba przedziały mają zamkniętą
+                styczną krawędź.
+            </td>
+        </tr>
+        <tr>
+            <td>expandToFitPrecision (precision)</td>
+            <td>
+                rozszerza granice przedziału, by obie krawędzie były wielokrotnością wartości <em>precision</em>
+            </td>
+        </tr>
+        <tr>
+            <td>extend (value)</td>
+            <td>
+                rozszerza granice przedziału o zadaną wartość w każdą ze stron
+            </td>
+        </tr>
+        <tr>
+            <td>length ()</td>
+            <td>
+                zwraca długość przedziału
+            </td>
+        </tr>
+        <tr>
+            <td>equals (other)</td>
+            <td>
+                zwraca <em>true</em>, jeżeli drugi przedział ma te same wartości oraz typy krawędzi
+            </td>
+        </tr>
 
 
-<h2>algebra przedziałów i operacje przekształcające</h2>
+        </tbody>
+    </table>
+</figure>
+
+<p>
+
+</p>
+
 <p note="opisać operacje sum sub, and, etc, że jego wyjściem jest instrukcja diff">
     dodatkowo wspomnieć o bisekcji, żeby operować tylko na małym fragmencie
     opisać gdzie występowała konieczność diffów różnorakich zbiorów (cache projection, dynamic projection recompile,
     levelCache.requestRange()..., mergingBatch!
 </p>
+
 
 <!--
 
