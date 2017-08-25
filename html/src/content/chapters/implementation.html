@@ -6,7 +6,7 @@
     eksploracji danych pomiarowych.
 </p>
 <p>
-    Właściwa implementacja wspiera:
+    Zastosowanie biblioteki <em>ExploreJS</em> w praktyce pozwala na:
 </p>
 <ul>
     <li>wyświetlanie wielu komponentów wykresów jednocześnie,</li>
@@ -15,11 +15,14 @@
 </ul>
 
 <p>
-    By wydajnie wspierać powyższe funkcje, <em>ExporeJS</em> maksymalizuje współdzielenie zasobów:
+    By wydajnie wspierać powyższe funkcje, <em>ExploreJS</em> maksymalizuje współdzielenie zasobów w ramach całej
+    aplikacji w przeglądarce:
 </p>
 <ul>
     <li>wszystkie zapytania o dane do serwera są zarządzane przez jeden moduł <em>ReqestManager</em>,</li>
-    <li>moduł <em>CacheManager</em> powiela moduł <em>SerieCache</em> dla każdej serii danych,</li>
+    <li>moduł <em>CacheManager</em> powiela moduł <em>SerieCache</em> (odpowiedzialny za pamięć podręczną serii i
+        projekcje warstw) dla każdej serii danych,
+    </li>
     <li>moduł <em>DataSource</em> tworzony jest dla każdego komponentu wykresu osobno.</li>
 </ul>
 
@@ -37,8 +40,7 @@
 <p>
     Każda instancja <em>DataSource</em> posiada inny zestaw modeli predykcji, w związku z czym silnik predykcji, zawarty
     w każdej instancji <em>DataSource</em> może reagować na interakcję użytkownika inaczej.
-    Każda z siedmiu instancji modelu predykcji niezależnie odwołuje się do pamięci podręcznej tej serii danych, którą
-    obsługuje powiązany <em>DataSource</em>.
+    Każda z siedmiu instancji modelu predykcji niezależnie odwołuje się do pamięci podręcznej adekwatnej serii danych.
 </p>
 
 <p>
@@ -57,12 +59,12 @@
 </p>
 
 <p>
-    Serwer REST implementuje uzgodniony format zapytania, odpytuje serwer danych lub bezpośrednio bazę danych.
+    Serwer REST implementuje uzgodniony format JSON zapytania i odpowiedzi, odpytuje serwer danych lub bezpośrednio bazę danych.
 </p>
 
 
 <figure type="picture" id="picture:architecture">
-    <figcaption>Diagram pokazujący zwielokrotnienie modułów i ich wzajemne oddziaływania.
+    <figcaption>Diagram pokazujący liczebność instancji modułów i ich wzajemne oddziaływania.
         Kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym zaś pozostałe elementy systemu.
     </figcaption>
     <img src="cache/client-architecture.png">
