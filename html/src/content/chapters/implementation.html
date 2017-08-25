@@ -313,145 +313,10 @@
     w krótkim czasie, co maksymalnie optymalizuje komunikację <em>ExploreJS</em> z serwrem.
 </p>
 
-<p note="pengingQueue i zwykła queue - opisać merging batch"></p>
 
-<!--
+<h2>Klasa Range</h2>
 
-
-<p>
-implementacja: Debounce do gromadzenia zapytań do serwera, opisać merging batch
-</p>
-
-<h3>
-    Interfejs HTTP JSON
-</h3>
-<p>
-Do komunikacji HTTP z serwerem został wybrany format JSON.
-Przy definiowaniu standardu należy zwrócić, uwagę, że w aplikacji użytkownika możliwe jest jednoczesne występowanie
-wielu instancji komponentów wizualizacji danych. Mowa tutaj o przeglądaniu wielu serii na jednym wykresie, czy o
-widokach typu panel kontrolny <span trans="ang">Dashboard</span>.
-W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
-</p>
-<p>
-    Aby minimalizować liczbę jednoczesnych zapytań, wszystkie żądania do serwera pochodzące z tej samej aplikacji pakuje
-    się w jedną paczkę.
-    W związku z tym interfejs serwera zdefiniowany jest tak, by zwracał w jednej odpowiedzi dane z różnych serii,
-    na różnym poziomie abstrakcji, z różnego okresu czasu.
-    Na listingu <a href="#code:request-format"></a> pokazano przykładowe zapytanie HTTP JSON do serwera.
-    Jest to lista fragmentów danych opisanych identyfikatorem serii, poziomem abstrakcji (agregacją) oraz okresem czasu.
-    Odpowiedź serwera pokazana na listingu <a href="#code:response-format"></a> zawiera listę punktów serii danych
-    określonych w parametrach zapytania.
-</p>
-<p>
-    W proponowanym formacie zapytania i odpowiedzi użytko nazwanych atrybutów dotyczących skali danych.
-    Serwer danych udostępnia dane w skali dyskretnej, na przykład w agregacjach minutowych, godzinnych, dobowych,
-    czy 30-dniowych.
-    Jednak, z punktu widzenia eksploracji w wizualnej analizie, nie jest istotne, aby skale były ułożone
-    zwyczajowo (doba, miesiąc, tydzień).
-    Równie dobrze serwer może używać agregacji równych, czyli takich, gdzie kolejne agregacje są k-krotnością
-    poprzedniej, na przykład: 1s, 4s, 16s, 64s, (...). W tej sytuacji na dwunastym poziomie otrzymuje się agregację
-    dwuletnią. Podobne podejście stosuje się w rozłożeniu poziomów dyskretnej skali w systemach mapowych
-    <a href="#bib:sample2010tile" chapter="2.2 Global Logical Tile Scheme"></a>.
-</p>
-<p>
-    TODO która skala jest mała ktora duża
-    Aby nie uzależniać kodu klienta od struktury danych serwera, serwer udostępnia dodatkową informację, tzw.
-    <i>manifest</i>. Aplikacja kliencka podczas inicjalizacji pobiera manifest aby wiedzieć, z jakich skal może
-    skorzystać. Na listingu <a href="#code:manifest-format"></a> przedstawiono przykładowy manifest serwera. W tym
-    przypadku dane surowe są zbierane co około 10 sekund, natomaist najmniejsza skala agreguje dane w okresie 120 dni.
-</p>
-
-<figure type="code" id="code:request-format">
-    <figcaption>Format zapytania o dane</figcaption>
-    <code class="javascript">
-        { series: [
-        { id: 'serie001', 'level': '1m',  from: '2016-01-23 13:05', to: '2016-01-23 17:57' },
-        { id: 'serie002', 'level': 'raw', from: '2016-01-27 06:00', to: '2016-01-27 06:04' },
-        { id: 'serie001', 'level': '1h',  from: '2016-01-01 12:00', to: '2016-02-23 12:00' },
-        { id: 'serie003', 'level': '1m',  from: '2016-01-23 13:05', to: '2016-01-23 17:57' },
-        { id: 'serie003', 'level': '1d',  from: '2016-01-23 00:00', to: '2016-01-26 00:00' }
-        ]}
-    </code>
-</figure>
-
-
-<figure type="code" id="code:response-format">
-    <figcaption>Format odpowiedzi serwera</figcaption>
-    <code class="javascript">
-        { series: [
-        { id: 'serie001', 'level': '1m',
-        from: '2016-01-23 13:05' to: '2016-01-23 17:57',
-        data: [
-        { @: '2016-01-23 13:05', a: 312.3, t: 404.1, b: 300.9 },
-        { @: '2016-01-23 13:06', a: 312.7, t: 377.0, b: 300.1 },
-        { @: '2016-01-23 13:07', a: 301.5, t: 304.2, b: 224.8 },
-        ...
-        { @: '2016-01-23 17:56', a: 813.3, t: 888.0, b: 813.1 },
-        { @: '2016-01-23 17:57', a: 900.3, t: 903.1, b: 813.9 },
-        ]
-        },
-        { id: 'serie002', 'level': 'raw',
-        from: '2016-01-27 06:00', to: '2016-01-27 06:04',
-        data: [
-        { $: '2016-01-27 06:00:23', v: 33 },
-        { $: '2016-01-27 06:00:27', v: 33 },
-        { $: '2016-01-27 06:00:34', v: 34 },
-        ...
-        { $: '2016-01-27 06:04:23', v: 37 },
-        { $: '2016-01-27 06:04:35', v: 37 },
-        ]
-        },
-        ...
-        ]}
-    </code>
-</figure>
-
-<figure type="code" id="code:manifest-format">
-    <figcaption>Format manifestu serwera</figcaption>
-    <code class="javascript">
-        {
-        "series": [
-        {
-        "serieId": "s001",
-        "start": 1448060400000,
-        "end": 1448881190000,
-        "levels": [
-        { "id": "10s", "step": 10000 },
-        { "id": "30s", "step": 30000 },
-        ...
-        { "id": "120d", "step": 10370000000 }
-        ]
-        },
-        {
-        "serieId": "s002",
-        "start": 1451602800000,
-        "end": 1454324390000,
-        "levels": [
-        { "id": "10s", "step": 10000 },
-        { "id": "30s", "step": 30000 },
-        ...
-        { "id": "120d", "step": 10370000000 }
-        ]
-        },
-        {
-        "serieId": "s003",
-        "start": 1448060400000,
-        "end": 1448881190000,
-        "levels": [
-        { "id": "10s", "step": 10000 },
-        { "id": "1m", "step": 60000 },
-        ...
-        { "id": "100d", "step": 86400000000 }
-        ]
-        }
-        ]
-        }
-    </code>
-</figure>
-
-
-
--->
+<p note="opisać wszystkie metody klasy Range  i po co mogą być potrzoebne"></p>
 
 
 <h2>algebra przedziałów i operacje przekształcające</h2>
@@ -734,10 +599,6 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     W kolejnych podrozdziałach zostały opisane funkcje poszczególnych modułów.
 </p>
 
-
-<h2>Klasa Range</h2>
-
-<p note="opisać wszystkie metody klasy Range  i po co mogą być potrzoebne"></p>
 
 <h2>DynamicProjection</h2>
 
