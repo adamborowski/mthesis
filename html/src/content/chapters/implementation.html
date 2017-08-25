@@ -74,6 +74,214 @@
 
 <h2>Komunikacja z serwerem REST</h2>
 
+<p>
+    Biblioteka <em>ExploreJS</em> jest niezależna od wykorzystywanego oprogramowania po stronie serwera.
+
+    Należy jednak pamiętać, że serwer danych musi udostępniać dane zagregowane w miarę równomiernie rozłożonymi
+    poziomami agregacji, jak jest to opisane w rozdziale <a href="#chapter:data-reduction"></a>.
+
+</p>
+
+<p>
+    Serwis REST udostępniać musi dwa zasoby.
+
+    Ich ścieżka jest konfigurowalna podczas inicjalizacji <em>ExploreJS</em>.
+
+    Pierwszym zasobem jest <code>GET /manifest</code>, drugim <code>POST /batch</code>.
+
+    Tutaj nasuwa się pytanie, dlaczego serwis odczytujący dane obsługuje metodę <code>POST</code>, służącą zwyczajowo do
+    dodawania nowych zasobów do serwera.
+
+    Zapytanie <code>batch</code> zawiera dane w swoim ciele <trans lang="ang">request body</trans>.
+
+    Mimo, że właściwa do tego zastosowania metoda <code>GET</code> oficjalnie wspiera <trans> request body</trans>, to
+    implementacje wielu systemów się tego nie spodziewają.
+
+    By uniknąć problemów z wycinaniem tej części zapytania przez systemy <em>firewall</em> lub mechanizm filtrów w <em>JAVA
+    Enterprise</em>, stosuje się wyjątkowo metodę POST.
+</p>
+
+<h3>Manifest danych pomiarowych</h3>
+<p>
+    Podczas inicjalizacji <em>ExploreJS</em> w aplikacji w przeglądarce, do serwera zostaje wysłane zapytanie
+    <code>GET /manifest</code>, które zawiera ważne z punktu widzenia biblioteki informacje o udostępnianych danych
+    (pokazane na listingu <a href="#code:manifest"></a> ).
+    Dla każdej serii danych pomiarowych zwracany jest:
+</p>
+<ul>
+    <li>identyfikator serii,</li>
+    <li>początek i koniec zakresu wszystkich dostępnych danych,</li>
+    <li>informację o udostępnianych poziomach agregacji, gdzie dla każdego poziomu zdefiniowane są:
+        <ul>
+            <li>identyfikator agregacji,</li>
+            <li>długość okresu agregowania.</li>
+        </ul>
+    </li>
+</ul>
+
+<figure type="code" id="code:manifest">
+    <figcaption>Przykładowa odpowiedź manifestu danych</figcaption>
+    <pre><code class="json">
+{ "series":[
+      {
+         "start": 1317427200000, // 2011-10-01
+         "end": 1496880000000,   // 2017-06-08
+         "serieId": "AM01_NOX",  // stężenie tlenku azotu na stacji pomiarowej numer 1
+         "levels":[
+            { "id": "30s", "step": 30000 },
+            { "id": "1m", "step": 60000 },
+            [...]
+            { "id": "90d", "step": 7776000000 },
+            { "id": "1y", "step": 31536000000 }
+         ]
+      },
+      [...]
+] }</code></pre>
+</figure>
+
+<p>
+    Dzięki manifestowi wiadomo, jakie są dostępne poziomy agregacji.
+    Jest to niezbędne do wyznaczania odpowiedniego poziomu agregacji do wyświetlenia.
+    Manifest również jest używany przez modele predykcji.
+</p>
+
+<p>
+    Po pobraniu manifestu zostają utworzone instancje <em>SerieCache</em> odpowiedzialne za obsługę pamięci
+    <em>cache</em> oraz jej projekcji.
+</p>
+
+<p>
+    Ważne jest również to, że w celu uproszczenia rozwiązania, dane surowe są traktowane przez <em>ExploreJS</em>
+    również jako agregacje danych. Z punktu widzenia działania mechanizmów wewnątrz <em>ExploreJS</em> nie ma
+    rozróżnienia między danymi surowymi a agregacjami tych danych. Przyjmuje się, że dane surowe oznacza się
+    identyfikatorem <q>raw</q> o długości agregowanego zakresu odpowiadającej średniej częstości zbierania tych danych.
+    Dla danych monitoringu jakości powietrza będzie to okres <em>10s</em>, dla danych medycznych przykładowo
+    <em>50ms</em>. Rozróżnienie danych surowych od agregacji jest istotne dopiero przy wyświetlaniu danych na wykresie,
+    co zostało omówione w rozdziale <a href="#chapter:implementation-adapter"></a>.
+</p>
+
+<h3>Grupowe zapytania o dane</h3>
+
+<p>
+    Drugim typem zapytań są zapytania o same dane pomiarowe.
+
+    Zapytanie jest tak naprawdę paczką zapytań, zgrupowanych przez moduł <em>RequestManager</em>.
+
+    W ciele zapytania <code>POST /batch</code> znajduje się zbiór żądań o dane z różnych serii, różnych poziomów
+    agregacji oraz różnych zakresów danych, jak pokazano na listingu <a href="#code:batch"></a>.
+</p>
+
+<figure type="code" id="code:batch">
+    <figcaption>Przykładowe ciało grupowego żądania o dane</figcaption>
+    <pre><code class="json">
+[ {
+    "id": "AM01_NOX",     // stężenie tlenku azotu na stacji pomiarowej numer 1
+    "level": "1h",        // agregacje godzinne
+    "from": 772088888908, // zakres od 1994-06-20 05:08:08 włącznie
+    "to": 783760000000    // zakres do 1994-11-02 07:06:40 włącznie
+  },
+  {
+    "id": "AM01_NOX",
+    "level": "1h",
+    "from": 808000000000,
+    "to": 825955555576
+  },
+  {
+    "id": "AM01_NOX",
+    "level": "4h",        // agregacje czterogodzinne
+    "from": 776090016000,
+    "to": 776625062400
+} ]</code></pre>
+</figure>
+
+<p>
+    Struktura odpowiedzi jest bardzo podobna do żądania. Różnica jest w tym, że odpowiedź dla każdego żądania zawiera
+    pole o nazwie <q>data</q> będące tablicą danych. Każdy punkt danych w tabeli posiada pola obowiązkowe o nazwach
+    zaczynających się znakiem <code>$</code>.
+    Są to pola <code>$s</code> oraz <code>$e</code> zawierające stempel czasowy odpowiednio początku i końca zakresu
+    agregacji. Jeśli jest to punkt przedstawiający nie agregację, lecz surowy punkt pomiarowy, polem obowiązkowym jest
+    pole <code>$t</code> oznaczające stempel czasowy próbki.
+    Pozostałe pola traktowane są jako agregowane wartości i nie są wykorzystywane przez <em>ExploreJS</em>.
+    Dopiero adapter wykresu przy wyświetlaniu punktu interpretuje we właściwy sposób te dane. Struktura przykładowego
+    punktu została pokazana na listingu <a href="#code:batch-response"></a>.
+</p>
+
+<figure type="code" id="code:batch-response">
+    <figcaption>Pojedynczy punkt danych w odpowiedzi serwera.</figcaption>
+
+    <pre><code>
+{
+  "$e": 795301200000,    // początek agregacji
+  "$s": 795297600000,    // koniec agregacji
+  "a": 1698.85061111111, // wartość średnia pomiaru
+  "b": 1666.49,          // wartość minimalna pomiaru
+  "t": 1733.55,          // wartość maksymalna pomiaru
+  "c": 360               // liczba zliczonych punktów pomiaru
+}</code></pre>
+
+</figure>
+
+<h3>Optymalizacja zapytań</h3>
+<p>
+    Ze względu na dużą dynamikę wizualnej eksploracji danych pomiarowych, żądania wychodzące z mechanizmu predykcji
+    generowane są dosyć częstwoi nakładają się w małych przedziałach czasowych. Co więcej, zakresy tych zapytań często
+    mają niemałą część wspólną.
+</p>
+
+<p>
+    Początkowa implementacja, która nie łączyła zapytań, generowała osobne żądania w takiej liczbie, że ich liczba
+    namnażała się tworząc wydłużającą się kolejkę w przeglądarce <a href="#bib:browser-request-limits"></a>.
+
+    By rozwiązać ten problem, należało na poziomie fizycznym i logicznym łączyć te zapytania.
+</p>
+
+<p>
+    Łączenie fizyczne polega na wydzieleniu krótkiego odcinka czasu, w którym żądania zgłaszane do
+    <em>RequestManagera</em> odkładane są do specjalnego bufora. Po upływie ustalonego czasu, zgłoszenia z bufora
+    pakowane są do pojedynczego żądania <em>AJAX</em>, wysyłane do serwera, a bufor zostaje wyczyszczony. Zostało to
+    zilustrowane na obrazku <a href="#picture:physical-merging"></a>.
+
+</p>
+
+<figure type="picture" id="picture:physical-merging">
+    <figcaption>Buforowanie zapytań do <em>RequestManagera</em>. Po upływie ustalonego czasu zbuforowane zapytania
+        łączone są w
+        paczkę i wysyłane przez AJAX.
+    </figcaption>
+    <img src="cache/physical-merging.png"/>
+</figure>
+
+<p>
+    Łączenie fizyczne pozwoliło na zmniejszenie liczby jednoczesnych żądań do serwera, natomiast nie rozwiązało to
+    problemu, że w jednej paczce znajdowały się zapytania, których zakresy mają część wspólną, co powodowało pobieranie
+    nadmiernej ilości danych, co jest sprzeczne z celem <em>ExploreJS</em>. Usunięciem tej redundancji zajmuje się
+    specjalny moduł <em>MergingBatch</em> wewnątrz <em>RequestManagera</em>, który zajmuje się logicznym łączeniem żądań
+    do serwera.
+</p>
+
+<p>
+    Moduł scalający <em>MergingBatch</em> w zawansowany sposób łączy żądania w buforze zapytań.
+    Zamiast dodawać zapytanie do listy żądań, znajduje wpierw istniejące żądania dla tej samej serii i poziomu
+    agregacji i próbuje scalić te żądania z nowym żądaniem.
+    W wyniku tego zamiast tworzenia kolejnego żądania, może się zmienić zakres innego, a nawet zmniejszyć liczba żądań.
+    Zostało to zademonstrowane na rysunku <a href="#picture:logical-merging"></a>.
+</p>
+
+<p>
+    W tym przypadku w buforze istniały zapytania, z czego jedno dotyczyło serii danych <em>Y</em>, pozostałe <em>X</em>.
+    Podczas dodawania nowego żądania o dane serii <em>X</em>, dla agregacji godzinnej, okazało się, że w buforze
+    znajdują się inne żądania agregacji godzinnych tej serii. Po scaleniu tych żądań z dodawanym żądaniem, okazuje się,
+    że wszystkie trzy żądania mają część wspólną, zatem zostały zastąpione jednym żądaniem.
+</p>
+
+<figure type="picture" id="picture:logical-merging">
+    <figcaption>Wizualizacja scalania żądań. Żądania dotyczące tej samej serii i poziomu agregacji oznaczono jednym
+        kolorem.
+    </figcaption>
+    <img src="cache/logical-merging.png" height="300"/>
+</figure>
+
+<p note="pengingQueue i zwykła queue - opisać merging batch"></p>
 
 <!--
 
@@ -81,11 +289,7 @@
 <p>
 implementacja: Debounce do gromadzenia zapytań do serwera, opisać merging batch
 </p>
-<p>
-    Proponowane rozwiązanie, ExploreJS jest niezależne od wykorzystywanego oprogramowania po stronie serwera.
-    W związku z tym, dla każdego wskazanego serwera konieczne jest jego zintegrowanie poprzez implementację określonego
-    interfejsu zapytania i odpowiedzi.
-</p>
+
 <h3>
     Interfejs HTTP JSON
 </h3>
@@ -222,7 +426,7 @@ W takiej sytuacji wiele żądań jest wysyłanych jednocześnie.
 <p note="opisać operacje sum sub, and, etc, że jego wyjściem jest instrukcja diff">
     dodatkowo wspomnieć o bisekcji, żeby operować tylko na małym fragmencie
     opisać gdzie występowała konieczność diffów różnorakich zbiorów (cache projection, dynamic projection recompile,
-    levelCache.requestRange()...
+    levelCache.requestRange()..., mergingBatch!
 </p>
 
 <!--
@@ -413,7 +617,7 @@ nawiązać do frameworków react i angular w kwestii obliczania diffów do efekt
 
 -->
 
-<h2>Adapter komponentu wykresu</h2>
+<h2 id="chapter:implementation-adapter">Adapter komponentu wykresu</h2>
 <p note="chodzi o wykresy i ich aktualizacje oraz interfejsy <q>patch</q> (visjs) i <q>replace</q> (flot)">
     (pseudokod adaptera?)
 </p>
