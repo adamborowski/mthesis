@@ -328,7 +328,7 @@
 <ul>
     <li>scalanie żądań przez <em>MergingBatch</em></li>
     <li>operacje na pamięci podręcznej</li>
-    <li>obliczanie projekcji <em>cache</em></li>
+    <li>aktualizacja projekcji <em>cache</em></li>
     <li>implementacja czasowego modelu zdarzeniowego (opisane później)</li>
     <li>modele predykcji</li>
     <li>dobór zakresu danych w <em>DataSource</em></li><!--(DynamicProjection)-->
@@ -338,11 +338,11 @@
     W celu usystematyzowania implementacji wprowadzono strukturę danych <em>Range</em>.
 
     Jest przedział o dowolnym domknięciu przechowujący wartość &mdash;
-    np. <code><2016-05-04 11:00, 2016-05-04 14:00)</code> o wartości <code>{min:2, max:4,avg:2.23}</code>
+    np. <code><2016-05-04 11:00, 2016-05-04 14:00)</code> o wartości <code>{min:2, max:4, avg:2.23}</code>
 
-    <em>Range</em> udostępnia metody do wyrażania zależności między innymi <em>Range</em>, co zostało przedstawione w
-    tabeli <a href="#table:range"></a>. Ważną częścią implementacyjną jest to, że brane są pod uwagę typy brzegów, na
-    przykład <q>część wspólna dwóch lewostronnie domkniętych przedziałów</q>.
+    <em>Range</em> udostępnia metody do wyrażania wzajemnych zależności, co zostało przedstawione w
+    tabeli <a href="#table:range"></a>. Ważną cechą implementacyjną jest to, że przy obliczaniu zależności brane są pod
+    uwagę typy brzegów, na przykład <q>część wspólna dwóch lewostronnie domkniętych przedziałów</q>.
 </p>
 
 <figure type="table" id="table:range" style="page-break-inside: auto">
@@ -376,9 +376,9 @@
             </td>
         </tr>
         <tr>
-            <td>expandToFitPrecision (precision)</td>
+            <td>expandToFit (precision)</td>
             <td>
-                rozszerza granice przedziału, by obie krawędzie były wielokrotnością wartości <em>precision</em>
+                rozszerza przedział tak, by obie krawędzie były wielokrotnością danej wartości
             </td>
         </tr>
         <tr>
@@ -394,7 +394,7 @@
             </td>
         </tr>
         <tr>
-            <td>equals (other)</td>
+            <td>equals&nbsp;(other)</td>
             <td>
                 zwraca <em>true</em>, jeżeli drugi przedział ma te same wartości oraz typy krawędzi
             </td>
@@ -413,10 +413,6 @@
     które przedziały należy usunąć, którym zmienić swoje granice, a które przedziały trzeba dodać do zbioru.
 
 </p>
-<p>
-    Ważną częścią implementacji jest reguła porównywania danych podczas operacji, która między innymi nie pozwoli na
-    scalenie przedziałów dotyczących różnych poziomach agregacji podczas operacji sumowania.
-</p>
 
 <figure type="picture" id="picture:algebra">
     <figcaption>Operacje algebraiczne. A+B &mdash; suma, A-B &mdash; różnica, A*B &mdash; iloczyn, AΔB &mdash;
@@ -425,12 +421,18 @@
     <img src="cache/algebra-operations.png" height="260"/>
 </figure>
 
+<p>
+    Ważną częścią implementacji jest reguła porównywania danych podczas operacji, która między innymi nie pozwoli na
+    scalenie przedziałów dotyczących różnych poziomach agregacji podczas wykonywania operacji &mdash; gdy dwa przedziały
+    będą styczne, to zostaną scalone tylko wtedy, gdy dotyczą tego samego poziomu agregacji.
+</p>
+
 <h2>Przeliczanie projekcji</h2>
 <p>
     Projekcja pamięci podręcznej opisana w rozdziale <a href="#chapter:theoretical-cache-projection"></a> wykorzystuje
     operacje na przedziałach do aktualizacji indeksów warstw. Dla przypomnienia &mdash; projekcja <em>cache</em>
     dla określonego poziomu agregacji to informacja, z jakich warstw pamięci, jakie zakresy danych użyć do wyświetlenia
-    użytkownikowi możliwie najwierniejszy kształt danych, podczas gdy czeka na dane o żądanej rozdzielczości.
+    użytkownikowi możliwie najwierniejszego kształtu danych, podczas gdy czeka na dane o żądanej rozdzielczości.
 </p>
 
 <p>
@@ -440,16 +442,15 @@
     opisuje tylko przedziały ciągłości danych w pamięci.
     Dla przykładu, jeżeli w pamięci <em>cache</em> na poziomie <em>1d</em> pojawi się ciąg agregacji dobowych za cały
     rok 2016, to w indeksie pojawi się nie 365, lecz tylko jeden element o zakresie początku i końca roku 2016.
-    Można stwierdzić, że liczba elementów w indeksie nie zależy od zapełnienia pamięci podręcznej, ale od stopnia jej
-    pofragmentowania.
+    Można stwierdzić, że liczba elementów w indeksie nie zależy więc od zapełnienia pamięci podręcznej, ale od stopnia
+    jej pofragmentowania.
 
     Na rysunku <a href="#picture:projection-index"></a> pokazano pamięć cache oraz indeksy projekcji na różnych
     poziomach, w tym samym zakresie czasu.
 </p>
 
 <figure type="picture" id="picture:projection-index">
-    <figcaption>Zarys pamięci podręcznej (po lewej) oraz struktura reprezentująca projekcję danych z niższych
-        warstw do danej warstwy
+    <figcaption>Zarys pamięci podręcznej oraz struktura projekcji danych z niższych warstw
     </figcaption>
     <img src="cache/projection-index-structure.png"/>
 </figure>
@@ -495,15 +496,14 @@
 
 <p>
     <em>ExploreJS</em> w praktyce nie przelicza całej projekcji za każdym razem, gdy do <em>cache</em>
-    zostaną dodane nowe dane, unikając tym samym potencjalnie czasochłonnych operacji na bardzo pofragmentowanej pamięci
-    podręcznej.
+    zostaną dodane nowe dane &mdash; unikaja tym samym potencjalnie czasochłonnych operacji na bardzo pofragmentowanej
+    pamięci podręcznej.
     Zaprojektowany algorytm używa istniejącej projekcji i w momencie dodania nowego przedziału do pamięci podręcznej
     oblicza tylko minimalny zestaw kroków potrzebnych do przekształcenia istniejącej projekcji w nową &mdash; aktualną:
 </p>
 
 <ol>
-    <li>wyznaczany jest wspólny zakres dotychczaswej projekcji oraz dodawanego przedziału (zakres ten nie może dzielić
-        przedziałów projekcji)
+    <li>wyznaczany jest wspólny zakres (zawierający całe przedziały) dotychczaswej projekcji oraz dodawanego przedziału
     </li>
     <li>istniejąca projekcja dzielona jest na trzy części (rysunek <a href="#picture:projection-diff-cut"></a>)</li>
     <li>na środkowej części projekcji stosuje się <em>algorytm dodania nowego przedziału</em></li>
@@ -561,7 +561,8 @@
 </p>
 
 <p>
-    Jeżeli po przeliczeniu projekcji nastąpi faktycznie zmiana (a tak być nie musi, jeżeli przedział <em>R</em> jest w
+    Jeżeli po przeliczeniu projekcji nastąpi faktycznie zmiana w projekcji (a tak być nie musi, jeżeli przedział
+    <em>R</em> jest w
     całości przykryty przedziałem z grupy <em>F</em>), to zostaje wywołane zdarzenie informujące o tym, że dana
     projekcja została uaktualniona, w jakim zakresie oraz w jaki sposób się zmieniła (który przedział usunięto, który
     zmieniono, który dodano).
@@ -570,10 +571,174 @@
     rozdziale.
 </p>
 
+<p>
+    Moduł <em>DataSource</em> jest prze
+</p>
 
-<h2>DynamicProjection</h2>
+<h2>DataSource, ViewState i DynamicProjection</h2>
 
 <p>
+    Warto przypomnieć sobie, czym dokładnie jest <em>komponent wykresowy</em>, opisany w rozdziale <a
+        href="#chapter:theoretical-charting-components"></a>.
+    Jest to dowolny moduł programowy, który na podstawie dostarczonych danych wyświetla graficzne wykresy na ekranie
+    komputera. Większość komponentów wykresowych potrafi wyświetlać podzbiór dostarczonych im danych.
+    Takie komponenty zazwyczaj samodzielnie obsługują nawigację po danych, które posiadają. Przykład takiego komponentu
+    został pokazany na obrazku <a href="#picture:dygraphs"></a>.
+</p>
+
+<figure type="picture" id="picture:dygraphs">
+    <figcaption>Komponent wykresowy z biblioteki <em>Dygraphs</em>. Umożliwia wyświetlanie podzbioru dostarczonych
+        danych, co zostało dodatkowo zaznaczone na miniaturze wykresu.
+    </figcaption>
+    <img src="/images/theoretical/dygraphs.png" height="200"/>
+</figure>
+
+<p>
+    Problemem z takimi komponentami w kontekście nieograniczonej eksploracji danych jest to, że wiele implementacji
+    bibliotek wykresowych nie działa wydajnie z dużymi zbiorami danych, nawet jeśli zakres wyświetlanych na nich danych
+    jest niewielki.
+
+    Jest to spowodowane na przykład tym, że biblioteki generują elementy <em>SVG DOM</em> dla wszystkich danych
+    niezależnie od tego, czy są widoczne na ekranie czy nie.
+
+    Te biblioteki, które obsługują duże zbiory danych, zazwyczaj posiadają własny bufor w pamięci, a widoczne fragmenty
+    renderują na elemencie <em>Canvas</em>.
+
+    Z kolei te biblioteki, które obsługują duże zbiory danych, niezawsze umożliwiają ich wydajną aktualizację.
+</p>
+
+<p>
+    Aby w jednolity sposób rozwiązać wszystkie wpomniane wyżej problemy, <em>ExploreJS</em> nie dostarcza komponentowi
+    danych z całego zakresu dostępnego w pamięci cache, lecz tylko fragment potrzebny w danym momencie do wyświetlenia.
+    W związku z tym, że komponent wykresowy nie posiada wszystkich danych, należy sukcesywnie aktualizować mu dane,
+    niejako podążając za użytkownikiem, który może mieniać zakres danych na wykresie.
+</p>
+
+<p>
+    W sytuacji, gdy aktualizuje się dane w komponencie w momencie każdej zmiany zakresu, pojawia się problem
+    wydajnościowy, jeśli komponent wykresowy umożliwia płynną zmianę zakresu &mdash; albo poprzez animację, albo przez
+    <q>przesuwanie
+        wykresu myszką</q> &mdash; w każdej klatce animacji nastąpi bowiem aktualizacja komponentu wykresowego (Rys. <a
+        href="#picture:datasource-tiling"></a> A).
+
+    Niestety &mdash; sporo bibliotek nie wspiera dobrze takiego przypadku i komponent nie działa wtedy płynnie, co mija
+    się
+    niejako z założeniami proponowanego rozwiązania.
+</p>
+
+<p>
+    <em>ExploreJS</em> rozwiązuje ten problem poprzez <em>kafelkowanie</em> zakresu (Rys. <a
+        href="#picture:datasource-tiling"></a> B).
+    Oznacza to, że zakres danych dostarczanych do komponentu musi być zawsze dopasowany do kafli o danym rozmiarze,
+    rozłożonych na całej przestrzeni &mdash; zakres nie może dzielić żadnego kafla.
+    W praktyce oznacza to, że zakres wyświetlanych danych musi zostać rozszerzony, aby jego krawędzie miały wartości
+    będące wielokrotnością szerokości kafla.
+
+    Znacznie redukuje to liczbę potrzebnych aktualizacji, ponieważ wszystkie widoczne zakresy nachodzące na te same
+    kafle nie będą wymagały aktualizacji.
+
+    Kosztem rozwązania tego problemu jest przesyłanie niewiele większego zakresu danych do komponentu.
+    Manipulując szerokością kafla można sterować balansem pomiędzy częstotliwością aktualizacji komponentu a wielkością
+    zakresu przesyłanych danych.
+
+    W <em>ExploreJS</em> domyślną szerokością kafla jest wartość równa szerokości wyświetlanego zakresu, a jednorazowo
+    do komponentu zostają przekazane trzy <q>kafle</q>.
+    To znaczy, że jeżeli użytkownik przesunie zakres o 5 <q>szerokości</q> wykresu, to komponent wykresu zostanie
+    aktualizowany nowym fragmentem pamięci podręcznej tylko 5 razy.
+</p>
+
+
+<figure type="picture" id="picture:datasource-tiling">
+    <figcaption>
+        Zakresy dostarczanych danych (czerwone ramki) do komponentu podczas płynnego przesuwania zakresu w prawo.
+        Przezroczystość ramek oznacza upływ czasu.
+        <em>A</em> &mdash; zakres identyczny z widzianym zakresem, <em>B</em> &mdash; zakres dopasowany do <q>kafli</q>.
+
+    </figcaption>
+    <img src="cache/datasource-tiling.png"/>
+</figure>
+
+<p class="keep-after keep-inside">
+    Za opisane wyżej zadania przekazywania fragmentu pamięci <em>cache</em> do komponentu wykresu odpowiada moduł <em>DataSource</em>.
+    Zadania te deleguje do podmodułów <em>ViewState</em> oraz <em>DynamicProjection</em>.
+    Na schemacie <a href="#picture:dynamic-projection"></a> pokazano zależność tych modułów z pozostałymi modułami
+    <em>ExploreJS</em>.
+</p>
+
+<figure type="picture" id="picture:dynamic-projection">
+    <figcaption>Diagram pokazujący zależności między pamięcią podręczną a <em>DataSource</em></figcaption>
+    <img src="cache/serie-cache-diagram.png">
+</figure>
+
+
+<p>
+    <em>ViewState</em> odpowiada za przechowywanie aktualnego stanu komponentu: wyświetlanego zakresu, szerokości
+    komponentu na ekranie oraz oczekiwanego poziomu agregacji. Moduł ten również wywołuje zdarzenie informujące o
+    każdorazowej zmianie stanu.
+</p>
+
+<p>
+    Moduł <em>DynamicProjection</em> odpowiedzialny jest za powiadamianie <em>DataSource</em>, kiedy i w jaki sposób
+    należy aktualizować komponent wykresu.
+    Powiadomienia pochodzące od <em>DynamicProjection</em> są jedynym źródłem informacji o konieczności aktualizacji
+    komponentu wykresu. Powiadomienia te wywoływane są wtedy, gdy:
+</p>
+
+<ul>
+    <li>należy podmienić <q>kafle</q> pamięci <em>cache</em> na skutek przemieszczania się wyświetlanego zakresu na
+        wykresie
+    </li>
+    <li>
+        należy zmienić poziom szczegółowości na skutek rozszerzenia/zwężenia wyświetlanego zakresu
+    </li>
+    <li>
+        we fragmencie pamięci podręcznej, który został skopiowany do komponentu, pojawią się nowe dane (synchronizacja)
+    </li>
+</ul>
+
+<p>
+
+    Każdy z wyżej wymienionych przypadków aktualizacji komponentu wykresu został osobno omówiony w kolejnych
+    podrozdziałach.
+
+
+</p>
+
+
+<h3>Podmiana kafla pamięci</h3>
+<h3>Zmiana projekcji</h3>
+<h3>Synchronizacja</h3>
+
+
+<p>
+
+    Podczas interakcji z użytkownika z wykresem, gdy zmienia się skala wykresu z powodu przybliżenia lub oddalenia,
+    należy dostosować poziom szczegółowości, z jaką są wyświetlane na nim dane.
+
+    Dla przykładu, jeżeli ktoś ogląda dane z zakresu jednej doby, to przy wykresie o szerokości 1000 pikseli będzie
+    wyświetlał skalę 86.4s/px.
+
+    Odpowiednim dla niego poziomem agregacji jest prędzej minuta niż sekunda, gdyż tych pierwszych będzie do
+    wyświetlenia 1440, a tych drugich będzie już 86400.
+
+    <em>ExploreJS</em> zarządza dostosowaniem poziomu szczegółowości danych w trakcie interakcji użytkownika z wykresem.
+</p>
+
+
+<p>
+
+
+    Moduł <em>DynamicProjection</em>, działający wewnątrz <em>DataSource</em>, zarządza przełączaniem się pomiędzy
+    projekcjami pamięci podręcznej w momencie konieczności zmiany poziomu szczegółowości danych na wykresie.
+
+    W ogólności, moduł ten jest odpowiedzialny za powiadamianie modułu <em>DataSource</em> o każdej konieczności
+    synchronizacji danych przesłanych do komponentu wykresu z danymi w pamięci podręcznej.
+
+</p>
+
+<p>
+
+    TODO: aby podążać za tą naturalną cechą wizualizacji - jest DynamicProjection który przełącza projeckcje
 
     Moduł <em>DynamicProjection</em>, działający wewnątrz <em>DataSource</em> jest swego rodzaju pomostem pomiędzy
     teoretycznie nieograniczoną, wielopoziomową pamięcią podręczną a komponentem wykresu, któremu trzeba dostarczyć
@@ -592,13 +757,6 @@
     początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
 </p>
 
-
-<figure type="picture" id="picture:dynamic-projection">
-    <figcaption>Diagram pokazujący zwielokrotnienie modułów i ich wzajemne oddziaływania.
-        Kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym zaś pozostałe elementy systemu.
-    </figcaption>
-    <img src="cache/serie-cache-diagram.png">
-</figure>
 
 
 <!--
