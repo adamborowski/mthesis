@@ -53,7 +53,7 @@ gulp.task('compile-html', ()=> {
 
 gulp.task('-prince', ['compile-html'],
     shell.task(`prince target/main.html 
-    -debug
+    --debug
     -o target/Thesis.pdf 
     --javascript 
     --script=target/vendor.js  
