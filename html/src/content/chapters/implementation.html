@@ -221,7 +221,7 @@
 
 </figure>
 
-<h3>Optymalizacja zapytań</h3>
+<h3 id="chapter:query-optimization">Optymalizacja zapytań</h3>
 <p>
     Ze względu na dużą dynamikę wizualnej eksploracji danych pomiarowych, żądania wychodzące z mechanizmu predykcji
     generowane są dosyć częstwoi nakładają się w małych przedziałach czasowych. Co więcej, zakresy tych zapytań często
@@ -571,7 +571,7 @@
     rozdziale.
 </p>
 
-<h2>DataSource, ViewState i DynamicProjection</h2>
+<h2 id="chapter:datasource-viewstate-dynamicprojection">DataSource, ViewState i DynamicProjection</h2>
 
 <p>
     Warto przypomnieć sobie, czym dokładnie jest <em>komponent wykresowy</em>, opisany w rozdziale <a
@@ -894,14 +894,123 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 
 <h2>Modele predykcji</h2>
 
-<p note="zaimplementowane modele predykcji" helper>
-    implementacja: prediction models i dynamicProjection - paddingi, <strong>tiles</strong> muszą być sensownie dopasowane,
-    żeby np wykres nie byl co chwile przerysowany, bo jakis drobnostkowy model predykcji co chwile aktualizuje
-    mały kawałeczek
-
-    opisać kafelkowanie zakresu danych takie jak w DynamicProjection (żeby predyktor nie doładowywał małych słupków
-    podczas smooth paningu
+<p>
+    Opisany w rozdziale <a href="#chapter:prediction-engine"></a> silnik predykcji zarządza modelami predykcji, które
+    obserwują aktywność użytkownika związaną z użytkowaniem wykresu i próbują przewidzieć, jakie dane będą wkrótce
+    potrzebne, po czym odpytują pamięć <em>cache</em> w ustalonym przez siebie momencie.
+    Modele działają niezależnie względem siebie, a ich ewentualne podobne działanie mogące prowadzić do zduplikowania
+    żądań danych, niwelowane jest w module <em>RequestManager</em>, którego działanie opisane zostało w rozdziale
+    <a href="#chapter:query-optimization"></a>.
 </p>
+
+<p>
+    Należy zwrócić uwagę, że w <em>ExploreJS</em> dokonano pewnego uproszczenia, które może być mylące w zakresie
+    stosowanego nazewnictwa.
+
+    Logika odpowiadająca za doładowanie danych, które powinny znaleźć się w danym momencie na wykresie,
+    została ujęta jako specyficzny, obowiązkowy model predykcji.
+
+
+    Działanie tego modelu predykcji nie ma nic wspólnego z przewidywaniem, gdyż ładuje dane nie przed potrzebą ich
+    wyświetlenia, tylko po zaistnieniu takiej potrzeby.
+
+    Niemniej jednak zostało to zrobione w celu uproszczenia implementacji rozwiązania, gdyż implementacja powyższej
+    logiki wygląda bardzo podobnie do logiki modeli predykcyjnych.
+
+    Na listingu <a href="#code:simple-prediction-model"></a> pokazano, jak wygląda implemetacja takiego modelu.
+</p>
+
+<figure type="code" id="code:simple-prediction-model">
+    <figcaption>Podstawowy model ładowania danych</figcaption>
+    <pre><code class="javascript">
+@@include('simple-prediction-model.js')
+    </code></pre>
+</figure>
+
+<p>
+    Kluczowa jest implementacja metody <em>update</em>, która jest wołana przez silnik predykcji w reakcji na wykonanie
+    ruchu użytkownika.
+
+    Zaprezentowana implementacja modelu ładuje trochę większy zakres danych, niż jest wyświetlany.
+    Dodatkowo przedział ten jest rozszerzany do postaci kafla.
+    Rozwiązuje to problem zbyt częstych i zbyt małych żądań danych, analogicznie do problemu opisanego w <a
+        href="#chapter:datasource-viewstate-dynamicprojection"></a> (rysunek <a
+        href="#picture:datasource-tiling"></a> B).
+
+    Obliczane są następujące zmienne:
+</p>
+
+<dl class="terms">
+    <div>
+        <dt>currentLevelId</dt>
+        <dd>
+            aktualny poziom szczegółowości (aktualna warstwa projekcji)
+        </dd>
+    </div>
+    <div>
+        <dt>start, end</dt>
+        <dd>
+            lewa i prawa krawędź wyświetlanego zakresu
+        </dd>
+    </div>
+    <div>
+        <dt>contextPadding</dt>
+        <dd>
+            dodatkowy margines zakresu (by przygotować lekko większy zakres)
+        </dd>
+    </div>
+    <div>
+        <dt>tileLengthPixels</dt>
+        <dd>
+            obliczenie długości kafla w pikselach
+        </dd>
+    </div>
+    <div>
+        <dt>tileLengthMillis</dt>
+        <dd>
+            obliczenie długości kafla w milisekundach
+        </dd>
+    </div>
+    <div>
+        <dt>predictedRange</dt>
+        <dd>
+            wywnioskowany zakres danych powstały w wyniku równomiernego poszerzenia wyświetlanego zakresu, następnie
+            poszerzenia do postaci kafla.
+        </dd>
+    </div>
+</dl>
+<p>
+    Na końcu metodu <em>update</em> generowane jest zgłoszenie zapotrzebowania na dane na konkretnej warstwie, w
+    konkretnym zakresie. Na tym kończy się działanie tego modelu.
+</p>
+<p>
+    Drugim z zaimplementowanych modeli predykcji jest trochę bardziej złożony.
+    Zakłada bowiem, że użytkownik w każdym momencie może oddalić się od aktualnie wyświetlanego zakresu, w szczególności
+    oddalić się tak bardzo, by obejrzeć cały zakres dostępnych danych.
+    By zapewnić dostępność danych podczas takiego ruchu, na każdej warstwie pamięci podręcznej żądany jest pewien
+    zakres, który w połączeniu z zakresami na pozostałych warstwach tworzy kształt <q>stożka</q> obejmujący wszystkie
+    potrzebne zakresy podczas ruchu oddalania (Rys. <a href="#picture:cone"></a>).
+
+    Nie stanowi to problemu w kontekście rozmiaru pobieranych danych, ponieważ wraz ze wzrostem zakresu na kolejnych
+    poziomach rośnie również wielkość agregacji, zatem liczba żądanych punktów zasadniczo się nie zmienia. Można
+    powiedzieć, że liczba agregacji pobieranych na każdą warstwę będzie mniej więcej taka sama.
+
+    Ponieważ takie zapytanie do serwera może być kilkukrotnie większe od zapytania spowodowanego podstawowym modelem
+    predykcji, stosuje się pewne opóźnienie, by żądanie nie było złączone przez moduł <em>RequestManager</em>.
+
+    Dzięki temu ładowanie podstawowych danych nie jest opóźniane &mdash; jest to niejako prosta implementacja priorytetu
+    modelu.
+
+</p>
+
+<figure type="picture" id="picture:cone">
+    <figcaption><q>Stożek</q> zakresów danych spowodowany działaniem drugiego z zaimplementowanych modeli predykcji
+    </figcaption>
+    <img src="/images/wider-scope-model-cone.png" width="40%"/>
+</figure>
+
+<p> Silnik predykcji umożliwia rozszerzanie predykcji o nowe modele. Więcej zostanie na ten temat napisane w rozdziale
+    <a href="#chapter:results"></a>.</p>
 
 
 <h2>Wsparcie agregacji zwyczajowych</h2>
@@ -930,4 +1039,9 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 
 <p helper="prezentacja 2">
     https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_39
+
+    napisać o npm (są moduły tam dostępne - jakie)
+    napisać o integracji react - umozliwia deklaratywne uzycie explroejs
+    napisać o referencyjnej implementacji serwera - nodejs
+
 </p>
