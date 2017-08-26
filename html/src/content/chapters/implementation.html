@@ -793,8 +793,6 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 </p>
 
 
-<h2>Wsparcie agregacji zwyczajowych</h2>
-
 <!--
 Konieczność wrapperdisplay cache i translacja data-projection-data
 
@@ -814,13 +812,8 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     wykresową.
 
     Jak przedstawiono w rozdziale <a href="#chapter:web-interfaces"></a>, istnieją biblioteki wykresowe wspierające dwie
-    strategie aktualizacji danych:
+    strategie aktualizacji danych: <em>całkowite zastąpienie danych</em> oraz <em>modyfikacja istniejących danych</em>.
 </p>
-
-<ul>
-    <li>całkowite zastąpienie danych</li>
-    <li>modyfikacja istniejących danych</li>
-</ul>
 
 <p>
     Adapter, będący częścią dostarczaną przez system korzystający z <em>ExploreJS</em>, powinien w łatwy sposób
@@ -873,6 +866,43 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
 </p>
 
 
+<p>
+    Pozostaje jeszcze odpowiedzieć na pytanie, czym są <em>wrappery</em>, które występują w nazwach wyżej wymienionych
+    metod.
+    Warto przypomnieć, że projekcja pamięci podręcznej odpowiada na pytanie, z której warstwy <em>cache</em> należy
+    odczytać dane w którym miejscu na wykresie.
+
+    Należy zwrócić uwagę, że pojedynczy element projekcji swoim zakresem może pokrywać wiele agregacji &mdash;
+    <q>od maja do lipca należy odczytywać agregacje dobowe</q>.
+
+    Może on także pokrywać fragmenty jednej agregacji &mdash; <q>od stycznia do maja należy odczytać fragment roku
+    2017</q>.
+
+    W ogólności &mdash; zakres pojedynczego elementu projekcji nie musi pokrywać się z granicami agregacji pobranych z
+    serwera.
+
+    Aby wykresy mogły poprawnie rysować dane według projekcji, dane są opakowywane we <em>wrappery</em>, które
+    dodatkowo informują, na jakim faktycznie zakresie wyrysować daną agregację.
+
+    Na rysunku <a href="#picture:wrapper"></a> pokazano, jak z jednej agregacji pochodzącej z serwera powstału dwa <q>wrappery</q>
+    powstałe w wyniku przykrycia jej środka mniejszą agregacją.
+</p>
+
+<figure type="picture" id="picture:wrapper">
+    <figcaption>
+        Przykrycie agregacji <em>90d</em> agregacją <em>30d</em> w wyniku projekcji &mdash; na wykresie dwa razy pojawi
+        się ta sama agregacja, ale będzie przekazana w dwóch <q>opakowaniach</q> przedzielonych opakowaniem
+        agregacji <em>30d</em>.
+    </figcaption>
+    <img src="cache/wrapper.png" width="60%"/>
+</figure>
+
+<p>
+    Można stwierdzić, że <em>DataSource</em> poprzez udostępniane metody <em>getWrappers()</em> oraz <em>calculateWrappersDiffToPrevious()</em>
+    fizycznie łączy informacje zawarte w module wielowarstwowej pamięci podręczniej <em>SerieCache</em> i w module
+    projekcji <em>CacheProjection</em>.
+</p>
+
 <h2>Modele predykcji</h2>
 
 <p note="zaimplementowane modele predykcji" helper>
@@ -884,6 +914,27 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     podczas smooth paningu
 </p>
 
+
+<h2>Wsparcie agregacji zwyczajowych</h2>
+
+<p>
+    W rozdziale <a href="#chapter:aggregation-regulations"></a> omówiono systemy, w których długości kolejnych poziomów
+    agregacji nie są wielokrotnością poprzednich. Na przykład agregacje 30-dniowe nie są wielokrotnością agregacji
+    7-dniowych. Co ważniejsze &mdash; istnieją agregacje, których długość nie jest stała. Przykładami takich agregacji
+    są:
+</p>
+<ul>
+    <li>miesięczne &mdash; liczba dni zależna od miesiąca</li>
+    <li>dobowe &mdash; gdy następuje zmiana czasu letniego/zimowego</li>
+</ul>
+
+<p>
+    <em>ExlporeJS</em> nie dokonuje żadnych założeń co do faktycznej długości danej agregacji. Wszystkie swoje
+    obliczenia dokonuje na zakresie pojedycznej agregacji, który pobierany jest z serwera (zob. listing <a
+        href="#code:batch-response"></a>). Deklarowanie długości agregacji w <em>manifeście</em> (zob listing <a
+        href="#code:manifest"></a>) ma charakter orientacyjny i służy tylko do dobrania poziomu szczegółowości podczas
+    zmiany zakresu wyświetlanych danych.
+</p>
 
 <h2>Wykorzystane narzędzia i środowiska</h2>
 
