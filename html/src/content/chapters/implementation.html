@@ -793,17 +793,6 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 </p>
 
 
-<!--
-Konieczność wrapperdisplay cache i translacja data-projection-data
-
-implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, etc) nie robią problemu u mnie, bo każda
-            agregacja ma parametr czas otwarcia i czas zamknięcia okresu który reprezentują. Żadną agregacja nie musi
-            być wielokrotnościa poprzedniej, bo punkty agregacji są niezależne pomiędzy warstwami.
-            Dopiero CacheProjection dobiera sobie agregację do zakresów czasu, ale znowu, każda agregacja ma wpisany
-            czas za który odpowiada.
--->
-
-
 <h2 id="chapter:implementation-adapter">Adapter komponentu wykresu</h2>
 
 <p>
