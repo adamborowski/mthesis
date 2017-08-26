@@ -1037,7 +1037,69 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 
 <h2>Wykorzystane narzędzia i środowiska</h2>
 
+<p>
+    Do stworzenia biblioteki wykorzystano JavaScript w wersji 7, który transpilowany jest narzędziem <em>Babel</em> do
+    postaci <em>ES5</em>, dzięki czemu biblioteka może być używana w dowolnej przeglądarce.
+    Infrastrukturę testów jednostkowych stworzono z użyciem narzędzia <em>Mocha</em> i biblioteką <em>Chai</em>.
+</p>
+
+<p>
+    Biblioteka składa sie z paczek <em>NPM (Node Package Manager)</em> i jest udostępniona w rejestre <em>npmjs.org</em>.
+    Paczki, o których mowa, to:
+</p>
+<dl class="terms">
+    <div>
+        <dt>explorejs-common</dt>
+        <dd>
+            zawiera struktury danych i algorytmy opisane w rozdziale <a href="#chapter:rangealgebra"></a>
+        </dd>
+    </div>
+    <div>
+        <dt>explorejs-lib</dt>
+        <dd>
+            zawiera wszystkie moduły <em>ExploreJS</em> pokazane na diagramach <a href="#picture:architecture"></a> oraz
+            <a href="#picture:dynamic-projection"></a>.
+        </dd>
+    </div>
+    <div>
+        <dt>explorejs-adapters</dt>
+        <dd>
+            zawiera zaimplementowane przykładowe adaptery do bibliotek wykresowych takich, jak:
+            <ul>
+                <li><a href="http://dygraphs.com/">Dygraphs</a></li>
+                <li><a href="http://www.flotcharts.org/">Flot</a></li>
+                <li><a href="https://www.highcharts.com/">HighCharts</a></li>
+                <li><a href="http://www.jqplot.com/">JqPlot</a></li>
+                <li><a href="https://plot.ly/javascript/">Plotly.js</a></li>
+                <li><a href="http://visjs.org/docs/graph2d/">Vis.js</a></li>
+            </ul>
+        </dd>
+    </div>
+    <div>
+        <dt>explorejs-react</dt>
+        <dd>
+            zawiera komponenty biblioteki <em>React</em> pozwalające na deklaratywne używanie <em>ExploreJS</em>
+        </dd>
+    </div>
+    <div>
+        <dt>explorejs-remote-server</dt>
+        <dd>
+            zawiera przykładową implemetację serwisu REST napisaną w <em>NodeJS</em>
+        </dd>
+    </div>
+</dl>
+
+<p>
+    Dodatkowo, wykorzystano serwis <a href="https://heroku.com/">Heroku</a> do uruchomienia aplikacji demonstracyjnej
+    on-line.
+    Baza <em>PostgreSQL</em> do przechowywania danych pomiarowych uruchomiona została w serwisie <a
+        href="https://linuxpl.com/" class="no-decoration">http://linuxpl.com</a>.
+</p>
+
+
 <p helper="prezentacja 2">
+
+
     https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_39
 
     napisać o npm (są moduły tam dostępne - jakie)
