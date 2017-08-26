@@ -834,65 +834,44 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     zmodyfikować dane
     już istniejące w komponencie.
 
-    Na listingu pokazano przykładowy pseudokod adaptera korzystającego ze strategii <em>całkowitego zastąpienia
-    danych</em>.
+    Na listingu <a href="#code:adapter-replace"></a> i <a href="#code:adapter-replace"></a> pokazano przykładowy
+    pseudokod adaptera korzystającego odpowiednio ze strategii <em>całkowitego zastąpienia danych</em> i <em>modyfkacji
+    istniejących danych</em>.
 </p>
 
 <figure type="code" id="code:adapter-replace">
     <figcaption>przykład adaptera do komponentu ze strategią zastępowania danych</figcaption>
     <pre><code class="javascript">
-
-    </code></pre>
+@@include('adapter-replace.js')
+</code></pre>
 </figure>
 
-<!--
-
-TODO: rozważanie o sposobie powiadamiania klienta o zmianach danych
-<ul>
-    <li>powiadomienie, że gdzieś coś się zmieniło, wtedy użytkownik albo sam robi diffa, albo resetuje komponent
-        wykresów. to może powodować bad UX, migotanie, itd
-    </li>
-    <li>powiadomienie o dokładnych zmianach. instrukcja co krok po kroku należy zmienić, aby przejść ze stanu obecnego
-        do wyjsciowego. minimalizacja liczby kroków.
-        Jaki fragment danych z wykresu usunąć ( z jakiej warstwy).
-        Jaki fragment danych z wykresu poszerzyć (z jakiej warstwy).
-        Jaki fragment do danych z wykresu dodać (z jakiej warstwy).
-        Common pattern byłby taki, że albo każda seria to inna warstwa, albo jedna seria ma punkty ze wszystkich warstw.
-    </li>
-</ul>
-<figure type="code">
-    <code class="javascript">
-        class ExampleZingAdapter extends ClientProxyAdapter{
-        processChange(diff) {
-        // diff.added, diff.removed, diff.resized -- > {layer:[Number], start, end}
-for(var removedRange of diff.removed){
-this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
-}
-for(var addedRange of diff.added){
-this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start, addedRange.end)
-}
-}
-}
-</code>
-</figure>
--->
-
-
-<p helper="">
-    problemy implementacyjne https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_27
+<p>
+    W konstruktorze adaptera, zdarzenie aktualizacji zakresu danych specyficzne dla danej biblioteki, zostaje podłączone
+    do komponentu <em>ViewState</em>, dzięki czemu <em>ExploreJS</em> <q>wie</q>, kiedy użytkownik wykonał ruch.
 </p>
 
-<h2>Problemy z integracją z bibliotekami</h2>
-<ul>
-    <li>ZingChart
-        * obfuscowany kod, debugging, errory...
-        * beznadziejne API globalnych komend, nie da się niektórych rzeczy łatwo uzyskać ustawić
-        * chyba wypełniad dziury między date.getTime() a date.getTime() co trwa bardzo długo... alokacja kilkadziesiat sekund - nie można przyczyny normalnie zdebugować
-        * brak normalnego pan&zoom
-        * jakieś dziwne przeliczenia iteracja po dziedzinie co "1" - od jednej daty do drugiej może minąć dużo czasu -
-        to jednoznacznie dyskwalifikuje - dzieje się to w momencie gdy następuje zmiana zakresu wyświetlanego
-    </li>
-</ul>
+<p>
+    Kluczową rolę odgrywa metoda <em>onProjectionRecompile</em>, która jest uruchamiana przez <em>ExploreJS</em> zawsze
+    wtedy, kiedy realnie trzeba <em>dotknąć</em> komponentu wykresu. W tym wypadku pobierany jest cały zestaw nowych
+    danych, przekształcany do odpowiedniego formatu danych biblioteki i przekazywany do komponentu.
+</p>
+
+
+<figure type="code" id="code:adapter-patch">
+    <figcaption>przykład adaptera do komponentu ze strategią modyfikacji danych</figcaption>
+    <pre><code class="javascript">
+@@include('adapter-patch.js')
+</code></pre>
+</figure>
+<p>
+    Konstruktor adaptera wygląda zadaniczo tak samo, z tym że w tym przykładzie jest tworzony obiekt <em>dataset</em>,
+    <q>rozumiany</q> przez daną bibliotekę wykresową.
+
+    Natomiast w implementacji metody <em>onProjectionRecompile</em> pobierany jest obiekt przekształceń.
+    Następnie zbiór <em>dataset</em> modyfikowany jest odpowiednio na podstawie zawartości obiektu <em>wrapperDiff</em>.
+</p>
+
 <h2>Wykorzystane narzędzia i środowiska</h2>
 
 <p helper="prezentacja 2">
