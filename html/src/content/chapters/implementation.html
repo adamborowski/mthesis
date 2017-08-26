@@ -1017,8 +1017,8 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 
 <p>
     W rozdziale <a href="#chapter:aggregation-regulations"></a> omówiono systemy, w których długości kolejnych poziomów
-    agregacji nie są wielokrotnością poprzednich. Na przykład agregacje 30-dniowe nie są wielokrotnością agregacji
-    7-dniowych. Co ważniejsze &mdash; istnieją agregacje, których długość nie jest stała. Przykładami takich agregacji
+    agregacji nie są wielokrotnością poprzednich.
+    Co ważniejsze &mdash; istnieją agregacje, których długość nie jest stała. Przykładami takich agregacji
     są:
 </p>
 <ul>
@@ -1032,7 +1032,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     listing <a href="#code:batch-response"></a>).
 
     Deklarowanie długości agregacji w <em>manifeście</em> (zob. listing <a href="#code:manifest"></a>) ma charakter
-    orientacyjny i służy tylko do dobrania odpowiedniego poziomu szczegółowości podczas zmiany zakresu wyświetlanych danych.
+    orientacyjny i służy do obliczenia poziomu szczegółowości podczas zmiany zakresu wyświetlanych danych.
 </p>
 
 <h2>Wykorzystane narzędzia i środowiska</h2>
@@ -1043,9 +1043,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     dzięki czemu biblioteka może być używana w dowolnej przeglądarce.
     Infrastrukturę testów jednostkowych stworzono z użyciem narzędzia <em><a href="https://mochajs.org/">Mocha</a></em>
     i biblioteką <em><a href="http://chaijs.com/">Chai</a></em>.
-</p>
 
-<p>
     Biblioteka składa sie z paczek <em>NPM (Node Package Manager)</em> i jest udostępniona w rejestrze <em>npmjs.org</em>.
     Paczki, o których mowa, to:
 </p>
@@ -1097,4 +1095,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     on-line.
     Baza <em>PostgreSQL</em> do przechowywania danych pomiarowych uruchomiona została w serwisie <a
         href="https://linuxpl.com/" class="no-decoration">http://linuxpl.com</a>.
+    Kod całego rozwiązania został opublikowany na wolnej licencji w serwisie <em>GitHub</em> &mdash; <a
+        href="https://github.com/adamborowski/explorejs"
+        class="no-decoration">https://github.com/adamborowski/explorejs</a>.
 </p>
