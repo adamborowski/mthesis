@@ -793,10 +793,57 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 </p>
 
 
+<h2>Wsparcie agregacji zwyczajowych</h2>
+
+<!--
+Konieczność wrapperdisplay cache i translacja data-projection-data
+
+implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, etc) nie robią problemu u mnie, bo każda
+            agregacja ma parametr czas otwarcia i czas zamknięcia okresu który reprezentują. Żadną agregacja nie musi
+            być wielokrotnościa poprzedniej, bo punkty agregacji są niezależne pomiędzy warstwami.
+            Dopiero CacheProjection dobiera sobie agregację do zakresów czasu, ale znowu, każda agregacja ma wpisany
+            czas za który odpowiada.
+-->
+
+
 <h2 id="chapter:implementation-adapter">Adapter komponentu wykresu</h2>
-<p note="chodzi o wykresy i ich aktualizacje oraz interfejsy <q>patch</q> (visjs) i <q>replace</q> (flot)">
-    (pseudokod adaptera?)
+
+<p>
+    <em>Adapter</em> nie jest modułem dostarczanym przez <em>ExploreJS</em>, natomiast jego obecność jest konieczna,
+    gdyż ma on tłumaczyć interfejs modułu <em>DataSource</em> na interfejs dostarczany przez konkretną bibliotekę
+    wykresową.
+
+    Jak przedstawiono w rozdziale <a href="#chapter:web-interfaces"></a>, istnieją biblioteki wykresowe wspierające dwie
+    strategie aktualizacji danych:
 </p>
+
+<ul>
+    <li>całkowite zastąpienie danych</li>
+    <li>modyfikacja istniejących danych</li>
+</ul>
+
+<p>
+    Adapter, będący częścią dostarczaną przez system korzystający z <em>ExploreJS</em>, powinien w łatwy sposób
+    otrzymywać dane w postaci adekwatnej dla obu wspieranych strategii.
+
+    W przypadku pierwszej strategii, moduł <em>DataSource</em> udostępnia metodę <code>getWrappers()</code>, która
+    zwraca tablicę wszystkich danych do przekazania komponentowi wykresów.
+
+    W przypadku drugiej strategii, moduł <em>DataSource</em> udostępnia metodę
+    <code>calculateWrappersDiffToPrevious()</code>, która zwraca listę operacji do wykonania, by odpowiednio
+    zmodyfikować dane
+    już istniejące w komponencie.
+
+    Na listingu pokazano przykładowy pseudokod adaptera korzystającego ze strategii <em>całkowitego zastąpienia
+    danych</em>.
+</p>
+
+<figure type="code" id="code:adapter-replace">
+    <figcaption>przykład adaptera do komponentu ze strategią zastępowania danych</figcaption>
+    <pre><code class="javascript">
+
+    </code></pre>
+</figure>
 
 <!--
 
@@ -834,19 +881,6 @@ this.chart.getSerie(this.getSerieIndex(addedRange.layer).remove(addedRange.start
 <p helper="">
     problemy implementacyjne https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_27
 </p>
-
-
-<h2>Wraper dla agregacji</h2>
-
-<!--
-Konieczność wrapperdisplay cache i translacja data-projection-data
-
-implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, etc) nie robią problemu u mnie, bo każda
-            agregacja ma parametr czas otwarcia i czas zamknięcia okresu który reprezentują. Żadną agregacja nie musi
-            być wielokrotnościa poprzedniej, bo punkty agregacji są niezależne pomiędzy warstwami.
-            Dopiero CacheProjection dobiera sobie agregację do zakresów czasu, ale znowu, każda agregacja ma wpisany
-            czas za który odpowiada.
--->
 
 <h2>Problemy z integracją z bibliotekami</h2>
 <ul>
