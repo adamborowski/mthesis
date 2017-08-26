@@ -318,7 +318,7 @@
 </p>
 
 
-<h2>Algebra przedziałów i operacje przekształcające</h2>
+<h2 id="chapter:rangealgebra">Algebra przedziałów i operacje przekształcające</h2>
 
 <p>
     Algorytmy i struktury danych używane w implementacji rozwiązania w głównej mierze opierają się na algebrze
@@ -427,7 +427,7 @@
     będą styczne, to zostaną scalone tylko wtedy, gdy dotyczą tego samego poziomu agregacji.
 </p>
 
-<h2>Przeliczanie projekcji</h2>
+<h2 id="chapter:implementation-projection-recalculation">Przeliczanie projekcji</h2>
 <p>
     Projekcja pamięci podręcznej opisana w rozdziale <a href="#chapter:theoretical-cache-projection"></a> wykorzystuje
     operacje na przedziałach do aktualizacji indeksów warstw. Dla przypomnienia &mdash; projekcja <em>cache</em>
@@ -565,14 +565,10 @@
     <em>R</em> jest w
     całości przykryty przedziałem z grupy <em>F</em>), to zostaje wywołane zdarzenie informujące o tym, że dana
     projekcja została uaktualniona, w jakim zakresie oraz w jaki sposób się zmieniła (który przedział usunięto, który
-    zmieniono, który dodano).
+    zmieniono, który dodano) &mdash; zob. rozdział <a href="#chapter:rangescopedevent"></a>.
     Dzięki temu w bardzo łatwy sposób można nasłuchiwać jakichkolwiek zmian w projekcji pamięci podręcznej na konkretnej
     warstwie, co jest wykorzystywane przez moduł <em>DynamicProjection</em>, który przedstawiony jest jako kolejny w tym
     rozdziale.
-</p>
-
-<p>
-    Moduł <em>DataSource</em> jest prze
 </p>
 
 <h2>DataSource, ViewState i DynamicProjection</h2>
@@ -655,8 +651,41 @@
         <em>A</em> &mdash; zakres identyczny z widzianym zakresem, <em>B</em> &mdash; zakres dopasowany do <q>kafli</q>.
 
     </figcaption>
-    <img src="cache/datasource-tiling.png"/>
+    <img src="cache/datasource-tiling.png" width="88%"/>
 </figure>
+
+
+<p>
+    O ile kafelkowanie zakresów sprawdza się przy płynnych ruchach horyzontalnych zakresu, to nie rozwiązuje ono
+    problemu zbyt częstej aktualizacji wykresu w momencie płynnego przybliżania/oddalania.
+
+    Jest to spowodowane każdorazową nieznaczną zmianą definicji kafla, która zależy od płynnie zmieniającej się wtedy
+    skali
+    wykresu, bowiem wyrażana jest w jednostce zakresów &mdash; czyli czasu.
+
+    Każda zmiana definicji kafla powoduje to, że zaprezentowany algorytm kafelkowania uznaje niedopasowanie aktualnego
+    zakresu przesłanych danych do nowego zakresu. Pokazano to na rysunku <a href="#picture:datasource-tiling-scale"></a>.
+</p>
+
+<figure type="picture" id="picture:datasource-tiling-scale">
+    <figcaption>
+        Zakresy dostarczanych danych (czerwone ramki) do komponentu podczas płynnego
+        przybliżania. Przezroczystość ramek oznacza upływ czasu.
+    </figcaption>
+    <img src="cache/datasource-tiling-scale.png" width="88%"/>
+</figure>
+
+<p>
+    Aby nie aktualizować wykresu w takiej sytuacji niepotrzebnie, wprowadzono poprawkę do algorytmu aktualizacji danych
+    &mdash;
+    jeżeli obecny zakres danych w komponencie pokrywa nowy zakres widziany przez użytkownika - aktualizacja danych nie
+    następuje &mdash; mimo, iż zakres nie pasuje do nowej definicji kafla.
+
+    W praktyce &mdash; do wymaganego przy porównaniu zakresu dodaje się margines wynoszący 10% szerokości ekranu, ze
+    względu na implementacje bibliotek wykresowych, które potrzebują kawałka danych spoza wyświetlanego obszaru do
+    zachowania ciągłości wyświetlanych danych oraz poprawnej nawigacji &mdash; niektóre biblioteki, na przykład, nie
+    pozwalają na <q>wyjście</q> poza obszary pokryte danymi.
+</p>
 
 <p class="keep-after keep-inside">
     Za opisane wyżej zadania przekazywania fragmentu pamięci <em>cache</em> do komponentu wykresu odpowiada moduł <em>DataSource</em>.
@@ -667,7 +696,7 @@
 
 <figure type="picture" id="picture:dynamic-projection">
     <figcaption>Diagram pokazujący zależności między pamięcią podręczną a <em>DataSource</em></figcaption>
-    <img src="cache/serie-cache-diagram.png">
+    <img src="cache/serie-cache-diagram.png" width="88%">
 </figure>
 
 
@@ -696,226 +725,73 @@
     </li>
 </ul>
 
+<h3>Zmiana stanu <em>ViewState</em></h3>
+
 <p>
 
-    Każdy z wyżej wymienionych przypadków aktualizacji komponentu wykresu został osobno omówiony w kolejnych
-    podrozdziałach.
-
-
+    Moduł <em>DynamicProjection</em> nasłuchuje zdarzenia emitowanego przez <em>ViewState</em>.
+    W momencie zmiany stanu sprawdzane są następujące warunki, gdzie każdy z nich:
 </p>
 
+<ul>
+    <li>czy to jest pierwsze zdarzenie dla tej instancji <em>ViewState</em> (inicjalne przekazanie danych)</li>
+    <li>czy należy wymienić <q>kafle</q> danych z pamięci podręcznej (opisane wcześniej w tym rozdziale)</li>
+    <li>czy nastąpiła zmiana oczekiwanego poziomu agregacji (w wyniku przybliżania/oddalania)</li>
+</ul>
 
-<h3>Podmiana kafla pamięci</h3>
-<h3>Zmiana projekcji</h3>
+<p>
+    Jeżeli którekolwiek warunek jest spełniony - następuje wyznaczenie nowego zakresu danych do przekazania komponentowi
+    wykresu. Jeżeli poprzeni i nowy zakres danych się różni - następuje właściwa wymiana danych w komponencie.
+</p>
+
 <h3>Synchronizacja</h3>
 
+<p>
+    Moduł <em>DynamicProjection</em>, oprócz reagowania na ruch użytkownika, reaguje na każdą zmianie w pamięci, która
+    dotyczy fragmentu przesłanego do komponentu wykresu.
+
+    Realizuje to poprzez nasłuchiwanie odpowiedniej projekcji pamięci podręcznej na interesującym zakresie (zob. <a
+        href="#chapter:implementation-projection-recalculation"></a>).
+    W momencie, gdy wyniku interakcji użytkownika nastąpi zmiana poziomu szczegółowości danych,
+    <em>DynamicProjection</em> przełącza się na nasłuchiwanie odpowiadającej temu poziomowi projekcji.
+    Dzięki temu komponenty będzie aktualizowany zmianami w <em>cache</em> tylko tymi, które jego naprawdę dotyczą.
+    Przełączanie na inny <em>CacheProjection</em> zostało zilustrowane na rysunku <a
+        href="#picture:dynamic-projection"></a> w
+    postaci styku obrotowego znajdującego się wewnątrz <em>DynamicProjection</em>.
+</p>
+
+<h2 id="chapter:rangescopedevent">Zakresowy model zdarzeniowy</h2>
 
 <p>
-
-    Podczas interakcji z użytkownika z wykresem, gdy zmienia się skala wykresu z powodu przybliżenia lub oddalenia,
-    należy dostosować poziom szczegółowości, z jaką są wyświetlane na nim dane.
-
-    Dla przykładu, jeżeli ktoś ogląda dane z zakresu jednej doby, to przy wykresie o szerokości 1000 pikseli będzie
-    wyświetlał skalę 86.4s/px.
-
-    Odpowiednim dla niego poziomem agregacji jest prędzej minuta niż sekunda, gdyż tych pierwszych będzie do
-    wyświetlenia 1440, a tych drugich będzie już 86400.
-
-    <em>ExploreJS</em> zarządza dostosowaniem poziomu szczegółowości danych w trakcie interakcji użytkownika z wykresem.
+    Nasłuchiwanie zmian projekcji w określonym zakresie zostało zrealizowane poprzez zaimplementowanie prostego modelu
+    zdarzeniowego, nieznacznie różniącego się od klasycznego modelu zdarzeniowego. Otóż dla każdego zdarzenia definiuje
+    się jego zasięg <q>słyszalności</q> w postaci zakresu określonego typem <em>Range</em> (zob. rozdział <a
+        href="#chapter:rangealgebra"></a>).
+    Nasłuchiwanie zdarzenia również pozwala na określenie zakresu, na którym nasłuchiwanie ma się odbywać.
+    Przykład użycia został pokazany na listingu <a href="#code:rangescopedevent"></a>.
 </p>
 
-
-<p>
-
-
-    Moduł <em>DynamicProjection</em>, działający wewnątrz <em>DataSource</em>, zarządza przełączaniem się pomiędzy
-    projekcjami pamięci podręcznej w momencie konieczności zmiany poziomu szczegółowości danych na wykresie.
-
-    W ogólności, moduł ten jest odpowiedzialny za powiadamianie modułu <em>DataSource</em> o każdej konieczności
-    synchronizacji danych przesłanych do komponentu wykresu z danymi w pamięci podręcznej.
-
-</p>
-
-<p>
-
-    TODO: aby podążać za tą naturalną cechą wizualizacji - jest DynamicProjection który przełącza projeckcje
-
-    Moduł <em>DynamicProjection</em>, działający wewnątrz <em>DataSource</em> jest swego rodzaju pomostem pomiędzy
-    teoretycznie nieograniczoną, wielopoziomową pamięcią podręczną a komponentem wykresu, któremu trzeba dostarczyć
-    tylko fragment danych, niewiele większy od tego, który jest wyświetlony na ekranie.
-
-    Jego zadaniem jest powiadomienie <em>DataSource</em> o każdej zmianie w pamięci, która dotyczy fragmentu przesłanego
-    do komponentu wykresu.
-</p>
-
-<p helper>
-
-    przełączanie się,
-    range scoped event
-    opisać kafelkowanie zakresu danych (żeby predyktor nie doładowywał małych słupków podczas smooth paningu
-    Nakładanie się warstw o dynamicznej zawartosci, jak w nakładaniu obrazów. Niemożliwe prxerysowywanie od
-    początku, tylko minimalne fragmenty. Wyliczanie tych fragmentów stanowi trudność.
-</p>
-
-
-
-<!--
-
-
-fajny rysunek: https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_89
-
-zainspirować się błędnym, ale zrobionym diagramem: https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_8
-
-nawiązać do frameworków react i angular w kwestii obliczania diffów do efektywnego zarządzaniem UI.
-        Nie możemy po prostu liczyć diffów z całego zbioru (tak jak to robi react) w celu przebudowania UI, musimy
-        liczyć diff w locie.
-        React źle znosi liczenie wielkich diffów (gdyby w ten sposób deklarować renderowanie big data).
-        Big data - cache może być wielki (długo działająca aplikacja), więc przeliczanie diffow nie wchodzi w rachubę.
-
-<pre>
-    ┌────────────────────────────────────────────────┐
-    ├ F ┏━━━━━┓        ┏━━━━━┓        ┏━━━━━┓        │
-    │   1     2        3     4        5     6        │
-    ├ T                                              │
-    │                                                │
-    ├ B                                              │
-    │                                                │
-    ├ R ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
-    │   0                                         7  │
-    └────────────────────────────────────────────────┘
-    ┌────────────────────────────────────────────────┐
-    ├ F ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
-    │ 1 2 3 4 5 6 │
-    ├ T ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
-    │ 0 1 2 3 4 5 6 7 │
-    ├ B │
-    │ │
-    ├ R ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ ┏━━━━━┓ │
-    │ 0 1 2 3 4 5 6 7 │
-    └────────────────────────────────────────────────┘
-</pre>
-<figure type="code" id="code:demo1">
-    <pre>
-        ┌────────────────────────────────────────────────┐
-        ├ F       ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓        │
-        │         1     2     3     4     5     6        │
-        ├ T                                              │
-        │                                                │
-        ├ B                                              │
-        │                                                │
-        ├ R ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
-        │   0                                         7  │
-        └────────────────────────────────────────────────┘
-        ┌────────────────────────────────────────────────┐
-        ├ F       ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓        │
-        │         1     2     3     4     5     6        │
-        ├ T ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓  │
-        │   0     1     2     3     4     5     6     7  │
-        ├ B                                              │
-        │                                                │
-        ├ R ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓     ┏━━━━━┓  │
-        │   0     1     2     3     4     5     6     7  │
-        └────────────────────────────────────────────────┘
-    </pre>
+<figure type="code" id="code:rangescopedevent">
+    <figcaption>Przykład użycia <em>RangeScopedEvent</em></figcaption>
+    <pre><code class="javascript">
+const event = new RangeScopedEvent();
+// dodawnie listenerów przez DynamicProjection
+event.addListener('update', Range.leftClosed(0, 1), () => print('A!'));
+event.addListener('update', Range.unbounded(), () => print('B!'));
+event.addListener('update', Range.opened(1,2), () => print('C!'));
+// uruchomienie zdarzenia przez ProjectionCache
+event.fireEvent('update', Range.unbounded()) // A! B! C!
+event.fireEvent('update', Range.closed(1, 2)) // B! C!
+event.fireEvent('update', Range.opened(100,200)) // B!
+event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
+    </code></pre>
 </figure>
 
-
-
-<p helper="z konwersacji">
-    [11:47 AM] Adam Borowski [Atlassian]: algorytmy ktore mi zajely duzo czasu to operacje UNION oraz SUBTRACT na takiej
-    strukturze jak zbiór przedziałów (interval set).
-    Same operacje są banalne, i są biblioteki na to, ale to co stanowi wyzwanie to obliczenie kroków transformacji
-    pierwszego zbioru, aby stał się tym drugim  ( w czasie liniowym). To jest rodzaj algorytmu DIFF ale tworzony podczas
-    wykonywania samej operacji UNION i SUBTRACT.
-    Przykładowy test który może to ilustruje:
-    [11:47 AM] Adam Borowski [Atlassian]:
-    expect(DiffRangeSet.subtract(rng('0 1 1 10'), rng('2 6 9 10 13 20'))).to.deep.equal({
-    added: rng('6 9'),
-    removed: [],
-    resized: rng('[1 10->2]'),
-    result: rng('[0 1] [1 10->2] 6 9')
-    });
-    [11:47 AM] Adam Borowski [Atlassian]:
-    expect(DiffRangeSet.subtract(rng('2 6 7 17 18 28'), rng('0 7 7 12 12 13'))).to.deep.equal({
-    added: [],
-    removed: rng('2 6'),
-    resized: rng('[7->13 17]'),
-    result: rng('[7->13 17] [18 28]')
-    });
-    [11:50 AM] Adam Borowski [Atlassian]: rysuneczek dla operacij C=A-B
-    [11:50 AM] Adam Borowski [Atlassian]:
-    ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    ├ A ┏━━━━━┓ ┏━━━━━━━━━━━━━━━━━┓ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ │
-    │ 1 2 4 7 10 20 │
-    ├ B ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┏━━━━━━━━━━━━━━━━━┓ │
-    │ 2 8 10 13 │
-    ├ C ┏━━━━━┓ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ │
-    │ 1 2 13 20 │
-    └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-    [11:52 AM] Adam Borowski [Atlassian]: w tym przypadku algorytm zwraca oprocz samego wyniku C=A-B inofrmacje:
-    [1 2] pozostaje bez zmian
-    [4 7] rozszerza się do [2 8]
-    [10 20] zwęża się do [13 20]
-    [11:53 AM] Adam Borowski [Atlassian]: sorki ze Ci spamuje ale jak juz tlumacze to te notatki sobie wkleje roboczo do
-    magisterki zeby z tego podrozdzial zrobic
-    [11:56 AM] Adam Borowski [Atlassian]: oczywiscie to dziala dla wszystkich case, na przykład gdy przedział z B
-    rozdziela jeden przdział z A na dwa przedziały
-    [11:56 AM] Adam Borowski [Atlassian]:
-    ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-    ├ A ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┏━━━━━┓ │
-    │ 1 11 14 15 │
-    ├ B ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ┏━━━━━━━━━━━┓ │
-    │ 2 7 9 11 │
-    ├ C ┏━━━━━┓ ┏━━━━━━━━━━━┓ ┏━━━━━┓ │
-    │ 1 2 7 9 14 15 │
-    └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    [12:00 PM] Adam Borowski [Atlassian]: a odpowiedź algorytmu taka:
-    [12:00 PM] Adam Borowski [Atlassian]:
-    {
-    "result": [
-    {
-    "start": 1,
-    "end": 2,
-    "existing": {
-    "start": 1,
-    "end": 11
-    }
-    },
-    {
-    "start": 7,
-    "end": 9
-    },
-    {
-    "start": 14,
-    "end": 15,
-    "existing": {
-    "start": 14,
-    "end": 15
-    }
-    }
-    ],
-    "added": [
-    {
-    "start": 7,
-    "end": 9
-    }
-    ],
-    "removed": [],
-    "resized": [
-    {
-    "start": 1,
-    "end": 2,
-    "existing": {
-    "start": 1,
-    "end": 11
-    }
-    }
-    ]
-    }
+<p>
+    Podczas wywoływania zdarzenia ograniczonego czasem wywoływane są tylko te obiekty nasłuchujące, których zakres
+    nasłuchiwania ma część wspólną z zakresem zdarzenia &mdash; po prostu są w stanie siebie <q>usłyszeć</q>.
 </p>
 
-
--->
 
 <h2 id="chapter:implementation-adapter">Adapter komponentu wykresu</h2>
 <p note="chodzi o wykresy i ich aktualizacje oraz interfejsy <q>patch</q> (visjs) i <q>replace</q> (flot)">
@@ -1010,4 +886,7 @@ implementacja: Skale zwyczajowe (użytkowe np dzień 12, tydzień 53, miesiąc, 
     implementacja: prediction models i dynamicProjection - paddingi, <strong>tiles</strong> muszą być sensownie dopasowane,
     żeby np wykres nie byl co chwile przerysowany, bo jakis drobnostkowy model predykcji co chwile aktualizuje
     mały kawałeczek
+
+    opisać kafelkowanie zakresu danych takie jak w DynamicProjection (żeby predyktor nie doładowywał małych słupków
+    podczas smooth paningu
 </p>
