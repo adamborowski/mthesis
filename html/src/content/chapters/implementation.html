@@ -780,11 +780,11 @@ event.addListener('update', Range.leftClosed(0, 1), () => print('A!'));
 event.addListener('update', Range.unbounded(), () => print('B!'));
 event.addListener('update', Range.opened(1,2), () => print('C!'));
 // uruchomienie zdarzenia przez ProjectionCache
-event.fireEvent('update', Range.unbounded()) // A! B! C!
-event.fireEvent('update', Range.closed(1, 2)) // B! C!
-event.fireEvent('update', Range.opened(100,200)) // B!
+event.fireEvent('update', Range.unbounded())       // A! B! C!
+event.fireEvent('update', Range.closed(1, 2))      // B! C!
+event.fireEvent('update', Range.opened(100,200))   // B!
 event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
-    </code></pre>
+</code></pre>
 </figure>
 
 <p>
