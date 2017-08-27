@@ -1,16 +1,46 @@
-<h>Identyfikacja problemu</h>
+<h2>Identyfikacja problemu</h2>
 
-<p desc>
+
+<p>
+    Wizualna eksploracja wielkoskalowych danych pomiarowych wiąże ze sobą zagadnienia z czterech dziedzin technologii
+    informacyjnych:
+</p>
+
+<ul>
+    <li>
+        <em>wizualizacji informacji</em>, gdyż celem tej eksploracji jest pozyskiwanie wiedzy z graficznie
+        prezentowanych danych;
+    </li>
+    <li>
+        <em>aplikacji internetowych</em>, ponieważ wizualizacja odbywa się w przeglądarce internetowej, która łączy się
+        ze zdalnym serwerem poprzez sieć komputerową w celu pozyskania danych;
+    </li>
+    <li><em>Big Data</em>, ponieważ danych do eksploracji jest tak wiele, że ich przetworzenie stanowi wyzwanie
+        technologiczne i analityczne;
+    </li>
+    <li><em>User Experience</em>, czyli aspektu użyteczności i efektywności korzystania z systemu interaktywnego.</li>
+</ul>
+
+<p>
+    Mówiąc ściślej, zagadnienie to dotyczy płynnego, swobodnego i nieograniczonego przeglądania ogromnych zasobów danych
+    pomiarowych.
+    Dane te prezentowane są na wykresie liniowym z osią czasu.
+
+    Nieograniczone przeglądanie danych oznacza, że użytkownik ma dostęp do dowolnego fragmentu danych podczas
+    wizualizacji.
+
+    Swobodne przeglądarnie danych zakłada łatwość i intuicyjność nawigacji po tych danych.
+
+    Płynność natomiast oznacza, że swobodne i nieograniczone przeglądanie danych nie jest w żaden sposób zakłócane.
+    Szczególnie, proces ten nie może być hamowany przez konieczność oczekiwania na potrzebne w wizualizacji dane.
+</p>
+
+<p helper>
     W tym rozdziale analizujemy tylko techniczne aspekty problemu, głównie 8 slajdów z survey
     Pokazujemy, co obecnie mamy, potem co takiego brakuje w tym co mamy, na końcu definiujemy wymagania, kryteria akceptacyjne rozwiązania
     Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania
 
     wymagania do rozwiązania, aspekt łatwości integracji z istniejącymi systemami - jakie wykresy do implementacji, które wykresy wziąć pod lupę : https://en.wikipedia.org/wiki/Comparison_of_JavaScript_charting_frameworks
-</p>
-
-<p>
-    Zagadnienie prezentacji w tej pracy dotyczy płynnego, swobodnego i nieograniczonego przeglądania ogromnej ilości
-    danych na wykresie liniowym z osią czasu.
 </p>
 
 
@@ -39,30 +69,6 @@
         oczekiwanie na odpowiedź systemu trwające powyżej 0.1 sekundy jest zauważalne i gdy się wydłuża &mdash; znacznie
         obniża się efektywność pracy.
     </p>
-</div>,
-<div class="text-justify">
-    <h3 class="display-3">Wprowadzenie
-        <small> merytoryczne</small>
-    </h3>
-    <p>
-        Zagadnienie pochodzi z pogranicza czterech dziedzin:
-    </p>
-    <ul>
-        <li><em>Wizualnej eksploracji danych</em>, bo chodzi o umożliwienie przeglądania wykresów serii
-            czasowych, na przykład pomiaru stężenia dwutlenku siarki na urządzeniu pomiarowym lub parametrów pracy serca
-            chorego pacjenta.
-        </li>
-        <li><em>Big Data</em>, ponieważ danych do eksploracji jest napawdę wiele. Na tyle dużo, że ich przetworzenie
-            stanowi wyzwanie technologiczne i analityczne.
-        </li>
-        <li><em>Aplikacji internetowych</em>, ponieważ wykresy te mają być prezentowane w przeglądarce użytkownika,
-            która
-            łączy się ze zdalnym serwerem poprzez sieć komputerową.
-        </li>
-        <li><em>User Experience</em>, czyli aspektu użyteczności i efektywności korzystania z interfejsu interaktywnego.
-        </li>
-    </ul>
-
 </div>,
 <div class="text-justify">
     <h3 class="display-3">Przypadek użycia </h3>

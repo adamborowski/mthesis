@@ -368,6 +368,12 @@
         <booktitle>USITS</booktitle>
         <year>2001</year>
     </citation>
+    <citation type="book" id="bib:ward2010interactive">
+        <title>Interactive data visualization: foundations, techniques, and applications</title>
+        <author>Ward, Matthew O and Grinstein, Georges and Keim, Daniel</author>
+        <year>2010</year>
+        <publisher>CRC Press</publisher>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
