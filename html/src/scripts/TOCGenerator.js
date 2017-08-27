@@ -27,8 +27,10 @@ export default class TOCGenerator {
             var headerSelector = $block.attr('href').replace(':', '\\:');
             var header = $(headerSelector);
             var address = header.attr('data-chapter-address');
-            var value = address.substr(0, address.length - 1);
-            $block.text($block.text() + ' ' + value);
+            if(address){
+                var value = address.substr(0, address.length - 1);
+                $block.text($block.text() + ' ' + value);
+            }
         });
     }
 

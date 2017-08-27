@@ -2,7 +2,8 @@
 
 
 <p>
-    Wizualna eksploracja wielkoskalowych danych pomiarowych wiąże ze sobą zagadnienia z czterech dziedzin technologii
+    Przedstawiana w tej pracy wizualna eksploracja wielkoskalowych danych pomiarowych wiąże ze sobą zagadnienia z
+    czterech dziedzin technologii
     informacyjnych:
 </p>
 
@@ -34,6 +35,48 @@
     Płynność natomiast oznacza, że swobodne i nieograniczone przeglądanie danych nie jest w żaden sposób zakłócane.
     Szczególnie, proces ten nie może być hamowany przez konieczność oczekiwania na potrzebne w wizualizacji dane.
 </p>
+
+<p>
+    Interakcja użytkownika w wizualnej eksploracji danych ogranicza się do nawigacji po danych, czyli wyboru kolejnego
+    fragmentu danych do prezentacji.
+    W praktyce nawigacja polega na wykonywaniu spójnych, przyrostowych akcji, które tylko w niewielkim stopniu zmieniają
+    oglądany zakres danych <a href="#bib:forecache" chapter="2.2"></a>.
+    Dla przykładu, jeżeli użytkownik oglądając szczegółowo niewielki fragment danych zechce zobaczyć duży zakres danych,
+    wykonuje serię akcji pośrednich stopniowo zwiększających zakres wyświetlanych danych aż do uzyskania docelowego
+    zakresu.
+    Innymi słowy, w takiej nawigacji rzadko spotykane są <q>skoki</q> do niepowiązanych zakresów danych.
+</p>
+
+<p>
+    Nawigacja w wizualizacji danych na ekranie komputera intuicyjnie postrzegana jest przez użytkownika jako poruszanie
+    się w przestrzeni danych.
+    W związku z tym do określenia rodzaju nawigacji często stosuje się pojęcia wyrażające ruch użytkownika względem
+    wizualizacji.
+    Na rysunku <a href="#picture:motion-actions"></a> przedstawiono cztery możliwe typy ruchów użytkownika.
+</p>
+
+<figure type="picture" id="picture:motion-actions">
+    <figcaption>Cztery możliwe typy ruchów w wizualnej eksploracji danych</figcaption>
+    <img src="cache/motion-actions.png"/>
+</figure>
+
+<p>
+    Ruch przybliżenia <trans lang="ang">zoom-in</trans> lub oddalenia <trans lang="ang">zoom-out</trans> odpowiada
+    stopniowemu zmniejszaniu lub zwiększaniu wyświetlanego zakresu danych.
+    Ruch przesunięcia w lewo lub w prawo <trans lang="ang">pan</trans> odpowiada natomiast stopniowemu przesuwaniu
+    zakresu w danym kierunku bez zmiany
+    wielkości tego zakresu.
+    Sam ruch może odbywać się w sposób różnorodny. Można na przykład przybliżać się bliżej krawędzi wykresu lub bliżej
+    jego środka.
+</p>
+
+<p>
+    Podsumowując &mdash; płynna, swobodna i nieograniczona eksploracja danych postrzegana jest zatem przez użytkownika
+    jako wykonywanie
+    płynnych ruchów <q>podróżując w świecie</q> danych.
+</p>
+
+
 
 <p helper>
     W tym rozdziale analizujemy tylko techniczne aspekty problemu, głównie 8 slajdów z survey
