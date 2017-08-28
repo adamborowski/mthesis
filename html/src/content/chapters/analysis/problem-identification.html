@@ -279,70 +279,40 @@
 </p>
 
 <p>
-    W celu głębszego zrozumienia działania tego typu uproszczenia wprowadza się pojęcie <em>agregacji danych</em>
+    W celu głębszego zrozumienia działania tego typu uproszczenia należy przedstawić pojęcie <em>agregacji danych</em>
     pomiarowych.
 </p>
 
 <p>
-    W przypadku danych pomiarowych agregacja to struktura opisująca generalne cechy grupy danych z ustalonego zakresu.
+    W przypadku danych pomiarowych &mdash; agregacja to struktura opisująca generalne cechy grupy danych z ustalonego
+    zakresu.
     Do agregowania, czyli obliczania agregacji, wykorzystuje się <em>agregaty</em> - funkcje matematyczne wyliczjące
     określoną statystykę.
-    W tego systemach wizualizacji danych popularnymi agregatami są funkcje minimum, maksimum oraz wartość średnia,
-    niekiedy średnia krocząca <a href="#bib:siwz"></a>.
+    W systemach wizualizacji danych popularnymi agregatami są funkcje minimum, maksimum oraz wartość średnia <a
+        href="#bib:siwz"></a>. Agregacja przedstawiona w sposób słowny może wyglądać następująco:
+</p>
+<blockquote>W sierpniu 2017 roku maksymalna temperatura wyniosła 33&deg;C, minimalna 15&deg;C, a średnia 21.34&deg;C.
+</blockquote>
+<p>
+    Jest to zbiór, który w prosty i zwięzły sposób opisuje najważniejsze ogólne cechy zakresu pomiarów
+    dokonanych w sierpniu 2017 i nadaje się jako uproszczona forma danych, o ile zakres tych danych po odwzorowaniu na
+    ekran będzie mieścił się w pojedynczym pikselu, jak to zostało omówione wcześniej w tym rozdziale.
 </p>
 
-<div>
+<p>
+    Aby eksploracja danych była płynna, warunkiem koniecznym jest możliwie krótki czas odpowiedzi serwera na każde
+    żądanie.
 
-
-    <p>
-        Przykład agregacji:
-    </p>
-    <blockquote>
-        W sierpniu 2017 maksymalna temperatura wyniosła 33&deg;C, minimalna 15&deg;C, a średnia 21.34&deg;C.
-    </blockquote>
-    <p>
-        Jest to zbiór, który w prosty i zwięzły sposób opisuje najważniejsze ogólne cechy zakresu pomiarów
-        dokonanych w sierpniu 2017.
-    </p>
-    <p>
-        Tego typu agregacja jest uproszczoną formą danych. Nie oznacza to, że może być wykorzystana w dowolnym momencie.
-        Najlepiej ją wykorzystać dla takiej skali wykresu, gdzie będzie ona mieściła się na jednym pionie pikselów
-        ekranu.
-        Gdy będzie większa - uproszczenie będzie już zauważalne dla ludzkiego oka.
-    </p>
-    <p>
-        Poniżej pokazano ten sam zakres danych, gdy zostały dobrane odpowiednie uproszczenia danych, oraz gdy zastosuje
-        się
-        zbyt duże uproszczenia. <strong>Uwaga</strong> - należy patrzeć na cieniowany obszar wykresu.
-    </p>
-    <figure type="picture" id="picture:analysis/per-pixel">
-        <figcaption>przykład agregacji o dopasowanej długości, mniejszej niż piksel - nie widać uproszczenia
-        </figcaption>
-        <img src="/images/analysis/per-pixel.png"/>
-    </figure>
-    <figure type="picture" id="picture:analysis/sparse">
-        <figcaption>przykład źle dobranej agregacji, większej niż jeden piksel - uproszczenie zauważalne dla ludzkiego
-            oka
-        </figcaption>
-        <img src="/images/analysis/sparse.png"/>
-    </figure>
-    <p>
-        Podsumowując - popularne podejście umożliwia swobodną i nieograniczoną eksplorację wielkich zbiorów, ponieważ
-        minimalizuje komunikację między przeglądarką a serwerem stosujac takie uproszczenia, by nie zmniejszało
-        dokładności danych wyświetlanych na wykresie.
-    </p>
-</div>,
-
+    W tym celu serwer musi przygotować agregacje (formy uproszczone), zanim zostanie o nie poproszony, ponieważ
+    obliczenie agregacji dla większych zakresów może trwać zbyt długo.
+</p>
 
 <div>
     <h3 class="display-3">Istniejące rozwiązania
         <small> &raquo; serwer danych</small>
     </h3>
     <p>
-        Warunkiem koniecznym tego rozwiązania jest, aby serwer na każde żądanie mógł odpowiedzieć w bardzo krótkim
-        czasie.
-        W tym celu serwer musi obliczyć agregacje (formy uproszczone), zanim zostanie o nie poproszony, ponieważ
-        obliczenie agregacji dla większych zakresów może trwać zbyt długo.
+
     </p>
     <p>
         Serwer danych trzyma w specjalnie przygotowanej bazie dane oryginalne (generowane co 10s) (tutaj 9.5GB) oraz
