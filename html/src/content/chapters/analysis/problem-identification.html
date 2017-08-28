@@ -307,63 +307,80 @@
     obliczenie agregacji dla większych zakresów może trwać zbyt długo.
 </p>
 
-<div>
-    <h3 class="display-3">Istniejące rozwiązania
-        <small> &raquo; serwer danych</small>
-    </h3>
-    <p>
+<p>
+    Najprostrze rozwiązanie można wykonać korzystając ze zwykłej relacyjnej bazy danych.
+    Wystarczy, że stworzy się jedną tabelę oryginalnych próbek oraz tabelę dla zagregowanych wartości.
+    Pierwsza tabela zawierałaby identyfikator serii pomiarowej, czas wykonania próbki oraz zmierzoną wartość.
+    Druga tabela zawierałaby identyfikator serii pomiarowej, identyfikator poziomu agregowania, początek oraz koniec
+    zakresu agregacji oraz kolumny związane z wybranymi agregatami.
+    Dodatkowo należy założyć odpowiednie indeksy by odpytywanie zakresu było efektywne.
+    W bazie danych <em>PostgreSQL</em> w wersji 9.3 można skorzystać ze specjalnego typu <em>Range</em>, którego
+    oczekiwane indeksowanie jest zapewnione przez bazę danych <a href="#bib:postgresql-range" chapter="8.17"></a>.
+</p>
 
-    </p>
-    <p>
-        Serwer danych trzyma w specjalnie przygotowanej bazie dane oryginalne (generowane co 10s) (tutaj 9.5GB) oraz
-        wyliczone agregacje
-        o różnych wielkościach, na przykład
-        <em> 30s</em>,
-        <em> 1m</em>,
-        <em> 3m</em>,
-        <em> 10m</em>,
-        <em> 30m</em>,
-        <em> 1h</em>,
-        <em> 4h</em>,
-        <em> 8h</em>,
-        <em> 12h</em>,
-        <em> 1d</em>,
-        <em> 7d</em>,
-        <em> 30d</em>,
-        <em> 90d</em>,
-        <em> 1y</em>
-        .
-    </p>
-    <p>
-        Ważne jest, by tak dobrać wielkości agregacji, by dla każdego możliwego przybliżenia (skali) wykresu można było
-        żądać dane o takiej wielkości agregacji, by odpowiadały blisko, lecz nie więcej niż jednemu pionu pikselów.
-        Gdyby tak nie było, trzeba by było żądać mniejszych agregacji, co spowoduje niepotrzebnie zbyt dużą gęstość
-        danych
-        do wyrysowania na ekranie.
-        Z kolei jeśli agregacja nie zmieściła by się w jednym rzędzie pikseli, będzie to widoczne jako reprezentacja
-        danych niskiej rozdzielczości.
-    </p>
-    <figure type="picture" id="picture:analysis/too-dense">
-        <figcaption>zbyt małe agregacje - niepotrzebnie zbyt wiele punktów zostanie wyrysowanych w jednym pikselu
-        </figcaption>
-        <img src="/images/analysis/1-too-dense.png" alt="missing"/>
-    </figure>
-    <figure type="picture" id="picture:analysis/almost-ok">
-        <figcaption>prawie dobrze, ale, wciąż dwa punkty przypadają na jeden piksel</figcaption>
-        <img src="/images/analysis/2-almost-ok.png" alt="missing"/>
-    </figure>
-    <figure type="picture" id="picture:analysis/ok">
-        <figcaption>te agregacje są odpowiednie, gdyż w każdym pikselu mieści się jeden punkt</figcaption>
-        <img src="/images/analysis/3-ok.png" alt="missing"/>
-    </figure>
-    <figure type="picture" id="picture:analysis/too-sparse">
-        <figcaption>zbyt obszerne agregacje, nie wszystkie piskele zawierają punkt - niska rozdzielczość zostanie
-            zauważona przez użytkownika
-        </figcaption>
-        <img src="/images/analysis/4-too-sparse.png" alt="missing"/>
-    </figure>
-</div>,
+<p>
+    Pozostaje jeszcze zaimplementowanie mechanizmu wyliczania agregacji podczas wpisywania próbek do bazy.
+    Dla każdego pomiaru, dla każdego wspieranego poziomu agregacji tworzy się instancję modułu, który działa przez
+    cały czas pracy systemu, a którego zadaniem jest przyjmowanie każdej nowej próbki do bufora, w momencie gdy dane w
+    buforze będę reprezentowały kompletny zakres agregacji, obliczane są wszystkie statystyki, agregacja zostaje
+    zapisana w bazie, a bufor jest czyszczony, by być w gotowości do obliczenia kolejnej agregacji.
+
+    Powyższy mechanizm został zilustrowany na rysunku <a href="#picture:aggregation-on-server"></a>.
+</p>
+
+<figure type="picture" id="picture:aggregation-on-server">
+    <figcaption class="text-justify">
+        System akwizycji danych dostarczający potrzebnych agregacji do bazy danych.
+        Grubość strzałki symbolizuje wielkość strumienia danych pomiarowych.
+
+    </figcaption>
+    <img src="cache/aggregation-on-server.png" height="300"/>
+</figure>
+
+
+<p>
+    Istnieje wiele rozwiązań kompleksowo wspierających agregowania danych w bazie danych, jak na przykład
+    <em>OpenTSDB</em> czy <em>InfluxDB</em>, które zostaną później przedstawione w tym rozdziale.
+
+    Ważne jest to, żeby serwer udostępniał agregacje o różnych wielkościach tak, by mogły służyć za uproszczenia w
+    wizualnej eksploracji danych.
+    Dostępne poziomy agregacji powinny równomiernie pokrywać przedzial skali wizualizacji.
+    Mogą to być na przykład agregacje <em> 30s</em>,
+    <em> 1m</em>,
+    <em> 3m</em>,
+    <em> 10m</em>,
+    <em> 30m</em>,
+    <em> 1h</em>,
+    <em> 4h</em>,
+    <em> 8h</em>,
+    <em> 12h</em>,
+    <em> 1d</em>,
+    <em> 7d</em>,
+    <em> 30d</em>,
+    <em> 90d</em>
+    oraz
+    <em> 1y</em>.
+</p>
+
+<p>
+    Jeżeli tak nie będzie, to dosyć często mogą się zdarzyć sytuacje, w których nie będzie można dobrać takiej agregacji
+    do wizualizacji, by rozmiar pobieranych danych był stały. Na rysunku <a href="#picture:aggregation-choice"></a>
+    pokazano te sytuacje i ich wpływ na rozmiar pobieranych danych lub wyświetlany obraz.
+</p>
+
+
 <div>
+    <figure type="picture" id="picture:aggregation-choice">
+        <figcaption class="text-justify">
+            <em>A</em> &mdash; zbyt małe agregacje - niepotrzebnie zbyt wiele punktów zostanie wyrysowanych w jednym
+            pikselu;
+            <em>B</em> &mdash; prawie dobrze, ale, wciąż dwa punkty przypadają na jeden piksel;
+            <em>C</em> &mdash; idealnie, ponieważ w każdym pikselu mieści się jeden punkt;
+            <em>D</em> &mdash; zbyt obszerne agregacje, punkty rysowane są co kilka pikseli &mdash; niska rozdzielczość
+            zostanie zauważona przez użytkownika.
+        </figcaption>
+        <img src="cache/aggregation-choice.png"/>
+    </figure>
     <h3 class="display-3">Istniejące rozwiązania
         <small> &raquo; wyzwania</small>
     </h3>
@@ -512,7 +529,14 @@
 
 
 <p>
-    TODO: uwaga duplikacja w rozdziale teoretycznym "Redukcja danych" - najlepiej redukcję przenieśc tylko tutaj i
-    rysunek też dać,
-    uważnie przeanalizować, który opis lepszy: ten wyżej, czy tamten
+    istniejące rozwiąnia:
+
+    plaformy do time series analytics - rozwiązania kompleksowe
+
+    bazy danych
+
+    same wizualizacje?? - tutaj może o wykresach??
+
+
+
 </p>
