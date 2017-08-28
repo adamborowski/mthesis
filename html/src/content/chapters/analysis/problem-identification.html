@@ -1,4 +1,3 @@
-<h2>Identyfikacja problemu</h2>
 
 
 <p>
@@ -77,105 +76,105 @@
 </p>
 
 
+<h2>Studium przypadku</h2>
 
-<p helper>
-    W tym rozdziale analizujemy tylko techniczne aspekty problemu, głównie 8 slajdów z survey
-    Pokazujemy, co obecnie mamy, potem co takiego brakuje w tym co mamy, na końcu definiujemy wymagania, kryteria akceptacyjne rozwiązania
-    Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania
 
-    wymagania do rozwiązania, aspekt łatwości integracji z istniejącymi systemami - jakie wykresy do implementacji, które wykresy wziąć pod lupę : https://en.wikipedia.org/wiki/Comparison_of_JavaScript_charting_frameworks
+<p>
+    Aby przybliżyć problematykę wizualnej eksploracji danych pomiarowych o dużej skali, posłużono się przykładem
+    takiej eksploracji.
+</p>
+
+<p>
+    Użytkownik, będący pracownikiem naukowym badającym zjawiska pogodowe na terenie USA, analizuje dane
+    meteorologiczne zbierane na stacji meteorologicznej w mieście Everett, która nieprzerwanie od 1941 roku
+    rejestrowała dane pogodowe z częstotliwością raz na godzinę, a od roku 1990 już co 10 sekund.
+    <!--
+     https://www3.epa.gov/ttn/emc/cem/pems.pdf
+     https://www.wunderground.com/history/airport/KPAE/1941/11/27/DailyHistory.html?req_city=Everett&req_state=&req_statename=Washington&reqdb.zip=&reqdb.magic=&reqdb.wmo=
+     -->
+
+    Do analizy wykorzystuje dane
+    temperatury,
+    temperatury odczuwalnej,
+    opadu sumarycznego,
+    ciśnienia,
+    wilgotności,
+    prędkości i kierunku wiatru,
+    widzialności
+    oraz promieniowania UV
+
+
+    zarchiwizowane w formacie stempla czasowego oraz zmierzonej wartości.
+
+    Interesuje go zbadanie jak najszerszego zakresu danych, wobec tego chciałby w swojej przeglądarce internetowej
+    przeglądać cały 76-letni okres danych, by móc zarówno przyglądać się różnym trendom na przestrzeni lat, jak i
+    analizować poszczególne incydenty.
+
+</p>
+<p>
+    Warto obliczyć, jak dużo pomiarów zostało w tym czasie wykonanych:
+</p>
+<div style="vertical-align: middle; text-align: center">
+    <!--9* ((1990-1941)years /1hours + (2017-1990)years/10seconds)-->
+    <img src="/images/number-of-data.png" width="250" style="vertical-align: middle;"/> = 770.2 miliony próbek.
+</div>
+<p>
+    Jeśli założyć, że każdy punkt wymaga zapisania daty powstania próbki oraz wartości pomiaru, to na zapisanie
+    pojedynczego punktu potrzeba 12 bajtów (8 bajtów na datę w formacie <strong>long</strong> oraz 4 bajty na
+    wartość w formacie zmiennoprzecinkowym).
+</p>
+<p>
+    Biorąc pod uwagę liczbę punktów pomiarowych oraz rozmiar danych pojedynczego punktu,
+    do przetworzenia jest aż <strong>9.24 GB danych</strong>
+</p>
+<p>
+    Zasadne jest podejrzewać, że tak duży rozmiar danych wyklucza możliwość pobrania tych danych do aplikacji w
+    przeglądarce.
+    Nawet, jeżeli założyć dobre wyposażenie sprzętu użytkownika, to przy dobrym (100Mbps) łączu załadowanie tych
+    danych do przeglądarki zajmie prawie <strong>13 minut</strong>.
+
+    Nawet, jeśli pozwoli się użytkownikowi czekać taki czas na pobranie tych danych z sieci do pamięci podręcznej
+    komputera, to czasochłonne wyrysowanie miliarda punktów na wykresie niewątpliwie doprowadzi do awaryjnego wyłączenia
+    się
+    przeglądarki po kilku minutach lub zablokowania aplikacji przez system.
+
+    Podsumowując &mdash; zasoby potrzebne do tej analizy znaczenie przekraczają zasoby komputera uzytkownika.
+
+</p>
+
+<h2>Identyfikacja problemu</h2>
+
+<p>
+    Opisana wyżej sytuacja składania do refleksji nad sposobem dostarczania użytkownikowi danych do wizualnej
+    eksploracji
+    danych o takiej skali.
+</p>
+
+<p>
+    Warto zauważyć, że o ile należy użytkownikowi umożliwić nieograniczony dostęp do wszystkich danych, to nie jest on w
+    stanie przetworzyć każdej pojedynczej próbki pomiarowej z osobna. Jest to oczywiśćie spowodowane ograniczeniem
+    zasobów ludzkiego mózgu.
+    W rzeczywistości podczas eksploracji danych człowiek jest w stanie przetworzyć tylko znikomą część informacji
+    zawartych w udostępnianych danych.
+
+    Dzieje się tak z powodu uproszczenia przekazu, jakie dokonuje się na ograniczonym rozdzielczością monitorze czy w
+    konstrukcji ludzkiego oka, którego rozdzielczość też jest ograniczona.
+</p>
+<p>
+    Z powyższego można wywnioskować, że z punktu widzenia użytkownika eksplorującego dane nie ma znaczenia, w którym
+    miejscu przekazu następuje uproszczenie informacji.
+
+    Natomiast z punktu widzenia projektowania wizualizacji uproszczenie informacji jeszcze przed wysłaniem jej z serwera
+    do przeglądarki użytkownika zdaje się być jedynym możliwym rozwiązaniem.
+
+</p>
+
+<p>
+
 </p>
 
 
-<!--TODO dać przykład jaki to wykres-->
 
-<div>
-
-    <p>
-        Ograniczenia i wyzwania można śmiało porównać do systemów mapowych. Dla przykładu, w systemie <em>Google
-        Maps </em>
-        odwiedzić możesz każde miejsce na ziemi. Za pomocą kilku intuicyjnych ruchów możesz oddalić się od pomnika
-        Neptuna
-        w Gdańsku, by zobaczyć całą mapę Świata, następnie przyjżeć się z bliska Liberty Island w Nowym Jorku. Wyzwaniem
-        w
-        takim systemie jest zapewnienie, aby użytkownik w ogóle nie musiał czekać na fragmenty map, które chce oglądać,
-        bo
-        przecież nikt nie ładuje z sieci Internet szczegółowych obrazów satelitarnych całej kuli ziemskiej.
-    </p>
-    <p>
-        W przypadku danych pomiarowych, można powiedzieć, że problem jest nieco prostszy, ponieważ nie poruszamy się po
-        przestrzeni dwuwymiarowej, ale tylko po wymiarze czasu, który układa się na poziomej osi wykresu.
-        Niemniej jednak zapewnienie wysokiej rozdzielczości obrazu na wykresie stanowi wyzwanie, jeżeli chcemy, by
-        użytkownik jak najrzadziej był zmuszony czekać na doładowanie potrzebnych danych.
-        Według <a href="https://www.nngroup.com/articles/response-times-3-important-limits/" target="blank">
-        Nielsena</a>,
-        oczekiwanie na odpowiedź systemu trwające powyżej 0.1 sekundy jest zauważalne i gdy się wydłuża &mdash; znacznie
-        obniża się efektywność pracy.
-    </p>
-</div>,
-<div class="text-justify">
-    <h3 class="display-3">Przypadek użycia </h3>
-    <p>
-        Wyobraź sobie, że pracujesz nad analizą zjawisk pogodowych w ostatnich kilkudzesięciu latach.
-        Chcesz w swojej przeglądarce internetowej przeglądać, w postaci wykresu liniowego, dane pięciu parametrów z
-        urządzenia pomiarowego: wilgotności, tempertatury, prędkości wiatru, stężenia dwutlenku węgla i ozonu.
-    </p>
-    <p>
-        Załóżmy, że z punktu widzenia badawczego zasadne jest, aby brać pod uwagę ostatnie pięćdziesiąt lat pomiarów
-        wykonywanych z częstotliwością co 10 sekund.
-        Dodatkowo załóżmy, że w analizie wartościowe jest zarówno przeglądanie większych zakresów danych by wysnuć
-        generalne wnioski
-        oraz przeglądanie poszczególnych incydentów.
-    </p>
-    <p>
-        Policzmy, jak dużo danych potrzebnych jest do przetworzenia:
-    </p>
-    <pre>
-        5 paramterów &times; 50 lat &times; 1/(10s) = 788.4 milionów punktów pomiarowych
-    </pre>
-    <p>
-        Jeśli założyć, że każdy punkt wymaga zapisania daty powstania próbki oraz wartości pomiaru, to na zapisanie
-        pojedynczego punktu potrzeba 12 bajtów (8 bajtów na datę w formacie <strong>long</strong> oraz 4 bajty na
-        wartość
-        w
-        formacie
-        zmiennoprzecinkowym).
-    </p>
-    <p>
-        Biorąc pod uwagę liczbę punktów pomiarowych oraz rozmiar danych pojedynczego punktu,
-        do przetworzenia jest aż <strong>9.5 GB danych</strong>
-    </p>
-    <p>
-        Przy dobrym (100Mbps) łączu załadowanie tych danych do przeglądarki zajmie około <strong>13 minut</strong>.
-        Nawet, jeśli każemy czekać użytkownikowi taki czas na pobranie tych danych z sieci do pamięci podręcznej
-        komputera, to wyrysowanie miliarda punktów na wykresie niewątpliwie doprowadzi do awaryjnego zakończenia
-        działania
-        przeglądarki.
-    </p>
-</div>,
-<div>
-    <h3 class="display-3">Identyfikacja problemu</h3>
-    <p>
-        Być może zastanawiasz się, po co właściwie ładować te wszystkie dane? Przecież mózg ludzki nie jest w stanie
-        przeanalizować każdego z miliarda punktów z osobna.
-    </p>
-    <p>
-        Tutaj trzeba przywołać jeden istotny aspekt funkcjonalny zagadnienia.
-        Otóż chcemy dać użytkownikowi swobodę nawigacji po wykresie, żeby mógł oglądać dane w
-        dowolnym interesującym go zakresie i w odpowiednim przybliżeniu.
-        To znaczy, że użytkownik powinien mieć dostęp do wszystkich danych.
-        Nawigacja powinna odbywać się w sposób <strong>płynny i nieograniczony</strong>, tak jak to ma miejsce w
-        nowoczesnych systemach mapowych.
-    </p>
-    <p>
-        Faktycznie, ze wspomnianych wcześniej względów nie jest możliwe zbudowanie aplikacji, która pobiera wszystkie
-        dane
-        na początku,
-        i je wszystkie potem wyświetla. Wykreślenie milionów punktów też zajmuje sporą część mocy obliczeniowej
-        komputera
-        użykownika. Takie rozwiązanie po prostu się nie nadaje do dużych zbiorów danych (nie skaluje się).
-    </p>
-</div>,
 <div>
     <h3 class="display-3">Istniejące rozwiązania</h3>
     <p>
@@ -269,12 +268,12 @@
         się
         zbyt duże uproszczenia. <strong>Uwaga</strong> - należy patrzeć na cieniowany obszar wykresu.
     </p>
-    <figure  type="picture" id="picture:analysis/per-pixel">
+    <figure type="picture" id="picture:analysis/per-pixel">
         <figcaption>przykład agregacji o dopasowanej długości, mniejszej niż piksel - nie widać uproszczenia
         </figcaption>
         <img src="/images/analysis/per-pixel.png"/>
     </figure>
-    <figure  type="picture" id="picture:analysis/sparse">
+    <figure type="picture" id="picture:analysis/sparse">
         <figcaption>przykład źle dobranej agregacji, większej niż jeden piksel - uproszczenie zauważalne dla ludzkiego
             oka
         </figcaption>
@@ -286,6 +285,8 @@
         dokładności danych wyświetlanych na wykresie.
     </p>
 </div>,
+
+
 <div>
     <h3 class="display-3">Istniejące rozwiązania
         <small> &raquo; serwer danych</small>
@@ -325,20 +326,20 @@
         Z kolei jeśli agregacja nie zmieściła by się w jednym rzędzie pikseli, będzie to widoczne jako reprezentacja
         danych niskiej rozdzielczości.
     </p>
-    <figure  type="picture" id="picture:analysis/too-dense">
+    <figure type="picture" id="picture:analysis/too-dense">
         <figcaption>zbyt małe agregacje - niepotrzebnie zbyt wiele punktów zostanie wyrysowanych w jednym pikselu
         </figcaption>
         <img src="/images/analysis/1-too-dense.png" alt="missing"/>
     </figure>
-    <figure  type="picture" id="picture:analysis/almost-ok">
+    <figure type="picture" id="picture:analysis/almost-ok">
         <figcaption>prawie dobrze, ale, wciąż dwa punkty przypadają na jeden piksel</figcaption>
         <img src="/images/analysis/2-almost-ok.png" alt="missing"/>
     </figure>
-    <figure  type="picture" id="picture:analysis/ok">
+    <figure type="picture" id="picture:analysis/ok">
         <figcaption>te agregacje są odpowiednie, gdyż w każdym pikselu mieści się jeden punkt</figcaption>
         <img src="/images/analysis/3-ok.png" alt="missing"/>
     </figure>
-    <figure  type="picture" id="picture:analysis/too-sparse">
+    <figure type="picture" id="picture:analysis/too-sparse">
         <figcaption>zbyt obszerne agregacje, nie wszystkie piskele zawierają punkt - niska rozdzielczość zostanie
             zauważona przez użytkownika
         </figcaption>
@@ -402,6 +403,32 @@
 </div>
 
 <h3>Podobieństwo do systemów mapowych</h3>
+
+
+<div>
+
+    <p>
+        Ograniczenia i wyzwania można śmiało porównać do systemów mapowych. Dla przykładu, w systemie <em>Google
+        Maps </em>
+        odwiedzić możesz każde miejsce na ziemi. Za pomocą kilku intuicyjnych ruchów możesz oddalić się od pomnika
+        Neptuna
+        w Gdańsku, by zobaczyć całą mapę Świata, następnie przyjżeć się z bliska Liberty Island w Nowym Jorku. Wyzwaniem
+        w
+        takim systemie jest zapewnienie, aby użytkownik w ogóle nie musiał czekać na fragmenty map, które chce oglądać,
+        bo
+        przecież nikt nie ładuje z sieci Internet szczegółowych obrazów satelitarnych całej kuli ziemskiej.
+    </p>
+    <p>
+        W przypadku danych pomiarowych, można powiedzieć, że problem jest nieco prostszy, ponieważ nie poruszamy się po
+        przestrzeni dwuwymiarowej, ale tylko po wymiarze czasu, który układa się na poziomej osi wykresu.
+        Niemniej jednak zapewnienie wysokiej rozdzielczości obrazu na wykresie stanowi wyzwanie, jeżeli chcemy, by
+        użytkownik jak najrzadziej był zmuszony czekać na doładowanie potrzebnych danych.
+        Według <a href="https://www.nngroup.com/articles/response-times-3-important-limits/" target="blank">
+        Nielsena</a>,
+        oczekiwanie na odpowiedź systemu trwające powyżej 0.1 sekundy jest zauważalne i gdy się wydłuża &mdash; znacznie
+        obniża się efektywność pracy.
+    </p>
+</div>,
 <p>Kaflowe systemy mapowe i serie danych pomiarowych mają dużo wspólnych cech:</p>
 
 <figure type="table" id="table:timeseries-geomaps-similarity">
@@ -438,3 +465,18 @@
         </tbody>
     </table>
 </figure>
+
+
+<!--
+
+
+
+<p helper>
+    W tym rozdziale analizujemy tylko techniczne aspekty problemu, głównie 8 slajdów z survey
+    Pokazujemy, co obecnie mamy, potem co takiego brakuje w tym co mamy, na końcu definiujemy wymagania, kryteria akceptacyjne rozwiązania
+    Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania
+
+    wymagania do rozwiązania, aspekt łatwości integracji z istniejącymi systemami - jakie wykresy do implementacji, które wykresy wziąć pod lupę : https://en.wikipedia.org/wiki/Comparison_of_JavaScript_charting_frameworks
+</p>
+
+-->
