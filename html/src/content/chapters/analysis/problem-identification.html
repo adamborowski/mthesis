@@ -171,6 +171,90 @@
 
 </p>
 
+
+<p>
+    Isteniejące systemy wizualizacji danych wykorzystują tę cechę przekazu wizualnego.
+
+    W reakcji na nawigację użytkownika, pobierane są z serwera tylko te fragmenty danych,
+    które mają być w danym momencie wyświetlone.
+    Istotne jest to, że dane te pobierane są w formie maksymalnie uproszczonej.
+
+    Nie za prostej, by nie było to zauważone przez ludzkie oko, ale takiej, by zminimalizować wielkość przesyłanych
+    danych.
+
+    Na rysunku <a href="#picture:analysis-data-reduction"></a> zestawiono ze sobą trzy sytuacje, w których uproszczenie
+    przekazu następuje w inny sposób.
+
+</p>
+
+<figure type="picture" id="picture:analysis-data-reduction">
+    <figcaption class="text-justify">
+        Uproszczenie informacji w różnych miejscach przekazu w wizualizacji danych:
+        <em>a)</em> &mdash; na ekranie komputera
+        <em>b)</em> &mdash; na serwerze, jeszcze przed wysłaniem
+        <em>c)</em> &mdash; na serwerze, ale uproszczone bardziej niż by to miało miejsca na ekranie.
+        Rozmiar strumienia danych został oznaczony grubością strzałek.
+    </figcaption>
+    <img src="cache/aggregation-and-natural-reduction.png">
+</figure>
+
+<p>
+    W pierwszej sytuacji serwer udostępnia dane nieuproszczone, natomiast uproszczenie następuje dopiero na ekranie
+    komputera.
+
+    W drugiej sytuacji serwer upraszcza dane jeszcze przed wysłaniem &mdash; w ten sposób, że obraz uproszczony na
+    ekranie pozostaje
+    niezmieniony.
+
+    Natomiast w trzeciej sytuacji serwer wysyła zbyt uproszczony przekaz tak, że obraz na ekranie staje się zauważalnie
+    uproszczony.
+
+    Warto zwrócić uwagę, że w dwóch pierwszych sytuacjach rozmiar strumienia danych trafiający do użytkownika jest
+    identyczny pomimo tego, że rozmiar strumienia wychodzącego z serwera znacznie się różni.
+
+</p>
+<p>
+
+    Pożądanym sposobem uproszczenia przekazu jest ten drugi, ponieważ można tutaj zredukować transmisję danych przy
+    zachowaniu niezmienionej wizualizacji.
+
+    Należy też pamiętać, by tak jak w trzeciej sytuacji, nie upraszczać zbytnio przekazu na serwerze.
+
+    W ogólności zależności między uproszczeniem na serwerze i uproszczeniem na ekranie komputera można wyrazić wzorem <a
+        href="#code:simplification-eq"></a>. Oznacza to, że uproszczenie na ekranie danych surowych musi mieć taki sam
+    efekt wizualny jak uproszcenie na ekranie danych uproszczonych na serwerze.
+
+
+</p>
+
+<figure type="code" id="code:simplification-eq">
+    <figcaption>Zależność między uproszczeniami.
+        <em>U<sub>e</sub></em>&mdash; obraz powstały w wyniku uproszczenia na ekranie,
+        <em>U<sub>s</sub></em>&mdash; obraz powstały w wyniku uproszczenia na serwerze,
+        <em>d</em> &mdash; strumień danych.
+    </figcaption>
+    <pre code="math">
+        U<sub>e</sub>(d) = U<sub>e</sub>(U<sub>s</sub>(d))
+    </pre>
+</figure>
+
+<p>
+    Warto też zauważyć, że przy zastosowaniu odpowiedniego uproszczenia przekazu na serwerze,
+    rozmiar danych pobieranych do przeglądarki nie zależy od wielkości przeglądanego zakresu.
+    Zależy on od rozmiaru wizualizacji na ekranie, który jest raczej stały.
+</p>
+<p>
+    Takie projektowanie wizualizacji umożliwia swobodną i nieograniczoną eksplorację danych pomiarowych przy
+    jednoczesnym zachowaniu stałego, niewielkiego rozmiaru, strumienia danych przekazywanych z serwera do przeglądarki.
+</p>
+
+
+
+
+
+
+
+
 <p>
     TODO: uwaga duplikacja w rozdziale teoretycznym "Redukcja danych" - najlepiej redukcję przenieśc tylko tutaj i
     rysunek też dać,
@@ -181,42 +265,6 @@
 
 <div>
     <h3 class="display-3">Istniejące rozwiązania</h3>
-    <p>
-        Popularnym podejściem, które adresuje problem skalowalności, jest pobieranie z serwera tylko takiego zakresu
-        danych, który ma być widoczny w danej chwili na ekranie, żeby uniknąć ładowania wszystkich danych.
-    </p>
-    <p>
-        Nasuwa się pytanie, co w momencie, gdy użytkownik chciałby obejrzeć z grubsza jakiś duży zakres czasu? A może
-        chciałby zobaczyć
-        wszystkie dane "z lotu ptaka"?
-        W tej sytuacji problem pojawia się z powrotem - potrzeba załadować wszystkie dane do przeglądarki.
-    </p>
-    <p>
-        Warto zauważyć, że ze względu na pikselową konstrukcję monitorów graficznych, liczba punktów potrzebnych do
-        poprawnego wyrysowania fragmentu danych ograniczona jest w pewnym sensie liczbą pikseli wyświetlacza. Zresztą -
-        rozdzielczść ludzkiego oka też jest ograniczona.
-        W związku z powyższym - użytkownik i tak jest w stanie tylko obejrzeć pewną uproszczoną formę danych, nie do
-        końca
-        nawet zdając sobie z tego sprawę dzięki zdolności abstrackcji i generalizacji.
-
-    </p>
-    <p>
-        Dla przykładu, jeżeli na typowym monitorze chcemy obejrzeć nasze dane w zakresie jednego roku, to liczba punktów
-        pomiarowych (około 3 miliony) znacznie przekracza liczbę pikseli w poziomie (około 2 tysiące).
-        Zagęszczenie punktów na jednym rzędzie pikseli wyniesie kilka tysięcy.
-        Takie zagęszczenie danych na ekranie jest zupełnie niepotrzebne, ze względu na wspomniane właśnie ograniczenia
-        rozdzielczości
-        monitora i ludzkiego oka.
-    </p>
-    <p>
-        To naturalne ograniczenie wykorzystuje się w optymalizacji wspomnianego wcześniej problemu.
-        Otóż zakłada się, że oprócz tego, że z serwera są pobierane tylko chwilowo potrzebne fragmenty danych, pobiera
-        się je w
-        formie maksymalnie uproszczonej. Nie za prostej, by nie było to zauważone przez ludzkie oko, ale takiej, by
-        zminimalizować wielkość przesyłanych danych. Rozmiar ładowanych danych będzie więc związany z liczbą rzędów
-        pikseli w
-        poziomie &mdash; tym samym niezależny od wielkości zakresu czasu.
-    </p>
     <p>
         Pozostaje jeszcze zadać sobie pytanie, czym właściwie jest to uproszczenie?
     </p>
