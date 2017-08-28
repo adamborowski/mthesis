@@ -1,0 +1,24 @@
+@page {
+@footnotes {
+  border-top: solid black thin;
+  padding-top: 8pt;
+  margin-left: 0;
+
+}
+}
+
+ft {
+  display: prince-footnote;
+  text-indent: 0mm;
+  counter-increment: footnote;
+  &::footnote-call {
+    content: counter(footnote);
+    font-size: 83%;
+    vertical-align: super;
+    line-height: none;
+  }
+}
+
+h1 {
+  counter-reset: footnote;
+}
