@@ -24,7 +24,7 @@
 <p>
     Mówiąc ściślej, zagadnienie to dotyczy płynnego, swobodnego i nieograniczonego przeglądania ogromnych zasobów danych
     pomiarowych.
-    Dane te prezentowane są na wykresie liniowym z osią czasu.
+    Dane te prezentowane są na wykresie liniowym z poziomą osią czasu.
 
     Nieograniczone przeglądanie danych oznacza, że użytkownik ma dostęp do dowolnego fragmentu danych podczas
     wizualizacji.
@@ -248,51 +248,45 @@
     jednoczesnym zachowaniu stałego, niewielkiego rozmiaru strumienia danych przekazywanych z serwera do przeglądarki.
 </p>
 
-
-
-
-
-
-
+<h3>Uproszczenie przekazu</h3>
 
 <p>
-    TODO: uwaga duplikacja w rozdziale teoretycznym "Redukcja danych" - najlepiej redukcję przenieśc tylko tutaj i
-    rysunek też dać,
-    uważnie przeanalizować, który opis lepszy: ten wyżej, czy tamten
+    Uproszczenie danych pomiarowych wyświetlanych na wykresie z osią czasu sprowadza się
+    uproszczenia grup danych, których zakres po odwzorowaniu przestrzeni czasu na poziomą oś wykresu mieści się w
+    jednym, tym samym pikselu.
+
+    Można powiedzieć, że przy dużym zagęszczeniu danych wiele próbek zostaje wyrysowanych na tym samym pionie pikseli,
+    tak jak to pokazano na ilustracji <a href="#picture:analysis/simplification"></a>.
+</p>
+
+<figure type="picture" id="picture:analysis/simplification">
+    <figcaption>
+        Gdy na jeden piksel przypada dużo punktów do wyświetlenia (po lewej), to i tak monitor wyświetli to
+        jako pionowy <q>słupek</q> obejmujący występujące w tym pikselu wartości (po prawej).
+    </figcaption>
+    <img src="/images/analysis/simplification.png" height="200"/>
+</figure>
+
+<p>
+    Podczas rysowania danych na ekranie, linia prowadzona między punktami w ramach jednego pionu pikselów tak naprawdę
+    spowoduje zapalanie się wszystkich pikselów mieszczących się w przedziale wartości tych punktów wykresu.
+</p>
+
+<p>
+    W związku z tym, uproszczoną formą danych pomiarowych rysowanych na tym samym pionie pikseli może być przedział
+    wartości próbek, który posłuży do wyrysowania pojedynczego <q>słupka</q>, który będzie wyglądał tak, jakby
+    powstał z nakładania się pionowych linii prowadzonych między oryginalnymi punktami.
+</p>
+
+<p>
+    W celu głębszego zrozumienia działania tego typu uproszczenia wprowadza się pojęcie <em>agregacji danych</em>
+    pomiarowych.
 </p>
 
 
-
 <div>
-    <h3 class="display-3">Istniejące rozwiązania</h3>
-    <p>
-        Pozostaje jeszcze zadać sobie pytanie, czym właściwie jest to uproszczenie?
-    </p>
-</div>,
-<div>
-    <h3 class="display-3">Istniejące rozwiązania
-        <small> &raquo; agregacje</small>
-    </h3>
-    <p>
-        Uproszczona forma danych w naszym przypadku dotyczy tak na prawdę uproszczenia konkretnego piksela wyświetlanego
-        wykresu.
-        Przy dużym zagęszczeniu danych wiele punktów danych zostaje wyrysowanych na tym samym pionie piskeli, jak
-        pokazano
-        na rysunku poniżej.
 
-    </p>
-    <figure type="picture" id="picture:analysis/simplification">
-        <figcaption>
-            Gdy na jeden piksel przypada dużo punktów do wyświetlenia (po lewej), to i tak monitor wyświetli to
-            jako pionowy słupek obejmujący występujące w tym pikselu wartości (po prawej).
-        </figcaption>
-        <img src="/images/analysis/simplification.png"/>
-    </figure>
-    <p>
-        W związku z tym, uproszczoną formą danych będzie taka forma, która daje ten sam efekt na ekranie, ale będzie
-        opisywała tylko taki pionowy "słupek" opisujący zakres wartości w danej kolumnie pikseli.
-        W tym celu wprowadza się pojęcie <strong>agregacji danych</strong>.
-    </p>
+
     <p>
         W tym przypadku agregacja to pewna struktura danych opisująca generalne cechy grupy danych z pewnego zakresu.
         Do obliczenia agregacji wykorzystuje się <em>agregaty</em> - funkcje matematyczne wyliczjące określoną
@@ -402,6 +396,10 @@
     <h3 class="display-3">Istniejące rozwiązania
         <small> &raquo; wyzwania</small>
     </h3>
+
+    <p helper>
+        tutaj jeszcze nie pisac o istniejacych rozwiazaniach tylko podsumowac, ze systemy dzialaja tak jak dzialaja, ale plynną eksploracją tego nazwać nie można ;)
+    </p>
     <p>
         Można więc uznać, że takie rozwiązanie w stu procentach rozwiązuje problem płynnej i nieograniczonej ekploracji
         wielkoskalowych danych pomiarowych w przeglądarce internetowej.
@@ -529,6 +527,21 @@
     Identyfikacja wymagań funkcjonalnych i pozafunkcjonalnych poszukiwanego rozwiązania
 
     wymagania do rozwiązania, aspekt łatwości integracji z istniejącymi systemami - jakie wykresy do implementacji, które wykresy wziąć pod lupę : https://en.wikipedia.org/wiki/Comparison_of_JavaScript_charting_frameworks
+
+
+    naszym podrozdziałem pt 'istniejace rozwiazania' wypiszemy wszystko co pomaga w tym co napisalem od samego poczatku
+    (bazy danych influx-  organizacje serwera, forecache- pomysl na prefetching, etc)
+
+    co do samego podejscia strumieniowego i upraszczania - nie mowic o tym w tym rozdziale, ale zamiast tego duzo
+    odwolywac sie do istniejacych prac w bibliografii
+
 </p>
 
 -->
+
+
+<p>
+    TODO: uwaga duplikacja w rozdziale teoretycznym "Redukcja danych" - najlepiej redukcję przenieśc tylko tutaj i
+    rysunek też dać,
+    uważnie przeanalizować, który opis lepszy: ten wyżej, czy tamten
+</p>
