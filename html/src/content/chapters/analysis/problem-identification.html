@@ -1,5 +1,3 @@
-
-
 <p>
     Przedstawiana w tej pracy wizualna eksploracja wielkoskalowych danych pomiarowych wiąże ze sobą zagadnienia z
     czterech dziedzin technologii
@@ -272,7 +270,7 @@
     spowoduje zapalanie się wszystkich pikselów mieszczących się w przedziale wartości tych punktów wykresu.
 </p>
 
-<p>
+<p note="wzmienić o antyaliasingu, ale to nie nasz problem, bo prowadzimy linie, tak jak w m4 w rozdz teor.">
     W związku z tym, uproszczoną formą danych pomiarowych rysowanych na tym samym pionie pikseli może być przedział
     wartości próbek, który posłuży do wyrysowania pojedynczego <q>słupka</q>, który będzie wyglądał tak, jakby
     powstał z nakładania się pionowych linii prowadzonych między oryginalnymi punktami.
@@ -363,52 +361,141 @@
 </p>
 
 <p>
-    Jeżeli tak nie będzie, to dosyć często mogą się zdarzyć sytuacje, w których nie będzie można dobrać takiej agregacji
+    W przeciwnym wypadku dosyć często mogą się zdarzyć sytuacje, w których nie będzie można dobrać takiej agregacji
     do wizualizacji, by rozmiar pobieranych danych był stały. Na rysunku <a href="#picture:aggregation-choice"></a>
     pokazano te sytuacje i ich wpływ na rozmiar pobieranych danych lub wyświetlany obraz.
+    <em>A</em> &mdash; zbyt małe agregacje - niepotrzebnie zbyt wiele punktów zostanie wyrysowanych w jednym
+    pikselu;
+    <em>B</em> &mdash; nieco większe agregacje, ale wciąż dwa punkty przypadają na jeden piksel;
+    <em>C</em> &mdash; idealnie, ponieważ w każdym pikselu mieści się jeden punkt;
+    <em>D</em> &mdash; zbyt obszerne agregacje, punkty rysowane są co kilka pikseli, a niska rozdzielczość wizualizacji
+    zostanie zauważona przez użytkownika.
 </p>
 
 
-<div>
-    <figure type="picture" id="picture:aggregation-choice">
-        <figcaption class="text-justify">
-            <em>A</em> &mdash; zbyt małe agregacje - niepotrzebnie zbyt wiele punktów zostanie wyrysowanych w jednym
-            pikselu;
-            <em>B</em> &mdash; prawie dobrze, ale, wciąż dwa punkty przypadają na jeden piksel;
-            <em>C</em> &mdash; idealnie, ponieważ w każdym pikselu mieści się jeden punkt;
-            <em>D</em> &mdash; zbyt obszerne agregacje, punkty rysowane są co kilka pikseli &mdash; niska rozdzielczość
-            zostanie zauważona przez użytkownika.
-        </figcaption>
-        <img src="cache/aggregation-choice.png"/>
-    </figure>
-    <h3 class="display-3">Istniejące rozwiązania
-        <small> &raquo; wyzwania</small>
-    </h3>
+<figure type="picture" id="picture:aggregation-choice">
+    <figcaption class="text-justify">
+        Wpływ wyboru poziomu agregacji na rozmiar pobieranych danych oraz wyświetlany obraz.
+    </figcaption>
+    <img src="cache/aggregation-choice.png"/>
+</figure>
 
-    <p helper>
-        tutaj jeszcze nie pisac o istniejacych rozwiazaniach tylko podsumowac, ze systemy dzialaja tak jak dzialaja, ale plynną eksploracją tego nazwać nie można ;)
-    </p>
-    <p>
-        Można więc uznać, że takie rozwiązanie w stu procentach rozwiązuje problem płynnej i nieograniczonej ekploracji
-        wielkoskalowych danych pomiarowych w przeglądarce internetowej.
-        Niestety, nie wzięliśmy pod uwagę jednego &mdash; ważnego czynnika &mdash; obecności sieci komputerowej.
-    </p>
-    <p>
-        Skoro fragmenty danych ładowane sa na żądanie użytkownika, to będzie on zmuszony oczekiwać na te dane, zanim
-        zostaną dostarczone przez sieć z serwera do przeglądarki.
-        Nie będzie on w stanie płynnie eksplorować danych.
-        Warto wspomnieć, że wg
-        <a href="https://www.nngroup.com/articles/response-times-3-important-limits/" target="blank"> Nielsena</a>,
-        oczekiwanie na odpowiedź systemu trwające powyżej 0.1 sekundy jest zauważalne i gdy się wydłuża &mdash; znacznie
-        obniża się efektywność korzystania z systemu.
-    </p>
-    <p>
-        To właśnie efektywności wizualnej eksploracji danych poświęcona jest moja praca, w ramach której zaproponowałem
-        rozwiązanie, którego kolejne ulepszone wersje zostaną poddane subiektywnej ocenie w tej ankiecie.
-    </p>
-</div>,
+
+<h3>Rozproszenie systemu a <em>User Experience</em></h3>
+
+<p>
+    Można więc uznać, że opisane wcześniej podejście do składowania, przekazywania i wyświetlania danych całkowicie
+    rozwiązuje problem swobodnej i nieograniczonej wizualnej ekploracji wielkoskalowych danych pomiarowych w
+    przeglądarce internetowej.
+
+    Niestety, nie poruszono tutaj jeszcze jednego istotnego aspektu wpływającego na płynność eksploracji &mdash;
+    opóźnień w przekazie spowodowanych wolną transmisją danych w sieci komputerowej.
+</p>
+<p>
+    Skoro fragmenty danych ładowane sa na żądanie użytkownika, to będzie on zmuszony oczekiwać na te dane, zanim
+    zostaną dostarczone przez sieć z serwera do przeglądarki.
+    Nie będzie on w stanie płynnie eksplorować danych.
+
+
+    Warto przypomnieć, że oczekiwanie na odpowiedź systemu trwające powyżej 0.1 sekundy jest zauważalne i gdy się
+    wydłuża &mdash; znacznie obniża się efektywność korzystania z systemu (zob. r. <a href="#chapter:ux"></a>).
+</p>
+<p>
+    Problem oczekiwania na dane jest w systemach rozproszonych dość powszechny.
+    Na przykład w systemach obliczeń wysokiej wydajności <trans lang="ang">high performance computing</trans>
+    opóźnienia mają bezpośredni wpływ na czas obliczeń.
+    Optymalizacja transferu danych ma tutaj kluczową rolę, gdyż często opóźnienia zajmują kilkadziesiąt procent czasu
+    wykonania programu, który wykonuje się godzinami, a nawet dobami.
+    Motywacja stojąca za optymalizacją transmisji danych w wizualnej eksploracji danych jest nieco inna, gdyż
+    optymalizacja ta nie ma na celu skrócić czasu pracy jakiś długotrwałych obliczeń, ale zwiększyć płynność
+    wizualizacji, czyli sprawić, by użytkownik nie był rozpraszany podczas eksploracji, by nie była ona hamowana przez
+    wolne połączenie, w końcu &mdash; by użytkownik pracował wydajniej.
+
+</p>
+
+<p>
+    Techniki stosowane w systemach rozproszonych, mające na celu zminimalizowanie negatywnego wpływu obecności sieci,
+    zdają się być adekwatne również do optymalizacji wizualizacji. Wyróżnia się dwie podstawowe metody optymalizacji
+    transmisji danych<a href="#bib:xu2004caching"></a>: buforowanie <trans lang="ang">caching</trans> oraz wstępne
+    pobieranie danych <trans lang="ang"> prefetching</trans>.
+</p>
+
+<p>
+    Technika stosowania pamięci podręcznej <trans>cache</trans> zakłada, że dane, które są odczytywane, będą odczytywane
+    również w przyszłości.
+    Zatem jest zasadne, by wyniki odczytów przechowywać do wykorzystania w późniejszym czasie.
+
+    Dane te mogą pochodzić ze zdalnego źródła lub mogą być wynikiem kosztownych obliczeń.
+    Przykład zastosowania pamięci <em>cache</em> w obliczeniach pokazano na przykładzie rekurencyjnego algorytmu
+    obliczania wyrazu ciągu <em>Fibonacciego</em> na listingu <a href="#code:recursive-algorithm-cache"></a>.
+</p>
+
+<figure type="code" id="code:recursive-algorithm-cache">
+    <figcaption>Rekurencyjne obliczanie ciągu Fibonacciego z zastosowaniem pamięci <em>cache</em>
+    </figcaption>
+    <pre><code class="javascript">
+@@include('fibo.js')
+</code></pre>
+</figure>
+
+<p>
+    Dzięki zastosowaniu pamięci <em>cache</em>, złożoność algorytmu zmieniła się z wykładniczej
+    <em>o(2<sup>n</sup>)</em>
+    na liniową <em>o(n)</em>.
+</p>
+
+<p>
+    Różne typy pamięci podręcznej zostały szerzej opisane w rozdziale <a href="#chapter:existing-solutions"></a>.
+</p>
+
+<p>
+    W przypadku wizualnej eksploracji danych zakłada się, że użytkownik wiele razy odwiedza te same miejsca.
+    Dzieje się tak często dlatego, że jego działania mają charakter poszukiwawczy.
+    Wyszukiwanie konkretnych miejsc niesąsiadujących ze sobą wymagają poruszania między tymi miejscami.
+    Pozostaje jeszcze przypomnieć definicję wizualnej eksploracji z początku tego rozdziału, która zakłada, że nawigacja
+    jest przyrostowa, zakresy danych w kolejnych krokach wizualizacji bedą miały znaczącą część wspólną.
+</p>
+
+<p>
+    Techinka stosowania wstępnego pobierania danych <trans>prefetching</trans> zakłada, że istnieje możliwość
+    załadowania danych, zanim będą one potrzebne, aby w momencie zaistnienia potrzeby dane były gotowe do
+    odczytu.<!--bib?-->
+    Kiedy strumień danych jest deterministryczny, co się często zdarza w systemach <em>HPC</em>,<!--bib?-->
+    <em>prefetching</em> polega na skonstuowaniu mechanizmu ładowania, który znając algorytm korzystający z tych danych
+    wybiega w przód jego działania i generuje odpowiednie zapytania.
+    W przypadku wizualnej eksploracji danych działania użytkownia są niederministyczne, więc znajomość algorytmu
+    działania nie jest tutaj wystarczająca.
+
+    Należy doszukiwać się metod, które z pewnym prawdopodobieństwem przewidzą działania użytkownika.
+</p>
+
+<p>
+    Metody te polegają na predykcji, czyli przewidywania zaistnienia potrzeby odczytu określonych danych.
+    Predykcja w wizualnej eksploracji opiera swoje działanie na prawdopodobieństwie odwiedzenia danego zakresu danych
+    przez użytkownika, obliczana może być na podstawie śledzenia dotychczasowych akcji użytkownika oraz połączeniu
+    wiedzy o danych z cechami charakterystycznymi dla przeglądania danego typu danych (zob. rozdział <a
+        href="#chapter:exiting-solutions-prediction-methods"></a>).
+
+</p>
+<p>
+    Na efektywność <em>prefetchingu</em> można wpływac w dwojaki sposób.
+    Po pierwsze &mdash; można zastosować mechanizm predykcji o wyższym prawdopodobieństwie przewidywania.
+    Kosztem zastosowania tej metody jest trudność projektowania i implementacji danej metody.
+
+    Po drugie &mdash; można ładować więcej danych przy założeniu, że załadowane dane nigdy nie muszą zostać
+    wykorzystane.
+    W tym przypadku kosztem zastosowania tej metody jest nadmierne wykorzystanie kanału komunikacyjnego, który może być
+    wąskim gardłem systemu.
+
+    W związku z tym należy zachować balans miedzy stopniem zaawansowania przewidywania akcji użytkownika a ilością
+    dodatkowo ładowanych danych.
+
+    Mechanizmy predykcji zostały szerzej omówione w rozdziale <a
+        href="#chapter:exiting-solutions-prediction-methods"></a>.
+</p>
+<h2>Poszukiwane rozwiązanie</h2>
+
 <div>
-    <h3 class="display-3">Proponowane rozwiązanie </h3>
     <p>
         Rozwiązanie ma na celu sprawienie, by użytkownik eksplorując dane nie doświadczał negatywnych skutków opóźnień
         sieci, żeby możliwie najlepiej ukryć przed nim fakt, że dane, które przegląda, zlokalizowane są na
@@ -536,7 +623,6 @@
     bazy danych
 
     same wizualizacje?? - tutaj może o wykresach??
-
 
 
 </p>

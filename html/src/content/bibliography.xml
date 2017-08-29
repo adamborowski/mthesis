@@ -387,6 +387,16 @@
         <title>PostgreSQL 9.3.18 Documentation</title>
         <url access="2017-08-28">https://www.postgresql.org/docs/9.3/static/rangetypes.html</url>
     </citation>
+    <citation type="article" id="bib:xu2004caching">
+        <title>Caching and prefetching for web content distribution</title>
+        <author>Xu, Jianliang and Liu, Jiangchuan and Li, Bo and Jia, Xiaohua</author>
+        <journal>Computing in science &amp; engineering</journal>
+        <volume>6</volume>
+        <number>4</number>
+        <pages>54-59</pages>
+        <year>2004</year>
+        <publisher>IEEE</publisher>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->

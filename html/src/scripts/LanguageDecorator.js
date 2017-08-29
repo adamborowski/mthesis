@@ -9,7 +9,7 @@ export default class LanguageDecorator {
         $elem = $($elem);
         var lang = $elem.attr('lang');
         if (lang == null) {
-            return;
+            lang = 'ang';
         }
         var content = $elem.text();
         $elem.html(`<span class="lang">(${lang}. </span><span class="content">${content}</span><span class="right-brace">)</span>`);
