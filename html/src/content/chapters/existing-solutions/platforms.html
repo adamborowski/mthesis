@@ -1,5 +1,70 @@
 <h2>Platformy</h2>
 
 <p>
-    plaformy do time series analytics
+    Platformy <em>Business Intelligence</em> są to kompleksowe rozwiązania w zakresie wsparcia przetwarzania danych
+    biznesowych, wydobycia informacji ukrytych w ich gąszczu w celu zdobycia wiedzy niezbędnej do poprawy
+    konkurencyjności przedsiębiorstwa na rynku.
+</p>
+
+<h3>Qlik</h3>
+<h3>Tableau</h3>
+<h3>Elastic</h3>
+<p>Kibana, Timelion</p>
+<h3>Grafana</h3>
+
+<p>
+    Grafana jest otwartą platformą służącą do odpytywania i wizualizacji metryk, a także alarmowania o zdarzeniach
+    pochodzących z tych metryk.
+    Jej pierwsza wersja została wydana w styczniu 2014 roku.
+    Jest niezależna od źródła danych, wspiera między innymi
+    <em>Graphite</em>,
+    <em>InfluxDB</em>,
+    <em>Prometheus</em>,
+    <em>ElasticSearch</em>,
+    <em>AWS CloudWatch</em>,
+    <em>OpenTSDB</em> oraz
+    <em>Splunk</em>.
+</p>
+
+<p>
+    Grafana udostępnia różnorodne formy wizualizacji danych, takich, jak mapy cieplne <trans>heatmaps</trans>, serie
+    czasowe czy histogramy.
+
+    Umożliwia tworzenie i wspódzielenie paneli <trans>dashboard</trans> danych między
+    użytkownikami.
+
+    Jest to narzędzie darmowe, otwarte, a społeczność <em>open source</em> tworzy i udostępnia wiele rozszerzeń
+    istniejących funkcji.
+    Na ilustracji <a href="#picture:grafana"></a> pokazano przykładowy <em>dashboard</em> z prezentowanymi danymi.
+    <a href="#bib:grafana-description"></a>
+
+</p>
+
+<figure type="picture" id="picture:grafana">
+    <figcaption><em>Dashboard</em> Grafany wyświetlający stan pracy serwerów monitorowanych przez narzędzie <em>Elastic
+        Search</em></figcaption>
+    <img src="/images/existing/grafana-events.png"/>
+</figure>
+
+<p>
+    Panel danych pozwala wyświetlać różne widżety wizualizacyjne. To, co jest wspólne dla tych widżetów to zakres
+    wizualizowanych danych, który jest synchronizowany.
+    Wizualna eksploracja jest możliwa dzięki interakcji z wykresem oraz panelem nawigacyjnym.
+    Zaznaczanie obszaru wykresu pozwala wykadrować zakres, a górny panel nawigacyjny pozwala na oddalanie się i
+    poruszanie horyzontalne po danych.
+</p>
+
+<p>
+    W momencie nawigacji do serwera wysyłane są osobne zapyania dla każdego widżetu, każdy z nich jest
+    sparametryzowany<ft>Testowane na wersji 4.5.0 <a href="http://play.grafana.org"></a>.</ft>.
+    Zapytanie zawiera m.in. informację o zakresie danych do wyświetlenia oraz oczekiwanej liczbie punktów, w związku z
+    czym wspierane jest uproszczenie danych po stronie serwera.
+</p>
+
+<p>
+    Grafana nie wspiera żadnych technik optymalizujących ładowanie danych, tj. <em>caching</em> i <em>prefetching</em>.
+    Każda zmiana wyświetlanego zakresu powoduje wysłanie zapytania o cały wyświetlany zakres.
+    Zakres danych na wykresach pozostaje bez zmian do momentu załadowania nowych danych.
+    Co więcej, interfejs nie informuje o stanie ładowania danych co skutkuje tym, że przy wolniejszym połączeniu
+    użytkownik przez jakiś czas nie widzi reakcji systemu.
 </p>
