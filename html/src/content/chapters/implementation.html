@@ -1014,14 +1014,8 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 <p>
     W rozdziale <a href="#chapter:aggregation-regulations"></a> omówiono systemy, w których długości kolejnych poziomów
     agregacji nie są wielokrotnością poprzednich.
-    Co ważniejsze &mdash; istnieją agregacje, których długość nie jest stała. Przykładami takich agregacji
-    są:
-</p>
-<ul>
-    <li>miesięczne &mdash; liczba dni zależna od miesiąca</li>
-    <li>dobowe &mdash; przy zmianie czasu letniego/zimowego</li>
-</ul>
-
+    Co ważniejsze &mdash; istnieją agregacje, których długość nie jest stała, na przykład miesięczne &mdash; liczba dni
+    zależna od miesiąca, lub dobowe &mdash; przy zmianie czasu letniego/zimowego.
 <p>
     <em>ExlporeJS</em> nie dokonuje żadnych założeń co do faktycznej długości danej agregacji. Wszystkie swoje
     obliczenia dokonuje na podstawie informacji o zakresach pojedynczych agregacji, które pobierane są z serwera (zob.
