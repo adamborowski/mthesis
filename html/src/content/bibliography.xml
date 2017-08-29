@@ -416,6 +416,10 @@
         <title>Self-service BI</title>
         <url access="2017-08-29">http://www.codec.pl/rozwiazania/business-intelligence/self-service-bi/</url>
     </citation>
+    <citation type="article" id="bib:influxdb">
+        <title>Dokumentacja deweloperska InfluxDB</title>
+        <url access="2017-08-29">https://docs.influxdata.com/influxdb/v1.3/</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
