@@ -2,65 +2,36 @@
 
 
 <p>
-    Aby dokonać analizy istniejących rozwiązań, należy określić wymagania względem pożądanego rozwiązania.
+    Aby przedstawić wyniki analizy istniejących rozwiązań, warto przedstawić zarys proponowanego w tej pracy
+    rozwiązania.
     Następnie zostaną zaprezentowane takie technologie, algorytmy, narzędzia i platformy, które częściowo rozwiązują
-    zidentyfikowany problem bądź mogą być inspiracją zaczerpniętą z innych form wizualizacji.
+    zidentyfikowany problem płynności eksploracji wizualnej bądź mogą być inspiracją zaczerpniętą z innych form
+    wizualizacji.
+</p>
+
+<h3>Proponowane rozwiązanie</h3>
+<p>
+    Proponowane w tej pracy rozwiązanie zostało zaprojektowane w postaci uniwersalnego modułu (biblioteki) działającego
+    w przeglądarce (język <em>JavaScript</em>), który łatwo integruje się z istniejącymi aplikacjami przeglądarkowymi,
+    napisanymi również w języku JavaScript.
+</p>
+<p>
+    Biblioteka ta, nosząca nazwę <em>"ExploreJS"</em>, implementuje znane z systemów rozproszonych metody minimalizacji
+    wpływu opóźnień sieci na wydajność systemu: buforowanie <trans>caching</trans> oraz ładowanie wstępne <trans>
+    prefetching</trans>.
 </p>
 
 <p>
-
+    Jest to element systemu działający pomiędzy
+    interfejsem graficznym aplikacji a źródłem danych pomiarowych.
+    Graficzną prezentacją tych danych zajmują się istniejące biblioteki wizualizacyjne, a proponowane rozwiązanie skupia
+    się na płynnemu dostarczaniu im danych.
 </p>
 
-cal - by deweloperzy mogli miec to u sibie !!
 
-<div>
-    <p>
-
-    </p>
-    <p>
-        Rozwiązanie zostało zaprojektowane w postaci uniwersalnego modułu (biblioteki) działającego w przeglądarce
-        (język <em>JavaScript</em>), który łatwo integruje się z istniejącymi aplikacjami przeglądarkowymi, napisanymi
-        również w języku JavaScript.
-    </p>
-    <p>
-        Biblioteka ta, nosząca nazwę <em>"ExploreJS"</em>, zbudowana jest na czterech filarach:
-    </p>
-    <ul>
-        <li>pamięć podręczna agregacji,</li>
-        <li>projekcja pamięci podręcznej,</li>
-        <li>mechanizmy predykcji,</li>
-        <li>optymalizacja zapytań.</li>
-    </ul>
-    <p>
-        W ankiecie zostaniesz poproszony o eksplorację przykładowych danych prezentowanych na interaktywnym wykresie
-        liniowym.
-        Zostanie poddane ocenie pięć wersji rozwiązania. Pierwszym będzie tzw. rozwiązanie istniejące, później będą już
-        rozwiązania ulepszone o kolejne filary.
-        Twoim zadaniem będzie dokonać subiektywnej oceny satysfakcji użytkowania każdej wersji względem poprzedniej.
-    </p>
-</div>
-
-<p helper="">
-    nie mozna pobrac calych danych? szkoda. co mozna zrobic w takim razie?
-
-    wyswietlac gorsze dane? kazać mu czekać?
-
-    można również cachować dane, ze względu na naturę przegląðania danych moze sie to oplacac
-    mozna rowniez przewidywać dane (prefetching ,prediction) jakie dane moga byc potrzebne zanim uzytkownik bedzie chcial je objerzec
-
-
-</p>
-
-<p helper>
-    dlaczego tamte rozwiązania nie wystarczają, i co w moim powinno być takiego, że warto się tym zainteresować
-    https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g10f185f3fc_0_168
-</p>
 <p helper>
     główne wyzwania dla powstałego rozwiązania
-    https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g10f185f3fc_0_155
 
-    wymaganie: skale zwyczajowe (dni, miesiące) są nierówne, nie są wzajemnie wielokrotne - opisać jaki to stwarza
-    problem
 
     wymaganie integracji : oceniac takze diff api / full redraw api - które biblioteki sa lepsze w czym
      - oceniać może też to, jak łatwo zintegrować rozwiązanie z każdą następną biblioteką chartową
