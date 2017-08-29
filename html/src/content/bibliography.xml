@@ -407,6 +407,15 @@
         <publisher>IDG News Service</publisher>
         <url access="2017-08-29">http://www.computerworld.pl/news/Analityka-biznesowa-sie-zmienia,365557.html</url>
     </citation>
+    <citation type="article" id="bib:qlikview-vs-sense">
+        <title>QlikView, Qlik Sense, and Lego</title>
+        <author>Steve Dark</author>
+        <url access="2017-08-29">https://www.quickintelligence.co.uk/qlikview-vs-qlik-sense/</url>
+    </citation>
+    <citation type="article" id="bib:self-service-bi">
+        <title>Self-service BI</title>
+        <url access="2017-08-29">http://www.codec.pl/rozwiazania/business-intelligence/self-service-bi/</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->

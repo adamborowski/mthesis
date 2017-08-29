@@ -4,10 +4,84 @@
     Platformy <em>Business Intelligence</em> są to kompleksowe rozwiązania w zakresie wsparcia przetwarzania danych
     biznesowych, wydobycia informacji ukrytych w ich gąszczu w celu zdobycia wiedzy niezbędnej do poprawy
     konkurencyjności przedsiębiorstwa na rynku.
+    Poniżej krótko opisano arbitralnie wybrane platformy i ich wparcie dla eksploracji danych.
 </p>
 
 <h3>Qlik</h3>
+
+<p>
+    <em>Qlik</em> jest to rodzina komercyjnych produktów <em>BI</em>, której dwoma głównymi produktami są <em>Qlik
+    Sense</em> oraz
+    <em>QlikView</em>. <em>Qlik Sense</em> pozwala na budowanie dowolnych wizualizacji i zapytań, gdy
+    <em>QlikView</em> jest ukierunkowany biznesowo i definiuje pewne wspólne zasady, słowniki, miary, czy procesy
+    raportowe <a href="#bib:self-service-bi"></a><a href="#bib:qlikview-vs-sense"></a>, dzięki czemu jest łatwiejszy w
+    użyciu i nie wymaga dużego wsparcia działu IT w firmach.
+    W obu przypadkach interfejs graficzny zrealizowany jest w przeglądarce
+    internetowej.
+
+    Oba produkty zorientowane są na obliczanie gotowych raportów na podstawie danych. Co prawda możliwa jest nawigacja
+    po seriach czasowych, ale nie jest ona swobodna. Została ograniczona do wyboru zakresu w parametrze raportu oraz
+    interakcji typu <em>master-detail</em> polegająca na kadrowaniu wykresu bez pobierania bardziej szczegółowych
+    agregacji danych i poruszania się horyzontalnie w ramach tych danych.
+    Przykładowy interaktywny raport został pokazany na ilustracji <a href="#picture:qlik"></a>.
+
+</p>
+
+
+<figure type="picture" id="picture:qlik">
+    <figcaption>Interaktywny raport wygenerowany w <em>Qlik Sense</em>. Seria czasowa dostępna jest na dole ekranu,
+        jednak dobrane agregacje zależą wyłącznie od wybranych <em>wymiarów</em> &mdash; paramterów raportu.
+    </figcaption>
+    <img src="/images/existing/qliksense.png"/>
+</figure>
+
+
+<h3>ZoomCharts</h3>
+
+<p>
+    <em>ZoomCharts</em> jest to rodzina komercyjnych produktów zorientowanych na prezentację danych biznesowych na
+    wykresach.
+    W skład jej wchodzi biblioteka <em>JavaScript</em> wspierająca eksplorację danych, narzędzie do
+    wizualnej eksploracji danych arkuszy kalkulacyjnych oraz podobne narzędzie wizualizacyjne rozszerzające platformę
+    <em>Power BI</em> firmy <em>Microsoft</em>.
+</p>
+
+<p>
+    Biblioteka <em>JavaScript</em> skupiona jest na intuicyjnej nawigacji po danych, zwłaszcza na urządzeniach
+    mobilnych, wykorzystając nawigację gestami na urządzeniach mobilnych.
+    Ciekawym podejściem stosowanym w tej wizualizacji jest umyślne eksponowanie agregacji jako informacji &mdash;
+    uproszczenie jest tutaj celowo uwypuklane.
+
+    Co więcej, biblioteka na bieżąco oblicza agregacje danych w zależności od typu wykresu &mdash; liniowego, słupkowego
+    czy schodkowego, co zostało pokazane na ilustracji <a href="#picture:zoomcharts-1"></a>.
+
+    Nawigacja jest swobodna (poruszanie horyzontalne), natomiast przybliżenie odbywa się poprzez kliknięcie
+    wyeksponowanego obszaru agregacji.
+
+
+    Powyższa cecha w pewnym sensie dyskfalifikuje to rozwiązanie jako samodzielne narzędzie do nieograniczonej
+    eksploracji danych. Dzieje się tak dlatego, że na wejściu wizualizacji trzeba podać wszystkie dane w postaci
+    surowej, a nie zdalne źródło agregacji.
+
+</p>
+
+<figure type="picture" id="picture:zoomcharts-1">
+    <figcaption>Zmiana poziomu agregowania podczas animacji przybliżania.</figcaption>
+    <img src="/images/existing/zoomcharts-1.png" width="60%"/>
+</figure>
+
+<p>
+    W obu sytuacjach powyżej został podświetlony miesiąc luty 2013. W pierwszej sytuacji zostały wyświetlone agregacje
+    miesięczne w postaci wygładzonej krzywej. Po kliknięciu na podświetlonym na niebiesko kafelku danego miesiąca
+    została uruchomiona animacja przybliżająca do widoku dni miesiąca lutego, podczas której pojawia się nagłe
+    wyostrzenie obrazu.
+</p>
+
 <h3>Tableau</h3>
+<p>
+    Tableau jest kolejnym przykładem platformy <em>Business Intelligence</em>, w tym przypadku
+</p>
+
 <h3>Elastic</h3>
 <p>Kibana, Timelion</p>
 <h3>Grafana</h3>
@@ -27,8 +101,8 @@
 </p>
 
 <p>
-    Grafana udostępnia różnorodne formy wizualizacji danych, takich, jak mapy cieplne <trans>heatmaps</trans>, serie
-    czasowe czy histogramy.
+    Grafana udostępnia różnorodne formy wizualizacji danych w przeglądarce, takich, jak mapy cieplne <trans>
+    heatmaps</trans>, serie czasowe czy histogramy.
 
     Umożliwia tworzenie i wspódzielenie paneli <trans>dashboard</trans> danych między
     użytkownikami.
