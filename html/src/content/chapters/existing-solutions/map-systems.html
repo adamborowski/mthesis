@@ -1,32 +1,26 @@
 
 <h2>Systemy mapowe</h2>
 
-
-<div>
-
-    <p>
-        Ograniczenia i wyzwania można śmiało porównać do systemów mapowych. Dla przykładu, w systemie <em>Google
-        Maps </em>
-        odwiedzić możesz każde miejsce na ziemi. Za pomocą kilku intuicyjnych ruchów możesz oddalić się od pomnika
-        Neptuna
-        w Gdańsku, by zobaczyć całą mapę Świata, następnie przyjżeć się z bliska Liberty Island w Nowym Jorku. Wyzwaniem
-        w
-        takim systemie jest zapewnienie, aby użytkownik w ogóle nie musiał czekać na fragmenty map, które chce oglądać,
-        bo
-        przecież nikt nie ładuje z sieci Internet szczegółowych obrazów satelitarnych całej kuli ziemskiej.
-    </p>
-    <p>
-        W przypadku danych pomiarowych, można powiedzieć, że problem jest nieco prostszy, ponieważ nie poruszamy się po
-        przestrzeni dwuwymiarowej, ale tylko po wymiarze czasu, który układa się na poziomej osi wykresu.
-        Niemniej jednak zapewnienie wysokiej rozdzielczości obrazu na wykresie stanowi wyzwanie, jeżeli chcemy, by
-        użytkownik jak najrzadziej był zmuszony czekać na doładowanie potrzebnych danych.
-        Według <a href="https://www.nngroup.com/articles/response-times-3-important-limits/" target="blank">
-        Nielsena</a>,
-        oczekiwanie na odpowiedź systemu trwające powyżej 0.1 sekundy jest zauważalne i gdy się wydłuża &mdash; znacznie
-        obniża się efektywność pracy.
-    </p>
-</div>,
-<p>Kaflowe systemy mapowe i serie danych pomiarowych mają dużo wspólnych cech:</p>
+<p>
+    Wyzwania i ograniczenia wizualnej eksploracji danych pomiarowych można śmiało porównać do tych występujących w
+    systemach mapowych.
+    Dla przykładu, w systemie <em>Google Maps </em> można odwiedzić dowolne miejsce na ziemi.
+    Za pomocą kilku intuicyjnych ruchów można oddalić się od pomnika Neptuna w Gdańsku,
+    by spojrzeć na całą mapę Europy, potem Świata, następnie przybliżyć się do <em>Liberty Island</em> w Nowym Jorku
+    by spojrzeć z góry na Statuę wolności.
+    Wyzwaniem w takim systemie jest zapewnienie, aby użytkownik w ogóle nie musiał czekać na fragmenty map, które
+    chce oglądać.
+    Tutaj też nie jest możliwe załadowanie i przetworzenie całego zbioru danych, w tym przypaku wysokej
+    rozdzielczości zdjęć sateliternych całego globu.
+</p>
+<p>
+    W przypadku danych pomiarowych można powiedzieć, że problem jest nieco prostszy, ponieważ eksploracja obywa się
+    w przestrzeni nie dwuwymiarowej, lecz tylko po wymiarze czasu, który układa się na poziomej osi wykresu.
+</p>
+<p>
+    Systemy mapowe i systemy wizualizacji danych pomiarowych mają dużo wspólnych cech, które przedstawiono w tabeli <a
+        href="#table:timeseries-geomaps-similarity"></a>:
+</p>
 
 <figure type="table" id="table:timeseries-geomaps-similarity">
     <figcaption>Zestawienie podobnych cech i zastosowań danych pomiarowych oraz mapowych</figcaption>
@@ -45,14 +39,14 @@
             <td>przestrzeń czasu (1D)</td>
         </tr>
         <tr>
-            <td>adresowanie skalowalności</td>
+            <td>uproszczenie danych</td>
             <td>rozdzielność obrazu satelitarnego</td>
             <td>agregacja danych pomiarowych</td>
         </tr>
         <tr>
-            <td>architektura kafli</td>
-            <td>fragment przestrzeni geograficznej</td>
-            <td>fragment przestrzeni czasu</td>
+            <td>organizacja pamięci</td>
+            <td>warstwowa z dwuwymiarowymi kaflami</td>
+            <td>warstwowa z agregacjami danych</td>
         </tr>
         <tr>
             <td>aplikacje klienta</td>
@@ -63,3 +57,106 @@
     </table>
 </figure>
 
+<p>
+    Warto zauważyć, że istnieje niewielka różnica między organizacją pamięci obu przypadków, leżąca w budowie
+    uproszczonej formy danych.
+    Uproszczoną formą danych pomiarowych jest agregacja, która po odwzorowaniu na ekranie ma być nie szersza niż
+    szerokość jedenego piksela.
+    Z kolei w systemach mapowych uproszczoną formą danych jest obraz graficzny o arbitralnie ustalonej
+    wysokości i szerokości, intuicyjnie postrzgany jako <q>kafelek</q> danych.
+
+    Adresowanie tych uproszczonych form danych jest też inne.
+
+    W przypadku serii czasowych odwołuje się do początku i końca danej agregacji &mdash; można więc powiedzieć, że
+    adresowanie jest dwustopniowe.
+    Adresowanie kafli mapowych jest hierarchiczne, gdzie każdy kolejny segment adresacji
+    dzieli obszar kuli ziemskiej na
+    cztery mniejsze części.
+
+    Zostało to pokazane na ilustracji <a href="#picture:maptiles-structure"></a>.
+
+
+</p>
+
+<figure type="picture" id="picture:maptiles-structure">
+    <figcaption>Przestrzeń adresowa <em>Bing Maps</em> <a href="#bib:bing-maps"></a></figcaption>
+    <img src="/images/existing/bing-tiles.jpeg" width="80%"/>
+</figure>
+
+
+<p>
+    Tak jak w wizualizacji danych, w systemach mapowych istnieje zagadnienie dostosowania odpowiedniego poziomu
+    szczegółowości
+    (uproszczenia) do zakresu oglądanych na ekranie danych.
+
+    Zarówno w systemach mapowych jak i wizualizacji danych pomiarowych dowolność skali umożliwia płynne ruchy
+    przybliżania i
+    oddalania.
+    W przeciwnym wypadku użytkownik mógłby <q>przeskakiwać</q> tylko pomiędzy takimi skalami, które dokładnie
+    odpowiadają
+    poziomom agregacji danych.
+
+    Przykładowy proces doboru odpowiedniego poziomu danych, opracowany przez J.T. Sample, został pokazany na ilustracji
+    <a
+            href="#picture:map-adjust-level"></a>.
+
+</p>
+
+<figure type="picture" id="picture:map-adjust-level">
+    <figcaption>Sample prosty algorytm doboru poziomu danych <a href="#bib:sample2010tile"
+                                                                chapter="3"></a>
+    </figcaption>
+    <img src="/images/existing/tiles-zoom-adjust.png" width="80%"/>
+</figure>
+
+<p>
+    W pierwszej sytuacji skala użytkownika równa jest skali jednej z poziomów szczegółowości danych.
+
+    W drugiej sytuacji skala użytkownika znajduje się pomiędzy skalami dwóch sąsiednich poziomów, w związku z czym
+    wybierany jest ten bardziej szczegółówy, by nie pokazywać użytkownikowi niewyraźnego obrazu.
+
+    W następnym przypadku skala wizualizacji mieści się w dziesiątej części odcinka pomiędzy skalami dwóch sąsiednich
+    poziomów.
+
+    W tej sytuacji zdecydowano się pokazać użytkownikowi dane z mniej szczegółowego poziomu zakładając, że rozmycie
+    będzie mało zauważalne.
+
+    Dwie ostatnie przedstawiane sytuacje dotyczą przypadku, gdy nie wszystkie poziomy danych są dostępne w danym
+    obszarze.
+
+    W tym momencie, zamiast wyświetlać użytkownikowi puty obszar, zdecydowano się pokazać dane z innych poziomów.
+
+    Jeśli między skalą użytkownika a skalą zastępczego poziomu jest stosunkowo mała odległość, wybiera się najbliższy
+    bardziej szczegółowy poziom.
+
+    Ponieważ ze wzrostem poziomu rośnie też rozmiar danych, niekiedy decyduje się nie wykorzystywać tych szczegółowych
+    poziomów i pokazać użytkownikowi niewyraźny obraz z mniej szczegółowego poziomu.
+
+</p>
+
+<p>
+
+
+    Sample opisuje sytuacje, gdy na wybranym poziomie nie ma dostępnych kafli danych. Jest to dosyć powszechne w
+    systemach mapowych, gdyż istnieją mniej popularne geograficznie rejony, w których nie wykonano szczegółowych
+    zdjęć satelitarnych. Może byc też tak, że na większym obszarze, na przykład leśnym czy pustynnym, istnieje
+    duże miasto, które wyjątkowo dokładnie zostało sfotografowane.
+
+    W przypadku danych pomiarowych jest inaczej, gdyż wszystkie dane są dostępne, a ich agregacje są generowane
+    sztucznie na podstawie danych surowych.
+
+    Dane są zatem całkowicie dostępne, niemniej jednak opisywanych sytuacji braku danych można się doszukiwać w
+    odniesieniu do pamięci podręcznej klienta wizualizacji &mdash; przeglądarki.
+</p>
+<p>
+    W pamięci podręcznej może się zdarzyć, że danych na wybranym poziomie po prostu jeszcze nie ma, natomiast dostępne
+    są odpowiadające fragmenty na wyższych i niższych poziomach, w związku z czym pokazuje się je zanim właściwe dane
+    zostaną pobrane z serwera.
+
+</p>
+<p>
+
+    Metody doboru skali w systemach mapowych niemalże w identyczny sposób można zastosować w wizualnej eksploracji
+    danych pomiarowych, co zostało omówione w rozdziale <a
+        href="#chapter:theoretical-cache-projection"></a>.
+</p>

@@ -415,9 +415,20 @@
 
 <p>
     Techniki stosowane w systemach rozproszonych, mające na celu zminimalizowanie negatywnego wpływu obecności sieci,
-    zdają się być adekwatne również do optymalizacji wizualizacji. Wyróżnia się dwie podstawowe metody optymalizacji
-    transmisji danych<a href="#bib:xu2004caching"></a>: buforowanie <trans lang="ang">caching</trans> oraz wstępne
-    pobieranie danych <trans lang="ang"> prefetching</trans>.
+    zdają się być adekwatne również do optymalizacji wizualizacji. Wyróżnia się trzy podstawowe metody optymalizacji
+    transmisji danych<a href="#bib:xu2004caching"></a>:
+    wyświetlanie progresywne
+    <tras>progressive display</tras>
+    ,
+    buforowanie <trans lang="ang">caching</trans> oraz wstępne
+    pobieranie danych <trans lang="ang"> prefetching</trans> <a href="#bib:multilevel-cache"></a>.
+</p>
+
+<p>
+    Wyświetlanie progresywne zakłada, że podczas gdy użytkownik czeka na dane, zasadne jest dodatkowe pobranie
+    uproszczonej wersji tych danych pod warunkiem, że odpowiedź serwera nadejdzie istotnie szybciej niż właściwe dane.
+    Dzięki temu umysł użytkownika skupia się na interpretacją wstępnych danych, które stopniowo robią się dla niego
+    coraz bardziej czytelne. W ten sposób można ukryć opóźnienia sieci przed percepcją człowieka. <a href="#bib:multilevel-cache"></a>.
 </p>
 
 <p>

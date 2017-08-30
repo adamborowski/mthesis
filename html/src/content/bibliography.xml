@@ -330,7 +330,7 @@
         <url access="2016-09-21">https://www.nngroup.com/articles/usability-101-introduction-to-usability/</url>
         <year>2012</year>
     </citation>
-    <citation type="article">
+    <citation type="article" id="bib:multilevel-cache">
         <title>A Multi-Level Cache Model for Run-Time Optimization of Remote Visualization," in IEEE Transactions on Visualization and Computer Graphics</title>
         <volume>vol. 13 pp. 991-1003</volume>
         <author>R. Sisneros, C. Jones, J. Huang, J. Gao, B. H. Park and N. Samatova</author>
@@ -419,6 +419,10 @@
     <citation type="article" id="bib:influxdb">
         <title>Dokumentacja deweloperska InfluxDB</title>
         <url access="2017-08-29">https://docs.influxdata.com/influxdb/v1.3/</url>
+    </citation>
+    <citation type="article" id="bib:bing-maps">
+        <title>Bing Maps Tile System</title>
+        <url access="2017-08-30">https://msdn.microsoft.com/en-us/library/bb259689.aspx</url>
     </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
