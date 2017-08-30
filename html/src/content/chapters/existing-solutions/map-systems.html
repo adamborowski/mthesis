@@ -16,8 +16,6 @@
 <p>
     W przypadku danych pomiarowych można powiedzieć, że problem jest nieco prostszy, ponieważ eksploracja obywa się
     w przestrzeni nie dwuwymiarowej, lecz tylko w wymiarze czasu, który układa się na poziomej osi wykresu.
-</p>
-<p>
     Systemy mapowe i systemy wizualizacji danych pomiarowych mają kilka wspólnych cech, które przedstawiono w tabeli <a
         href="#table:timeseries-geomaps-similarity"></a>:
 </p>
@@ -60,16 +58,16 @@
 <p>
     Warto zauważyć, że istnieje niewielka różnica między organizacją pamięci obu przypadków, leżąca w budowie
     uproszczonej formy danych.
-    Uproszczoną formą danych pomiarowych jest agregacja, która po odwzorowaniu na ekranie ma być nie szersza niż
-    szerokość jedenego piksela.
+    Uproszczoną formą danych pomiarowych jest agregacja, której zakres po odwzorowaniu na ekranie mieści się w obrębie
+    jednego piksela.
     Z kolei w systemach mapowych uproszczoną formą danych jest obraz graficzny o arbitralnie ustalonej
-    wysokości i szerokości, intuicyjnie postrzgany jako <q>kafelek</q> danych.
+    wysokości i szerokości, intuicyjnie postrzgany jako <q>kafelek</q> ziemii.
 
     Adresowanie tych uproszczonych form danych jest też inne.
 
     W przypadku serii czasowych odwołuje się do początku i końca danej agregacji &mdash; można więc powiedzieć, że
-    adresowanie jest dwustopniowe.
-    Adresowanie kafli mapowych jest hierarchiczne, gdzie każdy kolejny segment adresacji
+    adresowanie jest płaskie.
+    Z kolei adresowanie kafli mapowych jest hierarchiczne, gdzie każdy kolejny segment adresacji
     dzieli obszar kuli ziemskiej na
     cztery mniejsze części.
 
@@ -96,7 +94,8 @@
     odpowiadają
     poziomom agregacji danych.
 
-    Przykładowy proces doboru odpowiedniego poziomu danych, opracowany przez J.T. Sample, został pokazany na ilustracji
+    Przykładowy proces doboru odpowiedniego poziomu danych, przedstawiony przez J.T. Sample, został pokazany na
+    ilustracji
     <a
             href="#picture:map-adjust-level"></a>.
 
@@ -110,7 +109,8 @@
 </figure>
 
 <p>
-    W pierwszej sytuacji skala użytkownika równa jest skali jednej z poziomów szczegółowości danych.
+    W pierwszej sytuacji skala użytkownika równa jest skali jednej z poziomów szczegółowości danych, w związku z czym
+    wybór jest jednoznaczny.
 
     W drugiej sytuacji skala użytkownika znajduje się pomiędzy skalami dwóch sąsiednich poziomów, w związku z czym
     wybierany jest ten bardziej szczegółówy, by nie pokazywać użytkownikowi niewyraźnego obrazu.
@@ -118,26 +118,27 @@
     W następnym przypadku skala wizualizacji mieści się w dziesiątej części odcinka pomiędzy skalami dwóch sąsiednich
     poziomów.
 
-    W tej sytuacji zdecydowano się pokazać użytkownikowi dane z mniej szczegółowego poziomu zakładając, że rozmycie
-    będzie mało zauważalne.
+    W tej sytuacji zdecydowano się pokazać użytkownikowi dane z mniej szczegółowego poziomu zakładając, że powiększenie
+    obrazu o 10 procent względem oryginalnych rozmiarów będzie mało zauważalne.
 
     Dwie ostatnie przedstawiane sytuacje dotyczą przypadku, gdy nie wszystkie poziomy danych są dostępne w danym
     obszarze.
 
-    W tym momencie, zamiast wyświetlać użytkownikowi puty obszar, zdecydowano się pokazać dane z innych poziomów.
+    W tym momencie, zamiast wyświetlać użytkownikowi pusty obszar, zdecydowano się pokazać dane z innych poziomów.
 
-    Jeśli między skalą użytkownika a skalą zastępczego poziomu jest stosunkowo mała odległość, wybiera się najbliższy
-    bardziej szczegółowy poziom.
+    Jeśli między skalą użytkownika a najbliższym dokładniejszym poziomem jest stosunkowo mała odległość, to wybiera się
+    właśnie ten poziom.
 
-    Ponieważ ze wzrostem poziomu rośnie też rozmiar danych, niekiedy decyduje się nie wykorzystywać tych szczegółowych
-    poziomów i pokazać użytkownikowi niewyraźny obraz z mniej szczegółowego poziomu.
+    W przeciwnym wypadku decyduje się pokazać niewyraźny obraz z mniej
+    szczegółowego poziomu, ponieważ ze wzrostem poziomu szczegółowości rośnie też rozmiar danych i wybranie zbyt
+    szczegółowego poziomu spowodowałoby znaczne obciążenie transferu danych.
 
 </p>
 
 <p>
 
 
-    Sample opisuje sytuacje, gdy na wybranym poziomie nie ma dostępnych kafli danych. Jest to dosyć powszechne w
+    Sample opisuje dwie sytuacje, gdy na wybranym poziomie nie ma dostępnych kafli danych. Jest to dosyć powszechne w
     systemach mapowych, gdyż istnieją mniej popularne geograficznie rejony, w których nie wykonano szczegółowych
     zdjęć satelitarnych. Może byc też tak, że na większym obszarze, na przykład leśnym czy pustynnym, istnieje
     duże miasto, które wyjątkowo dokładnie zostało sfotografowane.
@@ -156,7 +157,6 @@
 </p>
 <p>
 
-    Metody doboru skali w systemach mapowych niemalże w identyczny sposób można zastosować w wizualnej eksploracji
-    danych pomiarowych, co zostało omówione w rozdziale <a
-        href="#chapter:theoretical-cache-projection"></a>.
+    Metody doboru skali w systemach mapowych można zastosować w wizualnej eksploracji danych pomiarowych, co zostało
+    omówione w rozdziale <a href="#chapter:theoretical-cache-projection"></a>.
 </p>
