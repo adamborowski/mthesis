@@ -1,6 +1,6 @@
 <h2>Bazy danych pomiarowych</h2>
 
-Poniżej przedstawiono popularne systemy przechowywania szeregów czasowych.
+Poniżej przedstawiono popularne systemy przechowywania danych szeregów czasowych.
 
 <h3>Influx DB</h3>
 
@@ -8,7 +8,8 @@ Poniżej przedstawiono popularne systemy przechowywania szeregów czasowych.
     <em>InfluxDB</em> bazą danych szergów czasowych i jest częścią ekosystemu <em>InfluxData</em>.
     Przystosowana jest do przyjmowania dużych strumieni danych wejściowych w czasie rzeczywistym.
 
-    Wspiera przechowywanie danych monitoringu aplikacji, dane z sensorów <em>IoT</em> i analityki czasu rzeczywistego.
+    Wspiera przechowywanie danych monitoringu aplikacji, dane z sensorów <em>Interet of Things</em> i analityki czasu
+    rzeczywistego.
 
     Automatycznie oblicza agregacje na podstawie zapytań ciągłych <trans>continuous queries</trans>.
 
@@ -20,6 +21,11 @@ Poniżej przedstawiono popularne systemy przechowywania szeregów czasowych.
     Jest opublikowana na wolnej licencji, jednak darmowe użycie ogranicza się do jednego węzła bazy danych.
 
     <a href="#bib:influxdb"></a>
+</p>
+
+<p>
+    Istotną zaletą tej bazy danych jest możliwość użycia zawawansowanych agregatów, jak na przykład średnia krocząca,
+    która jest niekiedy wymagana prawnie w systemach. <a href="#bib:siwz"></a>
 </p>
 
 <figure type="code" id="code:influxql">

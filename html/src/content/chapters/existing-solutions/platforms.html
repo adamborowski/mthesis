@@ -12,7 +12,7 @@
 <p>
     <em>Qlik</em> jest to rodzina komercyjnych produktów <em>BI</em>, której dwoma głównymi produktami są <em>Qlik
     Sense</em> oraz
-    <em>QlikView</em>. <em>Qlik Sense</em> pozwala na budowanie dowolnych wizualizacji i zapytań, gdy
+    <em>QlikView</em>. <em>Qlik Sense</em> pozwala na budowanie dowolnych wizualizacji i zapytań, podczas gdy
     <em>QlikView</em> jest ukierunkowany biznesowo i definiuje pewne wspólne zasady, słowniki, miary, czy procesy
     raportowe <a href="#bib:self-service-bi"></a><a href="#bib:qlikview-vs-sense"></a>, dzięki czemu jest łatwiejszy w
     użyciu i nie wymaga dużego wsparcia działu IT w firmach.
@@ -22,9 +22,11 @@
     Oba produkty zorientowane są na obliczanie gotowych raportów na podstawie danych. Co prawda możliwa jest nawigacja
     po seriach czasowych, ale nie jest ona swobodna. Została ograniczona do wyboru zakresu w parametrze raportu oraz
     interakcji typu <em>master-detail</em> polegająca na kadrowaniu wykresu bez pobierania bardziej szczegółowych
-    agregacji danych i poruszania się horyzontalnie w ramach tych danych.
+    agregacji danych oraz poruszaniu się horyzontalnie w ramach tych danych.
     Przykładowy interaktywny raport został pokazany na ilustracji <a href="#picture:qlik"></a>.
-
+    Zorientowanie na tworzenie raportów w przypadku wizualizacji oznacza tutaj, że dane są wstępnie analizowane z
+    użyciem
+    zaawansowanych metod, w wyniku których powstaje niewielki zbiór danych podsumowujących, które mogą być przeglądane.
 </p>
 
 
@@ -48,9 +50,9 @@
 
 <p>
     Biblioteka <em>JavaScript</em> skupiona jest na intuicyjnej nawigacji po danych, zwłaszcza na urządzeniach
-    mobilnych, wykorzystając nawigację gestami na urządzeniach mobilnych.
+    mobilnych wykorzystając nawigację gestami.
     Ciekawym podejściem stosowanym w tej wizualizacji jest umyślne eksponowanie agregacji jako informacji &mdash;
-    uproszczenie jest tutaj celowo uwypuklane.
+    uproszczenie jest tutaj celowo uwypuklane w ten sposób, że punktów na wykresie jest istotnie mniej.
 
     Co więcej, biblioteka na bieżąco oblicza agregacje danych w zależności od typu wykresu &mdash; liniowego, słupkowego
     czy schodkowego, co zostało pokazane na ilustracji <a href="#picture:zoomcharts-1"></a>.
@@ -71,8 +73,9 @@
 </figure>
 
 <p>
-    W obu sytuacjach powyżej został podświetlony miesiąc luty 2013. W pierwszej sytuacji zostały wyświetlone agregacje
-    miesięczne w postaci wygładzonej krzywej. Po kliknięciu na podświetlonym na niebiesko kafelku danego miesiąca
+    W obu sytuacjach powyżej został podświetlony miesiąc luty 2013. W pierwszej sytuacji została wyświetlona wygładzona
+    krzywa o punktach kontrolnych wyznaczonych agregacjami miesięcznymi.
+    Po kliknięciu na podświetlonym na niebiesko kafelku danego miesiąca (druga sytuacja)
     została uruchomiona animacja przybliżająca do widoku dni miesiąca lutego, podczas której pojawia się nagłe
     wyostrzenie obrazu.
 </p>
@@ -146,7 +149,7 @@
     Wśród nich znajduje się <em>Kibana</em> z rozszerzeniem <em>TimeLion</em>, narzędzie wizualizujące przetwarzane
     dane.
 
-    <em>Kibana</em> od strony eksploracji danych ma podobne ograniczenia, jak <em>Grafana</em>.
+    <em>Kibana</em> od strony eksploracji danych ma podobne ograniczenia, jak <em>Grafana</em><ft>Testowane na wersji 5.5 <a href="https://demo.elastic.co/app/kibana"></a> </ft>.
 
     Interakcja odbywa się również poprzez kadrowanie zakresu lub wybór w panelu konfiguracyjnym.
     Również brakuje tutaj optymalizacji ładowania danych do wizualizacji.
