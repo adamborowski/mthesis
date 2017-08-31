@@ -1,1 +1,23 @@
 <h2 id="chapter:exiting-solutions-cache">Pamięć podręczna</h2>
+
+<p>
+    Mechanizmy pamięci podręcznej są często występującym elementem systemów rosproszonych o wysokim użyciu kanału
+    komunikacyjnego lub w którym kanał komunikacyjny jest zbyt wolny w stosunku do możliwości obliczeniowych systemu.
+
+    Przykładem może być układ procesora i pamięci <em>RAM</em>, w którym wysokiej wydajności dodatkowy układ pamięciowy
+    przechowuje bloki pamięci <em>RAM</em>, których elementy były odczytywane w niedalekiej przeszłości.
+    Zakłada się tu bowiem, że elementy pamięci leżące blisko siebie często są odczytywane w tym samym czasie, jak na
+    przykład bloki instrukcji czy elementy tablicy podczas iteracji. W procesorach mechanizmy <em>cache</em> działają
+    również w drugą stronę &mdash; pozwalają częste zapisy dokonywać na szybkiej pamięci, zanim zostaną przesłane do
+    <em>RAM</em>.
+</p>
+
+<p>
+    Kolejnym przykładem pamięci podręcznej jest cecha protokołu <em>HTTP</em>, który dla transportowanych zasobów pozwala
+    określić zasadność ponownego pytania o ten zasób.
+    ...
+</p>
+
+<p>
+    <em>Proxy cache</em> - zarządzanie spójnością (forward, reverse)
+</p>
