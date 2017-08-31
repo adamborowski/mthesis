@@ -1,5 +1,107 @@
-<h2 id="chapter:exiting-solutions-prediction-methods">Metody predykcji</h2>
-<h3>ForeCache</h3>
+<h2>ForeCache</h2>
+
+<p>
+    <em>ForeCache</em> jest serwerowym mechanizmem pamięci podręcznej z predykcją wspierającym wizualną eksplorację w
+    systemach mapowych i systemach z szeregami czasowymi.
+    Został zaproponowany w pracy <em>Dynamic Prefetching of Data Tiles for Interactive Visualization</em> <a
+        href="#bib:forecache"></a>.
+    Jest to element pośredniczący między klientem wizualizacji a bazą danych, którego zadaniem jest optymalizować czas
+    odpowiedzi serwera odczytującego dane z bazy danych.
+
+
+    Jest to realizowane przez ładowanie danych z bazy do pamięci operacyjnej serwera z wyprzedzeniem, by podczas żądania
+    danych realizowany był jedynie odczyt z szybkiej pamięci operacyjnej.
+
+    Stwierdza się tutaj, że bazy danych, choć współczesne bazy danych pozwalają na złożoną analizę wielkich zbiorów
+    danych, nie są zaprojektowane, by szybkością odpowiedzi nadążać za szybkością interakcji użytkownika.
+
+</p>
+
+
+<p>
+    Zaobserwowano tutaj, że analiza eksploracyjna wykazuje pewne powtarzające się wzorce interakcji wspólne dla każdego
+    typu danych.
+
+    Wzorzec polega na tym, że analiza skupia się na małym fragmencie większego zbioru danych, następnie przechodzi się
+    do sąsiadującego regionu by dokonać podobnej analizy.
+
+    Początkowo taka analiza skupia się na zagregowanych danych w celu znalezienia szybkiej odpowiedzi, a gdy potrzebna
+    jest dokładna odpowiedź &mdash; następuje przybliżenie do analizowanego fragmentu w celu analizy szczegółowych
+    danych.
+
+
+</p>
+
+<p>
+    W <em>ForeCache</em> skupiono się na wsparciu tego wzorca eksploracji, czyli od ogółu do szczegółu, gdzie
+    użytkownik może poruszać się swobodnie na danym poziomie przybliżenia i przybliżyć do interesującego fragmentu.
+
+</p>
+
+<p>
+    Stwierdzono, że w środowisku wspierającym pracę wielu użytkowników jednocześnie, niemożliwe jest załadowanie
+    wszystkich sąsiadujących fragmentów dla każdego użytkownika, tym bardziej, że czas pomiędzy kolejnymi żądaniami
+    użytkowników może być niewystarczający.
+</p>
+<p>
+
+    Celem w <em>ForeCache</em> jest między innymi przewidzenie, do którego obszaru użytkownik zdedycuje się przemieścić,
+    by ten obszar odczytać z bazy danych w wyprzedzeniem. Do <em>cache</em> ładowane są tylko najbardziej prawdopodobne
+    fragmenty danych.
+    Zaprojektowano silnik predykcji, w którym działają modele rekomendacji bazujące na historii akcji użytkownika oraz
+    na informacjach zawartych w samych danych.
+</p>
+
+<p>
+    Model rekomendacji bazujący na akcjach użytkownika <trans>Actions-Based Recommender</trans>
+    zakłada, że na podstawie historii akcji użytkownika można przewidzieć kolejny jego ruch.
+
+    Model ten zbudowany jest na łańcuchu <em>Markowa</em> wyższego rzędu.
+
+    Łańcuch <em>Markowa</em> składa się ze stanów, gdzie jeden stan reprezentuje jedną ze wszystkich możliwych sekwencji
+    ruchów o długości <em>n</em>.
+
+    Przykładowy fragment łańcucha <em>Markowa</em> trzeciego rzędu został pokazany na ilustracji <a
+        href="#picture:markov"></a>.
+
+</p>
+
+<figure type="picture" id="picture:markov">
+    <figcaption class="text-justify">
+        Fragment łańcucha <em>Markowa</em> reprezentujący możliwe przejścia między stanami.
+        Symbole oznaczają konkretną akcję użytkownika:
+        <em>L</em> &mdash; przejśce w lewo,
+        <em>R</em> &mdash; przejście w prawo,
+        <em>+</em> &mdash; przybliżenie,
+        <em>X</em> &mdash; oddalenie.
+        Grubość strzałki odzwierciedla prawdopodobieństwo przejścia.
+        Kolorem żółtym zaznaczony został aktualny stan historii ostatnich ruchów.
+
+    </figcaption>
+    <img src="cache/markov.png"/>
+</figure>
+
+<p>
+    W tym przykładzie zostało ustalone, że zapamiętywane są <em>n=3</em> ostatnie akcje użytkownika.
+    Ponieważ użytkownik zawsze może wykonań 4 ruchy, to liczba możliwych stanów trzyelementowej historii nawigacji
+    wynosi <em>4<sup>3</sup>=256</em>.
+    Należy pamiętać, że liczba przejść z danego stanu zawsze wynosi 4, gdyż tylko 4 stany będą zawierały dwa ostatnie
+    ruchy i jeden nowy ruch użytkownika.
+    Ze stanu (lewo, lewo, prawo) można przejść tylko do (lewo, prawo, lewo), (lewo, prawo, prawo), (lewo, prawo, oddal)
+    oraz (lewo, prawo, przybliż).
+</p>
+
+<p>
+
+    TODO: napisać, że tak naprawdę to najlepszym rozwiązaniem jest użyć ForeCache na serwerze i ExploreJS w przeglądarce
+
+    :)
+    ale logika przewidywania danych jest trafna i warto te same modele zastosować w predykcji w ExploreJS
+
+    można jeszcze powiedzieć, w mimo że nasz cache jest u klienta, to tez wielu uzytkownikow uderza na ten sam serwer.
+</p>
+
+
 <p helper>
     https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_48
     https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g1102d58b2f_0_48
