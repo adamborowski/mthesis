@@ -5,15 +5,15 @@
     systemach mapowych i systemach z szeregami czasowymi.
     Został zaproponowany w pracy <em>Dynamic Prefetching of Data Tiles for Interactive Visualization</em> <a
         href="#bib:forecache"></a>.
-    Jest to element pośredniczący między klientem wizualizacji a bazą danych, którego zadaniem jest optymalizować czas
+    Jest to element pośredniczący między klientem wizualizacji a bazą danych, którego zadaniem jest optymalizacja czasu
     odpowiedzi serwera odczytującego dane z bazy danych.
 
 
     Jest to realizowane przez ładowanie danych z bazy do pamięci operacyjnej serwera z wyprzedzeniem, by podczas żądania
     danych realizowany był jedynie odczyt z szybkiej pamięci operacyjnej.
 
-    Stwierdza się tutaj, że bazy danych, choć współczesne bazy danych pozwalają na złożoną analizę wielkich zbiorów
-    danych, nie są zaprojektowane, by szybkością odpowiedzi nadążać za szybkością interakcji użytkownika.
+    Stwierdza się tutaj, że współczesne bazy danych, choć pozwalają na złożoną analizę wielkich zbiorów, nie są
+    zaprojektowane, by szybkością odpowiedzi nadążać za szybkością interakcji użytkownika.
 
 </p>
 
@@ -83,7 +83,8 @@
 
 <p>
     W tym przykładzie zostało ustalone, że zapamiętywane są <em>n=3</em> ostatnie akcje użytkownika.
-    Ponieważ użytkownik zawsze może wykonań 4 ruchy, to liczba możliwych stanów trzyelementowej historii nawigacji
+    Ponieważ użytkownik zawsze może wykonać 4 różne typy ruchów, to liczba możliwych stanów trzyelementowej historii
+    nawigacji
     wynosi <em>4<sup>3</sup>=256</em>.
     Należy pamiętać, że liczba przejść z danego stanu zawsze wynosi 4, gdyż tylko 4 stany będą zawierały dwa ostatnie
     ruchy i jeden nowy ruch użytkownika.
@@ -92,29 +93,88 @@
 </p>
 
 <p>
-
-    TODO: napisać, że tak naprawdę to najlepszym rozwiązaniem jest użyć ForeCache na serwerze i ExploreJS w przeglądarce
-
-    :)
-    ale logika przewidywania danych jest trafna i warto te same modele zastosować w predykcji w ExploreJS
-
-    można jeszcze powiedzieć, w mimo że nasz cache jest u klienta, to tez wielu uzytkownikow uderza na ten sam serwer.
+    Prawdopodobieństwa przejść między stanami łańcucha <em>Markowa</em> są obliczane na podstawie wskazań wynikłych z
+    wykonanych badań interakcji użytkowników <a href="#bib:forecache" chapter="4"></a>.
 </p>
 
+<p>
+    Model rekomendacji bazujący na informacji zawartych w danych <trans>Signature-Based Recommender</trans>
+    zakłada, że użytkownik dosyć często odwiedza sąsienie fragmenty danych, które są wizualnie podobne do bieżącego.
+    Dla przykładu, w wizualizacji poziomu zaśnieżenia Stanów Zjednoczonych oraz Kanady, gdy użytkownik przegląda dane
+    na pewnym poziomie przybliżenia w poszukiwaniu zaśnieżonych terenów, najprawdopodobniej odwiedzi te sąsiednie
+    fragmenty, które również posiadają równie zaśnieżone rejony. Zostało to pokazane na ilustracji <a
+        href="#picture:forecache-snow"></a>.
 
-<p helper>
-    https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_48
-    https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g1102d58b2f_0_48
-    Analiza istniejących rozwiązań, w szczególności tych pochodzących z kategorii systemów mapowych oraz
-    mechanizmów pamięci podręcznej
+</p>
 
-    https://mapr.com/blog/time-series-data-new-big-data
+<figure type="picture" id="picture:forecache-snow">
+    <figcaption><em>a)</em> Potencjalnie rejony zainteresowania. <em>b)</em> Odpowiadające kafle danych.
+        <a href="#bib:forecache" chapter="Fig. 6"></a>.
+    </figcaption>
+    <img src="/images/existing/forecache-snow.png" width="80%"/>
 
-    PREDICTION ENGINE DESIGN - fore cache - prawdopodobieństwa nawigacji tabelka :)
+</figure>
 
-    modele predykcji - fajnie zostało to zrobione w fore cache Potential snow cover
-    Signature-Based (SB) Recommender
-    Actions-Based (AB) Recommender
+<p>
+    Do określenia stopnia podobieństwa między kaflami danych wykorzystywane są miary.
+    Każdy kafel danych określony jest przez cztery sygnatury: rozkład normalny, jednowymiarowy histogram, <em>SIFT</em>
+    oraz <em>DenseSIFT</em>, których sposób wykorzystania pokazano w tabeli <a href="#table:forecache-signatures"></a>.
+</p>
 
+<figure type="table" id="table:forecache-signatures">
+    <figcaption>cechy danych wyliczane dla każdego kafla danych w <em>ForeCache</em></figcaption>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>sygnatura</th>
+            <th>porównywane miary</th>
+            <th>wydobyte charakterystyki wizualne</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>rozkład Gaussa</td>
+            <td>średnia, odchylenie standardowe</td>
+            <td>średnia pozycja/kolor/rozmiar wizualizowanych obiektów</td>
+        </tr>
+        <tr>
+            <td>jednowymiarowy histogram</td>
+            <td>przedziały histogramu</td>
+            <td>rozkład pozycji/koloru/rozmiaru wizualizowanych obiektów</td>
+        </tr>
+        <tr>
+            <td>SIFT</td>
+            <td>histogram na podstawie klastrowanych deskryptorów SIFT</td>
+            <td>wyróżnienie klastrów obiektów (np. grupy pomarańczowych pikseli)</td>
+        </tr>
+        <tr>
+            <td>DenseSIFT</td>
+            <td>tak samo jak <em>SIFT</em></td>
+            <td>wyróżnienie klastrów i ich pozycja w wizualizacji</td>
+        </tr>
+        </tbody>
+    </table>
+</figure>
+
+<p>
+    <em>SIFT</em> <trans>Scale-Invariant Feature Transform</trans> oraz <em>DenseSIFT</em> &mdash; są to zaawansowane
+    algorytmy wykorzystywane w dziedzinie widzenia komputerowego, opisujące lokalne cechy obrazu, które nie są zależne
+    od jego rozmiaru.
+    Dzięki ich zastosowaniu możliwa jest na przykład identyfikacja dwóch podobnych kafli obrazu satelitarnego z
+    podobnymi klastrami pomarańczowych pikseli oznaczających wysoki opad śniegu, czy identyfikacja dwóch podobnych
+    fragmentów wykresu liniowego, reprezentujących wyjątkowy duże skoki wartości w serii danych <em>EKG</em> serca.
+</p>
+
+<p>
+    Choć <em>ForeCache</em> jest rozwiązaniem optymalizującym działanie serwera, zawarte w nim mechanizmy
+    warto próbować zastować po stronie klienta wizualizacji, czyli przeglądarki internetowej.
+
+    Można stwierdzić, że połączenie <em>ForeCache</em> i proponowanego w tej pracy rozwiązania jest zasadne a ich
+    działanie &mdash; komplementarne, gdyż mechanizmy w przeglądarce minimalizowałyby potrzebę wysłania żądania w
+    trakcie nawigacji, a <em>ForeCache</em> minimalizowałby czas odpowiedzi na zapytania, których nie dało się przewidzieć po
+    stronie klienta.
+
+    Należałoby jednak upewnić się, że modele rekomendacji <em>ForeCache</em> odpowiednio interpretują zapytania o zakresy ładowane z
+    wyprzedzeniem nawigacji użytkownika.
 
 </p>
