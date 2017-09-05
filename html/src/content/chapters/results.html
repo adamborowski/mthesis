@@ -17,39 +17,38 @@
     </li>
 </ul>
 
-<h2>Sposób pomiaru wydajności rozwiązania</h2>
-
-metodologia oczeny https://docs.google.com/presentation/d/1fgGbq1I2x5BQ2rY2zmWxnL5lVzEX9rD56j8435ydhn8/edit#slide=id.g111ad9752a_0_53
-
-<p>Mierzyć będzie się następujące parametry</p>
-
-Suma czasu oczekiwania na jakiekolwiek dane (dla jednego scenariusza porównać wszystkie konfiguracje)
-
-Jak się liczy taką sumę:
-
-Trzeba policzyć czas oczekiwania dla każdej zmiany widoku.
-
-<pre class="code">
-    for(viewStateChange of allViewStateChanges){
-        wait_for_next_frame
-        timer start
-        wait until requestManager has no overlapping ranges being loaded of that levelId
-    }
-</pre>
-
-czyli po prostu jeśli po zmianie statechange nie ma zakresu w ładowaniu
-
-do tego potrzeba
- * request manager statistics - tablica requestów z param ranges, levelId i czasem/rozmiarem odpowiedzi
- * view state statistics - tablica zmian viewportu (width, start, end, levelId) w czasie
- * stan cache na koniec?
-zeby porownywac rozne scenariusze - normalizowac do sumy pobranych punktow w cache
-albo suma czasu oczekiwania na dane znormalizowana do liczby zmiany zakresu, albo długości zsumowanych zakresów na każdym poziomie (liczba punktów....)
+<!--<h2>Sposób pomiaru wydajności rozwiązania</h2>-->
 
 
+<!--<p>Mierzyć będzie się następujące parametry</p>-->
 
-rezultaty i wnoski
+<!--Suma czasu oczekiwania na jakiekolwiek dane (dla jednego scenariusza porównać wszystkie konfiguracje)-->
 
-https://docs.google.com/presentation/d/1u6MjT4Q8XE1QD2phJWci3e4hrOA83UqPAsFhan6iQNI/edit#slide=id.g135d179716_1_26
+<!--Jak się liczy taką sumę:-->
 
-w możliwościach rozwoju modeli predykcji nawiązać do indeksowania kierunków burz w - Potential snow cover i innych recommenderów
+<!--Trzeba policzyć czas oczekiwania dla każdej zmiany widoku.-->
+
+<!--<pre class="code">-->
+    <!--for(viewStateChange of allViewStateChanges){-->
+        <!--wait_for_next_frame-->
+        <!--timer start-->
+        <!--wait until requestManager has no overlapping ranges being loaded of that levelId-->
+    <!--}-->
+<!--</pre>-->
+
+<!--czyli po prostu jeśli po zmianie statechange nie ma zakresu w ładowaniu-->
+
+<!--do tego potrzeba-->
+ <!--* request manager statistics - tablica requestów z param ranges, levelId i czasem/rozmiarem odpowiedzi-->
+ <!--* view state statistics - tablica zmian viewportu (width, start, end, levelId) w czasie-->
+ <!--* stan cache na koniec?-->
+<!--zeby porownywac rozne scenariusze - normalizowac do sumy pobranych punktow w cache-->
+<!--albo suma czasu oczekiwania na dane znormalizowana do liczby zmiany zakresu, albo długości zsumowanych zakresów na każdym poziomie (liczba punktów....)-->
+
+
+
+<!--rezultaty i wnoski-->
+
+<!--https://docs.google.com/presentation/d/1u6MjT4Q8XE1QD2phJWci3e4hrOA83UqPAsFhan6iQNI/edit#slide=id.g135d179716_1_26-->
+
+<!--w możliwościach rozwoju modeli predykcji nawiązać do indeksowania kierunków burz w - Potential snow cover i innych recommenderów-->
