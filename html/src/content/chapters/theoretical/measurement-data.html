@@ -1,14 +1,5 @@
 <h2 id="chapter:measaurement-data">Dane pomiarowe</h2>
-<ul class="helper">
-    <li>Co to są dane pomiarowe i jak się je opisuje</li>
-    <li>Co to jest akwizycja danych - wspomnieć o np rejestratorach nox</li>
-    <li>Co to są agregacje danych i jak różne branże je tworzą (max i kierunek wiatru, liczba alarmów, wystąpienie
-        faktu, malowanie częstotliwości (jakis portal do muzyki był), min-max-avg, 5-50-95 percentyl, ogólnie percentyle
-    </li>
-    <li>Przykłady zastosowania danych pomiarowych (WIOŚ, medyczne, cała tabelka)</li>
-</ul>
 <p>
-
     Wiele firm i organizacji na całym świecie pozyskuje petabajty danych i umieszcza je w prywatnych lub publicznych
     chmurach.
     Jednym z rodzajów tych danych są serie czasowe pochodzące z różnych źródeł, takich jak sieci sensorowe, inteligentne
@@ -121,6 +112,13 @@
 
 
 </p>
+
+<figure type="picture" class="on-right" id="picture:analizator">
+    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
+    </figcaption>
+    <img src="/images/stacja–monitoringu.png" width="35%">
+</figure>
+
 <p>
     Pozyskane dane pomiarowe wykorzystywane są na różny sposób.
     Mogą być przetwarzane automatycznie, po to, aby na przykład by włączyć w alarm o zagrożeniu skażeniem spowodowanym
@@ -133,11 +131,6 @@
     zademonstrowano interfejsy użytkownika pozwalające na
     taką właśnie interpretację.
 </p>
-<figure type="picture" class="on-right" id="picture:analizator">
-    <figcaption>Wyposażenie stacji monitoringu jakości powietrza Wojewódzkiego Inspektoratu Ochrony Środowiska
-    </figcaption>
-    <img src="/images/stacja–monitoringu.png" style="height:8cm;">
-</figure>
 
 <figure type="picture" id="picture:measurement-flightrecord">
     <figcaption>Wizualna reprezentacja parametrów lotu pozyskanych z tzw. czarnej skrzynki</figcaption>
@@ -148,7 +141,7 @@
     <figcaption>Wizualna reprezentacja parametrów pracy narządów pacjenta leczonego na tzw. bezdech senny, pozyskanych
         ze specjalistycznych urządzeń medycznych.
     </figcaption>
-    <img src="/images/medcharts.png" width="500"/>
+    <img src="/images/medcharts.png" width="80%"/>
 </figure>
 
 <figure type="picture" id="picture:measurement-cas">
@@ -204,369 +197,11 @@
     </table>
 </figure>
 
-<h3 id="chapter:data-reduction">Redukcja danych</h3>
-<p short="Nie można załadować wszystkich danych do wizualizacji">
-    W najnowocześniejszych narzędziach wizualnej analizy takich jak Tableau, QlikView czy SAP Lumira, zapytania o dane
-    pomiarowe do bazy danych zakładają stosunkowo mały rozmiar zwróconej odpowiedzi.
-
-    Jednak, gdy mowa o odczycie wielkoskalowych danych pomiarowych, odpowiedź bazy danych może zawierać miliony rekordów.
-
-    To powoduje wysokie obciążenie łącza pomiędzy aplikacją użytkownika a bazą danych.
-
-    W przypadku zastosowań zaprezentowanych w tabeli <a href="#table:measurementDataExamples"></a>, każdy użytkownik
-    musiałby oczekiwać na załadowanie odpowiednio 24MB, 2GB, 7GB oraz 25GB danych, zanim system będzie mógł
-    zwizualizować te dane w postaci wykresu.
-
-    Ze względu na rosnącą popularność oraz szybki wzrost liczby źródeł danych o wysokiej częstotliwości próbkowania,
-    powyższe obserwacje można uznać za problem dotyczący nie tylko pojedynczego użytkownika, ale wszystkich
-    użytkowników podłączonych do wspólnej sieci Internet <a href="#bib:data-aggregation"></a>.
-
-</p>
-<p short="System i tak redukuje te miliony punktów podczas wyświetlenia">
-    Wizualizacja takich danych jest w naturalny sposób ograniczona pikselami wyświetlającymi obszar wykresu o danej
-    wysokości i szerokości. Ograniczeniem jest też rozdzielczość ludzkiego oka, którą szacuje się na blisko 576
-    megapikseli <a href="#bib:eye-resolution"></a>, zatem nie istnieje możliwość wizualizacji danych bez ograniczeń.
-
-    Te cechy implikują fakt, iż zanim dane zwrócone w odpowiedzi bazy danych ukształtują się w umyśle odbiorcy,
-    dokonywana jest ich redukcja polegająca na pewnym ich przekształceniu oraz późniejszej projekcji na obraz rastrowy o
-    ustalonej wysokości i serokości.
-
-    Ta redukcja jest dokonywana naturalnie, niezależnie od implementacji aplikacji wizualizacyjnej czy wielkości zbioru
-    wynikowego.
-</p>
-<p short="Agregowanie nie zmienia rezultatu">
-    Biorąc pod uwagę wyżej opisaną naturalną redukcję danych w procesie wizualizacji oraz problem związany ze skalą
-    danych, dzisiejsze systemy wykonują tę redukcję wcześniej, już na etapie akwizycji danych.
-
-    Redukcja ta polega na zastosowaniu odpowiednich funkcji agregujących na podzbiorach danych o stałym interwale.
-
-    Tak przgotowane wcześniej dane wykorzystuje się jako dane wejściowe do opisanej wyżej naturalnej redukcji, co
-    skutkuje identycznym rezultatem, jak pokazano na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie a&nbsp;i&nbsp;b.
-
-    Korzyścią z zastosowania wcześniejszej redukcji jest niewątpliwie minimalizacja transmisji danych z bazy danych do
-    aplikacji użytkownika.
-
-    Rozwiązuje to tym samym problem obciążenia sieci.
-
-
-</p>
-<figure type="picture" id="picture:aggregation-reduction">
-    <figcaption>
-        Wpływ agregacji na wizualizację danych.
-        W punkcie <i>a</i> transmisja surowych danych znacznie obciąża łącze.
-        W punkcie <i>b</i> dobrze dobrana agregacja nie zmienia rezultatu po rasteryzacji jednocześnie minimalizując
-        obciążenie łącza.
-        W punkcie <i>c</i> źle dobrana agregacja powoduje zauważalną redukcję.
-    </figcaption>
-    <img src="cache/aggregation-and-natural-reduction.png">
-</figure>
-<p short="Agregacja musi być dobrze dobrana. Rózne poziomy agregacji">
-    Z agregowaniem wizualizowanych danych wiążą się inne wyzwania.
-
-    Pierwszym z nich jest odpowiednie dobranie wielkości interwału agregacji.
-
-    Jeżeli interwał agregacji po zrzutowaniu na ekran będzie zajmował więcej niż jeden piksel, redukcja będzie
-    zauważalna przez użytkownika i interpretowana jako rozmycie obrazu.
-
-    Na rysunku <a href="#picture:aggregation-reduction"></a> w punkcie <i>c</i> pokazano, jak użytkownik postrzega
-    wizualizację, gdy dochodzi do wyświetlenia zbyt dużej agregacji danych.
-
-    Drugim problemem jest zapewnienie odpowiedniej agregacji danych dla dowolnego zapytania do bazy danych.
-
-    W tym celu systemy akwizycji danych agregują dane na różnych poziomach, aby baza danych mogła przesyłać jak
-    najmniejszą liczbę punktow przy jednoczesnym zachowaniu niezmienionego rezultatu resteryzacji. Zobrazowano to na
-    rysunku <a href="#picture:aggregation-acquisition"></a>.
-</p>
-
-<figure type="picture" id="picture:aggregation-acquisition">
-    <figcaption>
-        Agregowanie w akwizycji danych.
-        Grubość strzałki odzwierciedla rozmiar strumienia danych.
-        Aplikacja użytkownika na potrzeby wizualizacji wybiera odpowiednią agregację w zapytaniu do bazy danych.
-    </figcaption>
-    <img src="cache/aggregation-acquisition.png">
-</figure>
-<p>
-    W zależności od sposobu wizualizacji, systemy niekiedy dokonują dodatkowej agregacji w celu zwiększenia
-    czytelności i wypuklenia dodatkowych informacji. W takim wypadku funkcja agregująca ma na celu wydobycie
-    charakterystycznych dla danego celu
-    wizualizacji cech, najlepiej opisujących to, co się działo z monitorowanym obiektem w agregowanym okresie.
-</p>
-<p>
-    Poniżej zostały po krótce zaprezentowane różne metody redukcji danych i sposoby ich wykorzystania.
-
-    Niektore z nich mają na celu tylko optymalizację zapytania do bazy danych bez zniekształcenia końcowej wizualizacji,
-    inne natomiast wykorzystywane są do pokazania dodatkowych informacji ponad te, które użytkownik mógłby zobaczyć
-    gołym okiem.
-</p>
-
-
-<h4>Próbkowanie</h4>
-<p>
-    Próbkowanie <trans lang="ang">sampling</trans> jest najprostszą i jednocześnie najmniej użyteczną w wizualizacji
-    metodą redukcji danych.
-
-    Polega ono na wybraniu jednej arbitralnej próbki z danego okresu.
-
-    Próbkowania dokonują urządzenia wejściowe systemów akwizycji danych, jako że niemożliwy jest ciągły pomiar wartości.
-
-    Częstotliwość próbkowania im jest większa, tym większa jest dokładność pomiaru i mniejsze przekłamania podczas
-    interpolacji próbkowanych danych <a href="#bib:fu2011review"></a>.
-
-    Na&nbsp;rysunku <a href="#picture:sampling-example"></a> pokazano możliwe sytuacje podczas próbkowania danych oraz
-    konsekwencje w interpolacji danych.
-
-    W punkcie <i>a</i> zmienność danych jest porównywalna od częstotliwości próbkowania, co skutkuje małym stopniem
-    przekłamania danych.
-
-    W punkcie <i>b</i> zmienność danych jest dużo większa od częstotliwości próbkowania, co powoduje, że interpolacja
-    pokazuje zupełnie nieprawdziwe informacje.
-
-    Co prawda zaletą tej metody jest szybkość generowania odpowiedzi złożonej z próbkowanych wartości, to metody tej nie
-    używa się przy generowaniu agregacji, gdyż zazwyczaj zakłada się dużą zmienność wartości w agregowanym okresie.
-</p>
-<figure type="picture" id="picture:sampling-example">
-    <figcaption>Wpływ zależności częstotliwości próbkowania od zmienności danych pomiarowych na wierność odwzorowania
-        danych rzeczywistych
-    </figcaption>
-    <img src="cache/sampling.png"/>
-</figure>
-
-
-<h4>Wartość średnia</h4>
-<p>
-    Agregowanie poprzez uśrednienie wszystkich wartości z danego okresu daje pewne informacje o wszystkich punktach ze
-    zbioru.
-    W większości przypadków, poza nagłymi i znacznymi zmianami wartości pokazanymi na rysunku <a
-        href="#picture:average-example"></a> w punkcie <i>b</i>, wartość średnia dobrze oddaje kształt danych
-    oryginalnych, jak pokazano w punkcie <i>a</i>.
-</p>
-<figure type="picture" id="picture:average-example">
-    <figcaption>Wpływ zależności częstotliwości uśredniania od zmienności danych pomiarowych na wierność odwzorowania
-        danych rzeczywistych
-    </figcaption>
-    <img src="cache/average.png" style="height:5cm;"/>
-</figure>
-<p>
-    W praktyce uśrednienie pozwala odczytać jedynie środek ciężkości rozkładu wartości w przedziale i w specyficznych przypadkach może to
-    prowadzić do dużych przekłamań, jak na przykład w przypadku danych sinusoidalnych pokazanych na rysunku <a
-        href="#picture:sinus"></a>.
-
-    Z tego powodu średnia nie jest wykorzystywana jako samodzielna metoda agregacji.
-</p>
-<figure type="picture" id="picture:sinus">
-    <figcaption>Uśrednienie funkcji sinusoidalnej powoduje powstanie prostej.</figcaption>
-    <img src="cache/average-sinus.png">
-</figure>
-
-
-<h4>Minimum i maksimum</h4>
-<p>
-    Ekstrema zbioru, tzw <i>min-max</i> są pierwszym złożonym sposobem agregowania wieloparametrowego.
-
-    Dla każdego okresu wybierana jest minimalna oraz maksymalna wartość zbioru.
-
-    W wizualizacji wykorzystuje się te parametry do zacieniowania lub obrysowywania obszaru ograniczonego tymi
-    wartościami.
-
-    Jest to metoda znana z programów do obróbki audio, gdzie częstotliwość sygnału jest na tyle duża, że jedynym
-    sensownym agregatem jest zakres amplitudy, co z pozwala odczytać natężenie dźwięku.
-
-    Przykład pokazano na rysunku <a href="#picture:min-max"></a>.
-
-    Wadą tej metody jest to, że wystarczy tylko jedna próbka odstająca od pozostałych, aby poszerzyć ekstremum.
-
-    Może to doprowadzić do sytuacji, w której rzadko, aczkolwiek regularnie, występujące nagłe i krótkie skoki wartości,
-    powodują tworzenie się agregacji <i>min-max</i> o szerokim zakresie mimo tego, iż większość wartości oscylowała w
-    dużo węższym zakresie, jak pokazano na rysunku <a href="#picture:min-max-problem"></a>.
-</p>
-
-<figure type="picture" id="picture:min-max">
-    <figcaption>Wykorzystanie ekstremów do wizualizacji ścieżki dźwiękowej w programie Sonar</figcaption>
-    <img src="/images/sonar-audiotracks.jpg" style="height:5cm;">
-</figure>
-
-<figure type="picture" id="picture:min-max-problem">
-    <figcaption>
-        Wykorzystanie <i>min-max</i> do agregacji danych czasami może powodować nieoczekiwane rezultaty
-    </figcaption>
-    <img src="/images/min-max-details.png" style="height:4cm;">
-</figure>
-<h4>Ekstrema oraz średnia</h4>
-<p>
-    Ciekawą, bo efektywną i zarówno łatwą w implementacji metodą agregacji jest kombinacja dwóch wcześniejszych metod.
-
-    Jest to hybryda, która pokazuje zarówno rozrzut oraz środek ciężkości agregowanych wartości.
-
-    Na rysunku <a href="#picture:min-max-aggr"></a> pokazano sposób wizualizacji tak agregowanych danych.
-
-    Z zakreślonej ciemnym kolorem krzywej można odczytać, że wartości skupione są głównie wokół zera, a z jasnych
-    obrysów można wnioskować, że występują tam liczne skoki wartości, na tyle sporadyczne, że nie wpłynęły zbytnio na
-    wartość średniej.
-</p>
-<figure type="picture" id="picture:min-max-aggr">
-    <figcaption>Wykorzystanie ekstremum oraz średniej w prezentacji agregowanych danych</figcaption>
-    <img style="height:4cm;" src="/images/min-max.png"/>
-</figure>
-<!--Minimum, maksimum oraz wartość średnia to najbardziej podstawowy sposób agregowania danych.-->
-<h4>Percentyle</h4>
-<p>
-    Główną wadą poprzedniej metody jest jej wysoka podatność na poszerzenie wartości ekstremum pojedynczym skokiem.
-    Aby zwiększyć odpornosć na pojedyncze i sporadyczne zmiany, można tę metodę uogólnić do postaci percentyli.
-    W ten sposób ekstrema oraz wartość średnią można określić 0., 50. oraz 100. percentylem.
-</p>
-<p>
-    Wykorzystanie 5., 50. oraz 95. percentyla pozwala na odrzucenie skrajnych wartości skoków zwiększając odporność
-    wizualizacji na pojedyncze wartości. W ogólności można wyznaczać więcej percentyli, tak jak pokazano na rysunku <a
-        href="#picture:percentiles"></a>.
-</p>
-<figure type="picture" id="picture:percentiles">
-    <figcaption>Wizualizacja percentyli serii czasowych <a href="#bib:percentiles-time-series-data"></a></figcaption>
-    <img src="/images/percentiles.jpg" style="height:7cm;">
-</figure>
-<h4>M4</h4>
-<p>
-    <i>M4</i> jest rozwiązaniem zaproponowanym przez <i>Jugela, Jerzaka, Hackenbroicha i Markla</i>
-    w pracy pt. <i>M4: A Visualization-Oriented Time Series Data Aggregation</i> <a href="#bib:data-aggregation"></a>.
-
-    Zauważono tam, że redukcja <i>min-max</i> w wizualizacji pojedynczej kolumny pikseli nie jest w stanie zapewnić tego
-    samego
-    rezultatu, jak w przypadku naturalnej redukcji.
-
-
-    Powodem jest algorytm rastrowania danych wektorowych na ekran, rysujący linie pomiędzy kolumnami pikseli.
-
-    Celem pracy było znalezienie metody agregacji, która symuluje naturalny proces rasteryzacji.
-
-    <i>Min-max</i> nie gwarantuje bezbłędnej wizualizacji linii serii czasowej, ponieważ ignoruje pierwszą i ostatnią
-    próbkę z przedziału agregacji.
-</p>
-<p>
-    M4 jest więc metodą polegającą na wyznaczeniu minimalnego, maksymalnego oraz pierwszego i ostatniego punktu w
-    grupie.
-</p>
-<figure type="picture" id="picture:m4">
-    <figcaption>Porównanie metody <i>min-max</i> do <i>M4</i> <a href="#bib:data-aggregation"></a></figcaption>
-    <img src="/images/m4.png" style="height:7cm;">
-</figure>
-<!--max i kierunek wiatru, liczba alarmów, wystąpienie
-        faktu, malowanie częstotliwości (jakis portal do muzyki był), min-max-avg, 5-50-95 percentyl, ogólnie percentyle-->
-<h4>Spektrum</h4>
-<p>
-    Częstotliwość może być parametrem dodatkowym agregacji. Dla danych o dużej częstotliwości i regularności, takich jak
-    dźwięku, zakolorwanie wykresu odpowiednim kolorem może informować o dominującej częstotliwości w danym obszarze.
-    Ten parametr jest używany często programach do obróbki audio, jak pokazano na rysunku <a href="#picture:traktor-pro"></a>.
-</p>
-<figure type="picture" id="picture:traktor-pro">
-    <figcaption>Interfejs programu Traktor Pro. Kolor został użyty do wizualizacji częstotliwości ścieżki dźwiękowej.</figcaption>
-    <img src="/images/traktor-pro.png" style="height:4.7cm;">
-</figure>
-<h4>Maksimum oraz kierunek wartości wektorowych</h4>
-<p>
-    Ten rodzaj agregacji służyć może za dodatkową adnotację prezentowaną na ekranie.
-    Wykorzystywany jest między innymi w meteorologii.
-    Możliwości kombinacji parametrów agragacji jest wiele.
-    W przypadku, gdy wizualizacja dotyczy kluczowych cech wiatru, w agregacji znajduje się średnia prędkość wiatru,
-    maksymalna prędkość wiatru oraz kierunek wiatru w momencie osiągnięcia przez niego prędkości maksymalnej.
-</p>
-<figure type="picture" id="picture:windspeed">
-    <figcaption>
-        Wizualizacja prędkości wektorowej wiatru stacji meteorologicznej Uniwersystetu Gdańskiego <a
-            href="#bib:klimat-ug"></a>
-    </figcaption>
-    <img src="/images/ug-windspeed.png">
-</figure>
-<h4>Zliczanie zdarzeń</h4>
-<p>
-    Ostatnim wartym uwagi agregowanym parametrem jest odnotowanie jakiegoś faktu, na przykład alarmu systemu.
-    W ogólności mowa jest o zliczaniu wystąpień zdarzeń.
-    Na rysunku <a href="#picture:event-counting"></a> pokazano przykładową wizualizację systemu monitoringu
-    przeciwpożarowego.
-
-    Zdarzenia trwające w czasie zaznaczono kolorem tła wykresu.
-    Kolorem żółtym i czerwonym wyróżniono dwie różne kategorie zdarzeń.
-    Zdarzenie punktowe, takie jak rozpoczęcie ewakuacji, zaznaczono wyraźną kreską i nadano mu etykietę tekstową.
-    W zestawieniu z innymi agregowanymi parametrami można zbadać korelację różnych czynników w celu zidentyfikowania
-    przyczyny awarii.
-
-</p>
-<figure type="picture" id="picture:event-counting">
-    <figcaption>Przykładowe adnotacje o wystąpieniu trzech ostrzeżeń oraz o rozpoczęciu ewakuacji.</figcaption>
-    <img src="/images/event-counting.png">
-</figure>
-
-
-<h3 id="chapter:aggregation-regulations">Aspekt prawny w agregowaniu danych</h3>
-<!--Na przykład agregacje 30-dniowe nie są wielokrotnością agregacji
-    7-dniowych. -->
 
 <p>
-    Agregowanie danych jest nie tylko metodą redukcji danych w celu optymalizacji wizualizacji.
-
-    Agregowanie danych w wielu branżach jest ręcz wymagane i w konsekwencji ograniczone licznymi dyrektywami i ustawami.
-
-    Z tych regulacji wynikają rozmaite konsekwencje natury technicznej.
-
-    W sektorze publicznym najlepszym przykładem jest monitoring jakości powietrza w Polsce.
-
-    Dane pomiarowe zbierane są w kilku celach.
-
-    Jednym z nich jest walidacja danych pomiarowych, drugim zaś jest podanie stanu jakości powietrza do publicznej
-    wiadomości.
-
-    Każdy cel dokładnie jest opisany w prawie ochrony środowiska.
-
+    Mając na uwadze ogrom danych przedstawionych w tabeli <a href="#table:measurementDataExamples"></a> można uznać, że
+    analiza pojedynczych punktów przez człowieka jest niemożliwa.
+    Aby wydobyć informacje z danych, przedstawia się je w sposób graficzny, by wykorzystać zmysł wzrokowy człowieka.
+    W rozdziale <a href="#chapter:data-reduction"></a> przedstawiono wybrane sposoby wizualizacji dużej ilości danych,
+    które eksponują cenne dla analizy informacje zawarte w danych.
 </p>
-<p>
-    W ramach monitorowania jakości powietrza w Polsce definiuje się tak zwane poziomy dopuszczalne.
-
-    Dla każdej substancji znajdującej się w powietrzu poziom dopuszczalny określa się indywidualnie.
-
-    Na przykład dla dwutlenku siarki określa się godzinny, dobowy, roczny oraz zimowy okres uśredniania wyników oraz
-    dopuszczalną częstość przekroczenia dopuszczalnego poziomu w ciągu roku wynoszącego 24 razy w agregacji
-    jednogodzinnej oraz 3 razy w agregacji dobowej <a href="#bib:standardy-jakosci-powietrza"></a>.
-
-    Wymagane jest zastosowanie funkcji agregujących takich, jak minimum, maksimum, średnia arytmetyczna oraz zliczanie
-    zdarzeń.
-
-    Pełny wykaz poziomów dopuszczalnych znajduje się w dodatku <a href="#appendix:poziomy-dopuszczalne"></a>.
-
-    Tego typu wymagania prawne pokazują więc inne zastosowanie danych, niż do celów wizualizacji.
-
-</p>
-
-<p>
-    Warto wspomnieć, że w systemach, w których określone są ściśle zdefiniowane agregacje danych, nie zawsze agregacje
-    wymagane prawnie są wystarczające do optymalnej redukcji danych w celu wizualizacji.
-
-    Dla celu wizualizacji warto wyznaczać bowiem okresy agregacji będące kolejnymi elementami ciągu geometrycznego, aby
-    wartości można było równomiernie rozłożyć na osi logarytmicznej, jak pokazano na rysunku <a
-        href="#picture:aggregation-levels"></a> w punkcie <i>a</i>.
-
-    Takie równomierne rozłożenie poziomów powoduje równomierną redukcję danych w różnych wielkościach okresu wizualizowanych
-    danych.
-
-    Z kolei poziomy agregacji wymaganych prawnie często reprezentują jednostki zwyczajowe, takie jak godzinne, dobowe,
-    miesięczne.
-
-    Można tutaj mówić o nierówno rozłożonych poziomach, gdyż okres kolejnych poziomów agregacji nie są wielokrotnością
-    poprzednich.
-
-    Z kolei dobrą praktyką przy projektowaniu wizualizacji wielkoskalowych danych pomiarowych jest wykorzystanie
-    agregacji
-    wymaganych prawnie, czego przykład pokazano na rysunku <a href="#picture:aggregation-levels"></a> w punkcie <i>b</i>.
-
-    Aby zachować jak najwięszą równomierność, praktykuje się dołożenie dodatkowych poziomów agregacji, tak by wszystkie
-    razem w przybliżeniu tworzyły ciąg geometryczny, co pokazano na rysunku <a href="#picture:aggregation-levels"></a> w&nbsp;punkcie&nbsp;<i>c</i>.
-</p>
-
-
-<figure type="picture" id="picture:aggregation-levels" note="do analizy!">
-    <figcaption>
-        Przykłady rozłożenia poziomów agregacji na osi logarytmicznej.
-        Punkt <i>a)</i> - równomierne rozłożenie
-        <i>b)</i> - poziomy wymagane prawnie
-        <i>c)</i> - poziomy uzupełnione w celu zwiększenia równomierności.
-    </figcaption>
-    <img src="cache/aggregation-levels.png">
-</figure>

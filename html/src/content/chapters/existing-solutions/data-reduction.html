@@ -1,0 +1,306 @@
+<h2 id="chapter:data-reduction">Wizualizacja informacji zawartych w danych pomiarowych</h2>
+
+<p>
+    W tym rozdziale przedstawiono metody wizualizacji, które eksponują informacje zawarte w dużych ilościach danych
+    pomiarowych w celu zwiększenia czytelności i wypuklenia dodatkowych informacji.
+</p>
+
+<p>
+    W ogólności przedstawiono tutaj metody wizualizacji agregowanych danych pomiarowych z założeniem, że długość
+    przedziału agregacji odpowiada szerokości jednego piksela na ekranie.
+    Można powiedzieć, że są to swego rodzaju metody rasteryzacji obrazu danych.
+    W takim wypadku funkcja agregująca ma na celu wydobycie charakterystycznych cech dla danego celu wizualizacji,
+    najlepiej opisujących to, co się działo z monitorowanym obiektem w agregowanym okresie.
+</p>
+
+<h3>Próbkowanie</h3>
+<p>
+    Próbkowanie <trans>sampling</trans> jest najprostszą i jednocześnie najmniej użyteczną w wizualizacji
+    metodą rasteryzacji danych.
+
+    Polega ono na wybraniu jednej arbitralnej próbki z danego okresu.
+
+    Próbkowania dokonują urządzenia wejściowe systemów akwizycji danych, jako że niemożliwy jest ciągły pomiar wartości.
+
+
+    Im większa jest częstotliwość próbkowania, tym większa jest dokładność pomiaru i mniejsze przekłamania podczas
+    interpolacji próbkowanych danych <a href="#bib:fu2011review"></a>.
+
+    Na&nbsp;rysunku <a href="#picture:sampling-example"></a> pokazano możliwe sytuacje podczas próbkowania danych oraz
+    konsekwencje w interpolacji danych.
+
+    W punkcie <i>a</i> zmienność danych bliska częstotliwości próbkowania, co skutkuje małym stopniem
+    przekłamania danych i dosyć wierne odwzorowanie stanu faktycznego mierzonego parametru.
+
+    W punkcie <i>b</i> zmienność danych jest dużo większa od częstotliwości próbkowania, co powoduje, że interpolacja
+    pokazuje zupełnie nieprawdziwe informacje.
+
+    Co prawda zaletą tej metody jest szybkość generowania odpowiedzi złożonej z próbkowanych wartości, to metody tej nie
+    używa się przy generowaniu agregacji, gdyż zazwyczaj zakłada się dużą zmienność wartości w agregowanym okresie.
+</p>
+<figure type="picture" id="picture:sampling-example">
+    <figcaption>Zależność częstotliwości próbkowania od zmienności danych pomiarowych a wierność odwzorowania
+        stanu faktycznego w interpolacji liniowej.
+    </figcaption>
+    <img src="cache/sampling.png"/>
+</figure>
+
+
+<h3>Wartość średnia</h3>
+<p>
+    Agregowanie poprzez uśrednienie wszystkich wartości z danego okresu daje pewne informacje o wszystkich punktach ze
+    zbioru.
+    W większości przypadków, poza nagłymi i znacznymi zmianami wartości pokazanymi na rysunku <a
+        href="#picture:average-example"></a> w punkcie <i>b</i>, wartość średnia dobrze oddaje kształt danych
+    oryginalnych, jak pokazano w punkcie <i>a</i>.
+</p>
+<figure type="picture" id="picture:average-example">
+    <figcaption>Wpływ zależności częstotliwości uśredniania od zmienności danych pomiarowych na wierność odwzorowania
+        danych rzeczywistych
+    </figcaption>
+    <img src="cache/average.png" style="height:5cm;"/>
+</figure>
+<p>
+    W praktyce uśrednienie pozwala odczytać jedynie środek ciężkości rozkładu wartości w agregowanym przedziale i w
+    specyficznych przypadkach może to prowadzić do dużych przekłamań, jak na przykład w przypadku danych sinusoidalnych
+    pokazanych na rysunku <a href="#picture:sinus"></a>.
+
+    Z tego powodu średnia nie powinna być wykorzystywana jako samodzielna metoda agregacji.
+</p>
+<figure type="picture" id="picture:sinus">
+    <figcaption>Uśrednienie funkcji sinusoidalnej (oznaczonej czarnym kolorem) powoduje powstanie prostej (zaznaczonej
+        na fioletowo).
+    </figcaption>
+    <img src="cache/average-sinus.png">
+</figure>
+
+
+<h3>Ekstremalne wartości</h3>
+<p>
+    Ekstrema zbioru, tzw <i>min-max</i> są pierwszym złożonym sposobem agregowania więcej niż jedną zmienną.
+
+    Dla każdego okresu wybierana jest minimalna oraz maksymalna wartość w agregowanym przedziale.
+
+    W wizualizacji wykorzystuje się te parametry do zacieniowania lub obrysowywania obszaru ograniczonego tymi
+    wartościami.
+
+    Jest to metoda znana z programów do obróbki audio, gdzie częstotliwość sygnału jest na tyle duża, że jedynym
+    zasadnym agregatem jest zakres amplitudy, co z pozwala odczytać natężenie dźwięku.
+
+    Przykład pokazano na rysunku <a href="#picture:min-max"></a>.
+
+    Wadą tej metody jest to, że wystarczy tylko jedna próbka odstająca od pozostałych, aby poszerzyć ekstremum.
+
+    Może to doprowadzić do sytuacji, w której rzadko, aczkolwiek regularnie, występujące nagłe i krótkie skoki wartości,
+    powodują tworzenie się agregacji <i>min-max</i> o szerokim zakresie mimo tego, iż większość wartości oscylowała w
+    dużo węższym zakresie, jak pokazano na rysunku <a href="#picture:min-max-problem"></a>.
+</p>
+
+<figure type="picture" id="picture:min-max">
+    <figcaption>Wykorzystanie ekstremów do wizualizacji ścieżki dźwiękowej w programie Sonar</figcaption>
+    <img src="/images/sonar-audiotracks.jpg" style="height:5cm;">
+</figure>
+
+<figure type="picture" id="picture:min-max-problem">
+    <figcaption class="text-justify">
+        Na ilustracji po lewej pokazano żółtym kolorem fragment, który został powiększony na ilustracji po prawej.
+        Wbrew oczekiwaniom, więszość danych w zaznaczonym zakresie ma wartość 0, natomiast ekstremum zostało poszerzone
+        przez skok wartości na niewielkim obszarze.
+    </figcaption>
+    <img src="/images/min-max-details.png" style="height:4cm;">
+</figure>
+<h3>Ekstrema oraz średnia</h3>
+<p>
+    Ciekawą, bo efektywną i zarówno łatwą w implementacji metodą agregacji jest kombinacja dwóch wcześniejszych metod.
+
+    Jest to podejście hybrydowe, które pokazuje zarówno rozrzut oraz środek ciężkości agregowanych wartości.
+
+    Na rysunku <a href="#picture:min-max-aggr"></a> pokazano sposób wizualizacji tak agregowanych danych.
+
+    Z zakreślonej ciemnym kolorem krzywej można odczytać, że wartości skupione są głównie wokół zera, a z jasnych
+    obrysów można wnioskować, że występują tam liczne skoki wartości <trans>peaks</trans>, na tyle sporadyczne, że nie
+    wpłynęły zbytnio na wartość średniej.
+</p>
+<figure type="picture" id="picture:min-max-aggr">
+    <figcaption>Wykorzystanie ekstremum oraz średniej w prezentacji agregowanych danych</figcaption>
+    <img style="height:4cm;" src="/images/min-max.png"/>
+</figure>
+<!--Minimum, maksimum oraz wartość średnia to najbardziej podstawowy sposób agregowania danych.-->
+<h3>Percentyle</h3>
+<p>
+    Główną wadą poprzedniej metody jest jej podatność na poszerzenie wartości ekstremum pojedynczym skokiem.
+    Aby zwiększyć odpornosć na pojedyncze i sporadyczne zmiany, można tę metodę uogólnić do postaci percentyli.
+    W ten sposób ekstrema oraz wartość średnią można określić 0., 50. oraz 100. percentylem.
+</p>
+<p>
+    Wykorzystanie 5., 50. oraz 95. percentyla pozwala na odrzucenie skrajnych wartości skoków zwiększając odporność
+    wizualizacji na pojedyncze wartości.
+    W ogólności można wyznaczać więcej percentyli, tak jak pokazano na ilustracji <a href="#picture:percentiles"></a>,
+    gdzie jasność koloru oznacza odległość kolejnych percentyli od mediany zaznaczonej najmocniejszym kolorem.
+</p>
+<figure type="picture" id="picture:percentiles">
+    <figcaption>Wizualizacja percentyli serii czasowych <a href="#bib:percentiles-time-series-data"></a></figcaption>
+    <img src="/images/percentiles.jpg" style="height:7cm;">
+</figure>
+<h3>M4</h3>
+<p>
+    Przedstawione do tej pory metody w głównej mierze polegały na wyznaczeniu charakterystycznych wartości, np.
+    najniżej, średniej i najwyższej wartości mieszczącej się wewnątrz pojednyczego pionu pikseli.
+    Można więc powiedzieć, że w celu wykonania dobrej wizualizacji wystarczy połączyć punkty wyliczone w sąsiednich
+    agregowanych zakresach w jeden kształt (na przykład obrys wypełniony kolorem), co niejako jest konieczne ze względu
+    na wektorową konstrukcję bibliotek wizualizacyjnych.
+    Niekiedy jednak zdarza się, że połączenie agregacji w jeden wektorowy obszar spowoduje powstanie przekłamań na
+    etapie rasteryzacji wektorowego obrazu na ekran graficzny przez mechanizm tzw. <em>anty-aliasingu</em> stosowany w
+    systemach graficznych.
+</p>
+<p>
+    W pracy <em>Jugela, Jerzaka, Hackenbroicha i Markla</em> pt. <i>M4: A Visualization-Oriented Time Series Data
+    Aggregation</i> <a href="#bib:data-aggregation"></a> zauważono,
+    przekłamanie powstaje w sposobie wygładzania lini prowadzonych pomiędzy punktami z sąsiednich agregacji.
+    Stwierdzono, że redukcja <em>min-max</em> w wizualizacji pojedynczej kolumny pikseli nie jest w stanie zapewnić tego
+    samego rezultatu, jak w przypadku rasteryzacji niezagregowanych danych.
+    Celem pracy było znalezienie metody agregacji, która zachowuje obraz identyczny do obrazu powstałego w wyniku
+    naturalnego procesu rasteryzacji.
+</p>
+<p>
+    Zaproponowano algorytm <em>M4</em> polegający na wkorzystaniu minimalnego, maksymalnego oraz początkowego i
+    końcowego punktu w agregowanym przedziale.
+    Metoda ta zakłada łączenie nie tylko ekstremów sąsiednich agregacji.
+    Otóż linia prowadzona jest przez cztery punkty kolejnych agregacji w ten sposób, że końcowy punkt z
+    poprzedniej agregacji łączy się z początkowym z następnej, następnie linia przechodzi przez maksymalny, minimalny
+    oraz końcowy punkt, skąd linia prowadzona jest do początkowego punktu kolejnej agregacji.
+    Różnice w wynikowym obrazie zostały pokazane na ilustracji <a href="#picture:m4"></a>.
+</p>
+<figure type="picture" id="picture:m4">
+    <figcaption class="text-justify">
+        Porównanie metody <i>min-max</i> oraz <i>M4</i> <a href="#bib:data-aggregation"></a>:
+        a) rasteryzacja danych surowych;
+        b) rasteryzacja danych agregowanych metodą <em>min-max</em>;
+        c) rasteryzacja danych agregowanych metodą <em>M4</em>.
+        Kolorem czerwonym zaznaczono miejsca przekłamań.
+    </figcaption>
+    <img src="/images/m4.png" style="height:7cm;">
+</figure>
+<h4>Spektrum</h4>
+<p>
+    Powyższe metody głównie bazowały na manipulacji kształtem wynikowego wykresu.
+    Nie jest to jedyna forma wizualiacji informacji.
+    Na przykład, kolor wykresu też może nieść odpowiednią informację taką, jak częstotliwość zmian zachodzących wewnątrz
+    agregowanego zakresu.
+    Dla danych o dużej częstotliwości i regularności, takich jak dźwięku, zakolorwanie wykresu odpowiednim kolorem może
+    informować o dominującej częstotliwości w danym obszarze.
+    Ten parametr jest używany często programach do obróbki audio, jak pokazano na rysunku <a
+        href="#picture:traktor-pro"></a>.
+</p>
+<figure type="picture" id="picture:traktor-pro">
+    <figcaption>Interfejs programu Traktor Pro. Kolor został użyty do wizualizacji częstotliwości ścieżki dźwiękowej.
+    </figcaption>
+    <img src="/images/traktor-pro.png" style="height:4.7cm;">
+</figure>
+<h4>Maksimum oraz kierunek wartości wektorowych</h4>
+<p>
+    Ten rodzaj agregacji służyć może za dodatkową adnotację prezentowaną na ekranie.
+    Wykorzystywany jest między innymi w meteorologii.
+    Możliwości kombinacji parametrów agragacji jest wiele.
+    W przypadku, gdy wizualizacja dotyczy kluczowych cech wiatru, w agregacji znajduje się średnia prędkość wiatru,
+    maksymalna prędkość wiatru oraz kierunek wiatru w momencie osiągnięcia przez niego prędkości maksymalnej (Rys. <a
+        href="#picture:windspeed"></a>).
+</p>
+<figure type="picture" id="picture:windspeed">
+    <figcaption>
+        Wizualizacja prędkości wektorowej wiatru stacji meteorologicznej Uniwersystetu Gdańskiego <a
+            href="#bib:klimat-ug"></a>
+    </figcaption>
+    <img src="/images/ug-windspeed.png">
+</figure>
+<h4>Zliczanie zdarzeń</h4>
+<p>
+    Ostatnią wartą uwagi metodą agregacji jest odnotowanie jakiegoś faktu, na przykład alarmu systemu.
+    W ogólności mowa jest o zliczaniu wystąpień zdarzeń.
+    Na rysunku <a href="#picture:event-counting"></a> pokazano przykładową wizualizację systemu monitoringu
+    przeciwpożarowego.
+
+    Zdarzenia trwające w czasie zaznaczono kolorem tła wykresu.
+    Kolorem żółtym i czerwonym wyróżniono dwie różne kategorie zdarzeń.
+    Zdarzenie punktowe, takie jak rozpoczęcie ewakuacji, zaznaczono wyraźną kreską i nadano mu etykietę tekstową.
+    W zestawieniu z innymi agregowanymi parametrami można zbadać korelację różnych czynników w celu zidentyfikowania
+    przyczyny awarii.
+
+</p>
+<figure type="picture" id="picture:event-counting">
+    <figcaption>Przykładowe adnotacje o wystąpieniu trzech ostrzeżeń oraz o rozpoczęciu ewakuacji.</figcaption>
+    <img src="/images/event-counting.png">
+</figure>
+
+
+<h3 id="chapter:aggregation-regulations">Aspekt prawny w agregowaniu danych</h3>
+<!--Na przykład agregacje 30-dniowe nie są wielokrotnością agregacji
+    7-dniowych. -->
+
+<p>
+    Agregowanie danych jest nie tylko metodą redukcji danych w celu optymalizacji wizualizacji.
+
+    Agregowanie danych w wielu branżach jest wręcz wymagane i ograniczone licznymi dyrektywami i ustawami.
+
+    Z tych regulacji wynikają rozmaite konsekwencje natury technicznej.
+
+    W sektorze publicznym najlepszym przykładem jest monitoring jakości powietrza w Polsce.
+
+    Dane pomiarowe zbierane są w kilku celach.
+
+    Jednym z nich jest walidacja danych pomiarowych, drugim zaś jest podanie stanu jakości powietrza do publicznej
+    wiadomości.
+
+    Każdy cel dokładnie jest opisany w prawie ochrony środowiska.
+
+</p>
+<p>
+    W ramach monitorowania jakości powietrza w Polsce definiuje się tak zwane poziomy dopuszczalne.
+
+    Dla każdej substancji znajdującej się w powietrzu poziom dopuszczalny określa się indywidualnie.
+
+    Na przykład dla dwutlenku siarki określa się godzinny, dobowy, roczny oraz zimowy okres uśredniania wyników oraz
+    dopuszczalną częstość przekroczenia dopuszczalnego poziomu w ciągu roku wynoszącego 24 razy w agregacji
+    jednogodzinnej oraz 3 razy w agregacji dobowej <a href="#bib:standardy-jakosci-powietrza"></a>.
+
+    Wymagane jest zastosowanie funkcji agregujących takich, jak minimum, maksimum, średnia arytmetyczna oraz zliczanie
+    zdarzeń.
+
+</p>
+
+<p>
+    Warto wspomnieć, że w systemach, w których określone są ściśle zdefiniowane agregacje danych, nie zawsze agregacje
+    wymagane prawnie są wystarczające do wydajnej obsługi wizualizacji.
+
+    Agregacje tworzone z myślą o wizualizacji obliczane są na takich poziomach agregowania, że długości okresów
+    agregacji można równomiernie rozłożyć na osi logarytmicznej, jak pokazano na rysunku <a
+        href="#picture:aggregation-levels"></a> w punkcie <i>a</i>.
+
+    Takie równomierne rozłożenie poziomów stabilizuje rozmiar strumienia danych dostarczanych do wizualiacji (zob.
+    rozdział <a href="#chapter:problem-identification"></a>).
+
+    Z kolei poziomy agregacji wymaganych prawnie często reprezentują jednostki zwyczajowe, takie jak godzinne, dobowe,
+    miesięczne.
+
+    Można tutaj mówić o nierówno rozłożonych poziomach agregacji. W przypadku wykorzystania tylko tych agregacji
+    do wizualizacji, strumień danych będzie niestabilny podczas nawigacji uzytkownika.
+
+    Z kolei dobrą praktyką przy projektowaniu wizualizacji wielkoskalowych danych pomiarowych jest wykorzystanie
+    agregacji wymaganych prawnie w celu oszczędności miesca na dyskach oraz mocy obliczeniowej.
+    Przykład wykorzystania prawnie wymaganych agregacji został przedstawiony na ilustracji <a
+        href="#picture:aggregation-levels"></a> w punkcie <i>b</i>.
+
+    Aby zachować jak najwięszą równomierność, praktykuje się dołożenie dodatkowych poziomów agregacji, tak by wszystkie
+    razem w przybliżeniu tworzyły ciąg geometryczny, co pokazano na rysunku <a href="#picture:aggregation-levels"></a> w&nbsp;punkcie&nbsp;<i>c</i>.
+</p>
+
+
+<figure type="picture" id="picture:aggregation-levels">
+    <figcaption class="text-justify">
+        Przykłady rozłożenia poziomów agregacji na osi logarytmicznej.
+        Punkt <i>a)</i> - równomierne rozłożenie
+        <i>b)</i> - poziomy wymagane prawnie
+        <i>c)</i> - poziomy uzupełnione w celu zwiększenia stabilności strumienia danych podczas wizualizacji.
+    </figcaption>
+    <img src="cache/aggregation-levels.png" width="95%">
+</figure>
