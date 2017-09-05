@@ -22,8 +22,8 @@
 <p>
     Ta definicja UX wymaga, aby spełnić dokładne te potrzeby, które użytkownik rzeczywiście posiada.
 
-    Co prawda nie zawsze użytkownik jest świadomy tego, czego potrzebuje, ale <i>UX</i> też bierze to pod uwagę i
-    zaspokaja również ukryte jego potrzeby.
+    Co prawda nie zawsze użytkownik jest świadomy tego, czego potrzebuje, ale <em>UserExperience</em>
+    ukierunkowuje się również na ukryte potrzeby użytkownika.
 
     Kolejnym aspektem wzorowego <i>UX</i> jest prostota i elegancja, która pozwala stworzyć produkt, którego użytkownicy
     pożądają i czerpią radość z posiadania i używania.
@@ -61,25 +61,28 @@
 <p>
     Pomimo wielu różnych definicji, wszystkie mają interesującą część wspólną: satysfakcja użytkowania.
 
-    W tej pracy, z racji na wielkoskalowy aspekt danych pomiarowych, uznaje się wydajność jako element niezbędny do
-    spełnienia każdej definicji dobrych doświadczeń użytkownika.
+    W tej pracy, z racji na wielkoskalowy aspekt danych pomiarowych, uznaje się wydajność interkacji jako element
+    niezbędny do spełnienia każdej definicji dobrych doświadczeń użytkownika, którego satysfakcja w dużej mierze zależy
+    od płynności działania systemu.
 </p>
 <p>
     Kluczowym elementem wydajności jest czas.
+
 
     Pożądaną przez użytkownika cechą interfejsu aplikacji jest natychmiastowa odpowiedź na żądanie
     użytkowika.
 
     Mowa tutaj o płynnie działającym interfejsie, który nie jest blokowany operacjami wykonywanymi w tle, ale również
-    mowa o braku oczekiwania na załadowanie potrzebnych zasobów zewnętrznych.
+    mowa o braku konieczności oczekiwania na załadowanie potrzebnych zasobów zewnętrznych.
 
     Z oczywistych względów nie jest możliwe zapewnienie natychmiastowej odpowiedzi na żądanie użytkownika.
 
     Przyczyna leży w ograniczeniach dostępu do zdalnych zasobów oraz natury sieci Internet.
 </p>
 <p>
-    Pomimo tych ograniczeń, w każdym projekcie informatycznym warto próbować minimalizować czas odpowiedzi systemu.
-    Jak zdefiniował Miller już w 1968 roku, wyróżnia się trzy limity, których przekroczenie powoduje kolejne negatywne
+    Pomimo tych ograniczeń, w projektach informatycznych warto próbować minimalizować czas odpowiedzi systemu.
+    Jak zdefiniował Miller już w 1968 roku, wyróżnia się trzy limity czasu odpowiedzi systemu, których przekroczenie
+    powoduje kolejne negatywne
     konsekwencje w postrzeganiu responsywności systemu <a href="#bib:Miller1968"></a>:
 </p>
 <dl class="terms">
@@ -105,56 +108,120 @@
         <dt>&gt;=10s</dt>
         <dd>
             użytkownik nie jest w stanie utrzymać swojej uwagi, najprawdopodobniej zajmie
-            się czymś innym, utrata kontekstu
+            się czymś innym; utrata kontekstu
         </dd>
     </div>
 </dl>
-<p helper="przenieść do analizy">
-    Systemy z interfejsami pozwalającymi operować na danych (w tymp przypadku je przeglądać) powinny być tak
-    zoptymalizowane, żeby czas reakcji na akcje użytkownika był jak najmniejszy.
-</p>
 
 <p>
-    Istnieją różne techniki optymalizacji, ale warto tu wspomnieć, że optymalizacja szybkości działania istniejących
-    rozwiązań, na przykład poprzez ulepszenie infrastruktury systemu, nie jest jedynym sposobem optymalizacji.
+    Istnieją różne techniki optymalizacji szybkości działania systemów, ale warto tu wspomnieć, że optymalizacja
+    szybkości działania istniejących rozwiązań, na przykład poprzez ulepszenie infrastruktury systemu, nie jest tutaj
+    jedynym sposobem.
     Celem nie jest samo poprawienie mierzalnych parametrów pracy systemu, ale sprawienie, by człowiek, będący końcowym
-    użytkownikiem systemu, odczuł tę optymalizację.
+    użytkownikiem systemu, korzystnie odczuł tę optymalizację &mdash; postrzegał system jako szybciej działający.
 </p>
 <p>
-    Tutaj należy przywołać zagadnienie z dziedziny psychologii, tj. percepcji czasu. Czas jest pojęciem względnym i jako
-    taki postrzegany jest indywidualnie. To znaczy, że odczucie czasu reakcji systemu zależeć będzie w pewnym stopniu od
-    chwilowego stanu osoby, która ten czas postrzega. Manipulując użytkownikiem można bowiem wpływać na to, jak bardzo
-    czas oczekiwania na reakcję systemu będzie przez niego odczuwalny <a href="#bib:why-performance-matters-part1"></a>.
+    Tutaj należy przywołać zagadnienie z dziedziny psychologii, tj. percepcji czasu.
+    Czas jest pojęciem względnym i jako taki postrzegany jest przez człowieka indywidualnie.
+    To znaczy, że odczucie czasu reakcji systemu zależeć będzie w pewnym stopniu od stanu osoby, która ten
+    czas postrzega.
+    Manipulując użytkownikiem można bowiem wpływać na to, jak bardzo czas oczekiwania na reakcję systemu będzie przez
+    niego odczuwalny <a href="#bib:why-performance-matters-part1"></a>.
 </p>
 
 <p>
-    Denis Mishunov w swoim artykule <a href="#bib:why-performance-matters-part2"></a> przedstawia pojęcie zarządzania
-    percepcją <trans lang="ang">perception management</trans> , gdzie oczekiwanie użytkownika na reakcję systemu posiada
-    dwie fazy : aktywną oraz pasywną.
+    Upływ czasu może być analizowany z dwóch punktow widzenia: obiektywnego oraz psychologicznego.
+    Czas, który mierzony jest na przykład stoperem, nazywany jest czasem obiektywnym.
+    Jednak tak określony upływ czasu różni się od tego postrzeganego przez użytkownika korzystającego z systemu
+    interaktywnego.
+    Taki upływ czasu nazywa się czasem psychologicznym i jest przedmiotem zainteresowania w wielu dziedzinach &mdash; w
+    tym w interakcji człowiek&dash;komputer.
+    <a href="#bib:why-performance-matters-part1"></a>
 </p>
 
-<p helper>
-    uzupełnić z https://www.smashingmagazine.com/2015/11/why-performance-matters-part-2-perception-management/
-    odnieć się do obrazka #picture:mishunov-passive-active
-</p>
-
-<figure type="picture" id="picture:mishunov-passive-active">
-    <figcaption>
-        Człowiek w pasywnym i aktywnym trybie oczekiwania postrzega ten sam przedział czasowy inaczej
-        <a href="bib:why-performance-matters-part2"></a>
-    </figcaption>
-    <img src="/images/mishunow-active-passive.png" height="130">
-</figure>
 <p>
+    Poprawna obiektywnego czasu działania systemu, zgodnie z prawem Webera-Fechnera<a
+        href="#bib:why-performance-matters-part1"></a>, jest zauważalna przez użytkownika, gdy system dziala obiektywnie
+    20% szybciej.
+    To znaczy, że niewielka aczkolwiek kosztowna poprawa działania systemu jest nieopłacalna.
+</p>
+
+<p>
+    W takiej sytuacji należy skupić się na czasie postrzeganym.
+    Denis Mishunov w artykule <q>Why Performance Matters, Part 2: Perception Management</q><a
+        href="#bib:why-performance-matters-part2"></a> przedstawia pojęcie zarządzania
+    percepcją <trans lang="ang">perception management</trans>.
+</p>
+
+<p>
+    Oczekiwanie użytkownika na reakcję systemu posiada dwie fazy: aktywną oraz pasywną.
+
+    Faza aktywna lub czekanie aktywne &mdash; to fragment obiektywnego czasu oczekiwania, w którym człowiek skupiony
+    jest na
+    pobocznym lub pośrednim zadaniu umysłowym lub fizycznym.
+
+    Faza pasywna lub oczekiwanie pasywne &mdash; jest to fragment obiektywnego czasu oczekiwania, w którym człowiek nie
+    jest w stanie kontynuować pracy i świadomie czeka na odpowiedź systemu.
+
+    Umysł ludzki posiada tendencję do szacowania upływu czasu w fazie pasywnej jako dłuższej niż aktywnej, nawet jeżeli
+    fazy obiektywnie były równe.
+
+    Według Richarda Larsona ludzie będący w fazie pasywnego oczekiwania szacują upływ czasu z 36 procentowym nadmiarem.
 
 
+    <a href="#bib:why-performance-matters-part2"></a>
 </p>
-<p class="helper">
-    W tym miejscu będzie wytłumaczona percepcja czasu, fazy czekania (aktywna pasywna) z artykułu Mishunova:
-    https://www.smashingmagazine.com/2015/09/why-performance-matters-the-perception-of-time/.
+
+<p>
+    W większości przypadków użytkownicy nie chcą czekać.
+    Warto zauważyć, że gdy człowiek jest niezadowolony z faktu czekania, dotyczy to zazwyczaj niezadowolenia z
+    koniecznej bierności w pasywnej fazie oczekiwania.
+    Aktywne oczekiwanie w zasadzie nie jest w ogóle postrzegane jako czekanie z powodu wytężonej pracy umysłu ludzkiego.
+    <a href="#bib:why-performance-matters-part2"></a>
 </p>
-<p helper="pachnie analizą">
-    Biorąc pod uwagę powyższe aspekty czasu w systemie wizualizacji, można zdefiniować cel do którego należy dążyć przy tworzeniu systemu IVA/eksploracji.
-    1) nieprzekraczanie limitu 1s
-    2) wykorzystanie percepcji czasu (progresja jako przesuniecie fazy aktywnego czekania)
+<p>
+    Zatem by zarządzać czasem psychologicznym, należy minimalizować pasywną fazę wydłużając tę aktywną.
+    Istnieje wiele technik by to osiągnąć, natomiast w większości przypaków można ograniczyć się do dwóch technik:
+    start z wyprzedzeniem <trans>preemptive start</trans> oraz przedwczesne zakończenie <trans>early completion</trans>.
+</p>
+
+<p>
+    <em>Preemptive start</em> polega na rozpoczęciu zdarzenia w fazie aktywnej i utrzymywaniu aktywności użytkownika tak
+    długo jak jest to tylko możliwe, zanim będzie zmuszony biernie czekać.
+    Dzięki temu człowiekowi będzie wydawało się, że całe wydarzenie zaczęło się później i trwało krócej.
+    Przykłady tej techniki można znaleźć w życiu codziennym, tak jak miało to miejsce na lotnisku <em>Houston
+    Airport</em> w 2009 roku.
+    Otóż tamtejsze władze borykały się z dość dużą liczbą skarg pasażerów na zbyt długi czas oczekiwania na bagaże po
+    wylądowaniu.
+    W odpowiedzi zwiększono liczbę miejsc odbioru bagażu tym samym skracając czas oczekiwania do ośmiu minut.
+    Niestety nie zmniejszyło to liczby skarg.
+    Władze zrobiły rozeznanie, z którego okazało się, że po wylądowaniu pierwszy bagaż pojawił się dopiero po ośmiu
+    minutach, a tylko jedna minuta była potrzebna podróżnym na zabranie swojego bagażu.
+    Pasażerowie średnio oczekiwali na swój bagaż w pozycji stojącej około siedmiu minut.
+
+    Można powiedzieć, ża tutaj aktywna faza trwała tylko minutę, a pasywna aż siedem.
+
+    W końcu władze lotniska zdecydowały się oddalić bramki przylotów od puntków odbioru bagażu, który to bagaż kierowany
+    był do
+    najdalszego z możliwych punktów.
+    To zwiększyło czas potrzebny podróżnym do przybycia do punktu odbioru bagażu do sześciu minut, co spowodowało, że w
+    pozycji stojącej oczekiwali oni średnio nie siedem, lecz tylko dwie minuty, a liczba skarg zmalała niemal do zera.
+</p>
+
+
+<p>
+    <em>Early completion</em> jest to technika podobna do poprzedniej, z tą różnicą, że jej celem jest maksymalne
+    wydłużenie aktywnego oczekiwania nie z początku, lecz z końca zdarzenia.
+
+    Tutaj przykładem może być strumieniowe odtwarzanie plików wideo, gdzie użytkownik może oglądać kawałek filmu,
+    podczas gdy następne fragmenty jeszcze nie są dostępne.
+    Innym przykładem jest wyświetlanie statycznej wersji strony internetowej tak szybko jak jest to możliwe, a ładowanie
+    modułów odpowiadających za interakcję czy dynamikę &mdash; chwilę później. Dzięki temu użytkownik widzi kompletną
+    stronę internetową i zajmuje się analizą przedstawionych tam treści, zanim wykona jakikolwiek na niej ruch
+    wymagający obecności pozostałych dynamicznych zasobów.
+</p>
+
+<p>
+    Podsumowując, by poprawić satysfakcję użytkownika korzystającego z interaktywnego systemu, można manipulować jego
+    percepcją stosując mechanizmy niewymagające kosztownych optymalizacji pracy całego systemu.
 </p>
