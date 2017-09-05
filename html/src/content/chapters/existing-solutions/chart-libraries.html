@@ -4,21 +4,23 @@
     W tym rozdziale przedstawione zostały wybrane biblioteki graficzne umożliwiające wizualizację serii czasowych w
     przeglądarce internetowej.
 
-    Biblioteki te zostały zintegrowane z biblioteką <em>ExploreJS</em> będącą wynikiem niniejszej pracy.
+    Niektóre biblioteki z przedstawionego zbioru zostały zintegrowane z rozwiązaniem <em>ExploreJS</em> będącą wynikiem
+    niniejszej pracy, w celu umożliwienia płynnej, swobodnej i nieograniczonej eksploracji.
 
     Kryterium wyboru obejmuje otwartość licencji, popularność wśród społeczności <em>OpenSource</em> skupionej wokół
-    popularnego serwisu <em>GitHub</em> oraz rekomendację publikowaną w artykułach internetowych o tematyce webowych
+    popularnego serwisu <em>GitHub</em> oraz rekomendacje publikowane w artykułach internetowych o tematyce webowych
     interfejsów użytkownika.
 </p>
 
 <p>
-    W tabeli <a href="#table:github-charts"></a> pokazano statystyki projektów <em>OpenSource</em> na portalu
+    W tabeli <a href="#table:github-charts"></a> pokazano statystyki niektórych projektów <em>OpenSource</em> na portalu
     <em>GitHub</em>, obejmujące
 
-    liczbę rozgałęzień projektu będących oznaką twórczej działalności społeczności względem projektu,
+    liczbę osób subskrybujących powiadomienia o aktywności w projekcie,
 
     liczbę osób, które dodały projekt do <q>ulubionych</q>
-    oraz liczbę osób subskrybujących powiadomienia o aktywności w projekcie.
+    oraz
+    liczbę rozgałęzień projektu będących oznaką twórczej działalności społeczności względem projektu.
     Dodatkowo prezentowane jest liczba pobrań biblioteki z rejestru <em>NPM (Node Package Manager)</em> w ostatnim
     miesiącu.
 </p>
@@ -37,70 +39,70 @@
         </thead>
         <tbody>
         <tr>
-            <td>d3.js</td>
+            <th>d3.js</th>
             <td>3397</td>
             <td>67839</td>
             <td>17668</td>
             <td>944569</td>
         </tr>
         <tr>
-            <td>c3.js</td>
+            <th>c3.js</th>
             <td>397</td>
             <td>7097</td>
             <td>1217</td>
             <td>84174</td>
         </tr>
         <tr>
-            <td>ZingCharts</td>
+            <th>ZingCharts</th>
             <td>31</td>
             <td>147</td>
             <td>29</td>
             <td>1939</td>
         </tr>
         <tr>
-            <td>plotly.js</td>
+            <th>plotly.js</th>
             <td>223</td>
             <td>6782</td>
             <td>733</td>
             <td>26676</td>
         </tr>
         <tr>
-            <td>flot</td>
+            <th>flot</th>
             <td>32</td>
             <td>5434</td>
             <td>1421</td>
             <td>9702</td>
         </tr>
         <tr>
-            <td>jqplot</td>
+            <th>jqplot</th>
             <td>32</td>
             <td>148</td>
             <td>71</td>
             <td>&mdash;</td>
         </tr>
         <tr>
-            <td>highcharts</td>
+            <th>highcharts</th>
             <td>354</td>
             <td>6613</td>
             <td>2034</td>
             <td>340675</td>
         </tr>
         <tr>
-            <td>dygraphs</td>
+            <th>dygraphs</th>
             <td>108</td>
             <td>2236</td>
             <td>493</td>
             <td>7177</td>
         </tr>
         <tr>
-            <td>visjs</td>
+            <th>visjs</th>
             <td>285</td>
             <td>5574</td>
             <td>1010</td>
             <td>32225</td>
         </tr>
         <tr>
-            <td>nvd3</td>
+            <th>nvd3</th>
             <td>334</td>
             <td>6147</td>
             <td>2076</td>
@@ -111,16 +113,77 @@
 </figure>
 
 <p>
-    Wśród wyników wyszukiwania hasłem <q>top chart libraries javascript</q> znajdują się takie biblioteki, jak
-    <em>d3,js</em>, będącą biblioteką wizualizacyjną ogólnego przeznaczenia, wykorzystywaną m.in. przez <em>nvd3</em>
+    Wśród wyników wyszukiwania pod hasłem <q>top chart libraries javascript</q> znajdują się takie biblioteki, jak
+    <em>d3.js</em>, będąca biblioteką wizualizacyjną ogólnego przeznaczenia, wykorzystywana m.in. przez <em>nvd3</em>
     oraz <em>c3</em>.
 
     Następnie<ft><a href="https://blog.sicara.com/compare-best-javascript-chart-libraries-2017-89fbe8cb112d"
                     class="no-decoration">blog.sicara.com/compare-best-javascript-chart-libraries-2017-89fbe8cb112d</a>
-</ft> pojawiają się takie biblioteki, jak <em>HighCharts</em>, <em>c3</em>, <em>plotly.js</em>, <em>vis.js</em>,
-    <em>flot</em>, <em>dygraphs</em>, <em>ZingChart</em>.
+</ft> pojawiają się takie biblioteki, jak <em>HighCharts</em>, <em>plotly.js</em>, <em>vis.js</em>,
+    <em>flot</em>, <em>dygraphs</em>, <em>ZingChart</em> czy <em>AmCharts</em>.
 
 </p>
 <p>
-    <!--todo napisać że arbitralnie wybrane .... biblioteki i czym sie roznia -->
+    Ze względu na mnogość bibliotek wizualizacyjnych, do integracji zostały arbitralnie wybrane biblioteki o różnych
+    cechach, które przedstawiono w tabeli <a href="#table:charts-types"></a>.
+</p>
+
+<figure type="table" id="table:charts-types">
+    <figcaption>Zestawienie cech wybranych bibliotek</figcaption>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>biblioteka</th>
+            <th>licencja</th>
+            <th>technologia</th>
+            <th>aktualizacja danych</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Dygraphs</th>
+            <td>MIT</td>
+            <td>Canvas</td>
+            <td>nadpisanie</td>
+        </tr>
+        <tr>
+            <th>HighCharts</th>
+            <td>własnościowa</td>
+            <td>SVG</td>
+            <td>nadpisanie</td>
+        </tr>
+        <tr>
+            <th>vis.js</th>
+            <td>MIT</td>
+            <td>SVG</td>
+            <td>modyfikacja</td>
+        </tr>
+        <tr>
+            <th>flot</th>
+            <td>MIT</td>
+            <td>Canvas</td>
+            <td>nadpisanie</td>
+        </tr>
+        <tr>
+            <th>jqPlot</th>
+            <td>MIT</td>
+            <td>Canvas</td>
+            <td>nadpisanie</td>
+        </tr>
+        <tr>
+            <th>plotly.js</th>
+            <td>MIT</td>
+            <td>SVG</td>
+            <td>nadpisanie</td>
+        </tr>
+        </tbody>
+    </table>
+</figure>
+
+<p>
+    Wśród wybranych bibliotek znalazła się jedna komercyjna, <em>HighCharts</em>, jedna o specyficznym modelu
+    aktualizacji danych<ft>modele aktualizacji zostały opisane w rodziale <a href="#chapter:web-interfaces"></a>.</ft>,
+    <em>vis.js</em> oraz różne biblioteki bazujące na dojrzałej technologii <em>Canvas</em> oraz standardzie <em>HTML5
+    Canvas</em>.
+
 </p>
