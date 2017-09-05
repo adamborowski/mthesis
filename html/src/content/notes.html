@@ -29,21 +29,8 @@
 <article>
     <h2>niesklasyfikowana</h2>
     <ul>
-        <li>
-            pozbyto się rozdziału, może można to gdzieś wrzucić
-            <p>
-
-                Podczas interakcji z użytkownika z wykresem, gdy zmienia się skala wykresu z powodu przybliżenia lub oddalenia,
-                należy dostosować poziom szczegółowości, z jaką są wyświetlane na nim dane.
-
-                Dla przykładu, jeżeli ktoś ogląda dane z zakresu jednej doby, to przy wykresie o szerokości 1000 pikseli będzie
-                wyświetlał skalę 86.4s/px.
-
-                Odpowiednim dla niego poziomem agregacji jest prędzej minuta niż sekunda, gdyż tych pierwszych będzie do
-                wyświetlenia 1440, a tych drugich będzie już 86400.
-
-                <em>ExploreJS</em> zarządza dostosowaniem poziomu szczegółowości danych w trakcie interakcji użytkownika z wykresem.
-            </p>
+        <li>opisać w wizualnej analizie danych nie znamy jeszcze pytania, na które szukamy odpowiedzi (IVA?) więc trzeba
+            przeglądać dane w poszukiwaniu ROI region of interest
         </li>
     </ul>
 </article>
@@ -67,60 +54,8 @@
         <li>prace powiązane z tematem
 
             https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g10f185f3fc_0_132
-            próba optymalizacji (ForeCache): https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_0
-            analogia do GIS: https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_11
-            dobór poziomu agregacji danych: https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g1102d58b2f_0_17
         </li>
 
-        <li>
-            płynny rendering to oczywistość
-            ---- * jak dostarczać realne dane?
-            -------- * 8 × 5y × 0.1Hz × 200B = 25GB
-            ---- * porcjowanie zasobów
-            -------- * zakres danych (horyzontalne)
-            -------- * agregacje (wertykalne)
-            ---- * wczytanie zakresu to też oczywistość
-            -------- * co z rozpraszaniem użytkownika?
-            -------- * utrzymanie uwagi na właściwym zadaniu
-
-            https://docs.google.com/presentation/d/1O0h_-VmjK5dzkzbQVHB4fJaktGsYhFSQrvFAf4EV19I/edit#slide=id.g10f185f3fc_0_0
-        </li>
-        <li>
-            opisać jakie by było idealne rozwiązanie
-            Użytkownicy eksplorują dane pomiarowe
-            * swobodnie
-            ** dostęp do wszystkich danych prezentowanych w zrozumiały sposób
-            * intuicyjnie
-            ** doświadczenia psycho-ruchowe w interakcji
-            *** gesty myszy - przeciąganie, rolka, zaznaczanie
-            * efektywnie
-            ** skupieni na analizie
-            ** bez czekania na dane
-
-        </li>
-        <li>
-            w kwestii proponowanego rozwiązania - powołac się na istniejące artykuły best chart timeseries libraries
-            publikowane przez jakieś firmy
-            można powiedzieć, że arbitralnie do integracji zostały wybrane biblioteki z góry i ze srodka listy??
-        </li>
-
-    </ul>
-</article>
-
-<article>
-    <h2>dotyczące istniejących rozwiązań</h2>
-    <ul>
-        <li>istniejące rozwiązanie jest banalne od strony klienta - robi się to prosto (można dać pseudokod z 'rozwiązanie istniejące' (tester)</li>
-        <li>Openlayers czy ma te mechanizmy, tilecache</li>
-        <li>Google maps zamknoete, Nie ma generycznych bibliotek, mozna jedynie obserwować jak to działa</li>
-        <li>Artykuły które mówią o mojej dziedzinie np zoomchart</li>
-        <li>opisać predykcję i strukturę w ForeCache</li>
-        <li>https://apps.axibase.com/chartlab/b74bdbd7</li>
-        <li>Influx db jako baza agregująca dane</li>
-        <li>https://en.wikipedia.org/wiki/Time_series_database</li>
-        <li>http://hackage.haskell.org/package/zoom-cache</li>
-        <li>Kibana 3: swoboda nawigacji, brak prefetchingu, brak płynnej zmiany kontekstu</li>
-        <li>tim slatcher opisuje progresywne ładowanie, prywatny projekt (ale nie mowi nic o prefetchingu czy cache)</li>
     </ul>
 </article>
 
@@ -129,7 +64,8 @@
     <ul>
         <li>architektura mechanizmów predykcji + kilka przykładowych + pokazać w pracy, jak można własne mechanizmy
             predykcji implementować, np wykrywanie panningu i ładowanie większych zakresów, ładowanie danych jakby
-            akurat ktoś zoomował do miejsca aktualnie pod kursorem
+            akurat ktoś zoomował do miejsca aktualnie pod kursorem - moze wykorzystac modele markova a moze sygnatury
+            zawarte w agregacjach?
         </li>
         <li>Garbage collector!!!</li>
     </ul>
