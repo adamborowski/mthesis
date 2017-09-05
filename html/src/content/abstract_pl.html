@@ -4,73 +4,52 @@
 
 <p>
     Celem pracy była poprawa płynności swobodnej i nieograniczonej wizualnej eksploracji wielkoskalowych danych
-    pomiarowych w przeglądarce internetowej.
+    pomiarowych w systemie rozproszonym.
 
-    W szczególności skupiono się aspekcie użyteczności interfejsu użytkownikana jako czynnika wpływającego na wydajność
-    wizualnej analizy danych.
+    W szczególności skupiono się aspekcie użyteczności interfejsu użytkownika jako czynnika wpływającego na wydajność
+    przeprowadzanej wizualnej analizy danych.
 </p>
+
 <p>
+    Dokonano przeglądu platform, narzędzi, mechanizmów oraz algorytmów wspierających wizualizację wielkoskalowych
+    danych pomiarowych.
     Zauważono, że o ile sama wizualizacja i dostęp do wielkich zasobów danych pomiarowych poprzez przeglądarki
-    internetowe nie stanowi obecnie wyzwania, to zepewnienie wysokiej jakości interfejsu pozytywnie wpływającego na
-    doświadczenia użytkownika jest ważnym i interesującym dziś aspektem konstrukcji aplikacji internetowych i zostało
-    przedmiotem badań niniejszej pracy.
+    internetowe nie stanowi obecnie problemu technologicznego, to zepewnienie płynności w wizualnej eksploracji stanowi
+    wyzwanie polegające na ukryciu przed użytkownikiem negatywnych skutków opóźnień sieci komputerowej.
 </p>
 <p>
-    Przedstawiono, w jaki sposób problem skalowalności interfejsu webowego został rozwiązany w nowoczesnych systemach
-    informacji przestrzennej oraz jakie analogie warunkują możliwość adaptacji rozwiązań do systemów wizualizacjii
-    serii czasowych.
-</p>
-<p note="spełniają wymagania, patrz rozwiązanie bazowe">
-    Wykazano, że powszechne biblioteki służące do wizualizacji serii czasowych nie spełniają wymagań nowoczesnego
-    <trans>user experience</trans>
-    w momencie, gdy zostaną wykorzystane do eksploracji danych o dużej skali.
-</p>
-<p>
-    Zaproponowano i wykonano rozwiązanie w postaci biblioteki języka JavaScript, która umożliwia ciągłą i
-    nieograniczoną nawigację po seriach czasowych, optymalizuje wymianę danych pomiędzy serwerem a klientem,
-    maksymalizuje recykling danych, w łatwy sposób integruje się po stronie przeglądarki
-    oraz korzysta ze standardowych sposobów udostępniania danych pomiarowych przez serwery aplikacji.
-    Rozwiązanie sprawdzono na siedmiu popularnych bibliotekach wizualizacyjnych:
-    <span name>VisJS</span>,
-    <span name>ZingCharts</span>, <!--??? zing charts sie nie udało - można to opisać-->
-    <span name>HighCharts</span>,
-    <span name>PlotlyJS</span>,
-    <span name>Flot</span>,
-    <span name>JQPlot</span>,
-    <span name>Dygraphs</span>
-    pod kątem wydajności, użyteczności, szybkości dostępu do danych oraz ogólnych wrażeń użytkowania.
+    Zaproponowano i wykonano rozwiązanie w postaci biblioteki języka JavaScript, która umożliwia płynną, swobodną i
+    nieograniczoną nawigację po seriach czasowych poprzez wprowadzenie wielopoziomowej pamięci <em>cache</em> oraz
+    zastosowanie mechanizmu typu <em>prefetch</em>, znanych z systemów rozproszonych.
+
+    Rozwiązanie sprawdzono na sześciu wybranych bibliotekach wizualizacyjnych pod kątem wydajności, użyteczności,
+    szybkości dostępu do danych oraz ogólnych wrażeń użytkowania.
 </p>
 
-<p helper="akapit do wykorzystania">
-    Celem pracy jest identyfikacja problemów związanych z ogółem wrażeń użytkownika interfejsu aplikacji webowej. W szczególności praca ta dotyczy eksploracji wielkoskalowych danych pomiarowych za pomocą interaktywnego komponentu użytkownika prezentujacego serie czasowe w formie wykresu liniowego. W pracy zostaną przedstawione główne wyzwania związane z pozyskiwaniem wielkoskalowych danych pomiarowych i ich dynamicznej prezentacji. Zostanie dokonana analiza istniejących, popularnych webowych komponentów wykresowych pod kątem efektywnej, intuicyjnej i sprawnej nawigacji po seriach czasowych, co jest czynnikiem wpływającym na ogół wrażeń i satysfakcji użytkownika (ang. User Experience) korzystającego z interfejsów webowych.
-    W ramach pracy zostanie zaproponowane i wykonane rozwiązanie, które efektywnie zarządza komunikacją aplikacji z serwerem danych i dynamicznie aktualizuje komponenty wykresowe.
-    W proponowanym rozwiązaniu zostanie wykonana próba zaadoptowania rozwiązań architektonicznych stosowanych w systemach informacji przestrzennej oraz mechanizmów predykcji ładowania zasobów znanych z systemów pamięci podręcznej.
-
-</p>
 <p>
     Ocenę rozwiązania przeprowadzono na podstawie interaktywnych ankiet użytkowników, w
-    których eksplorując dane pomiarowe mogli porównywać interakcję z wybraną biblioteką w
-    różnych konfiguracjach, rozpoczynając od tej, w której nie zastosowano opracowanego rozwiązania, kończąc na tej, w
-    której użyto je ze wszystkimi zaimplementowanymi funkcjami. Ocenie poddano również łatwość integracji
-    rozwiązania z istniejącymi systemami.
+    których eksplorując dane pomiarowe mogli porównywać interakcję z wybraną biblioteką wizualizacyjną w
+    różnych konfiguracjach. Ocenie poddano również łatwość integracji rozwiązania z istniejącymi systemami.
 
-    Przeprowadzono również testy wydajnościowe mierząc czas dostępu do danych w
-    różnych scenariuszach wizualnej eksploracji serii czasowych.
+    Przeprowadzono też testy wydajnościowe wskazujące, czy proponowane rozwiązanie nie pogarsza innych aspektów
+    działania systemu.
 </p>
 
-<p note="+survey scores histogram">
-    Wyniki wskazały na to, iż proponowane rozwiązanie znacznie skróciło średni czas oczekiwania na dane w wizualnej
-    eksploracji danych pomiarowych. Poprawiło to przystosowanie webowych interfejsów użytkownika
-    do eksploracji wielkoskalowych danych pomiarowych w interaktywnej analizie wizualnej, co miało odzwierciedlenie w
-    jakości przeprowadzanej analizy wizualnej.
+<!--note="+survey scores histogram"-->
+
+<p>
+    Wyniki wskazały na to, iż proponowane rozwiązanie znacznie poprawiło płynność wizualnej eksploracji danych.
+    Zastosowanie rozwiązania w praktyce poprawia przystosowanie istniejących webowych interfejsów użytkownika do
+    eksploracji wielkoskalowych danych pomiarowych w interaktywnej analizie wizualnej, co ma odzwierciedlenie w jakości
+    przeprowadzanej analizy wizualnej.
 </p>
 
 <p>
-    <b>Słowa kluczowe:</b> serie czasowe, dane pomiarowe, wizualizacja danych, interakcja z użytkownikiem, skalowalność,
-    aplikacje internetowe
+    <b>Słowa kluczowe:</b> szeregi czasowe, dane pomiarowe, wizualna eksploracja, wizualizacja danych, wizualizacja
+    informacji, interakcja z użytkownikiem, skalowalność systemu, aplikacje internetowe
 </p>
 <p>
-    <b>Dziedzina nauki i techniki:</b>
+    <b>Dziedzina nauki i techniki, zgodnie z wymogami OECD:</b>
     nauki przyrodnicze, nauki o komputerach i informatyka, aplikacje internetowe
 </p>
 
