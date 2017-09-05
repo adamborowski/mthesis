@@ -1,4 +1,15 @@
 <h2>ForeCache</h2>
+<p>
+    Mechanizmy pamięci podręcznej są często występującym elementem systemów rosproszonych o wysokim użyciu kanału
+    komunikacyjnego lub w którym kanał komunikacyjny jest zbyt wolny w stosunku do możliwości obliczeniowych systemu.
+
+    Przykładem może być układ procesora i pamięci <em>RAM</em>, w którym wysokiej wydajności dodatkowy układ pamięciowy
+    przechowuje bloki pamięci <em>RAM</em>, których elementy były odczytywane w niedalekiej przeszłości.
+    Zakłada się tu bowiem, że elementy pamięci leżące blisko siebie często są odczytywane w tym samym czasie, jak na
+    przykład bloki instrukcji czy elementy tablicy podczas iteracji. W procesorach mechanizmy <em>cache</em> działają
+    również w drugą stronę &mdash; pozwalają częste zapisy dokonywać na szybkiej pamięci, zanim zostaną przesłane do
+    <em>RAM</em>.
+</p>
 
 <p>
     <em>ForeCache</em> jest serwerowym mechanizmem pamięci podręcznej z predykcją wspierającym wizualną eksplorację w
