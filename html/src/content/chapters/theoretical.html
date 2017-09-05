@@ -9,39 +9,70 @@
 @@include('theoretical/measurement-data.html')
 @@include('theoretical/iva.html')
 @@include('theoretical/ux.html')
-<h2>Aplikacje internetowe</h2>
-<ul class="helper">
-    <li>Jest to typ aplikacji rozproszonej ale nie HiPerf, Xeon Phi itd</li>
-    <li>Co to jest aplikacja internetowa</li>
-    <li>Jakie są architektury takich aplikacji</li>
-    <li>Przykłady takich aplikacji</li>
-    <li>HTTP? REST?</li>
-    <li>problemy skalowalności</li>
-</ul>
 <h2 id="chapter:web-interfaces">Interfejsy Webowe</h2>
-<ul class="helper">
-    <li>Ewolucja WWW do aplikacji interntowych</li>
-    <li>Ewolucja desktopów do aplikacji przeglądarkowych</li>
-    <li>JavaScript</li>
-    <li>Ajax</li>
-    <li>coś o wykresach, że są svg, że są canvas, że nawet gpu accerelated, że mają patch/redraw API, że zazwyczaj
-        obsługują zmienny zakres wyświetlancyh danych (i mozna im dac wiekszy zakres danych niz potrzoeoba wysiwetlic)
 
-        aspekt dynamiki w wykresach
+<p>
+    Aplikacje internetowe, będące systemem rozproszonym, skonstruowane są w ten sposób, że dane zlokalizowane są na
+    wyspecjalizowanych serwerach, a prezentacja i interakcja odbywa się na komputerze użytkownika.
+    W obecnych czasach popularność zdobywają interfejsy graficzne realizowane w całości w przeglądarce internetowej
+    &mdash; odchodzi się od tradycyjnych aplikacji tzw. <em>desktopowych</em>.
 
-        strategie:
-        * modyfikacja danych
-        * całkowite zastąpienie danych
-        --- każda z nich ma swoje wady i zalety, zalezy czy to svg, czy canvas, zostało to poruszone w <a href="#chapter:implementation-adapter"></a>.
-        --- np migotanie, przycinanie, etc.
+    Dzięki rozwijającym się takim technologiom jak <em>JavaScript</em>, <em>DOM</em>, <em>AJAX</em>, <em>WebSocket</em>
+    czy <em>WebGL</em> &mdash; przeglądarki stanowią atrakcyjne środowisko zarówno od strony użytkowników systemu jak i
+    od strony twórców systemu.
 
+    Nawet jeśli wytwarzane są aplikacje <em>desktopowe</em>, często używają one tych samych technologii co w
+    przeglądarce właśnie ze względu na atrakcyjność środowiska deweloperskiego.
+</p>
 
-    </li>
-    <li>typowe sposoby interakcji z wykresami (jakie są dokładnie klawisze, kadrowanie, etc)</li>
-    <li>opisać DOM - CANVAS oraz SVG</li>
-    <li>jak skonstruowane są </li>
-</ul>
-<h3 id="chapter:theoretical-charting-components">komponenty wykresowe</h3>
-<p helper="jak są skonstruowane - dane przesłane do wykresu kontra dane na ekranie - svg, canvas, huge data-little render>"></p>
+<p>
+    Interfejsy webowe często wykorzystują rozmaite formy wizualizacji w celu prezentacji danych użytkownikowi.
+    Istnieje wiele bibliotek wykresowych, które wykorzystują technologie takie, jak <em>SVG</em>, <em>Canvas</em> i <em>WebGL</em>.
+</p>
 
-<h2>Systemy informacji przestrzennej</h2>
+<p>
+    Podstawową technologią po stronie przeglądarki jest <em>DOM</em> <trans>Document Object Model</trans>.
+    Jest to programistyczny model obiektowy, reprezentujący drzewo dokumentu <em>HTML</em>, gdzie każdy węzeł drzewa
+    udostępnia interfejs programistyczny służący do operacji na danej gałęzi drzewa.
+</p>
+
+<p>
+    <em>SVG</em> <trans>Scalable Vector Graphics</trans> jest to wektorowy format graficzny, który wspierany jest na
+    poziomie <em>DOM</em>, więc manipulacja taką grafiką jest tak samo łatwa jak
+    manipulacja innymi elementami dokumentu <em>HTML</em>.
+    Biblioteki wykresowe bazujące na <em>SVG</em> manipulują elementami <em>DOM SVG</em>, a przeglądarka sama zajmuje
+    się renderowaniem końcowego obrazu.
+    Wadą tej technologii jest mało wydajna aktualizacja wizualizacji, wymagająca nieraz kosztownych modyfikacji
+    elementów <em>DOM</em>.
+</p>
+
+<p>
+    W odpowiedzi na potrzeby dynamicznych wizualizacji w przeglądarce został stworzony standard <em>HTML5 Canvas</em>.
+    Jest to niskopoziomowy interfejs programistyczny pozwalający na rysowanie na ekranie z pominięciem technologii <em>DOM</em>.
+    Biblioteki wykresowe bazujące na technologii <em>Canvas</em> są w stanie wydajnie przerysowywać całe wizualizacje w
+    odpowiedzi na zmianę danych czy interakcję użytkownika.
+</p>
+
+<p>
+    Najnowszą technologią wizualizacji w przeglądarce jest <em>WebGL</em>, standard umożliwiający wykorzystanie
+    potencjału kart graficznych komputerów użytkowników, dzięki czemu możliwa jest wydajna wizualizacja scen
+    trójwymiarowych.
+    Istnieje kilka bibliotek oferujących wykresy trójwymiarowe bazujące na <em>WebGL</em>, na przykład
+    <em>plotly.js</em> lub <em>sigma.js</em>.
+</p>
+
+<p>
+    Ważnym aspektem wizualizacji danych jest dynamika, czyli aktualizacja parametrów wizualizacji.
+    Biorąc pod uwagę dwie pierwsze wspomniane technologie, <em>SVG</em> oraz <em>Canvas</em>, należy zauważyć, że w
+    zależności od użytej technologii aktualizacja danych na wykresie może przebiegać w różny sposób.
+
+    Dla <em>SVG</em> najlepszym sposobem będzie unikanie niepotrzebnych manipulacji elementami <em>DOM</em>, zatem
+    aktualizacja wykresu odbywa się przez podanie minimalnego zbioru operacji potrzebnego do zmiany wynikowego obrazu.
+
+    Z kolei dla technologii <em>Canvas</em> wystarczające może być podanie nowej wersji danych, nawet jeśli różnią się
+    ze starą wersją tylko jednym drobnym szczegółoem, ponieważ po jakiejkolwiek aktualizacji następuje kompletne,
+    aczkolwiek szybkie, przerysowanie odpowiedniego fragmentu ekranu.
+
+    Więcej na temat aktualizacji wykresów zostało poruszone w rozdziale <a href="#chapter:implementation-adapter"></a>.
+
+</p>
