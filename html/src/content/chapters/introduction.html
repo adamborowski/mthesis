@@ -139,107 +139,43 @@
     Zaproponowane zostanie rozwiązanie, które adresuje problemy skalowalności efektywnej i intuicyjnej eksploracji w
     istniejących komponentach.
 </p>
-<p helper="do zmergowania">
-    Chcemy upłynnić przeglądanie danych (zarządzanie komunikacją klient-serwer) dając jednocześnie swobodę interakcji z
-    wielkimi zasobami danych pomiarowych
-</p>
 <h2>Treść pracy</h2>
 <p>
     Rozdział <a href="#chapter:theoretical"></a> zawiera podstawowe informacje o zagadnieniach związanych danymi
     pomiarowymi oraz ich wizualną eksploracją w systemach rozproszonych.
 </p>
 <p>
-    Rozdział <a href="#chapter:analysis"></a> szczegółowo definiuje wymagania <em>User Experience</em> względem
-    nowoczesnych webowych interfejsów wizualnej eksploracji danych, weryfikuje istniejące rozwiązania pod względem
-    spełnienia tych wymagań oraz pod względem dostępności tych rozwiązań dla szerokiego grona twórców aplikacji
-    internetowych.
-
-    Pokazuje, że powszechne biblioteki służące do wizualizacji serii czasowych nie spełniają tych wymagań w momencie,
-    gdy zostaną wykorzystane do eksploracji danych o dużej skali.
-
-    Rozdział ten przedstawia również w jaki sposób problem skalowalności interfejsu webowego został rozwiązany w
-    nowoczesnych
-    systemach informacji przestrzennej oraz jakie analogie warunkują możliwość adaptacji tych rozwiązań.
+    Rozdział <a href="#chapter:analysis"></a> skupia się na identyfikacji problemu skalowalności wizualnej eksploracji w
+    systemach wizualizacji danych pomiarowych.
 </p>
 <p>
-    <a href="#chapter:solution">Rozdział</a> wnikliwie prezentuje proponowane rozwiązanie problemu w postaci modułu
-    dołączanego do istniejących już bibliotek wizualizacyjnych, który umożliwi im płynną eksplorację wielkoslakowych danych
-    pomiarowych.
-    Przedstawiona zostaje również metodologia oceny rozwiązania problemu.
+    Rozdział <a href="#chapter:existing-solutions"></a> prezentuje wybrane technologie, algorytmy,
+    narzędzia i platformy, które częściowo rozwiązują zidentyfikowany problem bądź są inspiracją zaczerpniętą z
+    innych typów systemów.
+</p>
+<p>
+    Rozdział <a href="#chapter:methodology"></a> przedstawia szczegółowe kryteria akceptacyjne rozwiązania
+    zidentyfikowanego problemu.
+</p>
+<p>
+    <a href="#chapter:solution">Rozdział</a> wnikliwie prezentuje bibliotekę <em>ExploreJS</em>, stworzoną w ramach tej
+    pracy, która umożliwia płynną, swobodną i nieograniczoną wizualną eksplorację wielkoslakowych danych pomiarowych.
 
-    <a href="#chapter:implementation">Rozdział</a> opisuje najciekawsze fragmenty implementacji zaproponowanego
+
+    <a href="#chapter:implementation">Rozdział</a> opisuje interesujące fragmenty implementacji zaproponowanego
     rozwiązania.
 
-    <a href="#chapter:results">Rozdział</a> przedstawia uzyskane wyniki oraz ich metodologiczną ocenę.
+
 </p>
 
-
-<ul helper="Pytania pomocnicze">
-    <li question="zwiazekZZyciem">jak ma się ta dziedzina do życia dziennego</li>
-    <li question="dziedzina">Jakiej dziedziny dotyczy praca <span>big data</span>
-        <span>interaktywna wizualizacja </span> <span>frontend</span>
-    </li>
-    <li question="przedmiotBadan">Co jest badane w pracy magisterskiej, nie wydajne komponenty do rysowania wykresów,
-        nie wydajne serwery big data, ale zarządzanie komunikacją klient serwer
-        wydajność pracy z danymi
-
-    </li>
-    <li question="tloHistoryczne">tło historyczne przedmiotu badań - ważność user experience w wizualizacji danych,
-        pierwsze wizualizacje, aplikacje internetowe, cienki gruby klient
-        parafrazować Tima Sletchera (technologie serwera)
-    </li>
-    <li question="tloTechniczne">tło techniczne przedmiotu badań - web performance, big data, trochę więcej o wizualnej
-        analizie danych,
-        charakterystyka serii czasowych, user experience, web apps, interfejsy webowe w przeglądarce (javascript html),
-        webapps: opisać, że wszyscy lubią aplikacje z interfejsem w przeglądarce. Podać przykłady popularnych rozwiązań
-        oraz, że migrowały z desktopu: Office live, google docs, photoshop etc...
-    </li>
-    <li question="tloBranzowe">Tło branżowe przedmioty badań - co to są serie czasowe, po co się je agreguje, jak się z
-        tych danych korzysta, jakie są cechy charakterystyczne agregacji - np mogą być wieloktorne lub nieregularne
-        przykład że min max średnia - peaks albo sinus
-
-    </li>
-    <li question="teza">Jaki realny problem istnieje - teza - obecne biblioteki nie wspierają skalowalności, ale
-        mozna im to umozliwic poprzez generyczny mechanizm który by zarządzał źródłem danych dla tych wykresów
-    </li>
-    <li question="rangaProblemu">istotność tego problemu - nie chodzi o umożliwienie przeglądania danych tylko ux i
-        efektywność, jakieś odniesienie od literatury
-        slajd 17 z prezentacji 1
-    </li>
-    <li question="inneDziedziny">dziedziny w których problem występuje, czy już został zaadresowany - google maps
-        chociażby
-        slajd 18,19,21 prezentacja 1
-    </li>
-    <li question="alternatywneRozwiazania">kto próbował go rozwiązać w tej dziedzinie - zoomcharts, dygraphs backround,
-        forecache -
-        slajd 22 perzentacja 1
-        co w nich jest niefajnego ze nie rozwiazuje tego problemu, Tim Slatcher
-    </li>
-    <li>jaki cel ma praca - weryfikacja wsparcia skalowalnosci bibliotek wykresowych. sprawdzenie mozliwosci wsparcia
-        skalowalnosci dzięki zaproponowanemu rozwiązaniu,
-        Rozwiązanie problemu skalowalności ux interaktywnego interfejsu webowego
-    </li>
-    <li>proponowane rozwiązanie - jak ono rozwiąże realny problem, nie chodzi o nowe wykresy tylko o wsparcie
-        skalowalności dla istniejących - benefity: reuse w istniejacych projektach, tylko jeden adapter i wszystko
-        dziala - jakie problemy rozwiaze poszczegolny ficzer (silnik predykcji, cache, projection, dynamicProjection)
-
-
-        transparentność rozwiązania - minimalizacja wrażeń użytkownika związanych z odległością danych które użytkownik
-        przegląda
-        tutaj mentionować perception of time - mishunov
-        slajd 25 prezentacja 1
-        slajd 7 prezentacja 2
-        uzasadnienie - podac benefity - polepsza wydajnosc pracy uzytkownikow i robi im dobrze
-        wycinek danych - eksploracja w IVA Ze wzgle ̨du na ograniczone moz ̇liwos ́ci ludzkiego mózgu. - nie potrzeba
-        lepszych rozwiązań
-    </li>
-    <li question="tools">Narzędzia i środowiska użyte do realizacji pracy</li>
-    <li question="ocena">Metoda ocena przyjętego rozwiązania - nacisk na wydajność i UX, antkiety, perf testy
-        slajd 16 prezentacja 2
-    </li>
-
-    <li>O czym dalej będzie można przeczytać w tej pracy</li>
-</ul>
+<p>
+    Rozdział <a href="#chapter:research-tool"></a> przedstawia narzędzie badawcze, stworzone w celu przeprowadzenia
+    metodologicznej oceny rozwiązania, przedstawionej w rodziale <a href="#chapter:methodology"></a>.
+</p>
+<p>
+    Rozdział <a href="#chapter:results"></a> przedstawia uzyskane wyniki, ich metodologiczną ocenę oraz nakreśla
+    kierunki dalszego rozwoju biblioteki <em>ExploreJS</em>.
+</p>
 
 <h2>Motywacja</h2>
 
