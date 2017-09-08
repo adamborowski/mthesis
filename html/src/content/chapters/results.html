@@ -18,17 +18,185 @@
 <h2>Odpowiedzi respondentów</h2>
 
 <p>
-    W badaniu wzięło udział 35 respondentów, w tym 4 anonimowo.
+    W badaniu wzięło udział 35 respondentów, w tym 4 anonimowo i 7 anglojęzycznych<ft>obliczone na podstawie odpowiedzi
+    na pytania otwarte</ft>.
     Do badania zostały indywidualnie zaproszone 72 osoby, dodatkowo rozesłano grupowe zaproszenie do około 200 osób
     pracujących w jednej z trójmiejskich firm informatycznych.
 </p>
 
 <p>
-    w ankiecie piszą co jest potrzebne by chcieli uzyc - nie mamy jeszcze dokumentacji, czy tam przykłądów użycia,
-    więc w ocenie będzie można stwierdzić, że narzędzie nie jest jeszcze w 100% gotowe do wprowadzenia, wymaga
-    usprawnienia dokuentacji, tego, tamtego i owego
+    Na pytanie <q>Jak podoba Ci się ankieta</q> najczęściej (18) odpowiadano <q>zaciekawiła mnie</q>.
+    Trochę rzadziej (12) udzielao odpowiedź <q>nieźle</q>.
+    Jedna osoba nie potrafiła udzielić odpowiedzi na to pytanie, 3 osoby uznały tę ankietę za męczącą.
+    Nikt nie wyraził tutaj znudzenia zaznaczając opcję <q>znudziłem się</q>.
 </p>
+
+<p>
+    W odpowiedzi na pytanie, czy przedstawiony problem faktycznie istnieje większość (18) osób zgodziła się ze
+    stwierdzeniem, że to jest poważny problem wymagający rozwiązania.
+    Pozostałe (16) odpowiedzi wskazuje na to, że problem, co prawda istnieje, to nie jest bardzo poważny.
+</p>
+
+<p>
+    W pytaniu o podobieństwo problematyki do tej występującej w <em>Google Maps</em>, większość (17) osób uznało to za
+    ten sam
+    problem, kolejne 14 osób widzi pewne podobieństwo, natomiast 2 osoby wyraziły problem z udzieleniem tej odpowiedzi.
+</p>
+
+<p>
+    W pytaniu (dotyczących programistów) o spotkanie się z zagaadnieniem przeglądania danych pomiarowych w przeszłości
+    więszkość ankietowanych (17 i 14) udzieliło pozytywne odpowiedzi.
+    Niektórzy respondenci (2) nie mogli tego jednoznacznie stwierdzić, a 6 osób odpowiedziało przecząco.
+</p>
+
+<p>
+    Na podobne pytanie, ale dotyczące przyszłości, odpowiedzi już są bardziej równomiernie rozłożone.
+    Więszość osób podejrzewa, że będą miały do czynienia z wizualną eksploracją danych pomiarowych, 8 osób nie mogło
+    tego stwierdzić, kolejne 8 odpowiedziały przecząco.
+</p>
+
+<p>
+    Ostatnie pytanie zamknięte dotyczyło wyrażenia chęci użycia biblioteki <em>ExploreJS</em> w przypadku zaistnienia
+    potrzeby.
+    Zdedydowana większość (20) wyraziła taką chęć, o ile będzie to możliwe. Dwie osoby wyraziły dużą determinację
+    zaznaczając opcję <q>zrobię wszystko, by skorzystać</q>.
+</p>
+
+<p>
+    Sześć ankiet zostało wysłanych bez udzielania odpowiedzi na pytania otwarte.
+    Na pytania kontrolne znalazły się odpowiedzi świadczące o dużym stopniu zrozumienia dziedziny problemu, na przykład:
+</p>
+
+<blockquote>The problem is about optimization of the access to the "big data" displayed on the viewer monitor. Data are
+    retrieved (queried) from the web-server and optimized in regards to the resolution (data points / pixels
+    horizontally). The solution tries to solve the complex issue despite of the real-time data being displayed in
+    graphs on the screen of the monitor. There are changes on screen while user jumps forward or backward the
+    graph. Those can be noticed not only because of the slow network simulation. It is likely to say, the issue could
+    be the big data (~10 GB) accessibility for query algorithm which needs to be real-time combined with the cashed
+    data mechanism that can be displayed in less than 0.1 sec. on screen to have unnoticeable data change flow.
+</blockquote>
+lub też:
+<blockquote>
+    You're trying to achieve representation of data at different levels of detail with smooth transition in between.
+    There's lots of data and you can't pull all of them into the browser at once, so you have to pull only the parts you
+    need (or may need in the nearest future) without introducing lags visible to the user.
+</blockquote>
+<p>
+    Wśród nadesłanych odpowiedzi znalazły się również mniej wyraziste, jak na przykład <q>huge amount of data</q> lub
+    <q>user experience</q>, które mogą wskazywać na brak znajomości dziedziny lub brak komfortu czasowego podczas
+    udzielania odpowiedzi.
+</p>
+
+<p>
+    Na podstawie udzielanych odpowiedzi na pytania kontrolne można stwierdzić duże zaangażowanie w badanie, co zwiększa
+    wiarygodność otrzymanych wyników.
+</p>
+
+<p>
+    Respondenci mogli odpowiedzieć również na pytanie o znane alternatywne rozwiązania.
+    Niestety nie udzielono na to pytanie ani jednej konstruktywnej odpowiedzi wskazujące kontretne rozwiązanie.
+</p>
+
+<p>
+    Na pytanie skierowane do programistów, jak zachęcić do używania biblioteki <em>ExploreJS</em>, udzielano odpowiedzi
+    wskazujące na potrzebę dobrej dokumentacji, przykładów integracji z tzw. frameworkami <em>JavaScript</em>, proste
+    tutoriale oraz opublikowanie na darmowej, otwartej licencji zezwalające na komercyjne użycie. Wspominano również o
+    pokryciu biblioteki testami, dostępie do kodu źródłowego i
+    trwałym wsparciu technicznym.
+</p>
+
 <h2>Responsywność a użyteczność</h2>
+
+<p>
+    W tej części zostanie dokonana ocena rozwiązania pod kątem zwiększenia satysfakcji użytkownika eksplorującego dane.
+
+    Do analizy zostały wykorzystane dwa z trzech dostępnych wykresów (wygenerowane przez narzędzie badawcze &mdash; zob.
+    rozdział <a href="chapter:rt-responses-summary"></a>), które przedstawiają rozkład bezwzględej oceny kolejnych
+    rozwiązań (w skali logarytmicznej) oraz procentowy udział przedziałów responsywości systemu, tj. czasu
+    załadowania danych dla widzianego przez użytkownika zakresu.
+    Zostało to pokazane na ilustracji <a href="#picture:result-corelation"></a>.
+</p>
+
+<figure type="picture" id="picture:result-corelation">
+    <figcaption>Zależność między oceną użytkowników a responsywnością systemu.</figcaption>
+    <img src="cache/results-corelation.png" width="90%"/>
+</figure>
+
+<p>
+    Na powyższej ilustracji zaznaczono pięć zależności między zmianą rozkładu ocen o zmianą rozkładu responsywności.
+</p>
+
+<p>
+    Zależność oznaczona literą <em>A</em> pokazuje, że skrajne złe oceny satysfakcji użytkowników (10-ty percentyl),
+    utrzymują się przez trzy kolejne wersje rozwiązania: z pamięcią podręczną, z projekcją pamięci oraz z predykcją.
+    Z wykresu responsywności wynika, że tym skrajnym ocenom towarzyszy dość szeroki <em>rękaw</em> czasu odpowiedzi
+    systemu sięgającego cztery sekundy.
+</p>
+
+<p>
+    Zależność <em>B</em> pokazuje, że mediana ocen nie rośnie znacząco przez pierwsze trzy wersje rozwiązania.
+    Widać również, że dla tych samych wersji rozwiązania dominującym przedziałem responsywności jest ten sięgający
+    jednej sekundy, czyli ten odczuwalny dla użytkownika wg <em>Millera</em> (zob. rozdział <a href="#chapter:ux"></a>).
+</p>
+
+<p>
+    Literą <em>C</em> oznaczono sytuację, w której oceny generalnie nieznacznie się zwiększyły, pomimo pogorszenia
+    statystycznej responsywności &dash; rękaw <q>2s</q> powiększył się kosztem <q>1s</q>, co wskazuje na dłuższe czasy
+    oczekiwania na dane.
+    Tutaj należy zauważyć, że rozwiązanie z projekcją pamięci różni się tylko tym, że wyświetla progresywnie dane o
+    mniejszej rozdzielczności podczas załadowania właściwych danych (zob. rozdział <a
+        href="#chapter:theoretical-cache-projection"></a>).
+    Należy mieć również na uwadze, że responsywność jest mierzona jako czas od akcji nawigacji użytkownika do
+    wyświetlenia jemu dokładnych danych, a fakt istnienia <q>zastępnych</q> danych o niższej rozdzielczości nie jest
+    tutaj uwzględniany.
+    Nie ma różnicy w implementacji, mogącej wpływać na pogorszenie responsywności, zatem można więc wnioskować, że
+    lepsze ocenianie wersji o statystycznie gorszej responsywności spowodowane jest właśnie tym progresywnym ładowaniem
+    danych, które może być postrzegane jako szybsze działanie systemu <a href="#bib:conference"></a> <ft>
+    Progresywne ładowanie jest jedną z optymalizacji typu <em>early completion</em> omówionej w rozdziale <a
+        href="#chapter:ux"></a>.
+</ft>.
+</p>
+
+<p>
+    Kolejną ciekawą zależnością jest ta oznaczona literą <em>D</em>.
+    Dla wersji z mechanizmem predykcji można zaobserwować nagły i znaczny wzrost mediany oceny tego rozwiązania.
+    Jednocześnie na wykresie responsywności można zaobserwować nagłą zmianę w proporcjach przedziałów responsywności
+    systemu.
+    Rękawy <q>1s</q> oraz <q>2s</q> niemal zniknęły, natomiast rękaw <em>0s</em> zwiększył się i zajmuje połowę całego
+    przedziału.
+
+    Oznacza to, że w jedna na dwie akcje nawigacji użytkownika nie wymagała oczekiwania na załadowanie danych.
+
+    Istnieje jeszcze jedna zależność w tym przypadku.
+    Skrajnie negatywne oceny (10-ty percentyl) ponownie się obniżyły.
+    Jednoczeęnie można zauważyć pojawienie się bardzo niepożądanego przedziału responsywności <q>&gt;4s</q>.
+    Warto wiedzieć, że wersja z mechanizmem predykcji ma taką cechę, że ładowane są większe zakresy danych, w dodatku
+    nie tylko na poziomie na którym <q>znajduje się</q> użytkownik<ft>Więcej na ten temat w rozdziale <a
+        href="#chapter:implementation-prediction-models"></a>.</ft>.
+
+</p>
+
+<p>
+    Ostatnim z interesujących sytuacji jest sytuacja <em>E</em>, w której ogólna ocena, co prawda nieznacznie, podniosła
+    się, a skrajnie negatywna ocena (10-ty percentyl) drastycznie się poprawiła.
+    Jednocześnie z analizy wykresu responsywności widać, że niemal zniknął przedział <q>4s</q>, który powstał w
+    porzedniej wersji.
+    Warto wiedzieć, że ostatnia wersja rozwiązania optymalizuje komunikację z serwerem, między innymi drastycznie
+    zmniejsza niepotrzebny ruch, który powstał w poprzedniej wersji &mdash; implementujące mechanizmy predykcji.
+</p>
+
+<p>
+    Na podstawie analiz zależności przedstawionych na ilustracji <a href="#picture:result-corelation"></a> można
+    potwierdzić istnienie silniej korelacji między subiektywnymi ocenami satysfakcji użytkowników, a obiektywną miarą
+    responsywności systemu.
+
+    Zasadne jest stwierdzenie, że oceny są statystycznie wiarygodne, a użytkownicy zauważyli i docenili
+    usprawnienia płynności wizualnej eksploracji zaimplementowane w <em>ExploreJS</em>.
+</p>
+
+
+
+
 <h2>Koszty optymalizacji</h2>
 
 <p>
@@ -36,6 +204,11 @@
     w visjs dataset)
 </p>
 <h2>Gotowość do wdrożenia</h2>
+<p>
+    W ankiecie piszą co jest potrzebne by chcieli uzyc - nie mamy jeszcze dokumentacji, czy tam przykłądów użycia,
+    więc w ocenie będzie można stwierdzić, że narzędzie nie jest jeszcze w 100% gotowe do wprowadzenia, wymaga
+    usprawnienia dokuentacji, tego, tamtego i owego
+</p>
 <h2>Wnioski</h2>
 
 <p>wyniki: czy i jak zwiększyliśmy przystosowanie webowych interfejsów / biblioteki chartowe</p>
