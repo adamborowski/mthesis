@@ -424,6 +424,16 @@
         <title>Bing Maps Tile System</title>
         <url access="2017-08-30">https://msdn.microsoft.com/en-us/library/bb259689.aspx</url>
     </citation>
+    <citation type="book" id="bib:weik2000computer">
+        <title>Computer Science and Communications Dictionary</title>
+        <isbn>9780792384250</isbn>
+        <series>Computer Science and Communications Dictionary</series>
+        <year>2000</year>
+        <publisher>Springer US</publisher>
+        <author>Weik, M.</author>
+        <pages>1484</pages>
+    </citation>
+
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->
