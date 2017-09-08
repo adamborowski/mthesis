@@ -188,7 +188,7 @@
     <img src="/images/research-tool/summary.png" class="bordered"/>
 </figure>
 
-<h2>Moduł analizy wyników</h2>
+<h2>Moduł analizy wyników ankiety</h2>
 
 <p>
     Przedstawiany poniżej moduł narzędzia badawczego służy dokonaniu analizy przez osobę przeprowadzającą badania
@@ -332,23 +332,171 @@
 </figure>
 
 
-<h3>Widok zbiorczy</h3>
+<h3 class="keep-after">Widok zbiorczy</h3>
 
-Po uznaniu wiarygodności odpowiedzi, aplikacja pozwala na automatyczne przetworzenie wszystkich odpowiedzi i wyświetla końcowe wyniki.
-
-<p helper>
-    Uzupełnić, gdy zrobiona zostanie część zbiorcza (korelacje etc)
+<p class="keep-inside">
+    Po przejrzeniu pojedynczych wyników badania subiektywnych ocen użytkowników można przejść do widoku, który
+    prezentuje w sposób graficzny podsumowanie ocen i ich korelację z obiektywną miarą responsywności systemu
+    (ilustracja <a href="#picture:rt-responses-statistics"></a>).
 </p>
-
 
 <figure type="picture" id="picture:rt-responses-statistics">
     <figcaption>Widok podsumowujący oceny użytkowników</figcaption>
-    <img src="/images/research-tool/responses-statistics.png"/>
+    <img src="/images/research-tool/responses-statistics.png" width="80%"/>
 </figure>
+
+<p>
+    Dla każdej z testowanych przez użytkowników wersji rozwiązania zostały przedstawione dwa histogramy.
+</p>
+<p>
+    Pierwszy z nich (lewa kolumna) pokazuje rozkład wystawionych poszczególnych ocen wersji rozwiązania względem
+    poprzedniej.
+
+    Oceny zostały oznaczone cyframi, gdzie ocena neutralna oznaczona jest cyfrą <q>0</q>, ocena <q>nieco lepsza</q>
+    &mdash; <q>+1</q>, <q>nieznacznie gorsza</q> &mdash; <q>-1</q>, <q>nieporównywalnie lepsza</q> &mdash; <q>+2</q>, a
+    <q>dużo gorsza</q> &mdash; <q>-2</q>.
+    Z powyższczego można na przykład wywnioskować, że pięciu respondentów uznało rozwiązanie z pamięcią <em>cache</em>
+    za dużo gorsze od rozwiązania bazowego.
+</p>
+
+<p>
+    Drugi histogram (prawa kolumna) pokazuje rozkład responsywności systemu, opisany w rozdziale <a
+        href="#chapter:response-time-measurement"></a>.
+
+    Rozkład ten jest średnią znormalizowanych histogramów pojedynczych sesji badania.
+
+    Nieznormalizowany histogram dla pojedynczej sesji badania pokazywałby rozkład responsywności dla każdego przedziału
+    czasu przedstawiający liczbę sytuacji, w której użytkownik musiał czekać na dane przez ten czas.
+
+    Normalizacja pojedynczych histogramów przed uśrednieniem jest konieczna ze względu na zróżnicowanie intensywności
+    nawigacji użytkowników.
+    Dla przykładu, bez tej normalizacji mogłoby się zdarzyć, że jeden użytkownik, który bardzo długo testował pojedynczy
+    przypadek, spowodował 1000 sytuacji oczekiwania na dane, gdzie w każdej oczekiwał jedną sekundę podczas gdy
+    pozostali użytkownicy testowali eksplorację mniej intensywnie, ale ich czasy były mniejsze, co wygenerowało łącznie
+    tylko 100 sytuacji oczekiwania, ale każde wynoszące tylko <em>0.1s</em>.
+    Normalizacja powoduje, że dla każdego użytkownika bierze się pod uwagę stosunek czasów z jednego przedziału do
+    innego, bez względu na intensywność testowania, a przykładowa dysproporcja jest niwelowana.
+</p>
+
+<p>
+    Należy pamiętać, że oceny użytkowników są interpretowane jako wartości względne, określające różnice pomiędzy daną
+    wersją rozwiązania a jej poprzednią.
+
+    Nie można bezpośrednio użyć tych ocen do wzajemnego porównania wszystkich wersji rozwiązania, gdyż te wartości są
+    niejako pochodną właściwej oceny bezwzględnej.
+
+
+    Niestety, sprowadzenie wyrażeń dotyczących odczuć użytkownika do konkretnego punktu na wykresie w celu porównania
+    jest trudnym zadaniem.
+
+    Aby porównać wszystkie rozwiązania zwględem siebie należy przekształcić te subiektywne oceny w bezwzględną
+    punktację, czyli odpowiednio scałkować.
+
+
+    By to zrobić, należy przyjąć intuicyjne założenie co do wzoru punktacji bezwzględnej.
+</p>
+
+<p>
+    Punktacja danej wersji rozwiązania jest tutaj ilocznym punktacji wersji poprzedniej oraz mnożnika
+    odpowiadającego przydzielonej ocenie względnej.
+    Oceną wyjściową jest liczba <em>1</em>.
+    Współczynniki pokazano w tabeli <a href="#table:absolute-points"></a>.
+</p>
+
+<figure type="table" id="table:absolute-points">
+    <figcaption>Tabela intuicyjnie dobranych współczynników oceny względenj</figcaption>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ocena zwględna</th>
+            <th>wartość mnożnika</th>
+            <th>intuicyjna interpretacja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>neutralna</td>
+            <td>&times; 1</td>
+            <td>równie tyle co poprzednie</td>
+        </tr>
+        <tr>
+            <td>nieco lepsze</td>
+            <td>&times; 1.2</td>
+            <td>1.2 razy lepsze od poprzedniego</td>
+        </tr>
+        <tr>
+            <td>nieporównywalnie lepsze</td>
+            <td>&times; 2</td>
+            <td>2 razy lepsze od poprzedniego</td>
+        </tr>
+        <tr>
+            <td>nieco gorsze</td>
+            <td>&times; 1/1.2</td>
+            <td>1.2 razy gorsze od poprzedniego</td>
+        </tr>
+        <tr>
+            <td>dużo gorsze</td>
+            <td>&times; 1/2</td>
+            <td>dwa razy gorsze od poprzedniego</td>
+        </tr>
+        </tbody>
+    </table>
+</figure>
+
+<p>
+    Dla przykładu, jeżeli respondent stwierdzi, że każde kolejne rozwiązanie jest nieporównywalnie lepsze od
+    poprzedniego, to oceny bezwzględne będą miały wartości <em>(1,2,4,8,16)</em>, co by wskazywało na ogromną różnicę
+    między pierwszym i ostatnim rozwiązaniem.
+
+    Jest to uzasadnione, skoro każda kolejna wersja robiła na nim coraz większe wrażenie.
+
+    Natomiast, jeżeli respondent oceni odpowiednio <q>nieporównywalnie lepiej</q>, <q>nieporównywalnie lepiej</q>,
+    <q>dużo gorzej</q> oraz <q>nieco gorzej</q>, to oceny bezwzględne będą miały wartości
+    <em>(1, 2, 4, 2, 1.7)</em>, co by wskazywało, że ostatnie rozwiązanie jest nieco gorsze od drugiego, ale lepsze od
+    pierwszego, z kolei rozwiązanie drugie i czwarte jest tak samo ocenione.
+
+</p>
+<p>
+    Należy mieć na uwadze, że powyższe liczby powstały w wyniku intuicyjnego przydzielenia arbitralnych współczynników,
+    zatem faktyczna wartość nadal nie jest znana.
+
+    To co jest ważne w ocenie absolutnej to możliwość wizualizowania tych wyników w postaci wykresu i oceniania
+    tendencji wzrostu tych ocen i porównania z innymi parametrami mierzonymi podczas badania.
+</p>
+
+<p>
+    W ten sposób obliczona punktacja rozwiązań została zwizualizowana na dwóch pierwszych wykresach pokazanych na
+    ilustracji <a href="#picture:rt-responses-statistics"></a>.
+
+
+    Są to warstwowe wykresy percentylowe, które pokazują rozkład ocen bezwzględnych dla każdej wersji rozwiązania.
+
+    Prezentowany jest 10-ty, 20-ty, 30-ty, ..., 90-ty percentyl.
+    50-ty percentyl, czyli najczęstsza ocena, zaznaczona jest najciemniejszym kolorem, a skrajne oceny (10-ty i 90-ty
+    percentyl) zostały zaznaczone najjaśniejszym kolorem.
+
+    Pierszy wykres pokazuje wyniki w przestrzeni liniowej, dzięki czemu można interpretować bezwzględne wartości ocen.
+    Drugi wykres pokazuje te same dane w przestrzeni logarytmicznej, dzięki czemu łatwiej jest interpretować różnice
+    tych ocen.
+    Na przykład, ocena dwa razy większa oraz dwa razy mniejsza od pewnej oceny będą od niej równo odległe.
+</p>
+
+<p>
+    Ostatnim z trzech prezentowanych na tym ekranie wykresów jest wykres warstwowy pokazujący procentowy udział
+    poszczególnych przedziałów czasów oczekiwania w danej wersji rozwiazania.
+</p>
+
+<p>
+    Porównanie trzech zaprezentowanych wykresów pozwala stwierdzić, czy istnieje korelacja pomiędzy subiektywnymi
+    ocenami użytkowników a responsywnością poszczególnych wersji.
+</p>
+
+
+<h2>Moduł testów wydajnościowych</h2>
 
 <figure type="picture" id="picture:rt-perf-list">
     <figcaption>Ekran główny modułu testów wydajnościowych</figcaption>
-    <img src="/images/research-tool/perf-list.png"/>
+    <img src="/images/research-tool/perf-list.png" width="60%"/>
 </figure>
 
 <figure type="picture" id="picture:rt-perf-recording">
@@ -380,7 +528,7 @@ Po uznaniu wiarygodności odpowiedzi, aplikacja pozwala na automatyczne przetwor
 </figure>
 
 
-<h3>Testowanie narzędzia</h3>
+<h2>Testowanie narzędzia</h2>
 <p>
     Narzędzie przeszło testy na grupie 5 osób, które pod nadzorem przeszły badania.
     Zostały zaproponowane i wdrożone następujące poprawki:
