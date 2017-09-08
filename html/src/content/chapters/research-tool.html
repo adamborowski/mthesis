@@ -191,31 +191,33 @@
 <h3>Śledzenie interakcji użytkownika</h3>
 
 <p>
-    Aplikacja rejestruje i załącza do ankiety zdarzenia związane z interakcją użytkownika z komponentami wykresowymi.
-    Dzięki temu możliwe jest odtworzenie całej sesji oraz wyliczenie ciekawych z punktu widzenia analizy wyników
-    statystyk.
+    Aplikacja rejestruje i załącza do ankiety informacje o zdarzeniach interakcji użytkownika z komponentem wykresowym
+    oraz o stanie pracy poszczególnych modułów <em>ExploreJS</em>.
+    Dzięki temu możliwe jest odtworzenie całej sesji oraz wyliczenie interesujących statystyk.
 </p>
 
 <p>
-    Rejestrowana jest każda zmiana widoku użytkownika: czas zmiany, widziany zakres, szerokość wykresu, skala oraz
+    Rejestrowana jest każda zmiana widoku użytkownika (moduł <em>ViewState</em>): czas zmiany, widziany zakres,
+    szerokość wykresu, skala oraz
     dobrany poziom agregacji.
 
     Dzięki temu można dokładnie odtworzyć ruchy użytkownika podczas wizualnej eksploracji.
 </p>
 
 <p>
-    Oprócz tego, rejestrowane jest każde wygenerowane zapytanie do serwera danych, w tym czas wygenerowania zapytania,
-    czas otrzymania odpowiedzi, rozmiar odpowiedzi w bajtach, łączna pobrana liczba agregacji, oraz parametry zapytania,
-    jak zakresy i poziomy żądanych agregacji.
+    Oprócz tego, rejestrowane jest każde wygenerowane zapytanie do serwera danych (moduł <em>RequestManager</em>), w tym
+    czas wygenerowania zapytania, czas otrzymania odpowiedzi, rozmiar odpowiedzi w bajtach, łączna pobrana liczba
+    agregacji, oraz parametry zapytania, jak zakresy i poziomy żądanych agregacji.
 
     Dzięki temu możliwa jest szczegółowa analiza komunikacji klient-serwer.
 </p>
 
 <p>
-    Rejestrowane jest również każde aktualizowanie pamięci cache, w tym czas aktualizacji oraz stan pamięci w postaci
-    zakresów dostępnych danych w pamięci.
+    Rejestrowane jest również każde aktualizowanie pamięci cache (moduł <em>CacheManager</em>), w tym czas aktualizacji
+    oraz stan pamięci w postaci zakresów dostępnych danych w pamięci.
     Dzięki temu można sprawdzić, co takiego widział użytkownik w danym momencie.
-    W połączeniu z danymi ruchów użytkownika można stwierdzić, czy i jak długo musiał on czekać na załadowanie danych.
+    W połączeniu z zarejestrowanymi danymi interakcji użytkownika można stwierdzić, czy i jak długo musiał on czekać na
+    załadowanie danych.
     Wystarczy dla danego momentu sprawdzić kolejne zrzuty pamięci cache aż do momentu, gdy w danym zakresie i poziomie
     agregacji cały zakres będzie dostępny.
     Przykład takiej analizy został zwizualizowany na ilustracji <a href="#picture:rt-cache-gap"></a>.
@@ -227,8 +229,8 @@
 </figure>
 
 <p>
-    Ostatnim rejestrowanym typem zdarzenia jest aktualizacja komponentu wykresowego. Zapisywany jest czas rozpoczęcia
-    aktualizacji oraz czas jej trwania.
+    Ostatnim rejestrowanym typem zdarzenia jest aktualizacja komponentu wykresowego (moduł <em>DataSource</em>).
+    Zapisywany jest czas rozpoczęcia aktualizacji oraz czas jej trwania.
     Dzięki temu można analizować stabilność interfejsu użytkownika, ponieważ aktualizacja komponentu wykresowego jest
     najbardziej kosztowną operacją po stronie przeglądarki.
     Dla przykładu, jeżeli z analizy wyniknie, że aktualizacja komponentu wielokrotnie zajmowała około sekundę, znaczy
