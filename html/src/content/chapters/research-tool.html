@@ -560,7 +560,8 @@
     pozyskane są z nadesłanych odpowiedzi respondentów, co zostało opisane w rozdziale <a
             href="#chapter:rt-interaction-trace"></a>.</ft>
 
-    w celu wykonania serii przypadków testowych w tych samych warunkach, lecz z różnymi parametrami.
+    w celu wykonania serii nieinteraktywnych przypadków testowych w tych samych warunkach, lecz z różnymi parametrami.
+
     Na ilustracji <a href="#picture:rt-perf-list"></a> pokazano główny ekran aplikacji, w której można wybrać
     odpowiednią sesję i przejść do okna testowania.
 </p>
@@ -571,41 +572,97 @@
 </figure>
 
 <p>
-    Po wybraniu sesji,
+    Po wybraniu sesji, prezentowana jest lista przypadków testowych.
+    Testowane są wszystkie wersje rozwiązania, zaczynając od wersji bazowej, kończąc na rozwiązaniu zoptymalizowanym.
+    Każda wersja testowana jest ze wszystkimi sześcioma wspieranymi bibliotekami wykresowymi, które przedstawiono w
+    tabeli <a
+        href="#table:charts-types"></a>. W związku z tym test wydajnościowy składa się z 30 przypadków testowych.
+
+</p>
+
+<p>
+    Po naciśnięciu przycisku <kbd>&blacktriangleright;</kbd> następuje uruchomienie konkretnego przypadku testowego
+    podczas którego wyświetla się właściwa biblioteka wykresowa, podłączona do odpowiednio skonfigurowanej biblioteki
+    <em>ExploreJS</em> (ilustracja <a href="#picture:rt-perf-recording"></a>).
+    Podczas tego uruchomienia nawigacja odbywa się automatycznie (w sposób nieinteraktywny), zgodnie z danymi sesji dla
+    której
+    przeprowadzane są testy.
+    Rejestrowane są identyczne dane jak podczas badania satysfakcji użytkowników (zob. rozdział <a
+        href="#chapter:rt-interaction-trace"></a>).
+    Dodatkowo wyświetlany jest pasek postępu wykonania testu.
 </p>
 
 <figure type="picture" id="picture:rt-perf-recording">
-    <figcaption>Ekran przeprowadzania przypadku testowego</figcaption>
-    <img src="/images/research-tool/perf-recording.png"/>
+    <figcaption>Uruchomienie przypadku testowego na biliotece <em>plotly</em>, w wersji z projekcją pamięci.
+    </figcaption>
+    <img src="/images/research-tool/perf-recording.png" width="78%"/>
 </figure>
+
+
+<p>
+    Po zakończeniu wykonywania przypadku testowego pokazuje się ekran podsumowujący dany przypadek testowy (ilustracja
+    <a href="#picture:rt-perf-recording-view"></a>).
+    Prezentowane są takie informacje, jak łączna liczba aktualizacji komponentu wykresowego, liczba żądań do serwera,
+    liczba akcji nawigacji użytkownika, łączny pobrany rozmiar danych w bajtach oraz liczba agregacji w pamięci cache na
+    zakończenie testu.
+    Dodatkowo przedstawiony jest omawiany wcześniej histogram responsywności, histogram czasu aktualizacji komponentu
+    wykresu oraz histogram przedstawiający rozkład zapełnienia pamięci podręcznej na różnych poziomach agregowania.
+</p>
 
 <figure type="picture" id="picture:rt-perf-recording-view">
     <figcaption>Ekran wyniku przypadku testowego</figcaption>
     <img src="/images/research-tool/perf-recording-view.png"/>
 </figure>
 
-<figure type="picture" id="picture:rt-perf-summary-basic-into">
-    <figcaption>Ekran podsumowania testu</figcaption>
-    <img src="/images/research-tool/perf-summary-basic-info.png"/>
-</figure>
-
-<figure type="picture" id="picture:rt-perf-summary-chart-uptate">
-    <figcaption>Ekran podsumowania testu &mdash; aktualizacja komponentu wykresu</figcaption>
-    <img src="/images/research-tool/perf-summary-chart-update.png"/>
-</figure>
-<figure type="picture" id="picture:rt-perf-summary-wait-time">
-    <figcaption>Ekran podsumowania testu &mdash; responsywność systemu</figcaption>
-    <img src="/images/research-tool/perf-summary-wait-time.png"/>
-</figure>
-<figure type="picture" id="picture:rt-perf-summary-cache-fill">
-    <figcaption>Ekran podsumowania testu &mdash; konsumpcja pamięci</figcaption>
-    <img src="/images/research-tool/perf-summary-cache-fill.png"/>
-</figure>
-
-
-<h2>Testowanie narzędzia</h2>
 <p>
-    Narzędzie przeszło testy na grupie 5 osób, które pod nadzorem przeszły badania.
+    Po wykonaniu wszystkich trzydziestu przypadków testowych można przejść do ekranu podsumowującego testy
+    wydajnościowe.
+    Dostępne są cztery zakładki, pokazane na ilustracji <a href="#picture:rt-perf-summary-tabs"></a>.
+
+    Zakładaka <em>Basic Info</em> (punkt <em>A</em>) wyświetla wykresy słupkowe, które dla każdej wersji
+    rozwiązania pokazują łączną liczbę aktualizacji komponentu wykresu, łączną liczbę żądań do serwera oraz sumaryczny
+    rozmiar danych pobranych z serwera.
+
+    Zakładka <em>Chart update</em> (punkt <em>B</em>) wyświetla histogramy czasów aktualizacji dla wszystkich
+    komponentów wykresowych w wersji bazowej oraz finalnej &mdash; zoptymalizowanej.
+
+    Zakładka <em>Wait time</em> (punkt <em>C</em>) wyświetla sumaryczne histogramy responsywności dla każdej
+    z wersji rozwiązania. Wyświetlony jest również wykres warstwowy pokazujący procentowy udział poszczególnych
+    przedziałów czasu dla kolejnych wersji rozwiązania.
+
+    Jest to ten sam wykres, który został zastosowany w widoku zbiorczym modułu analizy wyników ankiety.
+
+    Zakładaka <em>Cache Fill</em> (punkt <em>D</em>) pokazuje sumaryczne histogramy rozkładu zajętości pamięci cache dla
+    każdej wersji
+    rozwiązania, oprócz bazowej, w której nie zastosowano mechanizmu podręcznej.
+</p>
+
+<figure type="picture" id="picture:rt-perf-summary-tabs">
+    <figcaption>Zakładki ekranu podsumowania testu wydajności</figcaption>
+    <img src="cache/perf-summary-tabs.png"/>
+</figure>
+<!--<figure type="picture" id="picture:rt-perf-summary-basic-into">-->
+<!--<figcaption>Ekran podsumowania testu</figcaption>-->
+<!--<img src="/images/research-tool/perf-summary-basic-info.png"/>-->
+<!--</figure>-->
+
+<!--<figure type="picture" id="picture:rt-perf-summary-chart-uptate">-->
+<!--<figcaption>Ekran podsumowania testu &mdash; aktualizacja komponentu wykresu</figcaption>-->
+<!--<img src="/images/research-tool/perf-summary-chart-update.png"/>-->
+<!--</figure>-->
+<!--<figure type="picture" id="picture:rt-perf-summary-wait-time">-->
+<!--<figcaption>Ekran podsumowania testu &mdash; responsywność systemu</figcaption>-->
+<!--<img src="/images/research-tool/perf-summary-wait-time.png"/>-->
+<!--</figure>-->
+<!--<figure type="picture" id="picture:rt-perf-summary-cache-fill">-->
+<!--<figcaption>Ekran podsumowania testu &mdash; konsumpcja pamięci</figcaption>-->
+<!--<img src="/images/research-tool/perf-summary-cache-fill.png"/>-->
+<!--</figure>-->
+
+
+<h2>Podsumowanie</h2>
+<p>
+    Moduł internaktywnej ankiety został przetestowany na grupie 5 osób, które pod nadzorem przeszły badania.
     Zostały zaproponowane i wdrożone następujące poprawki:
 </p>
 
@@ -616,3 +673,12 @@
     <li>opcjonalne pokazywanie opisu poszczególnych rozwiązań,</li>
     <li>zwiększenie rozmiaru tekstu na slajdach.</li>
 </ul>
+
+<p>
+    Podsumowując, narzędzie badawcze przedstawione w tym rozdziale pozwala na przeprowadzenie złożonego badania
+    satysfakcji użytkowników, zebraniu ocen, rejestrowanie całego przebiegu interakcji i parametrów pracy systemu.
+    Umożliwia odtworzenie każdej sesji użytkownika, zweryfikowanie wiarygodności udzielanych odpowiedzi,
+    i analizę wizualną statystyk.
+    Pozwala również wykonać złożone testy wydajnościowe, wizualizuje ich wyniki, co jest niezbędne do przeprowadzenia
+    rzetelnej oceny proponowanego w tej pracy rozwiązania.
+</p>
