@@ -7,10 +7,6 @@ export default class FigureReference {
             if (type != null) {
                 $(`a[href^="#${id}"]`).addClass('ref-to-' + type);
             }
-            else{
-                console.error('figur of id not found: '+id)
-                process.exit(999)
-            }
         });
 
         $('figure[type=picture] figcaption').each((i, block)=> {
