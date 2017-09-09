@@ -8,8 +8,6 @@
     W pierwszej części zostaną podsumowane odpowiedzi na pytania kontrolne zawarte w ankiecie.
     Następnie zostaną omówione oceny użyteczności oraz ich korelacja z obiektywną miarą responsywności systemu.
     W trzeciej części będą analizowane wyniki testów wydajnościowych.
-    W kolejnej części omówiony zostanie poziom przystosowania biblioteki <em>ExploreJS</em> do użycia w realnych
-    systemach wizualizacji.
     Na zakończenie sformuowane zostaną wnioski i przedstawione kierunki, w których proponowane rozwiązanie może być
     doskonalone.
 </p>
@@ -200,23 +198,255 @@ lub też:
 <h2>Koszty optymalizacji</h2>
 
 <p>
-    Porównać różne wykresy korzystające z explorejs. Które płynniej działają i dlaczeg (np. niepotrzebne sortowanie
-    w visjs dataset)
+    Poprzednia część oceny rozwiązania wykazała wzrost satysfakcji użytkowników eksplorucjących dane pomiarowe.
+    Nie oznacza to jenak, iż proponowane rozwiązanie nadaje się do użycia w realnych systemach.
+    By było to możliwe, należy ocenić, czy poprawa satysfakcji pojedynczego użytownika nie wiąże się ze zbyt wysokimi
+    kosztami ukrytymi w innych miejscach systemu wizualizacji.
+
+    W tym celu zostały wykonane testy wydajnościowe w oparciu o infrastrukturę badawczą opisaną w rozdziale <a
+        href="#chapter:rt-perf"></a>.
 </p>
-<h2>Gotowość do wdrożenia</h2>
+
 <p>
-    W ankiecie piszą co jest potrzebne by chcieli uzyc - nie mamy jeszcze dokumentacji, czy tam przykłądów użycia,
-    więc w ocenie będzie można stwierdzić, że narzędzie nie jest jeszcze w 100% gotowe do wprowadzenia, wymaga
-    usprawnienia dokuentacji, tego, tamtego i owego
+    Wybrano jeden reprezentatywny scenariusz wizualnej eksploracji, obejmujący różne typy
+    eksploracji.
+    Łączny czas wykonania wszystkich trzydziestu przypadków testpowych (5 wersji rozwiązania &times; 6 bibliotek
+    wizualizacyjnych) zajął 96 minut.
 </p>
+
+<h3>Obciążenie serwera wizualizacji</h3>
+
+<p>
+    Na ilustracji <a href="#picture:result-perf-basic-info"></a> pokazano wyniki testów wydajnościowych dotyczące
+    obciążenia serwera danych spowodowanych żądaniami danych potrzebnych do eksploracji.
+</p>
+
+<figure type="picture" id="picture:result-perf-basic-info">
+    <figcaption>Wykresy z podstawowymi wynikami testów</figcaption>
+    <img src="/images/research-tool/results-basic-info.png" width="75%"/>
+</figure>
+
+<p>
+    Na tych wykresach prezentowane są trzy parametry wydajnościowe: łączna liczba aktualizacji komponentu wykresu,
+    łączna liczba żądań wysłanych do serwera oraz sumaryczny rozmiar danych pobranych z serwera.
+    Wyniki prezentowane są dla każdej wersji rozwiązania, a każda wersja była testowana sześć razy (za każdym razem z
+    inną biblioteką wizualizacyjną).
+</p>
+<p>
+    Z powyższych wykresów można wnioskować, że rozwiązanie wyjściowe prezentuje się istotnie lepiej niż
+    pozostałe.
+    Jest to spowodowane, tym, że implementacja bazowa dopuszcza tylko jedno żądanie do serwera jednocześnie<ft>
+    Pozostałe wersje nie anulują żądań ze względu na konstrukcję pamięci podręcznej.</ft>.
+    To znaczy, że w momencie, gdy użytkownik zmieni wyświetlany wykres, to bieżące żądanie do serwera jest anulowane i
+    nie jest uwzględnione w statystykach.
+
+    Można to uznać za pewne niedopatrzenie przy projektowaniu narzędzia badawczego.
+
+</p>
+
+<p>
+    Kolejne dwie wersje (z pamięcią podręczną oraz z projekcją pamięci) prezentują się niemal identycznie, ponieważ
+    wspomniana projekcja odbywa się tylko na ekranie użytkownika i nie wpływa na komunikację klient-serwer.
+</p>
+
+<p>
+    Interesującą pod względem wydajności zdaje się być wersja z mechanizmem predykcji.
+    Drastycznie rośnie liczba żądań do serwera i rozmiar przesłanych danych.
+    Dzieje się tak dlatego, że modele predykcji niezależnie wysyłają zapytania do serwera, nieraz o te same zakresy
+    danych<ft>Więcej na ten temat w rozdziale <a href="#chapter:query-optimization"></a>.</ft>.
+
+    Z kolei znacznie zmniejsza się łączna liczba aktualizacji komponentu wykresu.
+    Jest to spowodowane faktem, że modele predykcji zapewniają dużą dostępność danych podczas nawigacji użytkownika,
+    więc wykres nie musi być ponownie aktualizowany po zakończeniu ładowania danych<ft>Więcej o aktualizacji komponentu
+    wykresu w rozdziale <a href="#chapter:datasource-viewstate-dynamicprojection"></a>.</ft>.
+
+</p>
+
+<p>
+    Finalna wersja rozwiązania wyraźnie zmniejsza koszty wydajnościowe, ponieważ zmniejsza się liczba żądań, a suma
+    rozmiaru pobranych danych wraca do poziomu podobnego do poziomów przed drastycznym skokiem w poprzedniej wersji.
+    Jest to spowodowane optymalizacją zapytań, która łączy zapytania na poziomie fizycznym i logicznym, co zostało
+    wytłumaczone w rozdziale <a href="#chapter:query-optimization"></a>.
+</p>
+
+<h3>Obciążenie klienta wizualizacji</h3>
+
+<p>
+    Na ilustracjach <a href="#picture:result-perf-chart-update-1"></a>
+    pokazano histogramy czasu aktualizacji dla wszystkich
+    użytych bibliotek wykresowych.
+    Do porównania zostały przedstawione dane ze skrajnych przypadków testowych &mdash; rozwiązania bazowego oraz
+    zoptymalizowanego.
+</p>
+
+
+<p>
+    Z ponizszych histogramów można stwierdzić, że dla większości bibliotek histogramy czasu aktualizacji zachowują
+    podobncy kształt, za wyjątkiem <em>VisJS</em>, która w wersji optymalizowanej wielokrotnie aktualizaowała się przez
+    okres dłuższy niż sekunda, co powoduje zauważalne blokowanie przeglądarki.
+    Warto wiedzieć, że biblioteka <em>VisJS</em> jest jedyną testowaną biblioteką o przyrostowym interfejsie
+    aktualizacji<ft>Możliwe strategie aktualizacji zostały omówione w rozdziale <a href="#chapter:web-interfaces"></a>
+</ft>.
+    W ogólności można stwierdzić, że czasy aktualizacji komponentów wykresów wydłużyły się (histogramy przesunięte w
+    prawą stronę).
+    Jest to niewątpliwie spowodowane tym, że <em>ExploreJS</em> stara się aktualizować komponenty większymi zakresami
+    danych (zob. rozdział <a href="##chapter:datasource-viewstate-dynamicprojection"></a>).
+</p>
+
+
+<figure type="picture" id="picture:result-perf-chart-update-1">
+    <figcaption>Histogram czasu aktualizacji bibliotek wizualizacyjnych</figcaption>
+    <img src="/images/research-tool/result-perf-chart-update-1.png" width="85%"/>
+    <img src="/images/research-tool/result-perf-chart-update-2.png" width="85%"/>
+    <img src="/images/research-tool/result-perf-chart-update-3.png" width="85%"/>
+</figure>
+
+<p>
+    Na podstawie powyższych histogramów można stwierdzić, że najmniejsze zużycie procesora można uzyskać stosując
+    rozwiązanie <em>ExploreJS</em> z bibliotekami <em>Flot</em>, <em>Plotly</em> oraz <em>Dygraphs</em>, gdyż
+    czasy ich aktualizacji w znacznej większości są mniejsze niż <em>0.1s</em>, co stanowi pierwszy limit czasu
+    responsywności wg <em>Millera</em> (zob. rozdział <a href="#chapter:ux"></a>).
+</p>
+
+<p>
+    Ostatnim mierzonym kosztem po stronie klienta jest zużycie pamięci.
+    W tym celu analizuje się rozkład zajętości pamięci cache w chwili zakończenia testu.
+    Na ilustracji <a href="#picture:result-perf-cache-fill"></a> pokazano liczby elenentów pamięci podręcznej na każdym
+    poziomie agregacji dla każdej wersji rozwiązania prócz bazowej, ktora nie posiada pamięci podręcznej.
+</p>
+
+<figure type="picture" id="picture:result-perf-cache-fill">
+    <figcaption>rozkład zajętości pamięci podręcznej</figcaption>
+    <img src="/images/research-tool/result-perf-cache-fill.png"/>
+</figure>
+
+<p>
+
+    Z powyższych danych można obliczyć, że zajętość pamięci podręcznej dla wersji z projekcją jest taka sama jak
+    dla podstawowej wersji z pamięcią podręczną, a wersja finalna ma taką samą zajętość jak wersja z predykcją.
+    Jest to zrozumiałe, gdyż tylko wersja z mechanizmem predykcji wprowadza logikę wpływającą na pobieranie dodatkowych
+    danych do pamięci <em>cache</em>.
+</p>
+
+<p>
+    Na podstawie tych histogramów można stwierdzić, że kosztem zastosowania mechanizmu predykcji jest około 2.73-krotny
+    wzrost użycia pamięci operacyjnej użytkownika.
+</p>
+
 <h2>Wnioski</h2>
 
-<p>wyniki: czy i jak zwiększyliśmy przystosowanie webowych interfejsów / biblioteki chartowe</p>
+<p>
+    Przystosowanie bibliolteki <em>ExploreJS</em> do użycia w realnych systemach wizualizacji zależy w pewnym sensie od
+    typu danego systemu, jego fazy rozwoju czy krytyczności.
+
+    Pokazane w poprzednim rozdziale wyniki testów wydajnościowych pokazują, że koszty zastosowania rozwiązania są
+    racjonalne i akceptowalne w większości zastosowaniach.
+</p>
+
+<p>
+    W nawiązaniu do wymagań względem oprogramowania, należy zauważyć, że cały kod źródłowy rozwiązania jest udostępniony
+    na otwartej i darmowej licencji <em>MIT</em>.
+    Wszystkie moduły i algorytmy zastosowane w rozwiązaniu są pokryte testami jednostkowymi.
+    Na tym etapie nie ma jeszcze dokumentacji użytkownika, czy prostych przykładów użycia biblioteki <em>ExploreJS</em>.
+
+    Rozwiązanie wspiera wszystkie przeglądarki i wersje języka <em>JavaScript</em>, nie narzuca również architektury
+    systemu wizualizacji.
+</p>
+
+<p>
+    Została pokazana korelacja między użytecznością postrzeganą przez użytkowników, a obietkywną miarą responsywności
+    systemu.
+    Udowodniono, że proponowane mechanizmy pamięci podręcznej i predykcji akcji użytkownika upłynniły wizualną
+    eksplorację danych. Na rysunku <a href="#picture:result-perf-corelation"></a> pokazano wykres warstwowy procentowego
+    udziału przedziałów responsywności systemu, pozyskany z testów wydajnościowych.
+</p>
+
+
+<figure type="picture" id="picture:result-perf-corelation">
+    <figcaption>Rozkład responsywności systemu podczas testóww wydajnościowych.
+        Kolorem zaznaczono kolejno, licząc od najciemniejszego, przedziały <em>0s</em>,
+        <em>&lt;0.1s</em>,
+        <em>&lt;1s</em>,
+        <em>&lt;2s</em>
+        oraz <em>&lt;4s</em>.
+    </figcaption>
+    <img src="/images/research-tool/result-perf-corelation.png"/>
+</figure>
+
+<p>
+    Na podstawie powyższego wykresu można stwierdzić, jak bardzo poprawiła się responsywność systemu.
+
+    Rozwiązanie bazowe, czyli referencyjna implementacja typowego prostego klienta wizualizacji, w większości sytuacji,
+    bo aż 95%, powodowało oczekiwanie na dane w czasie między <em>0.1s</em> do <em>1s</em>.
+    Natomiast zaproponowane w tej pracy rozwiązanie w finalnej wersji w większości przypadków (70%) w ogóle nie powoduje
+    oczekiwania na dane, ponieważ te są ładowane wcześniej przez mechanizmy predykcji.
+    Oczywiście nadal zdarzają się sytuacje, gdzie mechanizmy predykcji nie przewidziały ruchu użytkownika, ale
+    jest ich znacznie mniej, bo tylko w 11% przypadków oczekiwanie na dane trwało mniej niż <em>0.1s</em>, 6% poniżej
+    sekundy, 9% poniżej
+    dwóch sekund.
+</p>
+
+<p>
+    Oprócz poprawy miary responsywności, stwierdzono iż progresywne wyświetlane danych, zepwnione poprzez projekcję
+    pamięci podręcznej, zostało korzystnie zauważone przez użytkowników biorących udział w badaniu.
+</p>
+
+<p>
+    Można zatem uznać, że biblioteka <em>ExploreJS</em>, działająca w przeglądarce użytkownika, zarządzająca komunikacją
+    klienta wizualizacji z serwerem, stosująca mechanizmy pamięci <em>cache</em> oraz <em>prefetch</em>, bardzo
+    korzystnie wpływa na płynność swobodnej i nieograniczonej wizuanej eksploracji wielkoskalowych danych pomiarowych,
+    ponieważ ukrywa przed użytkownikiem negatywne skutki opóźnień sieci komputerowej.
+</p>
+
 <h2>Możliwe kierunki rozwoju</h2>
 
 <p>
-    w możliwościach rozwoju modeli predykcji nawiązać do indeksowania kierunków burz w - Potential snow cover i innych
-    recommenderów, czy markova
+    Najbardziej pożądanym kierunkiem rozwoju zaproponowanego w tej pracy rozwiązania jest niewątpliwie dalsza
+    próba poprawy responsywności systemu wizualizacji bądź minimalizacja kosztów poprawy tej responsywności.
+
 </p>
 
+<p>
+    W przypadku poprawy skuteczności predykcji, można próbować zastosować model predykcji działający w oparciu o łańcuch
+    Markowa, co zostało opisane przy okazji przedstawiania narzędzia <q>ForeCache</q> (zob. rozdział <a
+        href="#chapter:foreCache"></a>).
+
+    Dodatkowo można zaimplementować inny model zaproponowany w <em>ForeCache</em> - w oparciu o sygnaturę.
+
+    Dla specyficznego typu danych pomiarowych można, jeszcze na serwerze, dla każdej agregacji dołączać metadane o
+    podobnych / analogicznych zakresach danych.
+    Dzięki temu modele predykcji działające wewnątrz <em>ExploreJS</em> po stronie przeglądarki, odczytując te metadane
+    z pamięci podręcznej, mogą pozyskać informacje o podobnych, sąsiednich bądź bardziej szczegółowych fragmentach i na
+    tej podstawie ładować dane.
+</p>
+<p>
+    Jeśli chodzi o poprawę parametrów wydajnościowych, to przede wszystkim warto zaprojektować mechanizm czyszczenia
+    pamięci <em>cache</em> <trans>garbage collector</trans>.
+    Na ten moment <em>ExploreJS</em> umożliwia tylko dodawanie nowych danych.
+    W sytuacji, gdy aplikacja w przeglądarcze korzystająca z <em>ExploreJS</em> działa długi czas (na przykład miesiąc)
+    bez zamknięcia, może dość do przekroczenia limitu pamięci operacyjnej komputera dla tej aplikacji, co byłoby
+    niekorzystne dla użytkownika.
+
+    Trudność implementacji polega na obliczeniu, jakie dane w jakim momencie powinny być usunięte.
+
+    Intuicja podpowiada tutaj oznaczanie zakresów danych znacznikami czasu odwiedzenia ich przez użytkownika.
+    W momencie, gdy zapełnienie pamięci przekroczy ustalony z góry limit, należy usunąć dane, które nie są
+    oglądane przez użytkownika, a w pierwszej kolejności powinny zostać usunięte dane, które były najdawniej
+    oglądane.
+</p>
+
+<p>
+    Poprawę wydajności rozwiązania można próbować uzyskać manipulując różnymi paramterami wewnętrznymi poszczególnych
+    modułów.
+
+    Można badać, jak zmieniać te parametry by koszty wydajnościowe były niższe, ale jednocześnie by stopień
+    responsywności nie pogorszył się.
+
+    Można między innymi próbować zmieniać rozmiar kafla w <em>DataSource</em> (rozdział <a
+        href="#chapter:datasource-viewstate-dynamicprojection"></a>), margines predykcji (rozdział <a
+        href="#chapter:implementation-prediction-models"></a>) oraz czas buforowania w <em>RequestManager</em> (rozdział
+    <a href="#chapter:query-optimization"></a>).
+
+
+</p>
 
