@@ -398,15 +398,15 @@ lub też:
     ponieważ ukrywa przed użytkownikiem negatywne skutki opóźnień sieci komputerowej.
 </p>
 
-<h2>Możliwe kierunki rozwoju</h2>
+<h2 class="keep-after">Możliwe kierunki rozwoju</h2>
 
-<p>
+<p class="keep-inside keep-after">
     Najbardziej pożądanym kierunkiem rozwoju zaproponowanego w tej pracy rozwiązania jest niewątpliwie dalsza
     próba poprawy responsywności systemu wizualizacji bądź minimalizacja kosztów poprawy tej responsywności.
 
 </p>
 
-<p>
+<p class="keep-inside">
     W przypadku poprawy skuteczności predykcji, można próbować zastosować model predykcji działający w oparciu o łańcuch
     Markowa, co zostało opisane przy okazji przedstawiania narzędzia <q>ForeCache</q> (zob. rozdział <a
         href="#chapter:foreCache"></a>).
@@ -416,12 +416,12 @@ lub też:
     Dla specyficznego typu danych pomiarowych można, jeszcze na serwerze, dla każdej agregacji dołączać metadane o
     podobnych / analogicznych zakresach danych.
     Dzięki temu modele predykcji działające wewnątrz <em>ExploreJS</em> po stronie przeglądarki, odczytując te metadane
-    z pamięci podręcznej, mogą pozyskać informacje o podobnych, sąsiednich bądź bardziej szczegółowych fragmentach i na
+    z pamięci podręcznej, mogą pozyskać informacje o podobnych (sąsiednich lub bardziej szczegółowych) fragmentach i na
     tej podstawie ładować dane.
 </p>
 <p>
-    Jeśli chodzi o poprawę parametrów wydajnościowych, to przede wszystkim warto zaprojektować mechanizm czyszczenia
-    pamięci <em>cache</em> <trans>garbage collector</trans>.
+    W celu poprawy wydajności warto zaprojektować mechanizm czyszczenia pamięci <em>cache</em> <trans>garbage
+    collector</trans>.
     Na ten moment <em>ExploreJS</em> umożliwia tylko dodawanie nowych danych.
     W sytuacji, gdy aplikacja w przeglądarcze korzystająca z <em>ExploreJS</em> działa długi czas (na przykład miesiąc)
     bez zamknięcia, może dość do przekroczenia limitu pamięci operacyjnej komputera dla tej aplikacji, co byłoby
@@ -431,8 +431,8 @@ lub też:
 
     Intuicja podpowiada tutaj oznaczanie zakresów danych znacznikami czasu odwiedzenia ich przez użytkownika.
     W momencie, gdy zapełnienie pamięci przekroczy ustalony z góry limit, należy usunąć dane, które nie są
-    oglądane przez użytkownika, a w pierwszej kolejności powinny zostać usunięte dane, które były najdawniej
-    oglądane.
+    oglądane przez użytkownika.
+    W pierwszej kolejności powinny zostać usunięte dane, które były najdawniej odwiedzane.
 </p>
 
 <p>
