@@ -19,15 +19,16 @@
 
     Dzięki rozwijającym się takim technologiom jak <em>JavaScript</em>, <em>DOM</em>, <em>AJAX</em>, <em>WebSocket</em>
     czy <em>WebGL</em> &mdash; przeglądarki stanowią atrakcyjne środowisko zarówno od strony użytkowników systemu jak i
-    od strony twórców systemu.
+    od strony jego twórców.
 
     Nawet jeśli wytwarzane są aplikacje <em>desktopowe</em>, często używają one tych samych technologii co w
-    przeglądarce właśnie ze względu na atrakcyjność środowiska deweloperskiego.
+    przeglądarce &mdash; właśnie ze względu na atrakcyjność środowiska deweloperskiego.
 </p>
 
 <p>
     Interfejsy webowe często wykorzystują rozmaite formy wizualizacji w celu prezentacji danych użytkownikowi.
-    Istnieje wiele bibliotek wykresowych, które wykorzystują technologie takie, jak <em>SVG</em>, <em>Canvas</em> i <em>WebGL</em>.
+    Istnieje wiele bibliotek wizualizacyjnych, które wykorzystują technologie takie, jak <em>SVG</em>, <em>Canvas</em> i
+    <em>WebGL</em>.
 </p>
 
 <p>
@@ -63,14 +64,14 @@
 
 <p>
     Ważnym aspektem wizualizacji danych jest dynamika, czyli aktualizacja parametrów wizualizacji.
-    Biorąc pod uwagę dwie pierwsze wspomniane technologie, <em>SVG</em> oraz <em>Canvas</em>, należy zauważyć, że w
-    zależności od użytej technologii aktualizacja danych na wykresie może przebiegać w różny sposób.
+    Biorąc pod uwagę dwie pierwsze wspomniane technologie, <em>SVG</em> oraz <em>Canvas</em>, należy zauważyć, że
+    aktualizacja danych na wykresie może przebiegać w różny sposób.
 
     Dla <em>SVG</em> najlepszym sposobem będzie unikanie niepotrzebnych manipulacji elementami <em>DOM</em>, zatem
-    aktualizacja wykresu odbywa się przez podanie minimalnego zbioru operacji potrzebnego do zmiany wynikowego obrazu.
+    aktualizacja wykresu odbywa się przez podanie minimalnego zbioru operacji potrzebnych do zmiany wynikowego obrazu.
 
     Z kolei dla technologii <em>Canvas</em> wystarczające może być podanie nowej wersji danych, nawet jeśli różnią się
-    ze starą wersją tylko jednym drobnym szczegółem, ponieważ po jakiejkolwiek aktualizacji następuje kompletne,
+    ze starą wersją tylko jednym drobnym szczegółem, ponieważ po każdej aktualizacji następuje kompletne,
     aczkolwiek szybkie, przerysowanie odpowiedniego fragmentu ekranu.
 
     Więcej na temat aktualizacji wykresów zostało poruszone w rozdziale <a href="#chapter:implementation-adapter"></a>.
