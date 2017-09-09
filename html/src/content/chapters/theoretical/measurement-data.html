@@ -4,17 +4,15 @@
     chmurach.
     Jednym z rodzajów tych danych są serie czasowe pochodzące z różnych źródeł, takich jak sieci sensorowe, inteligentne
     sieci elektroenergetyczne czy rynki finansowe.
-    Ciągle zwiększające swoją objętość serie czasowe przechowywane są w mniej lub bardziej wyspecjalizowanych, często
+    Ciągle zwiększające swoją objętość szeregi czasowe przechowywane są w wyspecjalizowanych bądź zwykłych,
     relacyjnych bazach danych.
-    Bazy te z kolei wykorzystywane są jako źródło danych w aplikacjach umożliwiajych ich wizualną analizę.
-    W związku z interakcją analitykow z aplikacją wykonywane są zapytania do relacyjnej bazy danych przechowującej
-    oryginalne serie czasowe <a href="#bib:data-aggregation"></a>.
+    Te z kolei wykorzystywane są jako źródło danych w aplikacjach umożliwiajych ich wizualną analizę.
 
 </p>
 <p>
     Dane pomiarowe <trans lang="ang">Scientific Data</trans> <a href="#bib:scientific-data-dictionary"></a> są to dane
     reprezentujące stan obserwowanego obiektu w przestrzeni czasu.
-    Zbierane są określoną metodą, w określonym celu.
+    Pozyskiwane są określoną metodą, w określonym celu.
     Ich wykorzystanie zakłada systematyczny pomiar wartości, niekiedy wykonywany z dużą częstotliwością.
 
     Dane reprezentowane są w postaci serii czasowej, gdzie każda próbka oznaczona jest stemplem czasowym oraz zbiorem
@@ -23,7 +21,7 @@
     W tabeli <a href="#table:exampleTimeSerie"></a> pokazano przykładowy fragment serii czasowej danych pomiarowych
     pracy pewnego silnika tłokowego próbkowanej co 1 sekundę. Można z nich wyczytać między innymi kiedy zaszło
     interesujące
-    zdarzenie, oraz że przy starcie silnika temperatura osiągnęła wysoki poziom co prawdopodobnie było przyczyną
+    zdarzenie, oraz że przy starcie silnika temperatura osiągnęła wysoki poziom, co prawdopodobnie było przyczyną
     jego awaryjnego wyłączenia.
 
     <figure type="table" id="table:exampleTimeSerie">
@@ -98,14 +96,16 @@
 
     Dane są zazwyczaj pochodzenia naturalnego, wymagają specjalnych urządzeń pomiarowych.
     Przykładowymi urządzeniami są pokazane na ilustracji <a href="#picture:analizator"></a> analizatory
-    parametrów jakości powietrza, takich jak tlenków azotu, tlenków siarki, pyłów, benzenu czy ozonu.
+    parametrów jakości powietrza, takich jak tlenki azotu, tlenki siarki, pyły, benzen czy ozon.
 
-    W zależności od celu pomiaru próbkowanie odbywa się ze zróżnicowaną częstotliwością &mdash; od kilku milisekund do
+    W zależności od typu danych i celu pomiaru próbkowanie odbywa się ze zróżnicowaną częstotliwością &mdash; od kilku
+    milisekund do
     kilku godzin.
 
-    W przypadku monitoringu jakości powietrza w Polsce, próbkowanie odbywa się z częstotliwością 10 sekund.
+    W przypadku monitoringu jakości powietrza w Polsce, próbkowanie odbywa się z częstotliwością 10 sekund
+    <a href="#bib:siwz"></a>.
 
-    Cały proces fizycznego uzyskiwania danych pomiarowych, transmisji, i wstępnego przetwarzania nazywa się akwizycją
+    Cały proces fizycznego uzyskiwania danych pomiarowych, transmisji i wstępnego przetwarzania nazywa się akwizycją
     danych.
 
     W tabeli <a href="#table:measurementDataExamples"></a> pokazano przykłady i sposoby użycia danych pomiarowych.
@@ -121,12 +121,12 @@
 
 <p>
     Pozyskane dane pomiarowe wykorzystywane są na różny sposób.
-    Mogą być przetwarzane automatycznie, po to, aby na przykład by włączyć w alarm o zagrożeniu skażeniem spowodowanym
-    niebezpiecznie wysokim poziomem stężenia danej substancji.
+    Mogą być przetwarzane automatycznie, na przykład po to, aby uruchomić systemowy alarm o zagrożeniu skażeniem
+    spowodowanym niebezpiecznie wysokim poziomem stężenia danej substancji.
     Jednak w kontekście tej pracy szczególnym zastosowaniem tych danych jest ich wizualna interpretacja.
-    Na rysunkach
-    <a href="#picture:measurement-flightrecord"></a>
-    <a href="#picture:measurement-medcharts"></a>
+    Na rysunkach:
+    <a href="#picture:measurement-flightrecord"></a>,
+    <a href="#picture:measurement-medcharts"></a>,
     <a href="#picture:measurement-cas"></a>
     zademonstrowano interfejsy użytkownika pozwalające na
     taką właśnie interpretację.
@@ -188,7 +188,7 @@
         </tr>
         <tr>
             <td>monitoring środowiska</td>
-            <td>analiza klimatyczna 5 lat 8 parametrów jakości powietrza</td>
+            <td>analiza klimatyczna 5 parametrów jakości powietrza w ciągu 8 lat</td>
             <td>200B</td>
             <td>0.1Hz</td>
             <td>8 × 5y × 0.1Hz × 200B = 25GB</td>
