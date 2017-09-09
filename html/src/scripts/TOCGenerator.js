@@ -31,6 +31,10 @@ export default class TOCGenerator {
                 var value = address.substr(0, address.length - 1);
                 $block.text($block.text() + ' ' + value);
             }
+            else {
+                console.error('chapter of id not found: ' + headerSelector)
+                process.exit(998)
+            }
         });
     }
 
