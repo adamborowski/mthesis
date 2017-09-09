@@ -103,25 +103,24 @@
 </dl>
 
 <p>
-    Istnieją różne techniki optymalizacji szybkości działania systemów, ale warto tu wspomnieć, że optymalizacja
-    szybkości działania istniejących rozwiązań, na przykład poprzez ulepszenie infrastruktury systemu, nie jest tutaj
-    jedynym sposobem.
+    Istnieją różne sposoby optymalizacji responsywności systemów.
+    Warto wspomnieć, że samo ulepszenie infrastruktury systemu, nie jest jedynym sposobem.
     Celem nie jest samo poprawienie mierzalnych parametrów pracy systemu, ale sprawienie, by człowiek, będący końcowym
     użytkownikiem systemu, korzystnie odczuł tę optymalizację &mdash; postrzegał system jako szybciej działający.
 </p>
 <p>
     Tutaj należy przywołać zagadnienie z dziedziny psychologii, tj. percepcji czasu.
     Czas jest pojęciem względnym i jako taki postrzegany jest przez człowieka indywidualnie.
-    To znaczy, że odczucie czasu reakcji systemu zależeć będzie w pewnym stopniu od stanu osoby, która ten
-    czas postrzega.
+    To znaczy, że odczucie czasu reakcji systemu zależeć będzie w pewnym stopniu od stanu osoby, która
+    go postrzega.
     Manipulując użytkownikiem można bowiem wpływać na to, jak bardzo czas oczekiwania na reakcję systemu będzie przez
     niego odczuwalny <a href="#bib:why-performance-matters-part1"></a><a href="#bib:illusion-of-time"></a>.
 </p>
 
 <p>
     Upływ czasu może być analizowany z dwóch punktow widzenia: obiektywnego oraz psychologicznego.
-    Czas, który mierzony jest na przykład stoperem, nazywany jest czasem obiektywnym.
-    Jednak tak określony upływ czasu różni się od tego postrzeganego przez użytkownika korzystającego z systemu
+    Czas mierzony zegarem nazywany jest obiektywnym.
+    Jednak różni się on od tego postrzeganego przez użytkownika korzystającego z systemu
     interaktywnego.
     Taki upływ czasu nazywa się czasem psychologicznym i jest przedmiotem zainteresowania w wielu dziedzinach &mdash; w
     tym w interakcji człowiek&dash;komputer.
@@ -129,14 +128,15 @@
 </p>
 
 <p>
-    Poprawna obiektywnego czasu działania systemu, zgodnie z prawem Webera-Fechnera<a
-        href="#bib:why-performance-matters-part1"></a>, jest zauważalna przez użytkownika, gdy system dziala obiektywnie
+    Poprawa obiektywnego czasu działania systemu, zgodnie z prawem Webera-Fechnera <a
+        href="#bib:why-performance-matters-part1"></a>, jest dostrzegalna przez użytkownika, gdy system dziala
+    obiektywnie
     20% szybciej.
-    To znaczy, że niewielka aczkolwiek kosztowna poprawa działania systemu jest nieopłacalna.
+    To znaczy, że niewielka, aczkolwiek kosztowna poprawa responsywności systemu jest nieopłacalna.
 </p>
 
 <p>
-    W takiej sytuacji należy skupić się na czasie postrzeganym.
+    W takiej sytuacji warto skupić się na optymalizacji czasu postrzeganego.
     Denis Mishunov w artykule <q>Why Performance Matters, Part 2: Perception Management</q><a
         href="#bib:why-performance-matters-part2"></a> przedstawia pojęcie zarządzania
     percepcją <trans lang="ang">perception management</trans>.
@@ -170,7 +170,7 @@
 </p>
 <p>
     Zatem by zarządzać czasem psychologicznym, należy minimalizować pasywną fazę wydłużając tę aktywną.
-    Istnieje wiele technik by to osiągnąć, natomiast w większości przypaków można ograniczyć się do dwóch technik:
+    Istnieje wiele technik aby to osiągnąć, natomiast w większości przypaków można ograniczyć się do dwóch technik:
     start z wyprzedzeniem <trans>preemptive start</trans> oraz przedwczesne zakończenie <trans>early completion</trans>.
 </p>
 
@@ -185,16 +185,18 @@
     W odpowiedzi zwiększono liczbę miejsc odbioru bagażu tym samym skracając czas oczekiwania do ośmiu minut.
     Niestety nie zmniejszyło to liczby skarg.
     Władze zrobiły rozeznanie, z którego okazało się, że po wylądowaniu pierwszy bagaż pojawił się dopiero po ośmiu
-    minutach, a tylko jedna minuta była potrzebna podróżnym na zabranie swojego bagażu.
+    minutach, a tylko jedna minuta była potrzebna podróżnym na dotarcie do punktu odbioru.
     Pasażerowie średnio oczekiwali na swój bagaż w pozycji stojącej około siedmiu minut.
 
-    Można powiedzieć, ża tutaj aktywna faza trwała tylko minutę, a pasywna aż siedem.
+    W tym przypadku aktywna faza trwała tylko minutę, a pasywna aż siedem.
 
     W końcu władze lotniska zdecydowały się oddalić bramki przylotów od puntków odbioru bagażu, który to bagaż kierowany
     był do
     najdalszego z możliwych punktów.
-    To zwiększyło czas potrzebny podróżnym do przybycia do punktu odbioru bagażu do sześciu minut, co spowodowało, że w
-    pozycji stojącej oczekiwali oni średnio nie siedem, lecz tylko dwie minuty, a liczba skarg zmalała niemal do zera.
+    To zwiększyło czas potrzebny podróżnym do przybycia do punktu odbioru bagażu do sześciu minut.
+    Spowodowało to, że w pozycji stojącej oczekiwali oni średnio nie siedem, lecz tylko dwie minuty.
+    Liczba skarg zmalała niemal do zera.
+    W tym przypadku władze lotniska zastosowały właśnie manipulację <em>preemptive start</em>.
 </p>
 
 
