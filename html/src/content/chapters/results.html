@@ -171,6 +171,8 @@ lub też:
     Warto wiedzieć, że wersja z mechanizmem predykcji ma taką cechę, że ładowane są większe zakresy danych, w dodatku
     nie tylko na poziomie na którym <q>znajduje się</q> użytkownik<ft>Więcej na ten temat w rozdziale <a
         href="#chapter:implementation-prediction-models"></a>.</ft>.
+    Fakt pojawienia się tego niekorzystnego przedziału spowodowany jest również tym, że w tej wersji modele predykcji
+    ładują dane niezależnie, przez co żądania do serwera są często duplikowane.
 
 </p>
 
@@ -237,7 +239,7 @@ lub też:
     pozostałe.
     Jest to spowodowane, tym, że implementacja bazowa dopuszcza tylko jedno żądanie do serwera jednocześnie<ft>
     Pozostałe wersje nie anulują żądań ze względu na konstrukcję pamięci podręcznej.</ft>.
-    To znaczy, że w momencie, gdy użytkownik zmieni wyświetlany wykres, to bieżące żądanie do serwera jest anulowane i
+    To znaczy, że w momencie, gdy użytkownik zmieni wyświetlany zakres, to bieżące żądanie do serwera jest anulowane i
     nie jest uwzględnione w statystykach.
 
     Można to uznać za pewne niedopatrzenie przy projektowaniu narzędzia badawczego.
