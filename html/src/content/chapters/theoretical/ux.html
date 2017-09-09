@@ -1,10 +1,10 @@
 <h2 id="chapter:ux">User Experience</h2>
 
 <p>
-    Termin <i>User Experience</i> jest dość nowy, nie ma zatem jeszcze ustalonego polskiego tłumaczenia.
+    Termin <i>User Experience</i> jest stosunkowo nowy, nie ma zatem jeszcze ustalonego polskiego tłumaczenia.
 
-    W konsekwencji przyjęło się używać angielską nazwę, często można spotkać jej skróconą formę: <i>UX</i>.
-    UX skupia się na doświadczeniach użytkownika korzystającego z interfejsu aplikacji. Niekiedy stosuje się zamienne
+    Przyjęło się używać angielską nazwę, często można spotkać jej skróconą formę: <i>UX</i>.
+    Skupia się on na doświadczeniach użytkownika korzystającego z interfejsu aplikacji. Niekiedy stosuje się zamienne
     pojęcie użyteczność <trans lang="ang">usability</trans>.
 
     Celem <i>UX</i> nie jest dostarczenie konkretnej funkcji w aplikacji, lecz zrobienie jej przyjaznej użytkowikowi
@@ -20,18 +20,6 @@
     usługami i produktami <a href="#bib:nielsen-ux"></a>.
 </blockquote>
 <p>
-    Ta definicja UX wymaga, aby spełnić dokładne te potrzeby, które użytkownik rzeczywiście posiada.
-
-    Co prawda nie zawsze użytkownik jest świadomy tego, czego potrzebuje, ale <em>UserExperience</em>
-    ukierunkowuje się również na ukryte potrzeby użytkownika.
-
-    Kolejnym aspektem wzorowego <i>UX</i> jest prostota i elegancja, która pozwala stworzyć produkt, którego użytkownicy
-    pożądają i czerpią radość z posiadania i używania.
-
-    Tutaj nie wystarczy po prostu dostarczyć produkt według umówionych z klientem specyfikacji.
-
-</p>
-<p>
     Drugim sposobem określenia czym jest <i>User Experience</i>, jest powołanie się na pokrewny termin użyteczności
     <trans lang="ang">usability</trans>.
 
@@ -41,49 +29,49 @@
 </p>
 <ul>
     <li>
-        łatwość uczenia - jak łatwy w użyciu jest interfejs dla nowych użytkowników,
+        łatwość uczenia &mdash; jak łatwy w użyciu jest interfejs dla nowych użytkowników,
     </li>
     <li>
-        wydajność - gdy użytkownicy nauczą się interfejsu, jak szybko mogą wykonywać swoje zadania,
+        wydajność &mdash; gdy użytkownicy nauczą się interfejsu, jak szybko mogą wykonywać swoje zadania,
     </li>
     <li>
-        zapamiętywalność - jak prędko użytkownicy wznawiają swoją wydajną pracę po przerwie w użytkowaniu,
+        zapamiętywalność &mdash; jak prędko użytkownicy wznawiają swoją wydajną pracę po przerwie w użytkowaniu,
     </li>
     <li>
-        odporność na błędy - jak dużo i jak poważne błędy użytkownicy popełniają, jak łatwo mogą zaradzić zaistniałym
+        odporność na błędy &mdash; jak dużo i jak poważne błędy użytkownicy popełniają; jak łatwo mogą zaradzić
+        zaistniałym
         błędom,
     </li>
     <li>
-        satysfakcja - jak przyjemne jest użytkowanie interfejsu.
+        satysfakcja &mdash; jak przyjemne jest użytkowanie interfejsu.
     </li>
 </ul>
 
 <p>
-    Pomimo wielu różnych definicji, wszystkie mają interesującą część wspólną: satysfakcja użytkowania.
 
     W tej pracy, z racji na wielkoskalowy aspekt danych pomiarowych, uznaje się wydajność interkacji jako element
     niezbędny do spełnienia każdej definicji dobrych doświadczeń użytkownika, którego satysfakcja w dużej mierze zależy
     od płynności działania systemu.
     Opóźnienia w interakcji mogą bowiem grać ważną rolę w kształtowaniu zachowania użytkownika i wpływać na wyniki
-    przeprowadzonej analizy<a href="#bib:effects-interactive-latency"></a>.
+    przeprowadzonej analizy&nbsp;<a href="#bib:effects-interactive-latency"></a>.
+
 </p>
 <p>
     Kluczowym elementem wydajności jest czas.
 
 
-    Pożądaną przez użytkownika cechą interfejsu aplikacji jest natychmiastowa odpowiedź na żądanie
-    użytkowika.
+    Pożądaną cechą interfejsu aplikacji jest natychmiastowa odpowiedź na żądanie użytkowika.
 
-    Mowa tutaj o płynnie działającym interfejsie, który nie jest blokowany operacjami wykonywanymi w tle, ale również
-    mowa o braku konieczności oczekiwania na załadowanie potrzebnych zasobów zewnętrznych.
+    Mowa tutaj o płynnie działającym interfejsie, który nie jest blokowany podczas długo trwających operacji.
+    Użytkownik nie powinien również oczekiwać na załadowanie potrzebnych zasobów zewnętrznych.
 
-    Z oczywistych względów nie jest możliwe zapewnienie natychmiastowej odpowiedzi na żądanie użytkownika.
+    W systemach informatycznych zapewnienie natychmiastowej odpowiedzi na żądanie użytkownika jest często dużym
+    wyzwaniem technologicznym, niosącym ze sobą znaczne koszty implementacyjne, wdrożeniowe czy utrzymaniowe.
 
-    Przyczyna leży w ograniczeniach dostępu do zdalnych zasobów oraz natury sieci Internet.
 </p>
 <p>
-    Pomimo tych ograniczeń, w projektach informatycznych warto próbować minimalizować czas odpowiedzi systemu.
-    Jak zdefiniował Miller już w 1968 roku, wyróżnia się trzy limity czasu odpowiedzi systemu, których przekroczenie
+    Pomimo tych trudności, w projektach informatycznych warto próbować minimalizować czas odpowiedzi systemu.
+    Jak zdefiniował Miller już w 1968 roku, istnieją trzy limity czasu odpowiedzi systemu, których przekroczenie
     powoduje kolejne negatywne
     konsekwencje w postrzeganiu responsywności systemu <a href="#bib:Miller1968"></a>:
 </p>
@@ -91,26 +79,25 @@
     <div>
         <dt><0.1s</dt>
         <dd>
-            użytkownik nie traci odczucia natychmiastowej reakcji
+            odczuwanie reakcji systemu jako natychmiastowej,
         </dd>
     </div>
     <div>
         <dt><1s</dt>
         <dd>
-            nieprzerwany tok myślenia, utracone odczucie bezpośredniego operowania na danych
+            nieprzerwany tok myślenia, utracenie odczucia bezpośredniego operowania na danych,
         </dd>
     </div>
     <div>
         <dt><10s</dt>
         <dd>
-            utrzymanie uwagi użytkownika skupionego na dialogu z systemem
+            utrzymanie uwagi użytkownika skupionego na dialogu z systemem,
         </dd>
     </div>
     <div>
         <dt>&gt;=10s</dt>
         <dd>
-            użytkownik nie jest w stanie utrzymać swojej uwagi, najprawdopodobniej zajmie
-            się czymś innym; utrata kontekstu
+            utrata uwagi użytkownika na dialogu, przełączenie kontekstu na inne zadanie.
         </dd>
     </div>
 </dl>
