@@ -104,7 +104,7 @@
 <figure type="picture" id="picture:min-max-problem">
     <figcaption class="text-justify">
         Na ilustracji po lewej pokazano żółtym kolorem fragment, który został powiększony na ilustracji po prawej.
-        Wbrew oczekiwaniom, więszość danych w zaznaczonym zakresie ma wartość 0, natomiast ekstremum zostało poszerzone
+        Wbrew oczekiwaniom, większość danych w zaznaczonym zakresie ma wartość 0, natomiast ekstremum zostało poszerzone
         przez skok wartości na niewielkim obszarze.
     </figcaption>
     <img src="/images/min-max-details.png" style="height:4cm;">
@@ -129,7 +129,7 @@
 <h3>Percentyle</h3>
 <p>
     Główną wadą poprzedniej metody jest jej podatność na poszerzenie wartości ekstremum pojedynczym skokiem.
-    Aby zwiększyć odpornosć na pojedyncze i sporadyczne zmiany, można tę metodę uogólnić do postaci percentyli.
+    Aby zwiększyć odporność na pojedyncze i sporadyczne zmiany, można tę metodę uogólnić do postaci percentyli.
     W ten sposób ekstrema oraz wartość średnią można określić 0., 50. oraz 100. percentylem.
 </p>
 <p>
@@ -145,7 +145,7 @@
 <h3>M4</h3>
 <p>
     Przedstawione do tej pory metody w głównej mierze polegały na wyznaczeniu charakterystycznych wartości, np.
-    najniżej, średniej i najwyższej wartości mieszczącej się wewnątrz pojednyczego pionu pikseli.
+    najniżej, średniej i najwyższej wartości mieszczącej się wewnątrz pojedynczego pionu pikseli.
     Można więc powiedzieć, że w celu wykonania dobrej wizualizacji wystarczy połączyć punkty wyliczone w sąsiednich
     agregowanych zakresach w jeden kształt (na przykład obrys wypełniony kolorem), co niejako jest konieczne ze względu
     na wektorową konstrukcję bibliotek wizualizacyjnych.
@@ -156,14 +156,14 @@
 <p>
     W pracy <em>Jugela, Jerzaka, Hackenbroicha i Markla</em> pt. <i>M4: A Visualization-Oriented Time Series Data
     Aggregation</i> <a href="#bib:data-aggregation"></a> zauważono,
-    przekłamanie powstaje w sposobie wygładzania lini prowadzonych pomiędzy punktami z sąsiednich agregacji.
+    przekłamanie powstaje w sposobie wygładzania linii prowadzonych pomiędzy punktami z sąsiednich agregacji.
     Stwierdzono, że redukcja <em>min-max</em> w wizualizacji pojedynczej kolumny pikseli nie jest w stanie zapewnić tego
     samego rezultatu, jak w przypadku rasteryzacji niezagregowanych danych.
     Celem pracy było znalezienie metody agregacji, która zachowuje obraz identyczny do obrazu powstałego w wyniku
     naturalnego procesu rasteryzacji.
 </p>
 <p>
-    Zaproponowano algorytm <em>M4</em> polegający na wkorzystaniu minimalnego, maksymalnego oraz początkowego i
+    Zaproponowano algorytm <em>M4</em> polegający na wykorzystaniu minimalnego, maksymalnego oraz początkowego i
     końcowego punktu w agregowanym przedziale.
     Metoda ta zakłada łączenie nie tylko ekstremów sąsiednich agregacji.
     Otóż linia prowadzona jest przez cztery punkty kolejnych agregacji w ten sposób, że końcowy punkt z
@@ -184,10 +184,10 @@
 <h4>Spektrum</h4>
 <p>
     Powyższe metody głównie bazowały na manipulacji kształtem wynikowego wykresu.
-    Nie jest to jedyna forma wizualiacji informacji.
+    Nie jest to jedyna forma wizualizacji informacji.
     Na przykład, kolor wykresu też może nieść odpowiednią informację taką, jak częstotliwość zmian zachodzących wewnątrz
     agregowanego zakresu.
-    Dla danych o dużej częstotliwości i regularności, takich jak dźwięku, zakolorwanie wykresu odpowiednim kolorem może
+    Dla danych o dużej częstotliwości i regularności, takich jak dźwięku, odpowiednie zakolorowanie wykresu może
     informować o dominującej częstotliwości w danym obszarze.
     Ten parametr jest używany często programach do obróbki audio, jak pokazano na rysunku <a
         href="#picture:traktor-pro"></a>.
@@ -201,14 +201,14 @@
 <p>
     Ten rodzaj agregacji służyć może za dodatkową adnotację prezentowaną na ekranie.
     Wykorzystywany jest między innymi w meteorologii.
-    Możliwości kombinacji parametrów agragacji jest wiele.
+    Możliwości kombinacji parametrów agregacji jest wiele.
     W przypadku, gdy wizualizacja dotyczy kluczowych cech wiatru, w agregacji znajduje się średnia prędkość wiatru,
     maksymalna prędkość wiatru oraz kierunek wiatru w momencie osiągnięcia przez niego prędkości maksymalnej (Rys. <a
         href="#picture:windspeed"></a>).
 </p>
 <figure type="picture" id="picture:windspeed">
     <figcaption>
-        Wizualizacja prędkości wektorowej wiatru stacji meteorologicznej Uniwersystetu Gdańskiego <a
+        Wizualizacja prędkości wektorowej wiatru stacji meteorologicznej Uniwersytetu Gdańskiego <a
             href="#bib:klimat-ug"></a>
     </figcaption>
     <img src="/images/ug-windspeed.png">
@@ -276,7 +276,7 @@
     agregacji można równomiernie rozłożyć na osi logarytmicznej, jak pokazano na rysunku <a
         href="#picture:aggregation-levels"></a> w punkcie <i>a</i>.
 
-    Takie równomierne rozłożenie poziomów stabilizuje rozmiar strumienia danych dostarczanych do wizualiacji (zob.
+    Takie równomierne rozłożenie poziomów stabilizuje rozmiar strumienia danych dostarczanych do wizualizacji (zob.
     rozdział <a href="#chapter:problem-identification"></a>).
 
     Z kolei poziomy agregacji wymaganych prawnie często reprezentują jednostki zwyczajowe, takie jak godzinne, dobowe,
@@ -286,11 +286,11 @@
     do wizualizacji, strumień danych będzie niestabilny podczas nawigacji użytkownika.
 
     Z kolei dobrą praktyką przy projektowaniu wizualizacji wielkoskalowych danych pomiarowych jest wykorzystanie
-    agregacji wymaganych prawnie w celu oszczędności miesca na dyskach oraz mocy obliczeniowej.
+    agregacji wymaganych prawnie w celu oszczędności miejsca na dyskach oraz mocy obliczeniowej.
     Przykład wykorzystania prawnie wymaganych agregacji został przedstawiony na ilustracji <a
         href="#picture:aggregation-levels"></a> w punkcie <i>b</i>.
 
-    Aby zachować jak najwięszą równomierność, praktykuje się dołożenie dodatkowych poziomów agregacji, tak by wszystkie
+    Aby zachować jak największą równomierność, praktykuje się dołożenie dodatkowych poziomów agregacji, tak by wszystkie
     razem w przybliżeniu tworzyły ciąg geometryczny, co pokazano na rysunku <a href="#picture:aggregation-levels"></a> w&nbsp;punkcie&nbsp;<i>c</i>.
 </p>
 

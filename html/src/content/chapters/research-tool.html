@@ -11,7 +11,7 @@
 
 <p>Interaktywna aplikacja do testowania rozwiązań podczas badania była dostępna pod adresem
     <a class="no-decoration" href="http://explorejs.adamborowski.pl">http://explorejs.adamborowski.pl</a>.
-    Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwiększenia grona potencjalnych respondetów.
+    Treści zostały utworzone w dwóch językach (polskim i angielskim) w celu zwiększenia grona potencjalnych respondentów.
     Prezentowana jest finalna wersja zawierające wprowadzone poprawki zasugerowane w fazie testowania narzędzia.
 </p>
 <h3>Część teoretyczna</h3>
@@ -52,7 +52,7 @@
 <p>
     Pierwszą wersją rozwiązania jest tak naprawdę referencyjna implementacja istniejącego rozwiązania przedstawionego w
     rozdziale <a href="#chapter:existing-solutions"></a>. Oznacza to, że w tej wersji nie została zastosowana żadna
-    optymalizacja będąca przemiotem pracy. Została umieszczona w badaniu jako punkt odniesienia do dalszych porównań.
+    optymalizacja będąca przedmiotem pracy. Została umieszczona w badaniu jako punkt odniesienia do dalszych porównań.
     Kolejne wersje poddawane ocenie są stopniowo ulepszaną wersją, ostatnia zaś jest tą, w której zastosowano wszystkie
     zaplanowane optymalizacje: z niezależną pamięcią cache dla każdego poziomu agregacji, z projekcją pamięci cache
     agregacji wyższego poziomu, z mechanizmem predykcji oraz z optymalizacją zapytań do serwera.
@@ -131,7 +131,7 @@
 <p class="keep-after">
     Po zakończeniu testowania użytkownik przechodzi do oceny rozwiązania (ilustracja <a
         href="#picture:tester-score"></a>).
-    Do wyrażenia swojej satysfakcji związanej z użytkowaniem danej wersji rozwiąnia została użyta pięciopunktowa skala,
+    Do wyrażenia swojej satysfakcji związanej z użytkowaniem danej wersji rozwiązania została użyta pięciopunktowa skala,
     zawierająca pięć odpowiedzi na pytanie <q>Jak porównasz tę konfigurację z poprzednią?</q>:
 </p>
 
@@ -174,7 +174,7 @@
     podczas analizy można lepiej interpretować zarejestrowaną jego interakcję oraz zrozumieć odpowiedzi.
     Zostały też zamieszczone pytania, których odpowiedzi mogą wskazywać na większą wiedzę i doświadczenie w dziedzinie
     wizualizacji, Internetu i multimediów.
-    Zostało również zadane pytanie o znajomość alternatywnych rozwiązań / podejsć do problemu oraz pytanie o
+    Zostało również zadane pytanie o znajomość alternatywnych rozwiązań / podejść do problemu oraz pytanie o
     podobieństwo do systemów mapowych.
     Na końcu ankiety podsumowującej zostają zadanych kilka pytań ukierunkowanych na inżynierów oprogramowania, których
     odpowiedzi wskazałyby na to, czy i w jakich warunkach proponowane rozwiązanie zostałoby przez nich użyte.
@@ -286,7 +286,7 @@
     ogromnych zbiorach danych przez przeglądarkę</q>, zrozumiał, że rozwiązanie adresuje <q>powolne wczytywanie
     ogromnych ilości danych</q>.
     Nie zna innych tego typu rozwiązań, uważa, że problem należy rozwiązać, potwierdza duże podobieństwo do zagadnień z
-    sysmteów mapowych, najprawdopodobniej w swoim zawodzie (w tym przypadku analityk biznesowy) miał do czynienia z
+    systemów mapowych, najprawdopodobniej w swoim zawodzie (w tym przypadku analityk biznesowy) miał do czynienia z
     przeglądaniem dużych zbiorów danych, najprawdopodobniej spotka się z tym problemem znowu, i gdy będzie taka
     możliwość, chciałby skorzystać z zaprezentowanego tutaj rozwiązania, ale musiałoby to być na otwartej licencji.
 </p>
@@ -370,7 +370,7 @@
         "start": "Sat Mar 18 3279 20:59:30 GMT+0100 (CET)" // koniec wyświetlanego zakresu
       },
       "scale": 71590010.32773109, // skala odpowiadająca liczbie milisekund na piksel
-      "viewportWidth": 952, // szerokosć wykresu
+      "viewportWidth": 952, // szerokość wykresu
       "currentLevelId": "8h" // dobrany poziom agregacji
     }
   },
@@ -416,7 +416,7 @@
     Oceny zostały oznaczone cyframi, gdzie ocena neutralna oznaczona jest cyfrą <q>0</q>, ocena <q>nieco lepsza</q>
     &mdash; <q>+1</q>, <q>nieznacznie gorsza</q> &mdash; <q>-1</q>, <q>nieporównywalnie lepsza</q> &mdash; <q>+2</q>, a
     <q>dużo gorsza</q> &mdash; <q>-2</q>.
-    Z powyższczego można na przykład wywnioskować, że pięciu respondentów uznało rozwiązanie z pamięcią <em>cache</em>
+    Z powyższego można na przykład wywnioskować, że pięciu respondentów uznało rozwiązanie z pamięcią <em>cache</em>
     za dużo gorsze od rozwiązania bazowego.
 </p>
 
@@ -450,7 +450,7 @@
     Niestety, sprowadzenie wyrażeń dotyczących odczuć użytkownika do konkretnego punktu na wykresie w celu porównania
     jest trudnym zadaniem.
 
-    Aby porównać wszystkie rozwiązania zwględem siebie należy przekształcić te subiektywne oceny w bezwzględną
+    Aby porównać wszystkie rozwiązania względem siebie należy przekształcić te subiektywne oceny w bezwzględną
     punktację, czyli odpowiednio scałkować.
 
 
@@ -458,7 +458,7 @@
 </p>
 
 <p>
-    Punktacja danej wersji rozwiązania jest tutaj ilocznym punktacji wersji poprzedniej oraz mnożnika
+    Punktacja danej wersji rozwiązania jest tutaj iloczynem punktacji wersji poprzedniej oraz mnożnika
     odpowiadającego przydzielonej ocenie względnej.
     Oceną wyjściową jest liczba <em>1</em>.
     Współczynniki pokazano w tabeli <a href="#table:absolute-points"></a>.
@@ -469,7 +469,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>ocena zwględna</th>
+            <th>ocena względna</th>
             <th>wartość mnożnika</th>
             <th>intuicyjna interpretacja</th>
         </tr>
@@ -536,7 +536,7 @@
     50-ty percentyl, czyli najczęstsza ocena, zaznaczona jest najciemniejszym kolorem, a skrajne oceny (10-ty i 90-ty
     percentyl) zostały zaznaczone najjaśniejszym kolorem.
 
-    Pierszy wykres pokazuje wyniki w przestrzeni liniowej, dzięki czemu można interpretować bezwzględne wartości ocen.
+    Pierwszy wykres pokazuje wyniki w przestrzeni liniowej, dzięki czemu można interpretować bezwzględne wartości ocen.
     Drugi wykres pokazuje te same dane w przestrzeni logarytmicznej, dzięki czemu łatwiej jest interpretować różnice
     tych ocen.
     Na przykład, ocena dwa razy większa oraz dwa razy mniejsza od pewnej oceny będą od niej równo odległe.
@@ -544,7 +544,7 @@
 
 <p>
     Ostatnim z trzech prezentowanych na tym ekranie wykresów jest wykres warstwowy pokazujący procentowy udział
-    poszczególnych przedziałów czasów oczekiwania w danej wersji rozwiazania.
+    poszczególnych przedziałów czasów oczekiwania w danej wersji rozwiązania.
 </p>
 
 <p>
@@ -558,7 +558,7 @@
 
 <p>
     Poprzedni moduł pozwala na przeglądanie i zbiorczą analizę satysfakcji użytkowników
-    związaną z zastosowaniem proponowanej w tej pracy metody zwiększenia płynności swobodnej i nieogranicznej wizualnej
+    związaną z zastosowaniem proponowanej w tej pracy metody zwiększenia płynności swobodnej i nieograniczonej wizualnej
     eksploracji wielkoskalowych danych pomiarowych.
 
     Z kolei moduł testów wydajnościowych umożliwia obiektywne zmierzenie wydajności kolejnych wersji rozwiązania oraz
@@ -605,7 +605,7 @@
 </p>
 
 <figure type="picture" id="picture:rt-perf-recording">
-    <figcaption>Uruchomienie przypadku testowego na biliotece <em>plotly</em> w wersji z projekcją pamięci
+    <figcaption>Uruchomienie przypadku testowego na bibliotece <em>plotly</em> w wersji z projekcją pamięci
     </figcaption>
     <img src="/images/research-tool/perf-recording.png" width="78%"/>
 </figure>
@@ -631,7 +631,7 @@
     wydajnościowe.
     Dostępne są cztery zakładki, pokazane na ilustracji <a href="#picture:rt-perf-summary-tabs"></a>.
 
-    Zakładaka <em>Basic Info</em> (punkt <em>A</em>) wyświetla wykresy słupkowe, które dla każdej wersji
+    Zakładka <em>Basic Info</em> (punkt <em>A</em>) wyświetla wykresy słupkowe, które dla każdej wersji
     rozwiązania pokazują łączną liczbę aktualizacji komponentu wykresu, łączną liczbę żądań do serwera oraz sumaryczny
     rozmiar danych pobranych z serwera.
 
@@ -644,7 +644,7 @@
 
     Jest to ten sam wykres, który został zastosowany w widoku zbiorczym modułu analizy wyników ankiety.
 
-    Zakładaka <em>Cache Fill</em> (punkt <em>D</em>) pokazuje sumaryczne histogramy rozkładu zajętości pamięci cache dla
+    Zakładka <em>Cache Fill</em> (punkt <em>D</em>) pokazuje sumaryczne histogramy rozkładu zajętości pamięci cache dla
     każdej wersji
     rozwiązania, oprócz bazowej, w której nie zastosowano mechanizmu podręcznej.
 </p>
@@ -674,7 +674,7 @@
 
 <h2 class="keep-after">Podsumowanie</h2>
 <p class="keep-inside keep-after">
-    Moduł internaktywnej ankiety został przetestowany na grupie 5 osób, które pod nadzorem przeszły badania.
+    Moduł interaktywnej ankiety został przetestowany na grupie 5 osób, które pod nadzorem przeszły badania.
     Zostały zaproponowane i wdrożone następujące poprawki:
 </p>
 

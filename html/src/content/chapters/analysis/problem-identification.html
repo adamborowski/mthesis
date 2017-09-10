@@ -474,9 +474,9 @@
     załadowania danych, zanim będą one potrzebne, aby w momencie zaistnienia potrzeby dane były gotowe do
     odczytu.<!--bib?-->
     Kiedy strumień danych jest deterministyczny, co się często zdarza w systemach <em>HPC</em>,<!--bib?-->
-    <em>prefetching</em> polega na skonstuowaniu mechanizmu ładowania, który znając algorytm korzystający z tych danych
+    <em>prefetching</em> polega na skonstruowaniu mechanizmu ładowania, który znając algorytm korzystający z tych danych
     wybiega w przód jego działania i generuje odpowiednie zapytania.
-    W przypadku wizualnej eksploracji danych działania użytkownia są niederministyczne, więc znajomość algorytmu
+    W przypadku wizualnej eksploracji danych działania użytkownika są niederministyczne, więc znajomość algorytmu
     działania nie jest tutaj wystarczająca.
 
     Należy doszukiwać się metod, które z pewnym prawdopodobieństwem przewidzą działania użytkownika.
@@ -486,12 +486,12 @@
     Metody te polegają na predykcji, czyli przewidywaniu zaistnienia potrzeby odczytu określonych danych.
     Predykcja w wizualnej eksploracji opiera swoje działanie na prawdopodobieństwie odwiedzenia danego zakresu danych
     przez użytkownika, Może być obliczana na podstawie śledzenia dotychczasowych akcji użytkownika oraz połączenia
-    wiedzy o danych i cech charakterystyczych dla przeglądania danego typu danych (zob. rozdział <a
+    wiedzy o danych i cech charakterystycznych dla przeglądania danego typu danych (zob. rozdział <a
         href="#chapter:exiting-solutions-prediction-methods"></a>).
 
 </p>
 <p>
-    Na efektywność <em>prefetchingu</em> można wpływac w dwojaki sposób.
+    Na efektywność <em>prefetchingu</em> można wpływać w dwojaki sposób.
     Po pierwsze &mdash; można zastosować mechanizm predykcji o wyższym prawdopodobieństwie przewidywania.
     Kosztem zastosowania tej metody jest trudność projektowania i implementacji danej metody.
 

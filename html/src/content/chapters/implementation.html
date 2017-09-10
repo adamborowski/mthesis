@@ -259,7 +259,7 @@
 </p>
 
 <p>
-    Moduł scalający <em>MergingBatch</em> w zawansowany sposób łączy żądania w buforze zapytań.
+    Moduł scalający <em>MergingBatch</em> w zaawansowany sposób łączy żądania w buforze zapytań.
     Zamiast dodawać zapytanie do listy żądań, znajduje wpierw istniejące żądania dla tej samej serii i poziomu
     agregacji i próbuje scalić te żądania z nowym żądaniem.
     W wyniku tego zamiast tworzenia kolejnego żądania, może się zmienić zakres innego, a nawet zmniejszyć liczba żądań.
@@ -303,7 +303,7 @@
 <figure type="code" id="code:merging-batch">
     <figcaption>Łączenie zbiorów w <em>MergingBatch</em>: <em>A</em> &mdash; oznacza nowe zgłoszenie, <em>P</em> &mdash; bufor
         trwających zgłoszeń, <em>Q<sub>1</sub></em> &mdash; bufor oczekujących zgłoszeń,
-        <em>Q<sub>2</sub></em> &mdash; bufor oczekujących zgłoszeń po dodaniu noweg zgłoszenia
+        <em>Q<sub>2</sub></em> &mdash; bufor oczekujących zgłoszeń po dodaniu nowego zgłoszenia
     </figcaption>
     <pre class="math">
         Q<sub>2</sub> = Q<sub>1</sub> + ({A} - P)
@@ -313,7 +313,7 @@
 
 <p>
     Dzięki zastosowaniu <em>MergingBatch</em> nie istnieje możliwość, że serwer będzie pytany o nakładające się zakresy
-    w krótkim czasie, co maksymalnie optymalizuje komunikację <em>ExploreJS</em> z serwrem.
+    w krótkim czasie, co maksymalnie optymalizuje komunikację <em>ExploreJS</em> z serwerem.
 </p>
 
 
@@ -360,7 +360,7 @@
         </tr>
         <tr>
             <td>isBefore (other, touch=false)</td>
-            <td>zwraca <em>true</em> jeżeli koniec piewszego przedziału jest mniejszy niż początek drugiego przedziału.
+            <td>zwraca <em>true</em> jeżeli koniec pierwszego przedziału jest mniejszy niż początek drugiego przedziału.
                 Jeżeli flaga <em>touch</em> jest równa <em>true</em>, to dodatkowo zwraca <em>true</em>, jeżeli koniec
                 pierwszego przedziału jest równy początkowi drugiego przdziału oraz oba przedziały mają zamkniętą
                 styczną krawędź.
@@ -368,7 +368,7 @@
         </tr>
         <tr>
             <td>isAfter (other, touch=false)</td>
-            <td>zwraca <em>true</em> jeżeli początek piewszego przedziału jest większy niż koniec drugiego przedziału.
+            <td>zwraca <em>true</em> jeżeli początek pierwszego przedziału jest większy niż koniec drugiego przedziału.
                 Jeżeli flaga <em>touch</em> jest równa <em>true</em>, to dodatkowo zwraca <em>true</em>, jeżeli początek
                 pierwszego przedziału jest równy końcowi drugiego przdziału oraz oba przedziały mają zamkniętą
                 styczną krawędź.
@@ -598,11 +598,11 @@
     Te biblioteki, które obsługują duże zbiory danych, zazwyczaj posiadają własny bufor w pamięci, a widoczne fragmenty
     renderują na elemencie <em>Canvas</em>.
 
-    Z kolei te biblioteki, które obsługują duże zbiory danych, niezawsze umożliwiają ich wydajną aktualizację.
+    Z kolei te biblioteki, które obsługują duże zbiory danych, nie zawsze umożliwiają ich wydajną aktualizację.
 </p>
 
 <p>
-    Aby w jednolity sposób rozwiązać wszystkie wpomniane wyżej problemy, <em>ExploreJS</em> nie dostarcza komponentowi
+    Aby w jednolity sposób rozwiązać wszystkie wspomniane wyżej problemy, <em>ExploreJS</em> nie dostarcza komponentowi
     danych z całego zakresu dostępnego w pamięci cache, lecz tylko fragment potrzebny w danym momencie do wyświetlenia.
     W związku z tym, że komponent wykresowy nie posiada wszystkich danych, należy sukcesywnie aktualizować mu dane,
     niejako podążając za użytkownikiem, który może mieniać zakres danych na wykresie.
@@ -631,7 +631,7 @@
     Znacznie redukuje to liczbę potrzebnych aktualizacji, ponieważ wszystkie widoczne zakresy nachodzące na te same
     kafle nie będą wymagały aktualizacji.
 
-    Kosztem rozwązania tego problemu jest przesyłanie niewiele większego zakresu danych do komponentu.
+    Kosztem rozwiązania tego problemu jest przesyłanie niewiele większego zakresu danych do komponentu.
     Manipulując szerokością kafla można sterować balansem pomiędzy częstotliwością aktualizacji komponentu a wielkością
     zakresu przesyłanych danych.
 
@@ -769,7 +769,7 @@
     <figcaption>Przykład użycia <em>RangeScopedEvent</em></figcaption>
     <pre><code class="javascript">
 const event = new RangeScopedEvent();
-// dodawnie listenerów przez DynamicProjection
+// dodawanie listenerów przez DynamicProjection
 event.addListener('update', Range.leftClosed(0, 1), () => print('A!'));
 event.addListener('update', Range.unbounded(),      () => print('B!'));
 event.addListener('update', Range.opened(1,2),      () => print('C!'));
@@ -811,7 +811,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     już istniejące w komponencie.
 
     Na listingu <a href="#code:adapter-replace"></a> i <a href="#code:adapter-replace"></a> pokazano przykładowy
-    pseudokod adaptera korzystającego odpowiednio ze strategii <em>całkowitego zastąpienia danych</em> i <em>modyfkacji
+    pseudokod adaptera korzystającego odpowiednio ze strategii <em>całkowitego zastąpienia danych</em> i <em>modyfikacji
     istniejących danych</em>.
 </p>
 
@@ -882,7 +882,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 
 <p>
     Można stwierdzić, że <em>DataSource</em> poprzez udostępniane metody <em>getWrappers()</em> oraz <em>calculateWrappersDiffToPrevious()</em>
-    fizycznie łączy informacje zawarte w module wielowarstwowej pamięci podręczniej <em>SerieCache</em> oraz w module
+    fizycznie łączy informacje zawarte w module wielowarstwowej pamięci podręcznej <em>SerieCache</em> oraz w module
     projekcji <em>CacheProjection</em>.
 </p>
 
@@ -911,7 +911,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     Niemniej jednak zostało to zrobione w celu uproszczenia implementacji rozwiązania, gdyż implementacja powyższej
     logiki wygląda bardzo podobnie do logiki modeli predykcyjnych.
 
-    Na listingu <a href="#code:simple-prediction-model"></a> pokazano, jak wygląda implemetacja takiego modelu.
+    Na listingu <a href="#code:simple-prediction-model"></a> pokazano, jak wygląda implementacja takiego modelu.
 </p>
 
 <figure type="code" id="code:simple-prediction-model">
@@ -1073,14 +1073,14 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     <div>
         <dt>explorejs-server</dt>
         <dd>
-            zawiera testową implemetację serwisu REST napisaną w języku <em>JavaScript (NodeJS)</em> generującą dane
+            zawiera testową implementację serwisu REST napisaną w języku <em>JavaScript (NodeJS)</em> generującą dane
             pomiarowe.
         </dd>
     </div>
     <div>
         <dt>explorejs-remote-server</dt>
         <dd>
-            zawiera przykładową implemetację serwisu REST napisaną w języku <em>JavaScript (NodeJS)</em>, która odwołuje
+            zawiera przykładową implementację serwisu REST napisaną w języku <em>JavaScript (NodeJS)</em>, która odwołuje
             sie do zewnętrznej bazy danych.
         </dd>
     </div>
