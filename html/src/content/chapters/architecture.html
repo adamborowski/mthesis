@@ -2,14 +2,13 @@
 <h1 id="chapter:solution">Architektura biblioteki ExploreJS</h1>
 
 <p>
-    W niniejszym rozdziale zostaną poruszone aspekty rozwiązania mające wpływ na jego konstrukcję i główne zasady
-    działania.
+    W niniejszym rozdziale zostaną omówione główne cechy rozwiązania.
 </p>
 
 <p>
     Proponowanym w tej pracy rozwiązaniem, mającym na celu zminimalizowanie czasu oczekiwania na dane w wizualnej
     eksploracji
-    danych pomiarowych, jest niżej przedstawiona i omówiona biblioteka napisana w języku <em>JavaScript</em>, której
+    danych pomiarowych, jest poniższa biblioteka, napisana w języku <em>JavaScript</em>, której
     zadaniem jest sprawnie dostarczać
     dane końcowemu użytkownikowi, oglądającemu je na wykresie.
     W celu identyfikacyjnym zostało ono nazwane <em>ExploreJS</em>.
@@ -22,25 +21,25 @@
 
 
 <figure type="picture" id="picture:architecture-overview">
-    <figcaption>Ogólny zarys systemu używającego <em>ExploreJS</em></figcaption>
+    <figcaption>Sposób działania <em>ExploreJS</em> w ogólnym zarysie</figcaption>
     <img src="cache/architecture-existing-system.png"/>
 </figure>
 
 <p>
     System posiada architekturę <em>klient-serwer</em>, gdzie klientem jest aplikacja działająca w przeglądarce
-    internetowej, a serwerem aplikacja serwująca dane pomiarowe. Klient i serwer jest połączony siecią lokalną lub
-    siecią Internet.
+    internetowej, a serwerem aplikacja serwująca dane pomiarowe.
+    Klient i serwer są połączeni siecią lokalną lub siecią Internet.
 </p>
 
 <p>
-    Baza danych pomiarowych może być fizycznie zlokalizowana na tej samej maszynie co serwer lub innej.
+    Baza danych pomiarowych może być fizycznie zlokalizowana na tej samej lub innej maszynie co serwer.
     W drugim przypadku dane często są replikowane na serwerze danych w celu optymalizacji czasu odpytywania bazy danych
     i zrównoważenia obciążenia całego systemu.
-    Baza danych jest przygotowana do serwowania danych pomiarowych surowych jak i tych odpowiednio zagregowanych.
+    Baza danych jest przygotowana do serwowania danych pomiarowych surowych oraz odpowiednio zagregowanych.
 </p>
 
 <p>
-    Może się zdarzyć, że system działa w oparciu o różne standardy komunikacyjne.
+    Bywa, że system wizualizacji działa w oparciu o różne standardy komunikacyjne.
     W takim przypadku najczęściej tworzy się dodatkowy serwis, który będzie udostępniał dane protokołem <em>HTTP</em> w
     formacie <em>JSON</em>, gdyż to jest główny protokół i format obsługiwany przez przeglądarki.
     Dodatkowy serwis może być stworzony również po to, by nie umieszczać we właściwym serwerze logiki niezbędnej do
