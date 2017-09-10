@@ -13,8 +13,13 @@ ft {
   counter-increment: footnote;
   &::footnote-call {
     content: counter(footnote);
-    font-size: 83%;
     vertical-align: super;
     line-height: none;
+  }
+  &::footnote-marker {
+    content: counter(footnote);
+    font-size: 0.8em;
+    vertical-align: super;
+    transform: translate(-5pt, -5pt);
   }
 }
