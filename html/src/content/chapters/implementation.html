@@ -97,8 +97,8 @@
     Mimo, że właściwa do tego zastosowania metoda <code>GET</code> oficjalnie wspiera <trans> request body</trans>, to
     implementacje wielu systemów się tego nie spodziewają.
 
-    By uniknąć problemów z wycinaniem tej części zapytania przez systemy <em>firewall</em> lub mechanizm filtrów w <em>JAVA
-    Enterprise</em>, stosuje się wyjątkowo metodę POST.
+    By uniknąć problemów z wycinaniem tej części zapytania przez systemy <em>firewall</em> lub na przykład mechanizm
+    filtrów w <em>JAVA Enterprise</em>, stosuje się wyjątkowo metodę POST.
 </p>
 
 <h3>Manifest danych pomiarowych</h3>
@@ -141,7 +141,7 @@
 
 <p>
     Dzięki manifestowi wiadomo, jakie są dostępne poziomy agregacji.
-    Jest to niezbędne do wyznaczania odpowiedniego poziomu agregacji do wyświetlenia.
+    Jest to niezbędne do wyznaczania odpowiedniego poziomu wyświetlanych agregacji.
     Manifest również jest używany przez modele predykcji.
 </p>
 
@@ -155,8 +155,9 @@
     również jako agregacje danych. Z punktu widzenia działania mechanizmów wewnątrz <em>ExploreJS</em> nie ma
     rozróżnienia między danymi surowymi a agregacjami tych danych. Przyjmuje się, że dane surowe oznacza się
     identyfikatorem <q>raw</q> o długości agregowanego zakresu odpowiadającej średniej częstości zbierania tych danych.
-    Dla danych monitoringu jakości powietrza będzie to okres <em>10s</em>, dla danych medycznych przykładowo
-    <em>50ms</em>. Rozróżnienie danych surowych od agregacji jest istotne dopiero przy wyświetlaniu danych na wykresie,
+    Przykładowo, dla danych monitoringu jakości powietrza będzie to okres <em>10s</em>, a dla danych medycznych
+    <em>50ms</em>.
+    Rozróżnienie danych surowych od agregacji jest istotne dopiero przy wyświetlaniu danych na wykresie,
     co zostało omówione w rozdziale <a href="#chapter:implementation-adapter"></a>.
 </p>
 
@@ -919,7 +920,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     <figcaption>Podstawowy model ładowania danych</figcaption>
     <pre><code class="javascript">
 @@include('simple-prediction-model.js')
-    </code></pre>
+</code></pre>
 </figure>
 
 <p>

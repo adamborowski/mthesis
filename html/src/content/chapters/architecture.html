@@ -136,7 +136,7 @@
 </figure>
 
 <p>
-    Istotnym faktem jest to, że pamięć podręczna niejako z natury nie zawiera wszystkich dostępnych danych, lecz tylko
+    Pamięć podręczna niejako z natury nie zawiera wszystkich dostępnych danych, lecz tylko
     te, do których dostęp był wcześniej żądany. Można zatem mówić o fragmentacji pamięci <em>cache</em>, na każdej
     warstwie pamięci.
     Zostało to zilustrowane na obrazku <a href="#picture:cache3d-missing"></a>.
@@ -154,8 +154,8 @@
     Kiedy następuje wyświetlenie określonego zakresu czasu na wykresie, do pamięci cache trafia żądanie o konkretne
     agregacje danych w tym zakresie. Mogą być to przykładowo <q>agregacje miesięczne od maja 2010 roku do lipca 2017
     roku</q>. W takim przypadku z <q>półki</q> z agregacjami miesięcznymi zostają odczytane wszystkie dostępne agregacje
-    miesięczne od maja 2017 do lipca 2017 włącznie. Jeżeli brakuje jakiś danych, to pamięć zwraca pofragmentowane dane,
-    a brakujące dane będą doładowane później.
+    miesięczne od maja 2017 do lipca 2017 włącznie. Jeżeli brakuje danych, to pamięć zwraca wpierw pofragmentowane dane,
+    a brakujące dane będą dostarczone później.
 </p>
 
 <h2 id="chapter:theoretical-cache-projection">Projekcja warstw cache</h2>
@@ -169,8 +169,6 @@
 <p>
     Warto sobie uświadomić, że bardzo często się zdarza, iż pamięć cache w danej chwili nie posiada żądanych agregacji,
     ale dysponuje ich mniej dokładnymi odpowiednikami.
-</p>
-<p>
     <em>ExploreJS</em> wykorzystuje tę zależność w celu zmaksymalizowania użycia danych z pamięci cache. To znaczy, że
     zamiast wyświetlać <q>dziury</q> na wykresie w miejscu, gdzie chwilowo brakuje danych, wykorzysta mniej dokładne
     agregacje z cache i wyświetli je w miejsce wspomnianej <q>dziury</q>.
@@ -349,8 +347,8 @@
     zmienią ten fragment projekcji, <em>DataSource</em> przygotowuje dane według aktualizowanej projekcji i przekazuje
     je do <em>adaptera</em> komponentu.
 
-    Dzieje się tak, kiedy zostaną doładowane z serwera żądane dane, w związku z czym należy usunąć mniej dokładne dane z
-    wykresu i zastąpić je właściwymi.
+    Dzieje się tak, kiedy zostaną doładowane z serwera żądane dane.
+    W związku z tym należy usunąć mniej dokładne dane z wykresu i zastąpić je właściwymi.
 
     Zależność zakresu danych między <em>DataSource</em>, innymi modułami i wyświetlanym zakresem została pokazana na
     ilustracji <a href="#picture:projection-and-cache"></a>.
@@ -362,7 +360,7 @@
     Jest to element rozszerzalny, co oznacza, że chcąc użyć niewspieranej do tej pory
     biblioteki wykresowej, należy napisać do niej adapter.
     Adapter implementuje samą logikę <q>włożenia</q> danych do samego komponentu wykresowego.
-    Adapter jest też odpowiedzialny za implementację powiadamiania o interakcji z danym komponentem.
+    Adapter jest też odpowiedzialny za implementację powiadamiania o interakcji z komponentem.
 </p>
 
 <figure type="picture" id="picture:projection-and-cache">
