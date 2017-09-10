@@ -305,14 +305,14 @@
         trwających zgłoszeń, <em>Q<sub>1</sub></em> &mdash; bufor oczekujących zgłoszeń,
         <em>Q<sub>2</sub></em> &mdash; bufor oczekujących zgłoszeń po dodaniu nowego zgłoszenia
     </figcaption>
-    <pre class="math">
+    <pre class="math" style="margin-bottom: 0">
         Q<sub>2</sub> = Q<sub>1</sub> + ({A} - P)
     </pre>
 </figure>
 
 
 <p>
-    Dzięki zastosowaniu <em>MergingBatch</em> nie istnieje możliwość, że serwer będzie pytany o nakładające się zakresy
+    Dzięki zastosowaniu <em>MergingBatch</em> serwer nie będzie pytany o nakładające się zakresy
     w krótkim czasie, co maksymalnie optymalizuje komunikację <em>ExploreJS</em> z serwerem.
 </p>
 
@@ -477,7 +477,7 @@
 
 <p class="keep-after">
 
-    Samo przeliczenie projekcji można wyrazić wzorem rekurencyjnym pokazanym na listingu <a
+    Przeliczenie projekcji można wyrazić wzorem rekurencyjnym pokazanym na listingu <a
         href="#code:recursion-projection"></a>.
 
 </p>
@@ -637,8 +637,8 @@
 
     W <em>ExploreJS</em> domyślną szerokością kafla jest wartość równa szerokości wyświetlanego zakresu, a jednorazowo
     do komponentu zostają przekazane trzy <q>kafle</q>.
-    To znaczy, że jeżeli użytkownik przesunie zakres o 5 <q>szerokości</q> wykresu, to komponent wykresu zostanie
-    aktualizowany nowym fragmentem pamięci podręcznej tylko 5 razy.
+    To znaczy, że jeżeli użytkownik przesunie zakres o pięć <q>szerokości</q> wykresu, to komponent wykresu zostanie
+    aktualizowany nowym fragmentem pamięci podręcznej tylko pięć razy.
 </p>
 
 
@@ -736,8 +736,9 @@
 </ul>
 
 <p>
-    Jeżeli którekolwiek warunek jest spełniony - następuje wyznaczenie nowego zakresu danych do przekazania komponentowi
-    wykresu. Jeżeli poprzeni i nowy zakres danych się różni - następuje właściwa wymiana danych w komponencie.
+    Jeżeli którekolwiek warunek jest spełniony, następuje wyznaczenie nowego zakresu danych do przekazania komponentowi
+    wykresu.
+    Jeżeli poprzeni i nowy zakres danych się różni, następuje właściwa wymiana danych w komponencie.
 </p>
 
 <p>
