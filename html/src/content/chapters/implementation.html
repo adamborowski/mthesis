@@ -64,8 +64,8 @@
 
 
 <figure type="picture" id="picture:architecture">
-    <figcaption>Diagram pokazujący liczebność instancji modułów i ich wzajemne oddziaływania.
-        Kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym zaś pozostałe elementy systemu.
+    <figcaption>Diagram pokazujący liczebność instancji modułów i ich wzajemne oddziaływania &mdash;
+        kolorem zielonym oznaczono moduły <em>ExploreJS</em>, żółtym pozostałe elementy systemu
     </figcaption>
     <img src="cache/client-architecture.png">
 </figure>
@@ -172,7 +172,7 @@
 </p>
 
 <figure type="code" id="code:batch">
-    <figcaption>Przykładowe ciało grupowego żądania o dane</figcaption>
+    <figcaption>Przykładowe ciało grupowego zapytania o dane</figcaption>
     <pre><code class="json">
 [ {
     "id": "AM01_NOX",     // stężenie tlenku azotu na stacji pomiarowej numer 1
@@ -207,7 +207,7 @@
 </p>
 
 <figure type="code" id="code:batch-response">
-    <figcaption>Pojedynczy punkt danych w odpowiedzi serwera.</figcaption>
+    <figcaption>Pojedynczy punkt danych w odpowiedzi serwera</figcaption>
 
     <pre><code>
 {
@@ -244,11 +244,10 @@
 </p>
 
 <figure type="picture" id="picture:physical-merging">
-    <figcaption>Buforowanie zapytań do <em>RequestManagera</em>. Po upływie ustalonego czasu zbuforowane zapytania
-        łączone są w
-        paczkę i wysyłane przez AJAX.
+    <figcaption>Buforowanie zapytań do <em>RequestManagera</em>; po upływie ustalonego czasu zbuforowane zapytania
+        łączone są w paczkę i wysyłane przez AJAX
     </figcaption>
-    <img src="cache/physical-merging.png"/>
+    <img src="cache/physical-merging.png" width="80%"/>
 </figure>
 
 <p>
@@ -268,10 +267,10 @@
 </p>
 
 <figure type="picture" id="picture:logical-merging">
-    <figcaption>Wizualizacja scalania żądań. Żądania dotyczące tej samej serii i poziomu agregacji oznaczono jednym
-        kolorem.
+    <figcaption>Wizualizacja scalania żądań &mdash; żądania dotyczące tej samej serii i poziomu agregacji oznaczono jednym
+        kolorem
     </figcaption>
-    <img src="cache/logical-merging.png" height="300"/>
+    <img src="cache/logical-merging.png" width="60%"/>
 </figure>
 
 <p>
@@ -302,9 +301,9 @@
 
 
 <figure type="code" id="code:merging-batch">
-    <figcaption>Łączenie zbiorów w <em>MergingBatch</em>. <em>A</em> oznacza nowe zgłoszenie, <em>P</em> - bufor
-        trwających zgłoszeń, <em>Q<sub>1</sub></em> - bufor oczekujących zgłoszeń,
-        <em>Q<sub>2</sub></em> - bufor oczekujących zgłoszeń po dodaniu noweg zgłoszenia.
+    <figcaption>Łączenie zbiorów w <em>MergingBatch</em>: <em>A</em> &mdash; oznacza nowe zgłoszenie, <em>P</em> &mdash; bufor
+        trwających zgłoszeń, <em>Q<sub>1</sub></em> &mdash; bufor oczekujących zgłoszeń,
+        <em>Q<sub>2</sub></em> &mdash; bufor oczekujących zgłoszeń po dodaniu noweg zgłoszenia
     </figcaption>
     <pre class="math">
         Q<sub>2</sub> = Q<sub>1</sub> + ({A} - P)
@@ -415,8 +414,8 @@
 </p>
 
 <figure type="picture" id="picture:algebra">
-    <figcaption>Operacje algebraiczne. A+B &mdash; suma, A-B &mdash; różnica, A*B &mdash; iloczyn, AΔB &mdash;
-        przekształcenie.
+    <figcaption>Operacje algebraiczne: A+B &mdash; suma, A-B &mdash; różnica, A*B &mdash; iloczyn, AΔB &mdash;
+        przekształcenie
     </figcaption>
     <img src="cache/algebra-operations.png" height="260"/>
 </figure>
@@ -582,8 +581,8 @@
 </p>
 
 <figure type="picture" id="picture:dygraphs">
-    <figcaption>Komponent wykresowy z biblioteki <em>Dygraphs</em>. Umożliwia wyświetlanie podzbioru dostarczonych
-        danych, co zostało dodatkowo zaznaczone na miniaturze wykresu.
+    <figcaption>Komponent wykresowy z biblioteki <em>Dygraphs</em> &mdash; umożliwia wyświetlanie podzbioru dostarczonych
+        danych, co zostało dodatkowo zaznaczone na miniaturze wykresu
     </figcaption>
     <img src="/images/theoretical/dygraphs.png" height="200"/>
 </figure>
@@ -646,7 +645,7 @@
 <figure type="picture" id="picture:datasource-tiling">
     <figcaption>
         Zakresy dostarczanych danych (czerwone ramki) do komponentu podczas płynnego przesuwania zakresu w prawo.
-        Przezroczystość ramek oznacza upływ czasu.
+        Przezroczystość ramek oznacza upływ czasu:
         <em>A</em> &mdash; zakres identyczny z widzianym zakresem, <em>B</em> &mdash; zakres dopasowany do <q>kafli</q>.
 
     </figcaption>
@@ -824,7 +823,7 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
 </figure>
 
 <p>
-    W konstruktorze adaptera, zdarzenie aktualizacji zakresu danych specyficzne dla danej biblioteki, zostaje podłączone
+    W konstruktorze adaptera zdarzenie aktualizacji zakresu danych, specyficzne dla danej biblioteki, zostaje podłączone
     do komponentu <em>ViewState</em>, dzięki czemu <em>ExploreJS</em> <q>wie</q>, kiedy użytkownik wykonał ruch.
 </p>
 
@@ -868,15 +867,15 @@ event.fireEvent('update', Range.rightClosed(-1,0)) // A! B!
     Aby wykresy mogły poprawnie rysować dane według projekcji, dane są opakowywane we <em>wrappery</em>, które
     dodatkowo informują, na jakim faktycznie zakresie wyrysować daną agregację.
 
-    Na rysunku <a href="#picture:wrapper"></a> pokazano, jak z jednej agregacji pochodzącej z serwera powstału dwa <q>wrappery</q>
-    powstałe w wyniku przykrycia jej środka mniejszą agregacją.
+    Na rysunku <a href="#picture:wrapper"></a> pokazano, jak z jednej agregacji pochodzącej z serwera powstały dwa <em>wrappery</em>
+    w wyniku przykrycia jej środka mniejszą agregacją.
 </p>
 
 <figure type="picture" id="picture:wrapper">
     <figcaption>
         Przykrycie agregacji <em>90d</em> agregacją <em>30d</em> w wyniku projekcji &mdash; na wykresie dwa razy pojawi
-        się ta sama agregacja, ale będzie przekazana w dwóch <q>opakowaniach</q> przedzielonych opakowaniem
-        agregacji <em>30d</em>.
+        się ta sama agregacja, ale będzie przekazana w dwóch opakowaniach, przedzielonych opakowaniem agregacji
+        <em>30d</em>.
     </figcaption>
     <img src="cache/wrapper.png" width="60%"/>
 </figure>
