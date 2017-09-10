@@ -27,7 +27,7 @@
     Nieograniczone przeglądanie danych oznacza, że użytkownik ma dostęp do dowolnego fragmentu danych podczas
     wizualizacji.
 
-    Swobodne przeglądarnie danych zakłada łatwość i intuicyjność nawigacji po tych danych.
+    Swobodne przeglądanie danych zakłada łatwość i intuicyjność nawigacji po tych danych.
 
     Płynność natomiast oznacza, że swobodne i nieograniczone przeglądanie danych nie jest w żaden sposób zakłócane.
     Szczególnie, proces ten nie może być hamowany przez konieczność oczekiwania na potrzebne w wizualizacji dane.
@@ -138,7 +138,7 @@
     się
     przeglądarki po kilku minutach lub zablokowania aplikacji przez system.
 
-    Podsumowując &mdash; zasoby potrzebne do tej analizy znaczenie przekraczają zasoby komputera uzytkownika.
+    Podsumowując &mdash; zasoby potrzebne do tej analizy znaczenie przekraczają zasoby komputera użytkownika.
 
 </p>
 
@@ -152,7 +152,7 @@
 
 <p>
     Warto zauważyć, że o ile należy użytkownikowi umożliwić nieograniczony dostęp do wszystkich danych, to nie jest on w
-    stanie przetworzyć każdej pojedynczej próbki pomiarowej z osobna. Jest to oczywiśćie spowodowane ograniczeniem
+    stanie przetworzyć każdej pojedynczej próbki pomiarowej z osobna. Jest to oczywiście spowodowane ograniczeniem
     zasobów ludzkiego mózgu.
     W rzeczywistości podczas eksploracji danych człowiek jest w stanie przetworzyć tylko znikomą część informacji
     zawartych w udostępnianych danych.
@@ -173,7 +173,7 @@
 
 
 <p>
-    Isteniejące systemy wizualizacji danych wykorzystują tę cechę przekazu wizualnego.
+    Istniejące systemy wizualizacji danych wykorzystują tę cechę przekazu wizualnego.
 
     W reakcji na nawigację użytkownika, pobierane są z serwera tylko te fragmenty danych,
     które mają być w danym momencie wyświetlone.
@@ -223,7 +223,7 @@
 
     W ogólności zależności między uproszczeniem na serwerze i uproszczeniem na ekranie komputera można wyrazić wzorem <a
         href="#code:simplification-eq"></a>. Oznacza to, że uproszczenie na ekranie danych surowych musi mieć taki sam
-    efekt wizualny jak uproszcenie na ekranie danych uproszczonych na serwerze.
+    efekt wizualny jak uproszczenie na ekranie danych uproszczonych na serwerze.
 
 
 </p>
@@ -269,8 +269,8 @@
 </figure>
 
 <p>
-    Podczas rysowania danych na ekranie, linia prowadzona między punktami w ramach jednego pionu pikselów tak naprawdę
-    spowoduje zapalanie się wszystkich pikselów mieszczących się w przedziale wartości tych punktów wykresu.
+    Podczas rysowania danych na ekranie, linia prowadzona między punktami w ramach jednego pionu pikseli tak naprawdę
+    spowoduje zapalanie się wszystkich pikseli mieszczących się w przedziale wartości tych punktów wykresu.
 </p>
 
 <p>
@@ -287,7 +287,7 @@
 <p>
     W przypadku danych pomiarowych &mdash; agregacja to struktura opisująca generalne cechy grupy danych z ustalonego
     zakresu.
-    Do agregowania, czyli obliczania agregacji, wykorzystuje się <em>agregaty</em> - funkcje matematyczne wyliczjące
+    Do agregowania, czyli obliczania agregacji, wykorzystuje się <em>agregaty</em> - funkcje matematyczne wyliczające
     określoną statystykę.
     W systemach wizualizacji danych popularnymi agregatami są funkcje minimum, maksimum oraz wartość średnia <a
         href="#bib:siwz"></a>. Agregacja przedstawiona w sposób słowny może wyglądać następująco:
@@ -309,7 +309,7 @@
 </p>
 
 <p>
-    Najprostrze rozwiązanie można wykonać korzystając ze zwykłej relacyjnej bazy danych.
+    Najprostsze rozwiązanie można wykonać korzystając ze zwykłej relacyjnej bazy danych.
     Wystarczy, że stworzy się jedną tabelę oryginalnych próbek oraz tabelę dla zagregowanych wartości.
     Pierwsza tabela zawierałaby identyfikator serii pomiarowej, czas wykonania próbki oraz zmierzoną wartość.
     Druga tabela zawierałaby identyfikator serii pomiarowej, identyfikator poziomu agregowania, początek oraz koniec
@@ -345,7 +345,7 @@
 
     Ważne jest to, żeby serwer udostępniał agregacje o różnych wielkościach tak, by mogły służyć za uproszczenia w
     wizualnej eksploracji danych.
-    Dostępne poziomy agregacji powinny równomiernie pokrywać przedzial skali wizualizacji.
+    Dostępne poziomy agregacji powinny równomiernie pokrywać przedział skali wizualizacji.
     Mogą to być na przykład agregacje <em> 30s</em>,
     <em> 1m</em>,
     <em> 3m</em>,
@@ -388,7 +388,7 @@
 
 <p>
     Można więc uznać, że opisane wcześniej podejście do składowania, przekazywania i wyświetlania danych całkowicie
-    rozwiązuje problem swobodnej i nieograniczonej wizualnej ekploracji wielkoskalowych danych pomiarowych w
+    rozwiązuje problem swobodnej i nieograniczonej wizualnej eksploracji wielkoskalowych danych pomiarowych w
     przeglądarce internetowej.
 
     Niestety, nie poruszono tutaj jeszcze jednego istotnego aspektu wpływającego na płynność eksploracji &mdash;
@@ -473,7 +473,7 @@
     Technika stosowania wstępnego pobierania danych <trans>prefetching</trans> zakłada, że istnieje możliwość
     załadowania danych, zanim będą one potrzebne, aby w momencie zaistnienia potrzeby dane były gotowe do
     odczytu.<!--bib?-->
-    Kiedy strumień danych jest deterministryczny, co się często zdarza w systemach <em>HPC</em>,<!--bib?-->
+    Kiedy strumień danych jest deterministyczny, co się często zdarza w systemach <em>HPC</em>,<!--bib?-->
     <em>prefetching</em> polega na skonstuowaniu mechanizmu ładowania, który znając algorytm korzystający z tych danych
     wybiega w przód jego działania i generuje odpowiednie zapytania.
     W przypadku wizualnej eksploracji danych działania użytkownia są niederministyczne, więc znajomość algorytmu
