@@ -451,3 +451,57 @@ lub też:
 
 </p>
 
+<p>
+    Interesującym kierunkiem rozwoju <em>ExploreJS</em> jest obsługa lokalnych modyfikacji surowych danych w pamięci
+    podręcznej.
+    Dzięki temu edycja danych pomiarowych korzystająca z wizualnej eksploracji nie wymagałaby zapisywania danych na
+    serwerze i
+    resetowania pamięci <em>cache</em>.
+    Tutaj należy zauważyć, że zadanie nie jest trywialne, gdyż wymagałoby umieszczenia logiki agregowania danych po
+    stronie przeglądarki.
+    Ponieważ w przeglądarce nie jest możliwe załadowanie wszystkich danych celem wyliczenia potrzebnych agregacji,
+    konieczne jest rekurencyjne przeliczanie naruszonych agregacji wyższego rzędu na podstawie agregacji niższego rzędu.
+    Na ilustracji <a href="#picture:write-mode"></a> pokazano przykładowy algorytm takiego przeliczania agregacji.
+</p>
+
+<figure type="picture" id="picture:write-mode">
+    <figcaption>Algorytm przeliczania agregacji naruszoną modyfikacją surowych danych</figcaption>
+    <img src="cache/write-mode.png" width="80%"/>
+</figure>
+
+<p>
+    Pokazano tutaj cztery etapy przeliczania agregacji.
+    Czerwonym kolorem oznaczono zmienioną agregację, która narusza agregację następnego rzędu, zaznaczoną kolorem
+    żółtym.
+</p>
+
+<p>
+    W punkcie <em>a)</em> zmieniona agregacja pierwszego rzędu (czerwony kolor) narusza agregację drugiego rzędu (żółty
+    kolor).
+    W związku z tym naruszona agregacja musi zostać przeliczona.
+    Do tego celu wykorzystuje się agregacje pierwszego rzędu: tę zmieniona (czerwoną) oraz pozostałe wchodzące w zakres
+    przeliczanej agregacji (kolor niebieski).
+</p>
+<p>
+    W punkcie <em>b)</em> agregacja drugiego rzędu została przeliczona, więc agregacja pierwszego rzędu nie narusza już
+    spójności, została pokolorowana na zielono.
+
+    Z kolei przed chwilą przeliczona agregacja drugiego rzędu otrzymała nową wartość, która narusza agregację trzeciego
+    rzędu, została więc pokolorowana na czerwono.
+
+    Teraz należy przeliczyć agregację trzeciego rzędu (kolor żółty).
+    Do tego celu wykorzystuje się przeliczoną agregacje drugiego rzędu oraz pozostałe wchodzące w zakres (kolor niebieski).
+</p>
+<p>
+    W punkcie <em>c)</em> sytuacja jest analogiczna do punktu <em>b)</em>. Agregacja rzędu czwartego jest przeliczona na
+    podstawie przeliczonej agregacji rzędu trzeciego oraz pozostałych z zakresu.
+    W punkcie <em>d)</em> agregacja czwartego rzędu została przeliczona, natomiast nie narusza żadnej agregacji, gdyż
+    jest ona najwyższego rzędu. W tym miejscu algorytm kończy się.
+</p>
+<p>
+    Niestety, problem przeliczania agregacji stanie się dużo bardziej złożony, gdy poziomy agregacji nie będą wzajemnie
+    wielokrotne, przez co nie będzie możliwe bezpośrednie wykorzystanie agregacji niższych rzędów do przeliczenia, gdyż
+    agregacje, które tylko częściowo należą do przeliczanego zakresu, zawierają informacje z sąsiedniego zakresu,
+    których nie da się wyodrębnić.
+    W ogólności metody przeliczania warstw pamięci <em>cache</em> stanowią ciekawą drogę rozwoju <em>ExploreJS</em>.
+</p>

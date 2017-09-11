@@ -433,7 +433,14 @@
         <author>Weik, M.</author>
         <pages>1484</pages>
     </citation>
-
+    <citation type="inproceedings" id="bib:data-validation">
+        <title>Data Validation. One States Approach.</title>
+        <author>Paul Michael Sierzenga</author>
+        <publisher>National Air Monitoring Conference</publisher>
+        <location>Las Vegas</location>
+        <year>2006</year>
+        <url access="2017-09-11">https://www3.epa.gov/ttnamti1/files/2006conference/sierzenga.pdf</url>
+    </citation>
     <!--  https://www.youtube.com/watch?v=-kRdXMV3OrI -->
     <!--  http://map.sdsu.edu/geog583/lecture/unit-12.htm -->
     <!-- https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching -->

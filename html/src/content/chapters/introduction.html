@@ -30,39 +30,10 @@
     Istotnym aspektem <abbr>IVA</abbr> jest wizualna eksploracja danych, czyli przeglądanie danych w
     celu znalezienia interesujących fragmentów, postawienia pytania i szukania na nie odpowiedzi zawartej w danych.
 
-
-    <!-- ↓↓↓ to jest końcowy etap analizy ↓↓↓-->
-    <!--TODO find bib for that - there is somewhere-->
-    <!--Jako że interfejs użytkownika z systemem ograniczony jest ekranem komputera, wizualizacja serii-->
-    <!--czasowych realizowana jest poprzez wykreślanie danych z żądanego przez użytkownika okna czasu.-->
-
-    <!--Warto tutaj wspomnieć o ograniczonej rozdzielczości wyświetlaczy, ludzkiego oka oraz ludzkiej zdolności-->
-    <!--generalizacji szczegółów obrazu.-->
-
-    <!--Dzięki tym cechom, gdy użytkownik żąda wyświetlenia danych za okres w którym danych jest na tyle dużo, że-->
-    <!--wyświetlenie tych danych w szybkim czasie jest kłopotliwe, wyświetla mu się dane wcześniej zagregowane, a-->
-    <!--użytkownik nie odnotuje różnicy.-->
 </p>
 <p>
-
-
-    <!--Wizualna eksploracja danych pomiarowych wymaga ciągłej nawigacji po osi czasu, prowadzącej do zmiany zakresu-->
-    <!--wyświetlanych danych.-->
-
-    <!--Jest to realizowane poprzez nawigację wszerz <trans lang="ang">panning</trans> w której użytkownik przesuwa stałe-->
-    <!--okno czasu w przód lub w tył osi, oraz nawigację wgłąb <trans lang="ang">zooming</trans> polegającą na zmianie-->
-    <!--długości okna czasowego intuicyjnie postrzeganego przez użytkownika jako przybliżenie lub oddalenie od danych.-->
-
-    <!--Ważnym aspektem wizualnej eksploracji danych jest utrzymanie ciągłości kontekstu nawigacji użytkownika.-->
-
-    <!--Nawigacja powinna zapewnić podobieństwo widoku danych na tyle duże, żeby człowiek rozpoznał ruch podświadomie.-->
-
-    <!--Najlepiej, gdy nawigacja realizowana jest poprzez animację, wtedy ludzki mózg postrzega płynny ruch i szybko-->
-    <!--odnotowuje zmianę kontekstu.-->
-    <!--TODO bib about hyman moiton perception-->
-</p>
-<p>
-    Upowszechnienie Internetu jako globalnej sieci wymiany informacji rzuciło nowe wyzwania wizualnej analizie danych.
+    Upowszechnienie Internetu jako globalnej sieci wymiany informacji rzuciło nowe wyzwania komputerowej analizie
+    danych.
     Trudno jest dzisiaj wyobrazić sobie dziedzinę życia, która nie opierałaby się na gromadzeniu i analizie danych.
     Meteorologia, astronomia, geologia, finanse czy medycyna &mdash; żadne z nich nie mogłoby się bez tego obejść.
     Mniej oczywistych przykładów można doszukiwać się w sporcie, telewizji,
@@ -74,31 +45,46 @@
     produkuje znaczną ilość informacji. Jak podał Åse Dragland w artykule z 2013 roku, <cite>90% wszystkich danych na
     świecie zostało wygenerowane przez ostatnie dwa lata</cite> <a href="#bib:dragland2013big"></a>.
     Tendencja eksponencjalnego przyrostu danych w Internecie wydaje się utrzymywać.
-    Nasuwa się więc pytanie, dlaczego gromadzenie tak wielkiej ilości danych jest potrzebne.
-    Według Draglanda analiza tych danych pozwala osiągnąć wymierne korzyści ekonomiczne, społeczne czy naukowe.
+
+    Gromadzenie tak wielkiej ilości danych pozwala osiągnąć wymierne korzyści ekonomiczne, społeczne i naukowe.
+
+    Jednak by móc osiągnąć te korzyści w dobie tak szybkiego przyrostu danych, analiza powinna być dokonana
+    na podstawie wiarygodnych, sprawdzonych pomiarów.
+
+
 </p>
+
 <p>
-    Globalizacja Internetu wymagała zmiany podejścia do projektowania systemów informatycznych. Zdecydowano się
+    Systemy informatyczne, w których krytyczna jest wiarygodność wykonanego pomiaru, posiadają funkcję
+    walidacji danych pomiarowych.
+
+    Walidacja ta jest procesem prowadzącym do potwierdzenia autentyczności pomiaru.
+    Główym elementem tej walidacji jest analiza dokonywana w celu identyfikacji błędów pomiarowych<ft>Dosyć popularnym
+    błędem jest dryft, czyli stopniowe znoszenie wyniku pomiaru.</ft> oraz anomalii środowiska pomiaru<ft>
+    Anomalią jest np. rozpalenie ogniska w pobliżu stacji mierzącej parametry jakości powietrza.</ft>.
+
+    Funkcje walidacji w tego typu systemach w większości przypadków sprowadzają się do przeglądania arkuszy danych,
+    edycji wartości pomiarów oraz zatwierdzania ich wiarygodności <a href="#bib:data-validation" chapter="p. 9"></a>.
+
+    W walidacji wykorzystuje się również wizualną eksplorację danych <a href="#bib:data-validation" chapter="p. 7"></a>,
+    która wykorzystuje zdolności percepcyjne i poznawcze ludzkiego mózgu.
+
+    Stanowi to uzpełnienie tradycyjnych metod, gdzie wizualna eksploracja pozwala lepiej zrozumieć szereg nieoczywistych
+    czynników wpływających na powstawanie błędów.
+
+</p>
+
+<p>
+    Globalizacja Internetu wymagała też zmiany podejścia do projektowania systemów informatycznych. Zdecydowano się
     rozproszyć dane oraz użytkowników, tworząc aplikacje internetowe, w których użytkownik jest oddalony od
     interesujących go danych.
 
     O ile ta zmiana nie wpłynęła zasadniczo na wykorzystanie matematycznej analizy komputerowej danych, gdyż serwery
-    dokonywały obliczeń odsyłając tylko wyniki do przeglądarki internetowej użytkownika, to w przypadku interaktywnej
-    analizy wizualnej architektura rozproszonych systemów otworzyła nowe możliwości i wyzwania wynikające z odległości
+    dokonywały obliczeń odsyłając tylko wyniki do przeglądarki internetowej użytkownika, to w przypadku wizualnej
+    eksploracji danych architektura rozproszonych systemów otworzyła nowe możliwości i wyzwania wynikające z odległości
     użytkownika od zasobów, opóźnień sieci czy skali rozmiaru danych udostępnianych przez systemy rozproszone.
 </p>
-<!--<p>-->
-    <!--Interaktywna analiza wizualna zakłada bowiem swobodę eksploracji danych w czasie. &lt;!&ndash;TODO REF&ndash;&gt;-->
 
-    <!--W środowisku rozproszonym jest to o tyle trudne, że czas dostępu do danych potrzebnych do wizualizacji zaczął grać-->
-    <!--znaczącą rolę.-->
-
-    <!--Skala eksplorowanych danych uniemożliwiła przesyłanie ich w całości celem efektywnego i płynnego operowania.-->
-
-    <!--Oczywistym stało się, że do użytkownika przesyłany jest tylko podzbiór danych, który jest mu potrzebny w obecnej-->
-    <!--chwili.-->
-
-</p>
 <p>
     Od kilku lat, wraz z rozwojem technologii używanych w przeglądarkach internetowych, coraz większą uwagę przykłada
     się do aspektu użyteczności <trans lang="ang">usability</trans> oraz stosunkowo nowego terminu <em>User
@@ -107,13 +93,16 @@
 
     Znaczenie zaczęło mieć to, w jaki sposób ludzie korzystają z interfejsów użytkownika.
 
-    Zastanawiano się jak zapewnić dobre wrażenia z użytkowania, na przykład poprzez intuicyjność, łatwość, szybkość
-    udzielania odpowiedzi na żądanie, a jak minimalizować te złe, takie jak czas biernego oczekiwania, niejasność
-    komunikatów, przełączanie kontekstu pracy czy rozproszenie.
+    Zastanawiano się jak zapewnić dobre wrażenia z użytkowania, na przykład poprzez intuicyjność, łatwość,
+    responsywność, a jak minimalizować te złe, takie jak bierne czekanie, niejasność komunikatów, zmiana kontekstu czy
+    rozproszenie uwagi.
 </p>
 <p>
     Popularność dziedziny <em>User Experience</em> pozwala na nowo przyjrzeć się webowym interfejsom użytkownika służącym do
-    eksploracji w wizualnej analizie wielkoskalowych danych pomiarowych i zbadać je pod tym właśnie kątem.
+    wizualnej eksploracji wielkoskalowych danych pomiarowych i zbadać je pod tym właśnie kątem.
+
+    Poprawa <em>User Experience</em> w wizualnej eksploracji danych pomiarowych tym samym korzystnie wpłynie na
+    efektywność walidacji tych danych poprzez wydajniejszą identyfikację błędów pomiarowych metodami wizualnymi.
 </p>
 <h2 class="on-new-page">Cel pracy</h2>
 
