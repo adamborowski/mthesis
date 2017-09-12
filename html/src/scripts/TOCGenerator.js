@@ -31,6 +31,9 @@ export default class TOCGenerator {
                 var value = address.substr(0, address.length - 1);
                 $block.text($block.text() + ' ' + value);
             }
+            else {
+                $block.text('{missed reference}');
+            }
         });
     }
 

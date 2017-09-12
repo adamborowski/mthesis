@@ -424,6 +424,13 @@
         <title>Bing Maps Tile System</title>
         <url access="2017-08-30">https://msdn.microsoft.com/en-us/library/bb259689.aspx</url>
     </citation>
+    <citation type="article" id="bib:ux-ignored">
+        <title>Common arguments for ignoring UX</title>
+        <author>Jason Amunwa</author>
+        <url access="2017-09-12">
+            https://www.dtelepathy.com/blog/business/common-arguments-for-ignoring-ux-and-how-to-destroy-them
+        </url>
+    </citation>
     <citation type="book" id="bib:weik2000computer">
         <title>Computer Science and Communications Dictionary</title>
         <isbn>9780792384250</isbn>
