@@ -42,6 +42,7 @@ export default class BibMaker {
             e.find('title').appendTo(e);
             e.find('publisher').appendTo(e);
             e.find('journal').appendTo(e);
+            e.find('year').appendTo(e);
 
             var url = e.find('url');
             if (url.length) {
