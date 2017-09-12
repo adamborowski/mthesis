@@ -12,6 +12,6 @@ export default class LanguageDecorator {
             lang = 'ang';
         }
         var content = $elem.text();
-        $elem.html(`<span class="lang">(${lang}. </span><span class="content">${content}</span><span class="right-brace">)</span>`);
+        $elem.html(`<span class="lang">(${lang}.&nbsp;</span><span class="content">${content}</span><span class="right-brace">)</span>`);
     }
 }
