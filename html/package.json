@@ -4,7 +4,11 @@
   "description": "Adam Borowski Master Degree Thesis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "crop1":"pdfcrop  --margins='60 45 66 45' src/TitlePage.pdf target/TitlePage.pdf",
+    "crop2":"pdfcrop  --margins='40 53 96 53'  src/Statement.pdf target/Statement.pdf",
+    "merge": "pdftk target/TitlePage.pdf target/Statement.pdf target/Thesis.pdf cat output target/AdamBorowski_Thesis.pdf",
+    "make": "npm run crop1 && npm run crop2 && npm run merge"
   },
   "repository": {
     "type": "git",
